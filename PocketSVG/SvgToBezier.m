@@ -362,8 +362,8 @@ unichar const invalidCommand		= '*';
 	}
 	NSInteger index = 0;
 	while ((index + 3) < [token valence]) {  // we must have 4 floats here (x2, y2, x, y).
-		CGFloat x1 = lastControlPoint.x; // + ([token command] == 's' ? lastPoint.x : 0);
-		CGFloat y1 = lastControlPoint.y; // + ([token command] == 's' ? lastPoint.y : 0);
+		CGFloat x1 = lastPoint.x + (lastPoint.x - lastControlPoint.x); // + ([token command] == 's' ? lastPoint.x : 0);
+		CGFloat y1 = lastPoint.y + (lastPoint.y - lastControlPoint.y); // + ([token command] == 's' ? lastPoint.y : 0);
 		CGFloat x2 = [token parameter:index++] + ([token command] == 's' ? lastPoint.x : 0);
 		CGFloat y2 = [token parameter:index++] + ([token command] == 's' ? lastPoint.y : 0);
 		CGFloat x  = [token parameter:index++] + ([token command] == 's' ? lastPoint.x : 0);

@@ -17,14 +17,15 @@
 {
     [super viewDidLoad];
     
-    //Set the frame in which to draw our bezier curve.
-    //In this case, it's the screen's dimensions.    
-    CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
+    //Set the frame in which to draw our SVG:
+    CGRect frameRect = CGRectMake(0, 0, 1024, 768);
     
     //Create an SvgTobezier with the content of our SVG's "d" string:
     SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGPathNodeDAttr:@"M176.17,369.617c0,0,335.106-189.361,214.894,38.298s129.787,282.978,178.723,42.553C618.724,210.042,834.681,87.702,790,307.915" rect:frameRect];
     
     UIBezierPath *myPath = myBezier.bezier;
+    
+    [myPath setLineWidth:3];
     
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
     myShapeLayer.path = myPath.CGPath;
