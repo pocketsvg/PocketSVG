@@ -3,7 +3,7 @@
 //  PocketSVG
 //
 //  Created by Ariel Elkin on 02/08/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license 
 //
 
 #import "ViewController.h"
