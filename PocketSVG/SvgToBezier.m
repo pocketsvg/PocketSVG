@@ -73,7 +73,7 @@ unichar const invalidCommand		= '*';
 @interface SvgToBezier ()
 
 - (NSMutableArray *)parsePath:(NSString *)attr;
-- (NSBezierPath *) generateBezier:(NSArray *)tokens;
+- (UIBezierPath *) generateBezier:(NSArray *)tokens;
 
 - (void)reset;
 - (void)appendSVGMCommand:(Token *)token;
@@ -196,9 +196,9 @@ unichar const invalidCommand		= '*';
 	return tokens;
 }
 
-- (NSBezierPath *)generateBezier:(NSArray *)inTokens
+- (UIBezierPath *)generateBezier:(NSArray *)inTokens
 {
-	bezier = [[NSBezierPath alloc] init];
+	bezier = [[UIBezierPath alloc] init];
 	[self reset];
 	for (Token *thisToken in inTokens) {
 		unichar command = [thisToken command];

@@ -16,6 +16,8 @@
 		B0A9DBA415CA9B340095DFAF /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */; };
 		B0A9DBA715CA9B340095DFAF /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */; };
 		B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA915CA9B340095DFAF /* ViewController.m */; };
+		B0A9DBC115CA9F370095DFAF /* SvgToBezier.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,9 @@
 		B0A9DBA615CA9B340095DFAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B0A9DBA815CA9B340095DFAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B0A9DBA915CA9B340095DFAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B0A9DBBF15CA9F370095DFAF /* SvgToBezier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SvgToBezier.h; sourceTree = "<group>"; };
+		B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SvgToBezier.m; sourceTree = "<group>"; };
+		B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */,
 				B0A9DB9115CA9B340095DFAF /* UIKit.framework in Frameworks */,
 				B0A9DB9315CA9B340095DFAF /* Foundation.framework in Frameworks */,
 				B0A9DB9515CA9B340095DFAF /* CoreGraphics.framework in Frameworks */,
@@ -69,6 +75,7 @@
 		B0A9DB8F15CA9B340095DFAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */,
 				B0A9DB9015CA9B340095DFAF /* UIKit.framework */,
 				B0A9DB9215CA9B340095DFAF /* Foundation.framework */,
 				B0A9DB9415CA9B340095DFAF /* CoreGraphics.framework */,
@@ -83,6 +90,8 @@
 				B0A9DBA015CA9B340095DFAF /* AppDelegate.m */,
 				B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */,
 				B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */,
+				B0A9DBBF15CA9F370095DFAF /* SvgToBezier.h */,
+				B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */,
 				B0A9DBA815CA9B340095DFAF /* ViewController.h */,
 				B0A9DBA915CA9B340095DFAF /* ViewController.m */,
 				B0A9DB9715CA9B340095DFAF /* Supporting Files */,
@@ -167,6 +176,7 @@
 				B0A9DB9D15CA9B340095DFAF /* main.m in Sources */,
 				B0A9DBA115CA9B340095DFAF /* AppDelegate.m in Sources */,
 				B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */,
+				B0A9DBC115CA9F370095DFAF /* SvgToBezier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +298,7 @@
 				B0A9DBAF15CA9B340095DFAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

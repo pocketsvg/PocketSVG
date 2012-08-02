@@ -8,16 +8,31 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
-
-@end
+#import <QuartzCore/QuartzCore.h>
+#import "SvgToBezier.h"
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    //Set the frame in which to draw our bezier curve.
+    //In this case, it's the screen's dimensions.    
+    CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
+    
+    //Create an SvgTobezier with the content of our SVG's "d" string:
+    SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGPathNodeDAttr:@"M176.17,369.617c0,0,335.106-189.361,214.894,38.298s129.787,282.978,178.723,42.553C618.724,210.042,834.681,87.702,790,307.915" rect:frameRect];
+    
+    UIBezierPath *myPath = myBezier.bezier;
+    
+    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
+    myShapeLayer.path = myPath.CGPath;
+    
+    [self.view.layer addSublayer:myShapeLayer];
+
+    
+    
 }
 
 - (void)viewDidUnload
