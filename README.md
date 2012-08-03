@@ -5,20 +5,25 @@ This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwel
 
 
 ## Instructions
-1. Draw your bezier path in your favourite vector graphics app
+1. Draw your bezier path in your favourite vector graphics app 
 1. Save as an SVG
-1. Open the SVG file in your text editor, and copy the contents of its `d` attribute.
-1. Use this to initialize a new `SvgToBezier` object: 
+1. Drag and drop it into your Xcode project 
+1. Create an SvgToBezier object:
 
 ```obj-c
-    //Create an SvgTobezier with the content of our SVG's d attribute:
-    SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGPathNodeDAttr:@"M176.17,369.617c0,0,335.106-189.361,214.894,38.298s129.787,282.978,178.723,42.553C618.724,210.042,834.681,87.702,790,307.915" rect:frameRect];
+    //Set the frame in which to draw our SVG:
+    CGRect frameRect = CGRectMake(0, 0, 1024, 768);
+
+    //Create an SvgToBezier object:
+    SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGFileNamed:@"BezierCurve1-iPad" rect:frameRect];
 ```
-To then render it as an `UIBezierPath` and/or `CAShapeLayer`:
+To then render it as an `UIBezierPath`:
 
 ```obj-c
-
     UIBezierPath *myPath = myBezier.bezier;
+```
+To render it as a `CAShapeLayer`:
+```obj-c
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
     myShapeLayer.path = myPath.CGPath;
     
@@ -37,8 +42,8 @@ To then render it as an `UIBezierPath` and/or `CAShapeLayer`:
 * [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS
 
 ## To Do
-
-* Automatic parsing of whole SVG file (without having to copy-paste the contents of its d string"
+* Fix problem that causes SVGs to render with wrong frame dimensions.
+* Fix problem that causes some SVGs to render incorrectly. [Example](https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg)
 * Generate NSBezierPaths as well as UIBezierPaths
 * Fix warnings generated from NSLogs in SvgToBezier.m 
 

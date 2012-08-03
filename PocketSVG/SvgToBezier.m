@@ -84,6 +84,56 @@ unichar const invalidCommand		= '*';
 
 @synthesize bezier;
 
+
+- (id)initFromSVGFileNamed:(NSString *)nameOfSVG rect:(CGRect)rect{
+    return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] rect:rect];
+}
+
+/********
+ Returns the content of the SVG's d attribute as an NSString
+*/
+-(NSString *)parseSVGNamed:(NSString *)nameOfSVG{
+    
+    NSString *pathOfSVGFile = [[NSBundle mainBundle] pathForResource:nameOfSVG ofType:@"svg"];
+    
+    if(pathOfSVGFile == nil){
+        NSLog(@"*** PocketSVG Error: No SVG file named \"%@\".", nameOfSVG);
+        return nil;
+    }
+    
+    NSError *error = nil;
+    NSString *mySVGString = [[NSString alloc] initWithContentsOfFile:pathOfSVGFile encoding:NSStringEncodingConversionExternalRepresentation error:&error];
+    
+    if(error != nil){
+        NSLog(@"*** PocketSVG Error: Couldn't read contents of SVG file named %@:", nameOfSVG);
+        NSLog(@"%@", error);
+        return nil;
+    }
+    
+    //Uncomment the two lines below to print the raw data of the SVG file:
+    //NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
+    //NSLog(@"%@", mySVGString);
+    
+    NSArray *components = [mySVGString componentsSeparatedByString:@"d="];
+    
+    if([components count] < 2){
+        NSLog(@"*** PocketSVG Error: No d attribute found in SVG file.");
+        return nil;
+    }
+    
+    NSString *dString = [components lastObject];
+    dString = [dString substringFromIndex:1];
+    NSRange d = [dString rangeOfString:@"\""];    
+    dString = [dString substringToIndex:d.location];
+    
+    //Uncomment the line below to print the raw path data of the SVG file:
+    //NSLog(@"*** PocketSVG: Path data of %@ is: %@", nameOfSVG, dString);
+    
+    return dString;
+    
+}
+
+
 - (id)initFromSVGPathNodeDAttr:(NSString *)attr rect:(CGRect)rect
 {
 	self = [super init];
