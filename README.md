@@ -8,13 +8,13 @@ This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwel
 1. Draw your bezier path in your favourite vector graphics app
 1. Save as an SVG
 1. Open the SVG file in your text editor, and copy the contents of the "d=" attribute.
-1. Use this to initialize a new SvgToBezier object: 
+1. Use this to initialize a new `SvgToBezier` object: 
 
 ```obj-c
     //Create an SvgTobezier with the content of our SVG's "d" string:
     SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGPathNodeDAttr:@"M176.17,369.617c0,0,335.106-189.361,214.894,38.298s129.787,282.978,178.723,42.553C618.724,210.042,834.681,87.702,790,307.915" rect:frameRect];
 ```
-To then render it as an UIBezierPath and/or CAShapeLayer:
+To then render it as an `UIBezierPath` and/or `CAShapeLayer`:
 
 ```obj-c
 
