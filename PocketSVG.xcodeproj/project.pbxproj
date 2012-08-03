@@ -16,7 +16,7 @@
 		B0A9DBA415CA9B340095DFAF /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */; };
 		B0A9DBA715CA9B340095DFAF /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */; };
 		B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA915CA9B340095DFAF /* ViewController.m */; };
-		B0A9DBC115CA9F370095DFAF /* SvgToBezier.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B0A9DBC115CA9F370095DFAF /* SvgToBezier.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */; };
 		B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 

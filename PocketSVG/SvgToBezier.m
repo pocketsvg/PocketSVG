@@ -59,11 +59,6 @@ unichar const invalidCommand		= '*';
 	return [values count];
 }
 
-- (void)dealloc
-{
-	[values release];
-	[super dealloc];
-}
 
 @synthesize command;
 
@@ -104,12 +99,6 @@ unichar const invalidCommand		= '*';
 	return self;
 }
 
-- (void) dealloc
-{
-    [tokens release];
-	[bezier release];
-	[super dealloc];
-}
 
 #pragma mark - Private methods
 
@@ -134,7 +123,7 @@ unichar const invalidCommand		= '*';
 	
 	NSInteger index = 0;
 	while (index < [attr length]) {
-		NSMutableString *stringToken = [[[NSMutableString alloc] initWithCapacity:maxTokenLength] autorelease];
+		NSMutableString *stringToken = [[NSMutableString alloc] initWithCapacity:maxTokenLength];
 		[stringToken setString:@""];
 		unichar	charAtIndex = [attr characterAtIndex:index];
 		if (charAtIndex != ',') {
@@ -180,7 +169,6 @@ unichar const invalidCommand		= '*';
 			if (![floatScanner scanFloat:&value]) {
 				NSLog(@"Path string parse error: expected float or command at token %ld (but found %s) in path %s.", 
 					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
-                [token release];
 				return nil;
 			}
 			// Maintain scale.
@@ -190,7 +178,6 @@ unichar const invalidCommand		= '*';
 		
 		// now we've reached a command or the end of the stringTokens array
 		[tokens	addObject:token];
-        [token release];
 	}
 	//[stringTokens release];
 	return tokens;
