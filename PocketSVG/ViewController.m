@@ -25,10 +25,13 @@
     
     UIBezierPath *myPath = myBezier.bezier;
     
-    [myPath setLineWidth:3];
-    
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
     myShapeLayer.path = myPath.CGPath;
+    
+    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
+    myShapeLayer.lineWidth = 4;
+    
+    myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
     [self.view.layer addSublayer:myShapeLayer];
     
