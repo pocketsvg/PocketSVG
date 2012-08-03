@@ -1,7 +1,7 @@
 # PocketSVG
 A library that converts Scalable Vector Graphics (SVG) data into CAShapeLayers and UIBezierCurves. This makes it easy to create vector-based paths and shapes in your apps. 
 
-This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/).
+This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/).
 
 
 ## Instructions
@@ -43,7 +43,7 @@ To render it as a `CAShapeLayer`:
 
 ## To Do
 * Fix problem that causes SVGs to render with wrong frame dimensions.
-* Fix problem that causes some SVGs to render incorrectly. [Example](https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg)
+* Fix problem that causes some SVGs to render incorrectly. [See if you can work out this file].(https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg)
 * Generate NSBezierPaths as well as UIBezierPaths
 * Fix warnings generated from NSLogs in SvgToBezier.m 
 
