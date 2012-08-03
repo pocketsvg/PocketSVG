@@ -43,7 +43,7 @@ To render it as a `CAShapeLayer`:
 
 ## To Do
 * Fix problem that causes SVGs to render with wrong frame dimensions.
-* Fix problem that causes some SVGs to render incorrectly. [See if you can work out this file].(https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg)
+* Fix problem that causes some SVGs to render incorrectly. [See if you can work out this file](https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg).
 * Generate NSBezierPaths as well as UIBezierPaths
 * Fix warnings generated from NSLogs in SvgToBezier.m 
 
