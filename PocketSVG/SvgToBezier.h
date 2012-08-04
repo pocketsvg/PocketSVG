@@ -36,9 +36,7 @@
 @property(nonatomic, readonly) NSBezierPath *bezier;
 #endif
 
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr rect:(CGRect)rect;
+//- (id)initFromSVGPathNodeDAttr:(NSString *)attr rect:(CGRect)rect;
 - (id)initFromSVGFileNamed:(NSString *)nameOfSVG rect:(CGRect)rect;
-
-- (void)dealloc;
 
 @end

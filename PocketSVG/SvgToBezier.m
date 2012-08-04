@@ -30,7 +30,6 @@ unichar const invalidCommand		= '*';
 - (void)addValue:(CGFloat)value;
 - (CGFloat)parameter:(NSInteger)index;
 - (NSInteger)valence;
-- (void) dealloc;
 @property(nonatomic, assign) unichar command;
 @end
 
@@ -193,7 +192,7 @@ unichar const invalidCommand		= '*';
 	}
 	
 	if ([stringTokens count] == 0) {
-		NSLog(@"Path string is empty of tokens", nil);
+		NSLog(@"*** PocketSVG Error: Path string is empty of tokens");
 		return nil;
 	}
 	
@@ -204,7 +203,7 @@ unichar const invalidCommand		= '*';
 	unichar command = [stringToken characterAtIndex:0];
 	while (index < [stringTokens count]) {
 		if (![commandSet characterIsMember:command]) {
-			NSLog(@"Path string parse error: found float where expecting command at token %ld in path %s.", 
+			NSLog(@"*** PocketSVG Error: Path string parse error: found float where expecting command at token %d in path %s.", 
 					index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 			return nil;
 		}
@@ -217,7 +216,7 @@ unichar const invalidCommand		= '*';
 			NSScanner *floatScanner = [NSScanner scannerWithString:stringToken];
 			float value;
 			if (![floatScanner scanFloat:&value]) {
-				NSLog(@"Path string parse error: expected float or command at token %ld (but found %s) in path %s.", 
+				NSLog(@"*** PocketSVG Error: Path string parse error: expected float or command at token %d (but found %s) in path %s.", 
 					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
@@ -265,7 +264,7 @@ unichar const invalidCommand		= '*';
 				[bezier closePath];
 				break;
 			default:
-				NSLog(@"Cannot process command : '%c'", command);
+				NSLog(@"*** PocketSVG Error: Cannot process command : '%c'", command);
 				break;
 		}
 	}
@@ -299,7 +298,7 @@ unichar const invalidCommand		= '*';
 	while (index < [token valence]) {
 		CGFloat x = [token parameter:index] + ([token command] == 'm' ? lastPoint.x : 0);
 		if (++index == [token valence]) {
-			NSLog(@"Invalid parameter count in M style token", nil);
+			NSLog(@"*** PocketSVG Error: Invalid parameter count in M style token");
 			return;
 		}
 		CGFloat y = [token parameter:index] + ([token command] == 'm' ? lastPoint.y : 0);
@@ -333,7 +332,7 @@ unichar const invalidCommand		= '*';
 			case 'L':
 				x += [token parameter:index];
 				if (++index == [token valence]) {
-					NSLog(@"Invalid parameter count in L style token", nil);
+					NSLog(@"*** PocketSVG Error: Invalid parameter count in L style token");
 					return;
 				}
 				y += [token parameter:index];
@@ -351,7 +350,7 @@ unichar const invalidCommand		= '*';
 				x = lastPoint.x;
 				break;
 			default:
-				NSLog(@"Unrecognised L style command.", nil);
+				NSLog(@"*** PocketSVG Error: Unrecognised L style command.");
 				return;
 		}
 		lastPoint = CGPointMake(x, y);
@@ -388,14 +387,14 @@ unichar const invalidCommand		= '*';
 		validLastControlPoint = YES;
 	}
 	if (index == 0) {
-		NSLog(@"Insufficient parameters for C command", nil);
+		NSLog(@"*** PocketSVG Error: Insufficient parameters for C command");
 	}
 }
 
 - (void)appendSVGSCommand:(Token *)token
 {
 	if (!validLastControlPoint) {
-		NSLog(@"Invalid last control point in S command", nil);
+		NSLog(@"*** PocketSVG Error: Invalid last control point in S command");
 	}
 	NSInteger index = 0;
 	while ((index + 3) < [token valence]) {  // we must have 4 floats here (x2, y2, x, y).
@@ -419,7 +418,7 @@ unichar const invalidCommand		= '*';
 		validLastControlPoint = YES;
 	}
 	if (index == 0) {
-		NSLog(@"Insufficient parameters for S command", nil);
+		NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
 	}
 }
 
