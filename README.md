@@ -3,15 +3,16 @@ A library that converts Scalable Vector Graphics (SVG) data into CAShapeLayers a
 
 This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/).
 
+Feedback, improvements, and pull requests are welcome. Please get in touch if you can help improve the code. 
 
 ## Instructions
-1. Draw your bezier path in your favourite vector graphics app 
+1. Draw your bezier path in a vector graphics editor (Illustrator, Inkscape, [Sketch](www.bohemiancoding.com/sketch/), etc.)
 1. Save as an SVG
 1. Drag and drop it into your Xcode project 
 1. Create an SvgToBezier object:
 
 ```obj-c
-    //Set the frame in which to draw our SVG:
+    //Set the frame in which to draw the SVG:
     CGRect frameRect = CGRectMake(0, 0, 1024, 768);
 
     //Create an SvgToBezier object:
@@ -45,7 +46,9 @@ To render it as a `CAShapeLayer`:
 * Fix problem that causes SVGs to render with wrong frame dimensions.
 * Fix problem that causes some SVGs to render incorrectly. [See if you can work out this file](https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg).
 * Generate NSBezierPaths as well as UIBezierPaths
-* Fix warnings generated from NSLogs in SvgToBezier.m 
+
+## Support 
+Please ask questions and report bugs on [the project's Issues Page](https://github.com/arielelkin/PocketSVG/issues). 
 
 ## License
 [Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license] (http://creativecommons.org/licenses/by-sa/3.0)
