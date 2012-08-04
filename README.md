@@ -6,7 +6,7 @@ This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwel
 Feedback, improvements, and pull requests are welcome. Please get in touch if you can help improve the code. 
 
 ## Instructions
-1. Draw your bezier path in a vector graphics editor (Illustrator, Inkscape, [Sketch](www.bohemiancoding.com/sketch/), etc.)
+1. Draw your bezier path in a vector graphics editor such as Illustrator, Inkscape, [Sketch](www.bohemiancoding.com/sketch/), etc.
 1. Save as an SVG
 1. Drag and drop it into your Xcode project 
 1. Create an SvgToBezier object:
