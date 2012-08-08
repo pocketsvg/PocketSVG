@@ -20,6 +20,7 @@
 		B0A9DBC115CA9F370095DFAF /* SvgToBezier.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */; };
 		B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */; };
 		B0ABB62015CC70B7001C9177 /* BezierCurve2-iPad.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0ABB61F15CC70B7001C9177 /* BezierCurve2-iPad.svg */; };
+		F2BEF07E15D2975900762DC6 /* BezierCurve3-iPad.svg in Resources */ = {isa = PBXBuildFile; fileRef = F2BEF07D15D2975900762DC6 /* BezierCurve3-iPad.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		B0A9DBC015CA9F370095DFAF /* SvgToBezier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SvgToBezier.m; sourceTree = "<group>"; };
 		B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B0ABB61F15CC70B7001C9177 /* BezierCurve2-iPad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BezierCurve2-iPad.svg"; sourceTree = "<group>"; };
+		F2BEF07D15D2975900762DC6 /* BezierCurve3-iPad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BezierCurve3-iPad.svg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		B0A9DB8115CA9B340095DFAF = {
 			isa = PBXGroup;
 			children = (
+				F2BEF07D15D2975900762DC6 /* BezierCurve3-iPad.svg */,
 				B08C81D915CC468100D15B81 /* BezierCurve1-iPad.svg */,
 				B0ABB61F15CC70B7001C9177 /* BezierCurve2-iPad.svg */,
 				B0A9DB9615CA9B340095DFAF /* PocketSVG */,
@@ -171,6 +174,7 @@
 				B0A9DBA715CA9B340095DFAF /* MainStoryboard_iPad.storyboard in Resources */,
 				B08C81DA15CC468100D15B81 /* BezierCurve1-iPad.svg in Resources */,
 				B0ABB62015CC70B7001C9177 /* BezierCurve2-iPad.svg in Resources */,
+				F2BEF07E15D2975900762DC6 /* BezierCurve3-iPad.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

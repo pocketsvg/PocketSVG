@@ -279,14 +279,14 @@ unichar const invalidCommand		= '*';
 
 - (CGPoint)bezierPoint:(CGPoint)svgPoint
 {
-	CGPoint newPoint;
+	/*CGPoint newPoint;
     
  	CGFloat scaleX = viewBox.size.width / pathScale;
 	CGFloat scaleY = viewBox.size.height / pathScale;
 
     newPoint.x = (svgPoint.x * scaleX) + viewBox.origin.x;
-    newPoint.y = (svgPoint.y * scaleY) + viewBox.origin.y;
-	return newPoint;
+    newPoint.y = (svgPoint.y * scaleY) + viewBox.origin.y;*/
+	return svgPoint;
     
 }
 
@@ -407,7 +407,7 @@ unichar const invalidCommand		= '*';
 		lastPoint = CGPointMake(x, y);
 #ifdef TARGET_OS_IPHONE
 		[bezier addCurveToPoint:[self bezierPoint:lastPoint] 
-				  controlPoint1:[self bezierPoint:CGPointMake(x1,y1)] 
+				  controlPoint1:[self bezierPoint:CGPointMake(x1,y1)]
 				  controlPoint2:[self bezierPoint:CGPointMake(x2, y2)]];
 #else
 		[bezier curveToPoint:NSPointFromCGPoint([self bezierPoint:lastPoint])
