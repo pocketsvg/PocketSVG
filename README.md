@@ -1,11 +1,11 @@
 # PocketSVG
 A library that converts Scalable Vector Graphics (SVG) data into CAShapeLayers and UIBezierCurves. This makes it easy to create vector-based paths and shapes in your apps. 
 
-This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/).
+This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/) and Dominic Mortlock.
 
 Feedback, improvements, and pull requests are welcome. Please get in touch if you can help improve the code. 
 
-## Instructions
+## Usage
 1. Draw your bezier path in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
 1. Save as an SVG
 1. Drag and drop it into your Xcode project 
@@ -42,9 +42,11 @@ To render it as a `CAShapeLayer`:
 * [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) - Class Reference 
 * [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS
 
+## Latest Fixes
+* Fixed problem that causes SVGs to render with wrong frame dimensions.
+* Fixed problem that causes some SVGs to render incorrectly.
+
 ## To Do
-* Fix problem that causes SVGs to render with wrong frame dimensions.
-* Fix problem that causes some SVGs to render incorrectly. [See if you can work out this file](https://dl.dropbox.com/u/34317751/BezierCurve3-iPad.svg).
 * Generate NSBezierPaths as well as UIBezierPaths
 
 ## Support 
@@ -52,3 +54,13 @@ Please ask questions and report bugs on [the project's Issues Page](https://gith
 
 ## License
 [Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license] (http://creativecommons.org/licenses/by-sa/3.0)
+
+You are free:
+
+* to __Share__ — to copy, distribute and transmit the work
+* to __Remix__ — to adapt the work
+* to make commercial use of the work
+
+Under the following conditions:
+* __Attribution__ — You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+* __Share Alike__ — If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
