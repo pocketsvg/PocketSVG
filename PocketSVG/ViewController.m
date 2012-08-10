@@ -9,7 +9,7 @@
 #import "ViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
-#import "SvgToBezier.h"
+#import "PocketSVG.h"
 
 @implementation ViewController
 
@@ -21,7 +21,7 @@
     CGRect frameRect = CGRectMake(0, 0, 1024, 768);
     
     //Create an SvgToBezier object:
-    SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGFileNamed:@"BezierCurve3-iPad" rect:frameRect];
+    PocketSVG *myBezier = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3-iPad" rect:frameRect];
     
     UIBezierPath *myPath = myBezier.bezier;
             
