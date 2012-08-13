@@ -9,14 +9,14 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
 1. Draw your bezier path in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
 1. Save as an SVG
 1. Drag and drop it into your Xcode project 
-1. Create an SvgToBezier object:
+1. Create a PocketSVG object:
 
 ```obj-c
     //Set the frame in which to draw the SVG:
     CGRect frameRect = CGRectMake(0, 0, 1024, 768);
 
-    //Create an SvgToBezier object:
-    SvgToBezier *myBezier = [[SvgToBezier alloc] initFromSVGFileNamed:@"BezierCurve1-iPad" rect:frameRect];
+    //Create a PocketSVG object:
+    PocketSVG *myBezier = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3-iPad" rect:frameRect];
 ```
 To then render it as an `UIBezierPath`:
 
@@ -45,6 +45,7 @@ To render it as a `CAShapeLayer`:
 ## Latest Fixes
 * Fixed problem that causes SVGs to render with wrong frame dimensions.
 * Fixed problem that causes some SVGs to render incorrectly.
+* Fixed parse bug for SVGs with blank spaces in them (thanks to [mindbrix](https://github.com/mindbrix)).
 
 ## To Do
 * Generate NSBezierPaths as well as UIBezierPaths
