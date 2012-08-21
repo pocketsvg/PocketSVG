@@ -114,6 +114,8 @@ unichar const invalidCommand		= '*';
     //NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
     //NSLog(@"%@", mySVGString);
     
+    mySVGString = [mySVGString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
+    
     NSArray *components = [mySVGString componentsSeparatedByString:@"d="];
     
     if([components count] < 2){
