@@ -32,7 +32,7 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
     //5: Display it!
     [self.view.layer addSublayer:myShapeLayer];
 ```
-Don't forget to add the QuartzCore framework to your project and import it:
+Don't forget to add the __QuartzCore__ framework to your project ([here's how](http://stackoverflow.com/a/3377682/1072846)) and import it:
 ```obj-c
 #import <QuartzCore/QuartzCore.h>
 ```
