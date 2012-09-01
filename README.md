@@ -12,43 +12,42 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
 1. Create a PocketSVG object:
 
 ```obj-c
-    //Set the frame in which to draw the SVG:
-    CGRect frameRect = CGRectMake(0, 0, 1024, 768);
-
-    //Create a PocketSVG object:
-    PocketSVG *myBezier = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3-iPad" rect:frameRect];
-```
-To then render it as an `UIBezierPath`:
-
-```obj-c
+    //1: Create a PocketSVG object from your SVG file:
+    PocketSVG *myBezier = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve1-iPad"];
+    
+    //2: Its bezier property is the corresponding UIBezierPath:
     UIBezierPath *myPath = myBezier.bezier;
-```
-To render it as a `CAShapeLayer`:
-```obj-c
+    
+    //3: To display it on screen, create a CAShapeLayer and set 
+    //the CGPath property of the above UIBezierPath as its 
+    //path. 
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
     myShapeLayer.path = myPath.CGPath;
     
+    //4: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
-    
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
+    //5: Display it!
     [self.view.layer addSublayer:myShapeLayer];
 ```
 
 ## Useful Documentation
 * [An SVG's d attribute](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification 
 * [UIBezierPaths](http://developer.apple.com/library/ios/#documentation/uikit/reference/UIBezierPath_class/Reference/Reference.html) - Class Reference 
-* [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) - Class Reference 
+* [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) - Class Reference. Tells you which properties of the shape/path can be manipulated. 
 * [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS
 
 ## Latest Fixes
 * Fixed problem that causes SVGs to render with wrong frame dimensions.
 * Fixed problem that causes some SVGs to render incorrectly.
 * Fixed parse bug for SVGs with blank spaces in them (thanks to [mindbrix](https://github.com/mindbrix)).
+* Simplified PocketSVG's init method (thanks to [johnnyknox](https://github.com/johnnyknox)).
 
 ## To Do
 * Generate NSBezierPaths as well as UIBezierPaths
+* Make it a category on CAShapeLayer?
 
 ## Support 
 Please ask questions and report bugs on [the project's Issues Page](https://github.com/arielelkin/PocketSVG/issues). 
