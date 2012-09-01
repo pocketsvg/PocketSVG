@@ -7,9 +7,9 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
 
 ## Usage
 1. Draw your bezier path in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
-1. Save as an SVG
-1. Drag and drop it into your Xcode project 
-1. Create a PocketSVG object:
+1. Save as an SVG.
+1. Drag and drop it into your Xcode project.
+1. Follow these easy steps:
 
 ```obj-c
     //1: Create a PocketSVG object from your SVG file:
