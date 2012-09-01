@@ -39,7 +39,7 @@
 		B0A9DBA615CA9B340095DFAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B0A9DBA815CA9B340095DFAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B0A9DBA915CA9B340095DFAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B0A9DBBF15CA9F370095DFAF /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PocketSVG.h; sourceTree = "<group>"; };
+		B0A9DBBF15CA9F370095DFAF /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = "<group>"; };
 		B0A9DBC015CA9F370095DFAF /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketSVG.m; sourceTree = "<group>"; };
 		B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B0ABB61F15CC70B7001C9177 /* BezierCurve2-iPad.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "BezierCurve2-iPad.svg"; sourceTree = "<group>"; };

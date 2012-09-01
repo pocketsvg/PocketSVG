@@ -16,7 +16,6 @@
 
 @interface PocketSVG : NSObject {
 	@private
-	CGRect			viewBox;
 	float			pathScale;
 #ifdef TARGET_OS_IPHONE
 	UIBezierPath    *bezier;
@@ -37,7 +36,6 @@
 @property(nonatomic, readonly) NSBezierPath *bezier;
 #endif
 
-//- (id)initFromSVGPathNodeDAttr:(NSString *)attr rect:(CGRect)rect;
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG rect:(CGRect)rect;
+- (id)initFromSVGFileNamed:(NSString *)nameOfSVG;
 
 @end

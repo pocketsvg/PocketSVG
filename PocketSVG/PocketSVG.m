@@ -75,7 +75,6 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGLCommand:(Token *)token;
 - (void)appendSVGCCommand:(Token *)token;
 - (void)appendSVGSCommand:(Token *)token;
-- (CGPoint)bezierPoint:(CGPoint)svgPoint;
 
 @end
 
@@ -85,8 +84,8 @@ unichar const invalidCommand		= '*';
 @synthesize bezier;
 
 
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG rect:(CGRect)rect{
-    return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] rect:rect];
+- (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
+    return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
 }
 
 /********
@@ -138,12 +137,11 @@ unichar const invalidCommand		= '*';
 }
 
 
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr rect:(CGRect)rect
+- (id)initFromSVGPathNodeDAttr:(NSString *)attr
 {
 	self = [super init];
 	if (self) {
 		pathScale = 0;
-		viewBox = rect;
 		[self reset];
 		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
 		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
@@ -282,19 +280,6 @@ unichar const invalidCommand		= '*';
 	validLastControlPoint = NO;
 }
 
-- (CGPoint)bezierPoint:(CGPoint)svgPoint
-{
-	/*CGPoint newPoint;
-    
- 	CGFloat scaleX = viewBox.size.width / pathScale;
-	CGFloat scaleY = viewBox.size.height / pathScale;
-
-    newPoint.x = (svgPoint.x * scaleX) + viewBox.origin.x;
-    newPoint.y = (svgPoint.y * scaleY) + viewBox.origin.y;*/
-	return svgPoint;
-    
-}
-
 - (void)appendSVGMCommand:(Token *)token
 {
 	validLastControlPoint = NO;
@@ -309,14 +294,14 @@ unichar const invalidCommand		= '*';
 		CGFloat y = [token parameter:index] + ([token command] == 'm' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
 		if (first) {
-			[bezier moveToPoint:[self bezierPoint:lastPoint]];
+			[bezier moveToPoint:lastPoint];
 			first = NO;
 		}
 		else {
 #ifdef TARGET_OS_IPHONE
-			[bezier addLineToPoint:[self bezierPoint:lastPoint]];
+			[bezier addLineToPoint:lastPoint];
 #else
-			[bezier lineToPoint:NSPointFromCGPoint([self bezierPoint:lastPoint])];
+			[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
 #endif
 		}
 		index++;
@@ -360,9 +345,9 @@ unichar const invalidCommand		= '*';
 		}
 		lastPoint = CGPointMake(x, y);
 #ifdef TARGET_OS_IPHONE
-		[bezier addLineToPoint: [self bezierPoint: lastPoint]];
+		[bezier addLineToPoint:lastPoint];
 #else
-		[bezier lineToPoint:NSPointFromCGPoint([self bezierPoint: lastPoint])];
+		[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
 #endif
 		index++;
 	}
@@ -380,13 +365,13 @@ unichar const invalidCommand		= '*';
 		CGFloat y  = [token parameter:index++] + ([token command] == 'c' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
 #ifdef TARGET_OS_IPHONE
-		[bezier addCurveToPoint:[self bezierPoint:lastPoint] 
-				  controlPoint1:[self bezierPoint:CGPointMake(x1,y1)] 
-				  controlPoint2:[self bezierPoint:CGPointMake(x2, y2)]];
+		[bezier addCurveToPoint:lastPoint 
+				  controlPoint1:CGPointMake(x1,y1) 
+				  controlPoint2:CGPointMake(x2, y2)];
 #else
-		[bezier curveToPoint:NSPointFromCGPoint([self bezierPoint:lastPoint])
-			   controlPoint1:NSPointFromCGPoint([self bezierPoint:CGPointMake(x1,y1)])
-			   controlPoint2:NSPointFromCGPoint([self bezierPoint:CGPointMake(x2, y2)])];
+		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
 #endif
         lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
@@ -411,13 +396,13 @@ unichar const invalidCommand		= '*';
 		CGFloat y  = [token parameter:index++] + ([token command] == 's' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
 #ifdef TARGET_OS_IPHONE
-		[bezier addCurveToPoint:[self bezierPoint:lastPoint] 
-				  controlPoint1:[self bezierPoint:CGPointMake(x1,y1)]
-				  controlPoint2:[self bezierPoint:CGPointMake(x2, y2)]];
+		[bezier addCurveToPoint:lastPoint 
+				  controlPoint1:CGPointMake(x1,y1)
+				  controlPoint2:CGPointMake(x2, y2)];
 #else
-		[bezier curveToPoint:NSPointFromCGPoint([self bezierPoint:lastPoint])
-			   controlPoint1:NSPointFromCGPoint([self bezierPoint:CGPointMake(x1,y1)]) 
-			   controlPoint2:NSPointFromCGPoint([self bezierPoint:CGPointMake(x2, y2)])];
+		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1)) 
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
 #endif
 		lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
@@ -426,5 +411,18 @@ unichar const invalidCommand		= '*';
 		NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
 	}
 }
+
+//- (CGPoint)bezierPoint:(CGPoint)svgPoint
+//{
+//	CGPoint newPoint;
+//    
+// 	CGFloat scaleX = viewBox.size.width / pathScale;
+//	CGFloat scaleY = viewBox.size.height / pathScale;
+//
+//    newPoint.x = (svgPoint.x * scaleX) + viewBox.origin.x;
+//    newPoint.y = (svgPoint.y * scaleY) + viewBox.origin.y;
+//	return svgPoint;
+//}
+
 
 @end
