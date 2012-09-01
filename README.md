@@ -32,6 +32,10 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
     //5: Display it!
     [self.view.layer addSublayer:myShapeLayer];
 ```
+Don't forget to add the QuartzCore framework to your project and import it:
+```obj-c
+#import <QuartzCore/QuartzCore.h>
+```
 
 ## Useful Documentation
 * [An SVG's d attribute](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification 
