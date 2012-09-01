@@ -126,8 +126,10 @@ unichar const invalidCommand		= '*';
     dString = [dString substringFromIndex:1];
     NSRange d = [dString rangeOfString:@"\""];    
     dString = [dString substringToIndex:d.location];
+        
+    NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
     
     //Uncomment the line below to print the raw path data of the SVG file:
     //NSLog(@"*** PocketSVG: Path data of %@ is: %@", nameOfSVG, dString);
