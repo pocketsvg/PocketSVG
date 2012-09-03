@@ -19,8 +19,7 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
     UIBezierPath *myPath = myBezier.bezier;
     
     //3: To display it on screen, create a CAShapeLayer and set 
-    //the CGPath property of the above UIBezierPath as its 
-    //path. 
+    //the CGPath property of the above UIBezierPath as its path:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
     myShapeLayer.path = myPath.CGPath;
     
