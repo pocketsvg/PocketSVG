@@ -13,15 +13,16 @@ Feedback, improvements, and pull requests are welcome. Please get in touch if yo
 
 ```obj-c
     //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myBezier = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve1-iPad"];
+    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve1-iPad"];
     
     //2: Its bezier property is the corresponding UIBezierPath:
-    UIBezierPath *myPath = myBezier.bezier;
+    UIBezierPath *myBezierPath = myVectorDrawing.bezier;
     
     //3: To display it on screen, create a CAShapeLayer and set 
-    //the CGPath property of the above UIBezierPath as its path:
+    //the CGPath property of the above UIBezierPath as its 
+    //path. 
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath.CGPath;
+    myShapeLayer.path = myBezierPath.CGPath;
     
     //4: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
