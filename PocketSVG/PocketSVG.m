@@ -68,7 +68,11 @@ unichar const invalidCommand		= '*';
 @interface PocketSVG ()
 
 - (NSMutableArray *)parsePath:(NSString *)attr;
+#ifdef TARGET_OS_IPHONE
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
+#else
+- (NSBezierPath *) generateBezier:(NSArray *)tokens;
+#endif
 
 - (void)reset;
 - (void)appendSVGMCommand:(Token *)token;
@@ -237,9 +241,16 @@ unichar const invalidCommand		= '*';
 	return tokens;
 }
 
+#ifdef TARGET_OS_IPHONE
 - (UIBezierPath *)generateBezier:(NSArray *)inTokens
 {
 	bezier = [[UIBezierPath alloc] init];
+#else
+- (NSBezierPath *)generateBezier:(NSArray *)inTokens
+{
+    bezier = [[NSBezierPath alloc] init];
+#endif
+
 	[self reset];
 	for (Token *thisToken in inTokens) {
 		unichar command = [thisToken command];
@@ -373,7 +384,7 @@ unichar const invalidCommand		= '*';
 #else
 		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
 			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
         lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
@@ -404,7 +415,7 @@ unichar const invalidCommand		= '*';
 #else
 		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
 			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1)) 
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
 		lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
