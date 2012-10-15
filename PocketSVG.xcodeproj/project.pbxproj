@@ -64,9 +64,9 @@
 		B0A9DB8115CA9B340095DFAF = {
 			isa = PBXGroup;
 			children = (
-				F2BEF07D15D2975900762DC6 /* BezierCurve3.svg */,
 				B08C81D915CC468100D15B81 /* BezierCurve1.svg */,
 				B0ABB61F15CC70B7001C9177 /* BezierCurve2.svg */,
+				F2BEF07D15D2975900762DC6 /* BezierCurve3.svg */,
 				B0A9DB9615CA9B340095DFAF /* PocketSVG */,
 				B0A9DB8F15CA9B340095DFAF /* Frameworks */,
 				B0A9DB8D15CA9B340095DFAF /* Products */,
