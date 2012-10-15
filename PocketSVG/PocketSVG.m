@@ -68,7 +68,11 @@ unichar const invalidCommand		= '*';
 @interface PocketSVG ()
 
 - (NSMutableArray *)parsePath:(NSString *)attr;
+#if TARGET_OS_IPHONE
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
+#else
+- (NSBezierPath *) generateBezier:(NSArray *)tokens;
+#endif
 
 - (void)reset;
 - (void)appendSVGMCommand:(Token *)token;
@@ -237,9 +241,16 @@ unichar const invalidCommand		= '*';
 	return tokens;
 }
 
+#if TARGET_OS_IPHONE
 - (UIBezierPath *)generateBezier:(NSArray *)inTokens
 {
 	bezier = [[UIBezierPath alloc] init];
+#else
+- (NSBezierPath *)generateBezier:(NSArray *)inTokens
+{
+    bezier = [[NSBezierPath alloc] init];
+#endif
+
 	[self reset];
 	for (Token *thisToken in inTokens) {
 		unichar command = [thisToken command];
@@ -300,7 +311,7 @@ unichar const invalidCommand		= '*';
 			first = NO;
 		}
 		else {
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 			[bezier addLineToPoint:lastPoint];
 #else
 			[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
@@ -346,7 +357,7 @@ unichar const invalidCommand		= '*';
 				return;
 		}
 		lastPoint = CGPointMake(x, y);
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 		[bezier addLineToPoint:lastPoint];
 #else
 		[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
@@ -366,14 +377,14 @@ unichar const invalidCommand		= '*';
 		CGFloat x  = [token parameter:index++] + ([token command] == 'c' ? lastPoint.x : 0);
 		CGFloat y  = [token parameter:index++] + ([token command] == 'c' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 		[bezier addCurveToPoint:lastPoint 
 				  controlPoint1:CGPointMake(x1,y1) 
 				  controlPoint2:CGPointMake(x2, y2)];
 #else
 		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
 			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
         lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
@@ -397,14 +408,14 @@ unichar const invalidCommand		= '*';
 		CGFloat x  = [token parameter:index++] + ([token command] == 's' ? lastPoint.x : 0);
 		CGFloat y  = [token parameter:index++] + ([token command] == 's' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 		[bezier addCurveToPoint:lastPoint 
 				  controlPoint1:CGPointMake(x1,y1)
 				  controlPoint2:CGPointMake(x2, y2)];
 #else
 		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
 			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1)) 
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2)];
+			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
 		lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;

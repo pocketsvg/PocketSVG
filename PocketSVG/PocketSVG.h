@@ -8,7 +8,7 @@
 //  Integrated into PocketSVG 10 August 2012
 //
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
@@ -17,7 +17,7 @@
 @interface PocketSVG : NSObject {
 	@private
 	float			pathScale;
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 	UIBezierPath    *bezier;
 #else
 	NSBezierPath    *bezier;
@@ -30,7 +30,7 @@
     
     NSMutableArray  *tokens;
 }
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 @property(nonatomic, readonly) UIBezierPath *bezier;
 #else
 @property(nonatomic, readonly) NSBezierPath *bezier;
