@@ -287,7 +287,7 @@ unichar const invalidCommand		= '*';
 #if !TARGET_OS_IPHONE
     NSAffineTransform* xform = [NSAffineTransform transform];
     [xform rotateByDegrees:180];
-    [bezier transformUsingAffineTransform:xform];
+//    [bezier transformUsingAffineTransform:xform];
 #endif
 	return bezier;
 }
