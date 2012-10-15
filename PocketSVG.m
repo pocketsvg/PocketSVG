@@ -285,9 +285,17 @@ unichar const invalidCommand		= '*';
 		}
 	}
 #if !TARGET_OS_IPHONE
-    NSAffineTransform* xform = [NSAffineTransform transform];
-    [xform rotateByDegrees:180];
+//    NSAffineTransform* xform = [NSAffineTransform transform];
+//    [xform rotateByDegrees:180];
 //    [bezier transformUsingAffineTransform:xform];
+    
+//    CGContextRef graphicsContext = [[NSGraphicsContext currentContext] graphicsPort];
+//    CGContextSaveGState(graphicsContext);
+//    CGContextTranslateCTM(graphicsContext, 0.0, bezier.bounds.size.heigth);
+//    CGContextScaleCTM(graphicsContext, 1.0, -1.0);
+//    CGContextDrawImage(graphicsContext, bezier, CGRectMake(0, 0, imageWidth, imageHeight));
+//    CGContextRestoreGState(graphicsContext);
+    
 #endif
 	return bezier;
 }
