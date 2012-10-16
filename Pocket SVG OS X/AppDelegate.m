@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "PocketSVG.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PocketSVG.h"
 
 @implementation AppDelegate
 
@@ -22,22 +22,24 @@
     //2: Its bezier property is the corresponding NSBezierPath:
     NSBezierPath *myBezierPath = myVectorDrawing.bezier;
     
-    //3: To display it on screen, create a CAShapeLayer and set
-    //the CGPath property of the above UIBezierPath as its
-    //path.
+    //3: To display it on screen, create a CAShapeLayer:
+    //   and call getCGPathFromNSBezierPath to get the
+    //   SVG's CGPath
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = [PocketSVG getCGPathFromNSBezierPath:myBezierPath]; //myBezierPath.CGPath;
+    myShapeLayer.path = [PocketSVG getCGPathFromNSBezierPath:myBezierPath];
     
     //4: Fiddle with it using CAShapeLayer's properties:
-    myShapeLayer.strokeColor = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1); //[NSColor redColor].CGColor;
+    myShapeLayer.strokeColor = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1);
     myShapeLayer.lineWidth = 4;
-    myShapeLayer.fillColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0); //[NSColor clearColor].CGColor;
+    myShapeLayer.fillColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0);
     
     //5: Display it!
     [self.window.contentView setWantsLayer:YES];
     [self.window.contentView setLayer:myShapeLayer];
     [self.window setFrame:NSRectFromCGRect(CGRectMake(200, 200, 800, 800)) display:YES];
     
+    //TODO:
+    //The CGPath needs to be displayed in the correct position. Currently 
     
 }
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B02ACA8F162C877B00240713 /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B02ACA8E162C877B00240713 /* BezierCurve3.svg */; };
 		B02ACA92162C886900240713 /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B02ACA91162C886900240713 /* PocketSVG.m */; };
+		B02ACAAC162D652600240713 /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B02ACAAB162D652600240713 /* BezierCurve1.svg */; };
+		B02ACAAF162D672D00240713 /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B02ACAAE162D672D00240713 /* BezierCurve2.svg */; };
 		B0C36AAB162C2AD800DED7D0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C36AAA162C2AD800DED7D0 /* Cocoa.framework */; };
 		B0C36AB5162C2AD800DED7D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0C36AB3162C2AD800DED7D0 /* InfoPlist.strings */; };
 		B0C36AB7162C2AD800DED7D0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C36AB6162C2AD800DED7D0 /* main.m */; };
@@ -22,6 +24,8 @@
 		B02ACA8E162C877B00240713 /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../ZLIBRARIES/PocketSVG/BezierCurve3.svg; sourceTree = "<group>"; };
 		B02ACA90162C885C00240713 /* PocketSVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../../ZLIBRARIES/PocketSVG/PocketSVG.h; sourceTree = "<group>"; };
 		B02ACA91162C886900240713 /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../../ZLIBRARIES/PocketSVG/PocketSVG.m; sourceTree = "<group>"; };
+		B02ACAAB162D652600240713 /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve1.svg; sourceTree = "<group>"; };
+		B02ACAAE162D672D00240713 /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve2.svg; sourceTree = "<group>"; };
 		B0C36AA6162C2AD800DED7D0 /* Pocket SVG OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pocket SVG OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C36AAA162C2AD800DED7D0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B0C36AAD162C2AD800DED7D0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -54,6 +58,8 @@
 		B0C36A9B162C2AD800DED7D0 = {
 			isa = PBXGroup;
 			children = (
+				B02ACAAB162D652600240713 /* BezierCurve1.svg */,
+				B02ACAAE162D672D00240713 /* BezierCurve2.svg */,
 				B02ACA8E162C877B00240713 /* BezierCurve3.svg */,
 				B0C36ACA162C2B9A00DED7D0 /* QuartzCore.framework */,
 				B0C36AB0162C2AD800DED7D0 /* Pocket SVG OS X */,
@@ -169,6 +175,8 @@
 				B0C36ABB162C2AD800DED7D0 /* Credits.rtf in Resources */,
 				B0C36AC1162C2AD800DED7D0 /* MainMenu.xib in Resources */,
 				B02ACA8F162C877B00240713 /* BezierCurve3.svg in Resources */,
+				B02ACAAC162D652600240713 /* BezierCurve1.svg in Resources */,
+				B02ACAAF162D672D00240713 /* BezierCurve2.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

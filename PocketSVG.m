@@ -212,7 +212,7 @@ unichar const invalidCommand		= '*';
 	unichar command = [stringToken characterAtIndex:0];
 	while (index < [stringTokens count]) {
 		if (![commandSet characterIsMember:command]) {
-			NSLog(@"*** PocketSVG Error: Path string parse error: found float where expecting command at token %d in path %s.", 
+			NSLog(@"*** PocketSVG Error: Path string parse error: found float where expecting command at token %ld in path %s.",
 					index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 			return nil;
 		}
@@ -225,7 +225,7 @@ unichar const invalidCommand		= '*';
 			NSScanner *floatScanner = [NSScanner scannerWithString:stringToken];
 			float value;
 			if (![floatScanner scanFloat:&value]) {
-				NSLog(@"*** PocketSVG Error: Path string parse error: expected float or command at token %d (but found %s) in path %s.", 
+				NSLog(@"*** PocketSVG Error: Path string parse error: expected float or command at token %ld (but found %s) in path %s.",
 					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
@@ -285,6 +285,12 @@ unichar const invalidCommand		= '*';
 		}
 	}
 #if !TARGET_OS_IPHONE
+    
+//-(CGAffineTransform)uiKitCTM:( CGRect) bounds
+//    {
+//        return CGAffineTransformConcat( CGAffineTransformMakeScale( 1.0f, -1.0f ), CGAffineTransformMakeTranslation( 0.0f, viewBounds.size.height ));
+//    };
+    
 //    NSAffineTransform* xform = [NSAffineTransform transform];
 //    [xform rotateByDegrees:180];
 //    [bezier transformUsingAffineTransform:xform];
@@ -295,6 +301,7 @@ unichar const invalidCommand		= '*';
 //    CGContextScaleCTM(graphicsContext, 1.0, -1.0);
 //    CGContextDrawImage(graphicsContext, bezier, CGRectMake(0, 0, imageWidth, imageHeight));
 //    CGContextRestoreGState(graphicsContext);
+//    [bezier transformUsingAffineTransform:(NSAffineTransform)(CGAffineTransformConcat( CGAffineTransformMakeScale( 1.0f, -1.0f ), CGAffineTransformMakeTranslation( 0.0f, bezier.bounds.size.height )))];
     
 #endif
 	return bezier;
@@ -485,30 +492,21 @@ unichar const invalidCommand		= '*';
             }
         }
         
-        // Be sure the path is closed or Quartz may not do valid hit detection.
-        if (!didClosePath)
-            CGPathCloseSubpath(path);
-        
         immutablePath = CGPathCreateCopy(path);
         CGPathRelease(path);
     }
     
-    return immutablePath;
+    //TODO:
+    //At this stage, immutablePath is upside down. I'm currently flipping it back using CGAffineTransforms,
+    //the path rotates fine, but its positioning needs to be fixed.
+    
+    CGAffineTransform flip = CGAffineTransformMake(1, 0, 0, -1, 0, CGPathGetBoundingBox(immutablePath).size.height);
+    CGAffineTransform moveDown = CGAffineTransformMakeTranslation(0, -100);
+    CGAffineTransform trans = CGAffineTransformConcat(flip, moveDown);
+    CGPathRef betterPath = CGPathCreateCopyByTransformingPath(immutablePath, &trans);
+    return betterPath;
 }
 #endif
-
-
-//- (CGPoint)bezierPoint:(CGPoint)svgPoint
-//{
-//	CGPoint newPoint;
-//    
-// 	CGFloat scaleX = viewBox.size.width / pathScale;
-//	CGFloat scaleY = viewBox.size.height / pathScale;
-//
-//    newPoint.x = (svgPoint.x * scaleX) + viewBox.origin.x;
-//    newPoint.y = (svgPoint.y * scaleY) + viewBox.origin.y;
-//	return svgPoint;
-//}
 
 
 @end
