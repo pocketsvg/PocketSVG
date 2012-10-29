@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PocketSVG OS X' target in the 'PocketSVG OS X' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

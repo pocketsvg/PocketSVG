@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B03926A4163F087800EF033B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03926A3163F087800EF033B /* Cocoa.framework */; };
+		B03926AE163F087800EF033B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B03926AC163F087800EF033B /* InfoPlist.strings */; };
+		B03926B0163F087800EF033B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B03926AF163F087800EF033B /* main.m */; };
+		B03926B4163F087800EF033B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03926B2163F087800EF033B /* Credits.rtf */; };
+		B03926B7163F087800EF033B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B03926B6163F087800EF033B /* AppDelegate.m */; };
+		B03926BA163F087800EF033B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B03926B8163F087800EF033B /* MainMenu.xib */; };
+		B03926C3163F088400EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C0163F088400EF033B /* BezierCurve1.svg */; };
+		B03926C4163F088400EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C1163F088400EF033B /* BezierCurve2.svg */; };
+		B03926C5163F088400EF033B /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C2163F088400EF033B /* BezierCurve3.svg */; };
+		B03926C8163F08A600EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B03926C7163F08A600EF033B /* PocketSVG.m */; };
+		B03926CA163F08B400EF033B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03926C9163F08B400EF033B /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B039269F163F087800EF033B /* PocketSVG OS X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PocketSVG OS X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B03926A3163F087800EF033B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B03926A6163F087800EF033B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		B03926A7163F087800EF033B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B03926A8163F087800EF033B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B03926AB163F087800EF033B /* PocketSVG OS X-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PocketSVG OS X-Info.plist"; sourceTree = "<group>"; };
+		B03926AD163F087800EF033B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B03926AF163F087800EF033B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B03926B1163F087800EF033B /* PocketSVG OS X-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PocketSVG OS X-Prefix.pch"; sourceTree = "<group>"; };
+		B03926B3163F087800EF033B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		B03926B5163F087800EF033B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B03926B6163F087800EF033B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B03926B9163F087800EF033B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B03926C0163F088400EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
+		B03926C1163F088400EF033B /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../../BezierCurve2.svg; sourceTree = "<group>"; };
+		B03926C2163F088400EF033B /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../BezierCurve3.svg; sourceTree = "<group>"; };
+		B03926C6163F08A600EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../../PocketSVG.h; sourceTree = "<group>"; };
+		B03926C7163F08A600EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../../PocketSVG.m; sourceTree = "<group>"; };
+		B03926C9163F08B400EF033B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B039269C163F087800EF033B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03926CA163F08B400EF033B /* QuartzCore.framework in Frameworks */,
+				B03926A4163F087800EF033B /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0392694163F087800EF033B = {
+			isa = PBXGroup;
+			children = (
+				B03926C0163F088400EF033B /* BezierCurve1.svg */,
+				B03926C1163F088400EF033B /* BezierCurve2.svg */,
+				B03926C2163F088400EF033B /* BezierCurve3.svg */,
+				B03926A9163F087800EF033B /* PocketSVG OS X */,
+				B03926A2163F087800EF033B /* Frameworks */,
+				B03926A0163F087800EF033B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B03926A0163F087800EF033B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B039269F163F087800EF033B /* PocketSVG OS X.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B03926A2163F087800EF033B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B03926C9163F08B400EF033B /* QuartzCore.framework */,
+				B03926A3163F087800EF033B /* Cocoa.framework */,
+				B03926A5163F087800EF033B /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B03926A5163F087800EF033B /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B03926A6163F087800EF033B /* AppKit.framework */,
+				B03926A7163F087800EF033B /* CoreData.framework */,
+				B03926A8163F087800EF033B /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		B03926A9163F087800EF033B /* PocketSVG OS X */ = {
+			isa = PBXGroup;
+			children = (
+				B03926B5163F087800EF033B /* AppDelegate.h */,
+				B03926B6163F087800EF033B /* AppDelegate.m */,
+				B03926C6163F08A600EF033B /* PocketSVG.h */,
+				B03926C7163F08A600EF033B /* PocketSVG.m */,
+				B03926B8163F087800EF033B /* MainMenu.xib */,
+				B03926AA163F087800EF033B /* Supporting Files */,
+			);
+			path = "PocketSVG OS X";
+			sourceTree = "<group>";
+		};
+		B03926AA163F087800EF033B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B03926AB163F087800EF033B /* PocketSVG OS X-Info.plist */,
+				B03926AC163F087800EF033B /* InfoPlist.strings */,
+				B03926AF163F087800EF033B /* main.m */,
+				B03926B1163F087800EF033B /* PocketSVG OS X-Prefix.pch */,
+				B03926B2163F087800EF033B /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B039269E163F087800EF033B /* PocketSVG OS X */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B03926BD163F087800EF033B /* Build configuration list for PBXNativeTarget "PocketSVG OS X" */;
+			buildPhases = (
+				B039269B163F087800EF033B /* Sources */,
+				B039269C163F087800EF033B /* Frameworks */,
+				B039269D163F087800EF033B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PocketSVG OS X";
+			productName = "PocketSVG OS X";
+			productReference = B039269F163F087800EF033B /* PocketSVG OS X.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0392696163F087800EF033B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Ariel;
+			};
+			buildConfigurationList = B0392699163F087800EF033B /* Build configuration list for PBXProject "PocketSVG OS X" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B0392694163F087800EF033B;
+			productRefGroup = B03926A0163F087800EF033B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B039269E163F087800EF033B /* PocketSVG OS X */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B039269D163F087800EF033B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03926AE163F087800EF033B /* InfoPlist.strings in Resources */,
+				B03926B4163F087800EF033B /* Credits.rtf in Resources */,
+				B03926BA163F087800EF033B /* MainMenu.xib in Resources */,
+				B03926C3163F088400EF033B /* BezierCurve1.svg in Resources */,
+				B03926C4163F088400EF033B /* BezierCurve2.svg in Resources */,
+				B03926C5163F088400EF033B /* BezierCurve3.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B039269B163F087800EF033B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03926B0163F087800EF033B /* main.m in Sources */,
+				B03926B7163F087800EF033B /* AppDelegate.m in Sources */,
+				B03926C8163F08A600EF033B /* PocketSVG.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B03926AC163F087800EF033B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03926AD163F087800EF033B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B03926B2163F087800EF033B /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03926B3163F087800EF033B /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		B03926B8163F087800EF033B /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03926B9163F087800EF033B /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B03926BB163F087800EF033B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B03926BC163F087800EF033B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B03926BE163F087800EF033B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PocketSVG OS X/PocketSVG OS X-Prefix.pch";
+				INFOPLIST_FILE = "PocketSVG OS X/PocketSVG OS X-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B03926BF163F087800EF033B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PocketSVG OS X/PocketSVG OS X-Prefix.pch";
+				INFOPLIST_FILE = "PocketSVG OS X/PocketSVG OS X-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0392699163F087800EF033B /* Build configuration list for PBXProject "PocketSVG OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B03926BB163F087800EF033B /* Debug */,
+				B03926BC163F087800EF033B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B03926BD163F087800EF033B /* Build configuration list for PBXNativeTarget "PocketSVG OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B03926BE163F087800EF033B /* Debug */,
+				B03926BF163F087800EF033B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B0392696163F087800EF033B /* Project object */;
+}

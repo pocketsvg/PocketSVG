@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  Pocket SVG OS X
+//  PocketSVG OS X
 //
-//  Created by Ariel on 15/10/2012.
+//  Created by Ariel on 29/10/2012.
 //  Copyright (c) 2012 Ariel. All rights reserved.
 //
 

@@ -1,12 +1,13 @@
 //
 //  AppDelegate.m
-//  Pocket SVG OS X
+//  PocketSVG OS X
 //
-//  Created by Ariel on 15/10/2012.
+//  Created by Ariel on 29/10/2012.
 //  Copyright (c) 2012 Ariel. All rights reserved.
 //
 
 #import "AppDelegate.h"
+
 #import <QuartzCore/QuartzCore.h>
 #import "PocketSVG.h"
 
@@ -17,7 +18,7 @@
     // Insert code here to initialize your application
     
     //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3"];
+    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve2"];
     
     //2: Its bezier property is the corresponding NSBezierPath:
     NSBezierPath *myBezierPath = myVectorDrawing.bezier;
@@ -39,8 +40,8 @@
     [self.window setFrame:NSRectFromCGRect(CGRectMake(200, 200, 800, 800)) display:YES];
     
     //TODO:
-    //The CGPath needs to be displayed in the correct position. Currently 
-    
+    //The CGPath needs to be displayed in the correct position.
 }
+
 
 @end
