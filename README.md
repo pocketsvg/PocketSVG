@@ -1,9 +1,15 @@
 # PocketSVG
-A class that converts Scalable Vector Graphics (SVG) data into CGPaths, CAShapeLayers and UIBezierCurves. This makes it easy to create vector-based paths and shapes in your apps. 
+A class that converts Scalable Vector Graphics (SVG) into:
+* CGPaths
+* CAShapeLayers
+* UIBezierCurves
+* NSBezierCurves. 
+
+This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
 
 This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/) and Dominic Mortlock.
 
-Feedback, improvements, and pull requests are welcome. Please get in touch if you can help improve the code. 
+Feedback, improvements, and pull requests are welcome.
 
 ## Usage
 1. Make your drawing in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
@@ -44,13 +50,15 @@ Don't forget to add the __QuartzCore__ framework to your project ([here's how](h
 * [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS
 
 ## Latest Fixes
+* Added support for NSBezierPaths (thanks to [mcianni](https://github.com/mcianni)).
 * Fixed problem that causes SVGs to render with wrong frame dimensions.
 * Fixed problem that causes some SVGs to render incorrectly.
 * Fixed parse bug for SVGs with blank spaces in them (thanks to [mindbrix](https://github.com/mindbrix)).
 * Simplified PocketSVG's init method (thanks to [johnnyknox](https://github.com/johnnyknox)).
 
 ## To Do
-* Generate NSBezierPaths as well as UIBezierPaths
+* Support for SVGs with more than one path (currently PocketSVG renders the last path).
+* Improve parser efficiency
 * Make it a category on CAShapeLayer?
 
 ## Support 
