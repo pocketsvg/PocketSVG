@@ -57,8 +57,9 @@ Don't forget to add the __QuartzCore__ framework to your project ([here's how](h
 * Simplified PocketSVG's init method (thanks to [johnnyknox](https://github.com/johnnyknox)).
 
 ## To Do
+* Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html).
 * Support for SVGs with more than one path (currently PocketSVG renders the last path).
-* Improve parser efficiency
+* Improve parser efficiency.
 * Make it a category on CAShapeLayer?
 
 ## Support 
