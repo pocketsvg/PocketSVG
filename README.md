@@ -1,13 +1,11 @@
 # PocketSVG
-A class that converts Scalable Vector Graphics (SVG) into:
+An Objective-C class that converts Scalable Vector Graphics (SVG) into:
 * CGPaths
 * CAShapeLayers
 * UIBezierCurves
 * NSBezierCurves. 
 
 This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
-
-This a fork of an [SVG to bezier path parser by Martin Haywood](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/), with fixes by [Pieter Omvlee](http://www.bohemiancoding.com/) and Dominic Mortlock.
 
 Feedback, improvements, and pull requests are welcome.
 
@@ -62,18 +60,25 @@ Don't forget to add the __QuartzCore__ framework to your project ([here's how](h
 * Improve parser efficiency.
 * Make it a category on CAShapeLayer?
 
-## Support 
+## Support
 Please ask questions and report bugs on [the project's Issues Page](https://github.com/arielelkin/PocketSVG/issues). 
 
+## Contributors
+* Martin Haywood (for the original [SVG to bezier path parser](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/) PocketSVG is based on.
+* [Ariel Elkin](http://www.github.com/arielelkin)
+* [Pieter Omvlee](http://www.bohemiancoding.com/)
+* Dominic Mortlock
+* [mcianni](https://github.com/mcianni)
+* [mindbrix](https://github.com/mindbrix)
+* [johnnyknox](https://github.com/johnnyknox)
+
 ## License
-[Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license] (http://creativecommons.org/licenses/by-sa/3.0)
 
-You are free:
+Copyright (c) 2013 Ponderwell, Ariel Elkin, and Contributors
 
-* to __Share__ — to copy, distribute and transmit the work
-* to __Remix__ — to adapt the work
-* to make commercial use of the work
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Under the following conditions:
-* __Attribution__ — You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
-* __Share Alike__ — If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
