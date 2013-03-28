@@ -64,7 +64,7 @@ Don't forget to add the __QuartzCore__ framework to your project ([here's how](h
 Please ask questions and report bugs on [the project's Issues Page](https://github.com/arielelkin/PocketSVG/issues). 
 
 ## Contributors
-* Martin Haywood (for the original [SVG to bezier path parser](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/) PocketSVG is based on.
+* Martin Haywood (for the original [SVG to bezier path parser](http://ponderwell.net/2011/05/converting-svg-paths-to-objective-c-paths/) PocketSVG is based on).
 * [Ariel Elkin](http://www.github.com/arielelkin)
 * [Pieter Omvlee](http://www.bohemiancoding.com/)
 * Dominic Mortlock
