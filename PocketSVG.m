@@ -143,7 +143,7 @@ unichar const invalidCommand		= '*';
     dString = [dString substringFromIndex:1];
     NSRange d = [dString rangeOfString:@"\""];    
     dString = [dString substringToIndex:d.location];
-  //  dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
         
     NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
