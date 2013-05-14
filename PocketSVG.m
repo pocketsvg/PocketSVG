@@ -28,7 +28,7 @@
 NSInteger const maxPathComplexity	= 1000;
 NSInteger const maxParameters		= 64;
 NSInteger const maxTokenLength		= 64;
-NSString* const separatorCharString = @"-,CcMmLlHhVvZzqQaAsS";
+NSString* const separatorCharString = @"-, CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
 
@@ -143,8 +143,9 @@ unichar const invalidCommand		= '*';
     dString = [dString substringFromIndex:1];
     NSRange d = [dString rangeOfString:@"\""];    
     dString = [dString substringToIndex:d.location];
+  //  dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
         
-    NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
     
@@ -194,9 +195,15 @@ unichar const invalidCommand		= '*';
 	
 	NSInteger index = 0;
 	while (index < [attr length]) {
+        unichar	charAtIndex = [attr characterAtIndex:index];
+        //Jagie:Skip whitespace
+        if (charAtIndex == 32) {
+            index ++;
+            continue;
+        }
 		NSMutableString *stringToken = [[NSMutableString alloc] initWithCapacity:maxTokenLength];
 		[stringToken setString:@""];
-		unichar	charAtIndex = [attr characterAtIndex:index];
+		
 		if (charAtIndex != ',') {
 			[stringToken appendString:[NSString stringWithFormat:@"%c", charAtIndex]];
 		}
@@ -208,6 +215,7 @@ unichar const invalidCommand		= '*';
 		else {
 			index++;
 		}
+        
 		if ([stringToken length]) {
 			[stringTokens addObject:stringToken];
 		}
