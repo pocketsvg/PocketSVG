@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18DEF6DE17428A01006BD8BB /* exportedFromSketch.svg in Resources */ = {isa = PBXBuildFile; fileRef = 18DEF6DD17428A01006BD8BB /* exportedFromSketch.svg */; };
 		B039268D163F072100EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B039268C163F072100EF033B /* PocketSVG.m */; };
 		B0392691163F072800EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268E163F072800EF033B /* BezierCurve1.svg */; };
 		B0392692163F072800EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268F163F072800EF033B /* BezierCurve2.svg */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18DEF6DD17428A01006BD8BB /* exportedFromSketch.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = exportedFromSketch.svg; path = ../../exportedFromSketch.svg; sourceTree = "<group>"; };
 		B039268B163F072100EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../PocketSVG.h; sourceTree = "<group>"; };
 		B039268C163F072100EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../PocketSVG.m; sourceTree = "<group>"; };
 		B039268E163F072800EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		B0A9DB9615CA9B340095DFAF /* PocketSVG */ = {
 			isa = PBXGroup;
 			children = (
+				18DEF6DD17428A01006BD8BB /* exportedFromSketch.svg */,
 				B039268E163F072800EF033B /* BezierCurve1.svg */,
 				B039268F163F072800EF033B /* BezierCurve2.svg */,
 				B0392690163F072800EF033B /* BezierCurve3.svg */,
@@ -175,6 +178,7 @@
 				B0392691163F072800EF033B /* BezierCurve1.svg in Resources */,
 				B0392692163F072800EF033B /* BezierCurve2.svg in Resources */,
 				B0392693163F072800EF033B /* BezierCurve3.svg in Resources */,
+				18DEF6DE17428A01006BD8BB /* exportedFromSketch.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

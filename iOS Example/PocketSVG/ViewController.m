@@ -35,7 +35,7 @@
     [super viewDidLoad];
         
     //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3"];
+    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"exportedFromSketch"];
     
     
     //2: Its bezier property is the corresponding UIBezierPath:
