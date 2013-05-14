@@ -3,7 +3,7 @@ An Objective-C class that converts Scalable Vector Graphics (SVG) into:
 * CGPaths
 * CAShapeLayers
 * UIBezierPaths
-* NSBezierCurves. 
+* NSBezierCurves 
 
 This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
 
@@ -71,6 +71,7 @@ Please ask questions and report bugs on [the project's Issues Page](https://gith
 * [mcianni](https://github.com/mcianni)
 * [mindbrix](https://github.com/mindbrix)
 * [johnnyknox](https://github.com/johnnyknox)
+* [JagieChen](https://github.com/JagieChen)
 
 ## License
 
