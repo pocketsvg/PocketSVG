@@ -234,7 +234,7 @@ unichar const invalidCommand		= '*';
 	while (index < [stringTokens count]) {
 		if (![commandSet characterIsMember:command]) {
 			NSLog(@"*** PocketSVG Error: Path string parse error: found float where expecting command at token %ld in path %s.",
-					index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
+					(long)index, [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 			return nil;
 		}
 		Token *token = [[Token alloc] initWithCommand:command];
@@ -247,7 +247,7 @@ unichar const invalidCommand		= '*';
 			float value;
 			if (![floatScanner scanFloat:&value]) {
 				NSLog(@"*** PocketSVG Error: Path string parse error: expected float or command at token %ld (but found %s) in path %s.",
-					  index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
+					  (long)index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
 			// Maintain scale.
