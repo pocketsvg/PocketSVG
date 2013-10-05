@@ -25,8 +25,6 @@
 
 #import "ViewController.h"
 
-#import <QuartzCore/QuartzCore.h>
-#import "PocketSVG.h"
 
 @implementation ViewController
 
@@ -35,29 +33,11 @@
     [super viewDidLoad];
         
     //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve1"];
+//    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"GD-eyes"];
     
+    NSURL * fileURL = [[NSBundle mainBundle] URLForResource:@"GD-eyes" withExtension:@"svg"];
     
-    //2: Its bezier property is the corresponding UIBezierPath:
-    UIBezierPath *myBezierPath = myVectorDrawing.bezier;
-    
-    
-    //3: To display it on screen, create a CAShapeLayer and set 
-    //the CGPath property of the above UIBezierPath as its 
-    //path. 
-    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myBezierPath.CGPath;
-    
-    
-    //4: Fiddle with it using CAShapeLayer's properties:
-    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
-    myShapeLayer.lineWidth = 4;
-    myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
-    
-    //5: Display it!
-    [self.view.layer addSublayer:myShapeLayer];
-    
+    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initWithSVGFileAtURL:fileURL delegate:self];
     
 }
 
@@ -70,6 +50,31 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+#pragma mark - PocketSVGDelegate
+
+-(void)pocketSVGDidFinishParsing:(PocketSVG *)pocket{
+    
+    //2: Its bezier property is the corresponding UIBezierPath:
+    UIBezierPath *myBezierPath = pocket.bezier;
+    
+    
+    //3: To display it on screen, create a CAShapeLayer and set
+    //the CGPath property of the above UIBezierPath as its
+    //path.
+    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
+    myShapeLayer.path = myBezierPath.CGPath;
+    
+    
+    //4: Fiddle with it using CAShapeLayer's properties:
+    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
+    myShapeLayer.lineWidth = 4;
+    myShapeLayer.fillColor = [[UIColor blackColor] CGColor];
+    
+    
+    //5: Display it!
+    [self.view.layer addSublayer:myShapeLayer];
 }
 
 @end

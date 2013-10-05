@@ -24,6 +24,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import <QuartzCore/QuartzCore.h>
+
+#import "PocketSVG.h"
+
+
+@interface ViewController : UIViewController <PocketSVGDelegate>
 
 @end

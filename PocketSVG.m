@@ -32,7 +32,36 @@ NSString* const separatorCharString = @"-, CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
 
+#define PSVG_ELEMENT_PATH @"path"
 
+#define PSVG_ELEMENT_ATTRIBUTE_ID @"id"
+#define PSVG_ELEMENT_ATTRIBUTE_D @"d"
+
+@interface PocketSVGPath : NSObject
+
+@property (strong) NSString * pathID;
+@property (strong) NSString * dAttr;
+
+-(id)initWithAttributeDictionary:(NSDictionary *)attrDict;
+
+@end
+
+@implementation PocketSVGPath
+
+-(id)initWithAttributeDictionary:(NSDictionary *)attrDict{
+ 
+    self = [super init];
+    
+    if (self) {
+        
+        _pathID = [attrDict objectForKey:PSVG_ELEMENT_ATTRIBUTE_ID];
+        _dAttr = [attrDict objectForKey:PSVG_ELEMENT_ATTRIBUTE_D];
+    }
+    
+    return self;
+}
+
+@end
 
 @interface Token : NSObject {
 	@private
@@ -100,11 +129,52 @@ unichar const invalidCommand		= '*';
 
 @synthesize bezier;
 
+-(id)initWithSVGFileAtURL:(NSURL *)fileURL delegate:(id <PocketSVGDelegate>)svgDel{
+
+    self = [super init];
+    if (self) {
+        
+        pathScale = 0;
+        [self reset];
+        
+        separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+        
+        paths = [[NSMutableArray alloc] initWithCapacity:1];
+        
+        _xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:fileURL];
+        
+        _xmlParser.delegate = self;
+        
+        self.delegate = svgDel;
+        
+        if(![_xmlParser parse]){
+         
+            return nil;
+        }
+    }
+    
+    return self;
+    
+}
 
 - (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
     return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
 }
 
+- (id)initFromSVGPathNodeDAttr:(NSString *)attr
+{
+	self = [super init];
+	if (self) {
+		pathScale = 0;
+		[self reset];
+		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+		tokens = [self parsePath:attr];
+		bezier = [self generateBezier:tokens];
+	}
+	return self;
+}
 /********
  Returns the content of the SVG's d attribute as an NSString
 */
@@ -127,8 +197,8 @@ unichar const invalidCommand		= '*';
     }
     
     //Uncomment the two lines below to print the raw data of the SVG file:
-    //NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
-    //NSLog(@"%@", mySVGString);
+    NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
+    NSLog(@"%@", mySVGString);
     
     mySVGString = [mySVGString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
     
@@ -157,18 +227,66 @@ unichar const invalidCommand		= '*';
 }
 
 
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr
-{
-	self = [super init];
-	if (self) {
-		pathScale = 0;
-		[self reset];
-		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
-		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		tokens = [self parsePath:attr];
-		bezier = [self generateBezier:tokens];
-	}
-	return self;
+#pragma mark - NSXMLParserDelegate
+
+-(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
+ 
+    if ([elementName isEqualToString:PSVG_ELEMENT_PATH]) {
+        
+        PocketSVGPath * path = [[PocketSVGPath alloc] initWithAttributeDictionary:attributeDict];
+        
+        if (path) {
+            
+            [paths addObject:path];
+
+        }
+    
+    }
+    
+}
+
+-(void)parserDidEndDocument:(NSXMLParser *)parser{
+ 
+#if TARGET_OS_IPHONE
+
+    UIBezierPath * compoundPath = nil;
+
+#else
+    
+    //Add support for NSBezierPath here
+#endif
+
+    
+    
+    for ( PocketSVGPath * path in paths){
+     
+        PocketSVG * svg = [[PocketSVG alloc] initFromSVGPathNodeDAttr:path.dAttr];
+        
+        if (compoundPath == nil) {
+            
+            compoundPath = svg.bezier;
+        }
+        else{
+         
+#if TARGET_OS_IPHONE
+            
+            [compoundPath appendPath:svg.bezier];
+            
+#else
+            
+            //Add support for NSBezierPath here
+#endif
+            
+        }
+        
+    }
+    
+    bezier = compoundPath;
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pocketSVGDidFinishParsing:)]) {
+     
+        [self.delegate pocketSVGDidFinishParsing:self];
+    }
 }
 
 
