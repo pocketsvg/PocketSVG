@@ -28,7 +28,17 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-@interface PocketSVG : NSObject {
+@class PocketSVG;
+
+@protocol PocketSVGDelegate <NSObject>
+
+@optional
+
+-(void)pocketSVGDidFinishParsing:(PocketSVG *)pocket;
+
+@end
+
+@interface PocketSVG : NSObject <NSXMLParserDelegate>{
 	@private
 	float			pathScale;
 #if TARGET_OS_IPHONE
@@ -43,6 +53,8 @@
 	NSCharacterSet  *commandSet;
     
     NSMutableArray  *tokens;
+    
+    NSMutableArray * paths;
 }
 #if TARGET_OS_IPHONE
 @property(nonatomic, readonly) UIBezierPath *bezier;
@@ -50,7 +62,13 @@
 @property(nonatomic, readonly) NSBezierPath *bezier;
 #endif
 
+@property (strong) NSXMLParser * xmlParser;
+
+@property (weak) id <PocketSVGDelegate> delegate;
+
 - (id)initFromSVGFileNamed:(NSString *)nameOfSVG;
+
+-(id)initWithSVGFileAtURL:(NSURL *)fileURL delegate:(id <PocketSVGDelegate>)svgDel;
 
 #if !TARGET_OS_IPHONE
 + (CGPathRef)getCGPathFromNSBezierPath:(NSBezierPath *)quartzPath;
