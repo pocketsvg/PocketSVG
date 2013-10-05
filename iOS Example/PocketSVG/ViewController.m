@@ -35,7 +35,7 @@
     //1: Create a PocketSVG object from your SVG file:
 //    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"GD-eyes"];
     
-    NSURL * fileURL = [[NSBundle mainBundle] URLForResource:@"GD-eyes" withExtension:@"svg"];
+    NSURL * fileURL = [[NSBundle mainBundle] URLForResource:@"BezierCurve1" withExtension:@"svg"];
     
     PocketSVG *myVectorDrawing = [[PocketSVG alloc] initWithSVGFileAtURL:fileURL delegate:self];
     
