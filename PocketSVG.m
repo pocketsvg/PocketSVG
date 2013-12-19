@@ -105,6 +105,21 @@ unichar const invalidCommand		= '*';
     return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
 }
 
+- (id)initWithURL:(NSURL *)svgFileURL{
+    NSError *error = nil;
+    
+    NSString *svgString = [NSString stringWithContentsOfURL:svgFileURL
+                                                   encoding:NSStringEncodingConversionExternalRepresentation
+                                                      error:&error];
+    if (error) {
+        NSLog(@"*** PocketSVG Error: Couldn't read contents of SVG file named %@:", svgFileURL);
+        NSLog(@"%@", error);
+        return nil;
+    }
+    
+    return [self initFromSVGPathNodeDAttr:[self dStringFromRawSVGString:svgString]];
+}
+
 /********
  Returns the content of the SVG's d attribute as an NSString
 */
@@ -125,14 +140,18 @@ unichar const invalidCommand		= '*';
         NSLog(@"%@", error);
         return nil;
     }
-    
+
+    return [self dStringFromRawSVGString:mySVGString];
+}
+
+- (NSString*)dStringFromRawSVGString:(NSString*)svgString{
     //Uncomment the two lines below to print the raw data of the SVG file:
     //NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
     //NSLog(@"%@", mySVGString);
     
-    mySVGString = [mySVGString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
+    svgString = [svgString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
     
-    NSArray *components = [mySVGString componentsSeparatedByString:@"d="];
+    NSArray *components = [svgString componentsSeparatedByString:@"d="];
     
     if([components count] < 2){
         NSLog(@"*** PocketSVG Error: No d attribute found in SVG file.");
@@ -141,10 +160,10 @@ unichar const invalidCommand		= '*';
     
     NSString *dString = [components lastObject];
     dString = [dString substringFromIndex:1];
-    NSRange d = [dString rangeOfString:@"\""];    
+    NSRange d = [dString rangeOfString:@"\""];
     dString = [dString substringToIndex:d.location];
     dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
-        
+    
     NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
@@ -153,9 +172,7 @@ unichar const invalidCommand		= '*';
     //NSLog(@"*** PocketSVG: Path data of %@ is: %@", nameOfSVG, dString);
     
     return dString;
-    
 }
-
 
 - (id)initFromSVGPathNodeDAttr:(NSString *)attr
 {

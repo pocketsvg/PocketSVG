@@ -50,7 +50,23 @@
 @property(nonatomic, readonly) NSBezierPath *bezier;
 #endif
 
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG;
+/**
+ *  Returns a PocketSVG object initialized with nameOfSVG
+ *
+ *  @param nameOfSVG The name of the SVG file.  The methods looks for a SVG with the specified in the application's main bundle
+ *
+ *  @return The PocketSVG object for the specified file, or nil if the object could not be found or could not be parsed.
+ */
+- (instancetype)initFromSVGFileNamed:(NSString *)nameOfSVG;
+
+/**
+ *  Returns a PocketSVG object initialized with svgFileURL
+ *
+ *  @param svgFileURL The URL to the file
+ *
+ *  @return The PocketSVG object for the specified file, or nil if the object could not be found or could not be parsed.
+ */
+- (instancetype)initWithURL:(NSURL *)svgFileURL;
 
 #if !TARGET_OS_IPHONE
 + (CGPathRef)getCGPathFromNSBezierPath:(NSBezierPath *)quartzPath;
