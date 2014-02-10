@@ -100,14 +100,42 @@ unichar const invalidCommand		= '*';
 
 @synthesize bezier;
 
-
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
-    return [self initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
++ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG
+{
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
+#if TARGET_OS_IPHONE
+    return pocketSVG.bezier.CGPath;
+#else
+    return [PocketSVG getCGPathFromNSBezierPath:pocketSVG.bezier];
+#endif
 }
 
-- (id)initWithURL:(NSURL *)svgFileURL{
-    NSError *error = nil;
++ (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
+{
+    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self dStringFromRawSVGString:svgString]];
+#if TARGET_OS_IPHONE
+    return pocketSVG.bezier.CGPath;
+#else
+    return [PocketSVG getCGPathFromNSBezierPath:pocketSVG.bezier];
+#endif
+}
+
+- (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
+    return [self initFromSVGPathNodeDAttr:[[self class] parseSVGNamed:nameOfSVG]];
+}
+
+- (id)initWithURL:(NSURL *)svgFileURL
+{
+    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
     
+    return [self initFromSVGPathNodeDAttr:[[self class] dStringFromRawSVGString:svgString]];
+}
+
++ (NSString *)svgStringAtURL:(NSURL *)svgFileURL
+{
+    NSError *error = nil;
+
     NSString *svgString = [NSString stringWithContentsOfURL:svgFileURL
                                                    encoding:NSStringEncodingConversionExternalRepresentation
                                                       error:&error];
@@ -116,14 +144,15 @@ unichar const invalidCommand		= '*';
         NSLog(@"%@", error);
         return nil;
     }
-    
-    return [self initFromSVGPathNodeDAttr:[self dStringFromRawSVGString:svgString]];
+    return svgString;
 }
+
+
 
 /********
  Returns the content of the SVG's d attribute as an NSString
 */
--(NSString *)parseSVGNamed:(NSString *)nameOfSVG{
++ (NSString *)parseSVGNamed:(NSString *)nameOfSVG{
     
     NSString *pathOfSVGFile = [[NSBundle mainBundle] pathForResource:nameOfSVG ofType:@"svg"];
     
@@ -141,10 +170,10 @@ unichar const invalidCommand		= '*';
         return nil;
     }
 
-    return [self dStringFromRawSVGString:mySVGString];
+    return [[self class] dStringFromRawSVGString:mySVGString];
 }
 
-- (NSString*)dStringFromRawSVGString:(NSString*)svgString{
++ (NSString*)dStringFromRawSVGString:(NSString*)svgString{
     //Uncomment the two lines below to print the raw data of the SVG file:
     //NSLog(@"*** PocketSVG: Raw SVG data of %@:", nameOfSVG);
     //NSLog(@"%@", mySVGString);
