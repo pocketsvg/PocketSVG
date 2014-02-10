@@ -17,8 +17,6 @@
 		B0A9DB9B15CA9B340095DFAF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DB9915CA9B340095DFAF /* InfoPlist.strings */; };
 		B0A9DB9D15CA9B340095DFAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DB9C15CA9B340095DFAF /* main.m */; };
 		B0A9DBA115CA9B340095DFAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA015CA9B340095DFAF /* AppDelegate.m */; };
-		B0A9DBA415CA9B340095DFAF /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */; };
-		B0A9DBA715CA9B340095DFAF /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */; };
 		B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA915CA9B340095DFAF /* ViewController.m */; };
 		B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -39,8 +37,6 @@
 		B0A9DB9E15CA9B340095DFAF /* PocketSVG-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PocketSVG-Prefix.pch"; sourceTree = "<group>"; };
 		B0A9DB9F15CA9B340095DFAF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B0A9DBA015CA9B340095DFAF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B0A9DBA315CA9B340095DFAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		B0A9DBA615CA9B340095DFAF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		B0A9DBA815CA9B340095DFAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B0A9DBA915CA9B340095DFAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -97,8 +93,6 @@
 				B0392690163F072800EF033B /* BezierCurve3.svg */,
 				B0A9DB9F15CA9B340095DFAF /* AppDelegate.h */,
 				B0A9DBA015CA9B340095DFAF /* AppDelegate.m */,
-				B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */,
-				B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */,
 				B039268B163F072100EF033B /* PocketSVG.h */,
 				B039268C163F072100EF033B /* PocketSVG.m */,
 				B0A9DBA815CA9B340095DFAF /* ViewController.h */,
@@ -170,8 +164,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0A9DB9B15CA9B340095DFAF /* InfoPlist.strings in Resources */,
-				B0A9DBA415CA9B340095DFAF /* MainStoryboard_iPhone.storyboard in Resources */,
-				B0A9DBA715CA9B340095DFAF /* MainStoryboard_iPad.storyboard in Resources */,
 				B0392691163F072800EF033B /* BezierCurve1.svg in Resources */,
 				B0392692163F072800EF033B /* BezierCurve2.svg in Resources */,
 				B0392693163F072800EF033B /* BezierCurve3.svg in Resources */,
@@ -201,22 +193,6 @@
 				B0A9DB9A15CA9B340095DFAF /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		B0A9DBA215CA9B340095DFAF /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0A9DBA315CA9B340095DFAF /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		B0A9DBA515CA9B340095DFAF /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0A9DBA615CA9B340095DFAF /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -272,10 +248,13 @@
 		B0A9DBAE15CA9B340095DFAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -283,10 +262,13 @@
 		B0A9DBAF15CA9B340095DFAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
