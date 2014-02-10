@@ -33,39 +33,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
-    //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve1"];
     
+    //1: Turn your SVG into a CGPath:
+    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
     
-    //2: Its bezier property is the corresponding UIBezierPath:
-    UIBezierPath *myBezierPath = myVectorDrawing.bezier;
-    
-    
-    //3: To display it on screen, create a CAShapeLayer and set 
-    //the CGPath property of the above UIBezierPath as its 
-    //path. 
+    //2: To display it on screen, you can create a CAShapeLayer
+    //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myBezierPath.CGPath;
+    myShapeLayer.path = myPath;
     
     
-    //4: Fiddle with it using CAShapeLayer's properties:
+    //3: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
     
-    //5: Display it!
+    //4: Display it!
     [self.view.layer addSublayer:myShapeLayer];
     
     
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
