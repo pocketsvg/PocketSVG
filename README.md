@@ -16,38 +16,33 @@ Feedback, improvements, and pull requests are welcome.
 1. Follow these easy steps:
 
 ```obj-c
-    //1: Create a PocketSVG object from your SVG file:
-    PocketSVG *myVectorDrawing = [[PocketSVG alloc] initFromSVGFileNamed:@"BezierCurve3"];
+    //1: Turn your SVG into a CGPath:
+    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
     
-    //2: Its bezier property is the corresponding UIBezierPath:
-    UIBezierPath *myBezierPath = myVectorDrawing.bezier;
-    
-    //3: To display it on screen, create a CAShapeLayer and set 
-    //the CGPath property of the above UIBezierPath as its 
-    //path. 
+    //2: To display it on screen, you can create a CAShapeLayer
+    //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myBezierPath.CGPath;
+    myShapeLayer.path = myPath;
     
-    //4: Fiddle with it using CAShapeLayer's properties:
+    //3: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
-    //5: Display it!
+
+    //4: Display it!
     [self.view.layer addSublayer:myShapeLayer];
-```
-Don't forget to add the __QuartzCore__ framework to your project ([here's how](http://stackoverflow.com/a/3377682/1072846)) and import it:
-```obj-c
-#import <QuartzCore/QuartzCore.h>
 ```
 
 ## Useful Documentation
-* [An SVG's d attribute](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification 
-* [UIBezierPaths](http://developer.apple.com/library/ios/#documentation/uikit/reference/UIBezierPath_class/Reference/Reference.html) - Class Reference 
+* [An SVG's d attribute](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification.
+* [Core Graphics Paths](https://developer.apple.com/library/mac/documentation/graphicsimaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF101) - from Apple's Quartz 2D Programming Guide.
+* [CGPath](https://developer.apple.com/library/mac/documentation/graphicsimaging/reference/CGPath/Reference/reference.html) - Class Reference.
 * [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) - Class Reference. Tells you which properties of the shape/path can be manipulated. 
-* [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS
+* [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS.
 
 ## Latest Fixes
+* PocketSVG is now on CocoaPods!
+* Created factory methods to obtain `CGPaths`.
 * Added support for NSBezierPaths (thanks to [mcianni](https://github.com/mcianni)).
 * Fixed problem that causes SVGs to render with wrong frame dimensions.
 * Fixed problem that causes some SVGs to render incorrectly.
@@ -58,7 +53,6 @@ Don't forget to add the __QuartzCore__ framework to your project ([here's how](h
 * Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html).
 * Support for SVGs with more than one path (currently PocketSVG renders the last path).
 * Improve parser efficiency.
-* Make it a category on CAShapeLayer?
 
 ## Support
 Please ask questions and report bugs on [the project's Issues Page](https://github.com/arielelkin/PocketSVG/issues). 
