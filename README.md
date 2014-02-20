@@ -34,11 +34,11 @@ Feedback, improvements, and pull requests are welcome.
 ```
 
 ## Useful Documentation
-* [An SVG's d attribute](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification.
-* [Core Graphics Paths](https://developer.apple.com/library/mac/documentation/graphicsimaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF101) - from Apple's Quartz 2D Programming Guide.
+* [The 'path' element of an SVG](http://www.w3.org/TR/SVG/paths.html#PathElement) – from the SVG specification. PocketSVG uses the data in the SVG's **d=** attribute, which defines the outlines of shapes. 
+* [Core Graphics Paths](https://developer.apple.com/library/mac/documentation/graphicsimaging/Conceptual/drawingwithquartz2d/dq_paths/dq_paths.html#//apple_ref/doc/uid/TP30001066-CH211-TPXREF101) – from Apple's Quartz 2D Programming Guide.
 * [CGPath](https://developer.apple.com/library/mac/documentation/graphicsimaging/reference/CGPath/Reference/reference.html) - Class Reference.
-* [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) - Class Reference. Tells you which properties of the shape/path can be manipulated. 
-* [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) - From Apple's Drawing and Printing Guide for iOS.
+* [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) – Class Reference. Tells you which properties of the shape/path can be manipulated. 
+* [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) – From Apple's Drawing and Printing Guide for iOS.
 
 ## Latest Fixes
 * PocketSVG is now on CocoaPods!
