@@ -69,6 +69,24 @@
  */
 + (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL;
 
+/*!
+ *  Returns a CGPathRef corresponding to the path represented by a string with SVG formatted contents.
+ *
+ *  @param svgString The string containing the SVG formatted path.
+ *
+ *  @return A CGPathRef object for the SVG in the string, or nil if no path is found or the string could not be parsed.
+ */
++ (CGPathRef)pathFromSVGString:(NSString *)svgString;
+
+/*!
+ *  Returns a CGPathRef corresponding to the path represented by a string with the contents of the d attribute of a path node in an SVG file.
+ *
+ *  @param dAttribute The string containing the d attribute with the path.
+ *
+ *  @return A CGPathRef object for the path in the string, or nil if no path is found or the string could not be parsed.
+ */
++ (CGPathRef)pathFromDAttribute:(NSString *)dAttribute;
+
 
 /*!
  *  Returns a PocketSVG object initialized with nameOfSVG
