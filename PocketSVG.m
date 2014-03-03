@@ -113,7 +113,18 @@ unichar const invalidCommand		= '*';
 + (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
 {
     NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self dStringFromRawSVGString:svgString]];
+    return [[self class] pathFromSVGString:svgString];
+}
+
++ (CGPathRef)pathFromSVGString:(NSString *)svgString
+{
+    NSString *dAttribute = [self dStringFromRawSVGString:svgString];
+    return [self pathFromDAttribute:dAttribute];
+}
+
++ (CGPathRef)pathFromDAttribute:(NSString *)dAttribute
+{
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:dAttribute];
 #if TARGET_OS_IPHONE
     return pocketSVG.bezier.CGPath;
 #else
