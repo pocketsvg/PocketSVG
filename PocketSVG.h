@@ -22,11 +22,8 @@
 //  THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#else
-#import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 /*!
  *  Returns an array of CGPathRefs contained within the passed SVG string.
@@ -38,6 +35,8 @@
 NSArray *PSVGPathsFromSVGString(NSString *svgString);
 
 #if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+
 @interface UIBezierPath (PocketSVG)
 + (NSArray *)ps_pathsFromSVGString:(NSString *)svgString;
 @end
