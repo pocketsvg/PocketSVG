@@ -34,10 +34,20 @@
  */
 NSArray *PSVGPathsFromSVGString(NSString *svgString);
 
+/*!
+ *  Returns SVG representing `paths`
+ *
+ *  @param paths An array of CGPathRefs to construct the SVG from
+ *
+ *  @return SVG representing `paths`
+ */
+NSString *PSVGFromPaths(NSArray *paths);
+
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
 @interface UIBezierPath (PocketSVG)
 + (NSArray *)ps_pathsFromSVGString:(NSString *)svgString;
+- (NSString *)ps_SVGRepresentation;
 @end
 #endif

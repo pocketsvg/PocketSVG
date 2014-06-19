@@ -80,6 +80,53 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
     return result;
 }
 
+static void _pathWalker(void *info, const CGPathElement *el);
+
+NSString *PSVGFromPaths(NSArray *paths)
+{
+    NSMutableString * const svg = [@"<svg xmlns=\"http://www.w3.org/2000/svg\""
+                                   @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
+                                   @" width=\"100%\" height=\"100%\">\n" mutableCopy];
+    
+    // Build polylines, simplify them if necessary and append to the SVG output
+    for(NSUInteger i = 0; i < [paths count]; ++i) {
+        [svg appendString:@"  <path d=\""];
+        CGPathApply((__bridge CGPathRef)paths[i], (__bridge void *)svg, &_pathWalker);
+        [svg appendString:@"\"/>\n"];
+    }
+    
+    [svg appendString:@"</svg>"];
+    return svg;
+
+}
+
+static void _pathWalker(void *info, const CGPathElement *el)
+{
+    NSMutableString *svg = (__bridge id)info;
+    
+    switch(el->type) {
+        case kCGPathElementMoveToPoint:
+            [svg appendFormat:@"M%f,%f", el->points[0].x, el->points[0].y];
+            break;
+        case kCGPathElementAddLineToPoint:
+            [svg appendFormat:@"L%f,%f", el->points[0].x, el->points[0].y];
+            break;
+        case kCGPathElementAddQuadCurveToPoint:
+            [svg appendFormat:@"Q%f,%f,%f,%f", el->points[0].x, el->points[0].y,
+                                               el->points[1].x, el->points[1].y];
+            break;
+        case kCGPathElementAddCurveToPoint:
+            [svg appendFormat:@"C%f,%f,%f,%f,%f,%f", el->points[0].x, el->points[0].y,
+                                                     el->points[1].x, el->points[1].y,
+                                                     el->points[2].x, el->points[2].y];
+            break;
+        case kCGPathElementCloseSubpath:
+            [svg appendFormat:@"Z"];
+            break;
+	}
+}
+
+
 
 @implementation PSVGParser
 
@@ -270,6 +317,11 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
         [paths addObject:[UIBezierPath bezierPathWithCGPath:(__bridge CGPathRef)pathRef]];
     }
     return paths;
+}
+
+- (NSString *)ps_SVGRepresentation
+{
+    return PSVGFromPaths(@[(__bridge id)self.CGPath]);
 }
 @end
 #endif
