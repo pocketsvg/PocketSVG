@@ -16,12 +16,15 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
+    NSString *svg = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BezierCurve1" ofType:@"svg"]
+                                          usedEncoding:NULL
+                                                 error:NULL];
+    NSArray *paths = PSVGPathsFromSVGString(svg);
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
+    myShapeLayer.path = (__bridge CGPathRef)paths[0];
     
     //3: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1);
