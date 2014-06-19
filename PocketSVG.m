@@ -131,7 +131,6 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
 
 
 @implementation PSVGParser
-@synthesize path;
 
 - (id)initWithSVGPathNodeDAttr:(NSString *)attr
 {
