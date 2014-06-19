@@ -19,7 +19,7 @@ Feedback, improvements, and pull requests are welcome.
 
 ```obj-c
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
+    CGPathRef myPath = (__bridge CGPathRef)[PSVGPathsFromSVGString(mySVGString) firstObject]
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
