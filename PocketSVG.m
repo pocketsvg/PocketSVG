@@ -148,7 +148,9 @@ static void _pathWalker(void *info, const CGPathElement *el)
     NSLog(@"d=%@", attr);
 #endif
     NSScanner *scanner = [NSScanner scannerWithString:attr];
-    NSCharacterSet *separators = [NSCharacterSet characterSetWithCharactersInString:@",\t"];
+    NSMutableCharacterSet *separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
+    [separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    scanner.charactersToBeSkipped = separators;
     
     NSMutableArray *operands = [NSMutableArray new];
     NSString *cmd;
@@ -157,10 +159,8 @@ static void _pathWalker(void *info, const CGPathElement *el)
             scanner.scanLocation -= [cmd length]-1;
         } else {
             float operand;
-            [scanner scanCharactersFromSet:separators intoString:NULL];
             while([scanner scanFloat:&operand]) {
                 [operands addObject:@(operand)];
-                [scanner scanCharactersFromSet:separators intoString:NULL];
             }
         }
         [self handleCommand:[cmd characterAtIndex:0] withOperands:operands];
