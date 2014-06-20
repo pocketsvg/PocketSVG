@@ -63,10 +63,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
     NSMutableArray *dStrings = [NSMutableArray arrayWithCapacity:[matches count]];
     for(NSTextCheckingResult *match in matches) {
         NSString *str = [svgString substringWithRange:(NSRange)[match rangeAtIndex:1]];
-        [dStrings addObject:[str stringByReplacingOccurrencesOfString:@"[\\s\\n\\t]"
-                                                           withString:@""
-                                                              options:NSRegularExpressionSearch
-                                                                range:(NSRange) { 0, [str length] }]];
+        [dStrings addObject:str];
     }
     
     NSMutableArray *result = [NSMutableArray new];
@@ -149,7 +146,12 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (void)parsePath:(NSString *)attr
 {
+#ifdef DEBUG
+    NSLog(@"d=%@", attr);
+#endif
     NSScanner *scanner = [NSScanner scannerWithString:attr];
+    NSCharacterSet *separators = [NSCharacterSet characterSetWithCharactersInString:@",\t"];
+    
     NSMutableArray *operands = [NSMutableArray new];
     NSString *cmd;
     while([scanner scanCharactersFromSet:_commandSet intoString:&cmd]) {
@@ -157,18 +159,25 @@ static void _pathWalker(void *info, const CGPathElement *el)
             scanner.scanLocation -= [cmd length]-1;
         } else {
             float operand;
+            [scanner scanCharactersFromSet:separators intoString:NULL];
             while([scanner scanFloat:&operand]) {
                 [operands addObject:@(operand)];
-                [scanner scanString:@"," intoString:NULL];
+                [scanner scanCharactersFromSet:separators intoString:NULL];
             }
         }
         [self handleCommand:[cmd characterAtIndex:0] withOperands:operands];
         [operands removeAllObjects];
     }
+    if(scanner.scanLocation < [attr length])
+        NSLog(@"*** PocketSVG parse error at index: %d: '%c'",
+              (int)scanner.scanLocation, [attr characterAtIndex:scanner.scanLocation]);
 }
 
 - (void)handleCommand:(unichar)opcode withOperands:(NSArray *)operands
 {
+#ifdef DEBUG
+    NSLog(@"%c %@", opcode, operands);
+#endif
     switch (opcode) {
         case 'M':
         case 'm':
@@ -189,6 +198,10 @@ static void _pathWalker(void *info, const CGPathElement *el)
         case 'S':
         case 's':
             [self appendSVGSCommand:opcode withOperands:operands];
+            break;
+        case 'a':
+        case 'A':
+            NSLog(@"*** PocketSVG Error: Elliptical arcs not supported"); // TODO
             break;
         case 'Z':
         case 'z':
