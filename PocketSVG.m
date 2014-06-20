@@ -48,6 +48,8 @@ NSString * const commandCharString   = @"CcMmLlHhVvZzqQaAsS";
 
 NSArray *PSVGPathsFromSVGString(NSString *svgString)
 {
+    NSParameterAssert(svgString);
+    
     NSRegularExpression *dStringRegex = [NSRegularExpression
                                          regularExpressionWithPattern:@"[^\\w]d=\"([^\"]+)\""
                                          options:NSRegularExpressionCaseInsensitive
