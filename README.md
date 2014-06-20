@@ -1,10 +1,5 @@
 # PocketSVG
-An Objective-C class that converts Scalable Vector Graphics (SVG) into:
-* CGPaths
-* CAShapeLayers
-* UIBezierPaths
-* NSBezierCurves 
-
+An Objective-C class that converts Scalable Vector Graphics (SVG) into CGPathRefs.
 This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
 
 Feedback, improvements, and pull requests are welcome.
@@ -18,21 +13,23 @@ Feedback, improvements, and pull requests are welcome.
 1. Follow these easy steps:
 
 ```obj-c
-    //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = (__bridge CGPathRef)[PSVGPathsFromSVGString(mySVGString) firstObject]
+    NSString *svgPath = [[NSBundle mainBundle] pathForResource:@"myImage" ofType:@"svg"];
+    NSString *svgString = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
     
-    //2: To display it on screen, you can create a CAShapeLayer
-    //and set myPath as its path property:
-    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
+    // 1: Turn your SVG into CGPathRefs:
+    for(id path in PSVGPathsFromSVGString(svgString)) {
+        // 2: To display a path on screen, you can create a CAShapeLayer:
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        layer.path = (__bridge CGPathRef)path;
+        
+        // 3: Configure how it should be rendered
+        layer.strokeColor = [[UIColor redColor] CGColor];
+        layer.lineWidth   = 4;
+        layer.fillColor   = [[UIColor clearColor] CGColor];
     
-    //3: Fiddle with it using CAShapeLayer's properties:
-    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
-    myShapeLayer.lineWidth = 4;
-    myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-
-    //4: Display it!
-    [self.view.layer addSublayer:myShapeLayer];
+        // 4: Display it!
+        [self.view.layer addSublayer:layer];
+    }
 ```
 
 ## Useful Documentation
