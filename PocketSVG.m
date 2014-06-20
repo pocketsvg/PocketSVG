@@ -48,7 +48,7 @@ NSString * const commandCharString   = @"CcMmLlHhVvZzqQaAsS";
 
 NSArray *PSVGPathsFromSVGString(NSString *svgString)
 {
-    NSParameterAssert(svgString);
+    NSCParameterAssert(svgString);
     
     NSRegularExpression *dStringRegex = [NSRegularExpression
                                          regularExpressionWithPattern:@"[^\\w]d=\"([^\"]+)\""
@@ -62,14 +62,10 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
         NSLog(@"*** PocketSVG Error: No d attributes found in SVG file.");
         return nil;
     }
-    NSMutableArray *dStrings = [NSMutableArray arrayWithCapacity:[matches count]];
-    for(NSTextCheckingResult *match in matches) {
-        NSString *str = [svgString substringWithRange:(NSRange)[match rangeAtIndex:1]];
-        [dStrings addObject:str];
-    }
     
     NSMutableArray *result = [NSMutableArray new];
-    for(NSString *dAttr in dStrings) {
+    for(NSTextCheckingResult *match in matches) {
+        NSString *dAttr = [svgString substringWithRange:(NSRange)[match rangeAtIndex:1]];
         CGPathRef path = [[[PSVGParser alloc] initWithSVGPathNodeDAttr:dAttr] path];
         if(!path)
             NSLog(@"*** PocketSVG Error: Invalid d attribute: `%@`", dAttr);
