@@ -25,24 +25,19 @@
 
 #import "PocketSVG.h"
 
-NSString * const commandCharString   = @"CcMmLlHhVvZzqQaAsS";
+NSString * const kPSVGValidCommands = @"CcMmLlHhVvZzqQaAsS";
 
 @interface PSVGParser : NSObject {
-    float            _pathScale;
     CGMutablePathRef _path;
-    CGPoint          _lastPoint;
     CGPoint          _lastControlPoint;
-    BOOL             _validLastControlPoint;
-    NSCharacterSet  *_commandSet;
+    unichar  _lastCommand;
 }
-@property(nonatomic, readonly) CGPathRef path;
 
-- (instancetype)initWithSVGPathNodeDAttr:(NSString *)attr;
-- (void)parsePath:(NSString *)attr;
-- (void)appendSVGMCommand:(unichar)cmd withOperands:(NSArray *)operands;
-- (void)appendSVGLCommand:(unichar)cmd withOperands:(NSArray *)operands;
-- (void)appendSVGCCommand:(unichar)cmd withOperands:(NSArray *)operands;
-- (void)appendSVGSCommand:(unichar)cmd withOperands:(NSArray *)operands;
+- (CGPathRef)parsePath:(NSString *)attr;
+- (void)appendSVGMoveto:(unichar)cmd withOperands:(NSArray *)operands;
+- (void)appendSVGLineto:(unichar)cmd withOperands:(NSArray *)operands;
+- (void)appendSVGCurve:(unichar)cmd withOperands:(NSArray *)operands;
+- (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands;
 @end
 
 
@@ -64,9 +59,10 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
     }
     
     NSMutableArray *result = [NSMutableArray new];
+    PSVGParser *parser = [PSVGParser new];
     for(NSTextCheckingResult *match in matches) {
         NSString *dAttr = [svgString substringWithRange:(NSRange)[match rangeAtIndex:1]];
-        CGPathRef path = [[[PSVGParser alloc] initWithSVGPathNodeDAttr:dAttr] path];
+        CGPathRef path = [parser parsePath:dAttr];
         if(!path)
             NSLog(@"*** PocketSVG Error: Invalid d attribute: `%@`", dAttr);
         else
@@ -125,36 +121,24 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 @implementation PSVGParser
 
-- (instancetype)initWithSVGPathNodeDAttr:(NSString *)attr
-{
-    if((self = [super init])) {
-        _path = CGPathCreateMutable();
-        
-        _lastPoint = CGPointMake(0, 0);
-        _validLastControlPoint = NO;
-        _pathScale = 0;
-        _commandSet   = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-        [self parsePath:attr];
-    }
-    return self;
-}
-
-
-#pragma mark - Private methods
-
-- (void)parsePath:(NSString *)attr
+- (CGPathRef)parsePath:(NSString *)attr
 {
 #ifdef DEBUG
     NSLog(@"d=%@", attr);
 #endif
+    _path = CGPathCreateMutable();
+    CGPathMoveToPoint(_path, NULL, 0, 0);
+    
     NSScanner *scanner = [NSScanner scannerWithString:attr];
     NSMutableCharacterSet *separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
     [separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     scanner.charactersToBeSkipped = separators;
     
-    NSMutableArray *operands = [NSMutableArray new];
+    NSCharacterSet *commands = [NSCharacterSet characterSetWithCharactersInString:kPSVGValidCommands];
+    
     NSString *cmd;
-    while([scanner scanCharactersFromSet:_commandSet intoString:&cmd]) {
+    NSMutableArray *operands = [NSMutableArray new];
+    while([scanner scanCharactersFromSet:commands intoString:&cmd]) {
         if([cmd length] > 1) {
             scanner.scanLocation -= [cmd length]-1;
         } else {
@@ -169,6 +153,8 @@ static void _pathWalker(void *info, const CGPathElement *el)
     if(scanner.scanLocation < [attr length])
         NSLog(@"*** PocketSVG parse error at index: %d: '%c'",
               (int)scanner.scanLocation, [attr characterAtIndex:scanner.scanLocation]);
+    
+    return _path;
 }
 
 - (void)handleCommand:(unichar)opcode withOperands:(NSArray *)operands
@@ -179,7 +165,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
     switch (opcode) {
         case 'M':
         case 'm':
-            [self appendSVGMCommand:opcode withOperands:operands];
+            [self appendSVGMoveto:opcode withOperands:operands];
             break;
         case 'L':
         case 'l':
@@ -187,15 +173,15 @@ static void _pathWalker(void *info, const CGPathElement *el)
         case 'h':
         case 'V':
         case 'v':
-            [self appendSVGLCommand:opcode withOperands:operands];
+            [self appendSVGLineto:opcode withOperands:operands];
             break;
         case 'C':
         case 'c':
-            [self appendSVGCCommand:opcode withOperands:operands];
+            [self appendSVGCurve:opcode withOperands:operands];
             break;
         case 'S':
         case 's':
-            [self appendSVGSCommand:opcode withOperands:operands];
+            [self appendSVGShorthandCurve:opcode withOperands:operands];
             break;
         case 'a':
         case 'A':
@@ -209,20 +195,21 @@ static void _pathWalker(void *info, const CGPathElement *el)
             NSLog(@"*** PocketSVG Error: Cannot process command : '%c'", opcode);
             break;
     }
+    _lastCommand         = opcode;
 }
 
-- (void)appendSVGMCommand:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGMoveto:(unichar)cmd withOperands:(NSArray *)operands
 {
-    _validLastControlPoint = NO;
     if ([operands count]%2 != 0) {
         NSLog(@"*** PocketSVG Error: Invalid parameter count in M style token");
         return;
     }
     
     for(NSUInteger i = 0; i < [operands count]; ++i) {
-        CGFloat x = [operands[i++] floatValue] + (cmd == 'm' ? _lastPoint.x : 0);
-        CGFloat y = [operands[i]   floatValue] + (cmd == 'm' ? _lastPoint.y : 0);
-        _lastPoint = CGPointMake(x, y);
+        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat x = [operands[i++] floatValue] + (cmd == 'm' ? currentPoint.x : 0);
+        CGFloat y = [operands[i]   floatValue] + (cmd == 'm' ? currentPoint.y : 0);
+
         if (i == 1) {
             CGPathMoveToPoint(_path, NULL, x, y);
         }
@@ -232,16 +219,16 @@ static void _pathWalker(void *info, const CGPathElement *el)
     }
 }
 
-- (void)appendSVGLCommand:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGLineto:(unichar)cmd withOperands:(NSArray *)operands
 {
-    _validLastControlPoint = NO;
     for(NSUInteger i = 0; i < [operands count]; ++i) {
         CGFloat x = 0;
         CGFloat y = 0;
+        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
         switch (cmd) {
             case 'l':
-                x = _lastPoint.x;
-                y = _lastPoint.y;
+                x = currentPoint.x;
+                y = currentPoint.y;
             case 'L':
                 x += [operands[i] floatValue];
                 if (++i == [operands count]) {
@@ -251,27 +238,26 @@ static void _pathWalker(void *info, const CGPathElement *el)
                 y += [operands[i] floatValue];
                 break;
             case 'h' :
-                x = _lastPoint.x;                
+                x = currentPoint.x;
             case 'H' :
                 x += [operands[i] floatValue];
-                y = _lastPoint.y;
+                y = currentPoint.y;
                 break;
             case 'v' :
-                y = _lastPoint.y;
+                y = currentPoint.y;
             case 'V' :
                 y += [operands[i] floatValue];
-                x = _lastPoint.x;
+                x = currentPoint.x;
                 break;
             default:
                 NSLog(@"*** PocketSVG Error: Unrecognised L style command.");
                 return;
         }
-        _lastPoint = CGPointMake(x, y);
         CGPathAddLineToPoint(_path, NULL, x, y);
     }
 }
 
-- (void)appendSVGCCommand:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
     if([operands count] != 6) {
         NSLog(@"*** PocketSVG Error: Insufficient parameters for C command");
@@ -279,38 +265,39 @@ static void _pathWalker(void *info, const CGPathElement *el)
     }
     
     // (x1, y1, x2, y2, x, y)
-    CGFloat x1 = [operands[0] floatValue] + (cmd == 'c' ? _lastPoint.x : 0);
-    CGFloat y1 = [operands[1] floatValue] + (cmd == 'c' ? _lastPoint.y : 0);
-    CGFloat x2 = [operands[2] floatValue] + (cmd == 'c' ? _lastPoint.x : 0);
-    CGFloat y2 = [operands[3] floatValue] + (cmd == 'c' ? _lastPoint.y : 0);
-    CGFloat x  = [operands[4] floatValue] + (cmd == 'c' ? _lastPoint.x : 0);
-    CGFloat y  = [operands[5] floatValue] + (cmd == 'c' ? _lastPoint.y : 0);
-    _lastPoint = CGPointMake(x, y);
+    CGPoint currentPoint = CGPathGetCurrentPoint(_path);
+    CGFloat x1 = [operands[0] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+    CGFloat y1 = [operands[1] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+    CGFloat x2 = [operands[2] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+    CGFloat y2 = [operands[3] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+    CGFloat x  = [operands[4] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+    CGFloat y  = [operands[5] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+    
     CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
     _lastControlPoint = CGPointMake(x2, y2);
-    _validLastControlPoint = YES;
 }
 
-- (void)appendSVGSCommand:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
-    if (!_validLastControlPoint) {
-        NSLog(@"*** PocketSVG Error: Invalid last control point in S command");
-    } else if([operands count] != 4) {
+    if([operands count] != 4) {
         NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
+        return;
+    } else if(_lastCommand != 'C' && _lastCommand != 'c' && _lastCommand != 'S' && _lastCommand != 's') {
+        NSLog(@"*** PocketSVG Error: S command must follow C or S");
         return;
     }
     
     // (x2, y2, x, y)
-    CGFloat x1 = _lastPoint.x + (_lastPoint.x - _lastControlPoint.x);
-    CGFloat y1 = _lastPoint.y + (_lastPoint.y - _lastControlPoint.y);
-    CGFloat x2 = [operands[0] floatValue] + (cmd == 's' ? _lastPoint.x : 0);
-    CGFloat y2 = [operands[1] floatValue] + (cmd == 's' ? _lastPoint.y : 0);
-    CGFloat x  = [operands[2] floatValue] + (cmd == 's' ? _lastPoint.x : 0);
-    CGFloat y  = [operands[3] floatValue] + (cmd == 's' ? _lastPoint.y : 0);
-    _lastPoint = CGPointMake(x, y);
+    CGPoint currentPoint = CGPathGetCurrentPoint(_path);
+    CGFloat x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
+    CGFloat y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
+    CGFloat x2 = [operands[0] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+    CGFloat y2 = [operands[1] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+    CGFloat x  = [operands[2] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+    CGFloat y  = [operands[3] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+
     CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
     _lastControlPoint = CGPointMake(x2, y2);
-    _validLastControlPoint = YES;
 }
 
 @end
