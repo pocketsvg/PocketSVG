@@ -79,7 +79,6 @@ NSString *PSVGFromPaths(NSArray *paths)
                                    @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
                                    @" width=\"100%\" height=\"100%\">\n" mutableCopy];
     
-    // Build polylines, simplify them if necessary and append to the SVG output
     for(NSUInteger i = 0; i < [paths count]; ++i) {
         [svg appendString:@"  <path d=\""];
         CGPathApply((__bridge CGPathRef)paths[i], (__bridge void *)svg, &_pathWalker);
