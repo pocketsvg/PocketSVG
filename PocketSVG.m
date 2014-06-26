@@ -45,10 +45,14 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
 {
     NSCParameterAssert(svgString);
     
-    NSRegularExpression *dStringRegex = [NSRegularExpression
-                                         regularExpressionWithPattern:@"[^\\w]d=\"([^\"]+)\""
-                                         options:NSRegularExpressionCaseInsensitive
-                                         error:nil];
+    static NSRegularExpression *dStringRegex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dStringRegex = [NSRegularExpression
+                        regularExpressionWithPattern:@"[^\\w]d=\"([^\"]+)\""
+                        options:NSRegularExpressionCaseInsensitive
+                        error:nil];
+    });
     NSArray *matches = [dStringRegex matchesInString:svgString
                                              options:0
                                                range:(NSRange) { 0, svgString.length }];
@@ -56,7 +60,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString)
     if([matches count] == 0) {
         NSLog(@"*** PocketSVG Error: No d attributes found in SVG file.");
         return nil;
-    }
+    }           
     
     NSMutableArray *result = [NSMutableArray new];
     PSVGParser *parser = [PSVGParser new];
