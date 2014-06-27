@@ -310,6 +310,14 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 #if TARGET_OS_IPHONE
 @implementation UIBezierPath (PocketSVG)
+
++ (NSArray *)ps_pathsFromSVGNamed:(NSString * const)aFileName inBundle:(NSBundle * const)aBundle
+{
+    NSString * const path = [aBundle pathForResource:aFileName ofType:@"svg"];
+    NSParameterAssert(aFileName && path);
+    return [self ps_pathsFromSVGString:[NSString stringWithContentsOfFile:path usedEncoding:NULL error:nil]];
+}
+
 + (NSArray *)ps_pathsFromSVGString:(NSString *)svgString
 {
     NSArray *pathRefs = PSVGPathsFromSVGString(svgString);
