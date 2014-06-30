@@ -126,7 +126,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (CGPathRef)parsePath:(NSString *)attr
 {
-#ifdef DEBUG
+#ifdef PSVG_DEBUG
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
@@ -162,7 +162,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (void)handleCommand:(unichar)opcode withOperands:(NSArray *)operands
 {
-#ifdef DEBUG
+#ifdef PSVG_DEBUG
     NSLog(@"%c %@", opcode, operands);
 #endif
     switch (opcode) {
