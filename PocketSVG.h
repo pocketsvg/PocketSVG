@@ -47,7 +47,7 @@ NSString *PSVGFromPaths(NSArray *paths);
 #import <UIKit/UIKit.h>
 
 @interface UIBezierPath (PocketSVG)
-+ (NSArray *)ps_pathsFromSVGNamed:(NSString *)aFileName inBundle:(NSBundle *)aBundle;
++ (NSArray *)ps_pathsFromContentsOfSVGFile:(NSString *)aPath;
 + (NSArray *)ps_pathsFromSVGString:(NSString *)svgString;
 - (NSString *)ps_SVGRepresentation;
 @end
