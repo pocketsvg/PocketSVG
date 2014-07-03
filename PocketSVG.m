@@ -100,17 +100,17 @@ static void _pathWalker(void *info, const CGPathElement *el)
     
     switch(el->type) {
         case kCGPathElementMoveToPoint:
-            [svg appendFormat:@"M%f,%f", el->points[0].x, el->points[0].y];
+            [svg appendFormat:@"M%.3g,%.3g", el->points[0].x, el->points[0].y];
             break;
         case kCGPathElementAddLineToPoint:
-            [svg appendFormat:@"L%f,%f", el->points[0].x, el->points[0].y];
+            [svg appendFormat:@"L%.3g,%.3g", el->points[0].x, el->points[0].y];
             break;
         case kCGPathElementAddQuadCurveToPoint:
-            [svg appendFormat:@"Q%f,%f,%f,%f", el->points[0].x, el->points[0].y,
+            [svg appendFormat:@"Q%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
                                                el->points[1].x, el->points[1].y];
             break;
         case kCGPathElementAddCurveToPoint:
-            [svg appendFormat:@"C%f,%f,%f,%f,%f,%f", el->points[0].x, el->points[0].y,
+            [svg appendFormat:@"C%.3g,%.3g,%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
                                                      el->points[1].x, el->points[1].y,
                                                      el->points[2].x, el->points[2].y];
             break;
