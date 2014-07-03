@@ -287,13 +287,12 @@ static void _pathWalker(void *info, const CGPathElement *el)
     if([operands count]%4 != 0) {
         NSLog(@"*** PocketSVG Error: Invalid number of parameters for S command");
         return;
-    } else if(_lastCommand != 'C' && _lastCommand != 'c' && _lastCommand != 'S' && _lastCommand != 's') {
-        NSLog(@"*** PocketSVG Error: S command must follow C or S");
-        return;
     }
+    if(_lastCommand != 'C' && _lastCommand != 'c' && _lastCommand != 'S' && _lastCommand != 's')
+        _lastControlPoint = CGPathGetCurrentPoint(_path);
     
     // (x2, y2, x, y)
-    for(NSUInteger i = 0; i < [operands count]; i += 6) {
+    for(NSUInteger i = 0; i < [operands count]; i += 4) {
         CGPoint currentPoint = CGPathGetCurrentPoint(_path);
         CGFloat x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
         CGFloat y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
