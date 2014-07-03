@@ -262,28 +262,30 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (void)appendSVGCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
-    if([operands count] != 6) {
-        NSLog(@"*** PocketSVG Error: Insufficient parameters for C command");
+    if([operands count]%6 != 0) {
+        NSLog(@"*** PocketSVG Error: Invalid number of parameters for C command");
         return;
     }
     
     // (x1, y1, x2, y2, x, y)
-    CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-    CGFloat x1 = [operands[0] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-    CGFloat y1 = [operands[1] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
-    CGFloat x2 = [operands[2] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-    CGFloat y2 = [operands[3] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
-    CGFloat x  = [operands[4] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-    CGFloat y  = [operands[5] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
-    
-    CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
-    _lastControlPoint = CGPointMake(x2, y2);
+    for(NSUInteger i = 0; i < [operands count]; i += 6) {
+        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat x1 = [operands[i+0] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat y1 = [operands[i+1] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        CGFloat x2 = [operands[i+2] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat y2 = [operands[i+3] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        CGFloat x  = [operands[i+4] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat y  = [operands[i+5] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        
+        CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
+        _lastControlPoint = CGPointMake(x2, y2);
+    }
 }
 
 - (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
-    if([operands count] != 4) {
-        NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
+    if([operands count]%4 != 0) {
+        NSLog(@"*** PocketSVG Error: Invalid number of parameters for S command");
         return;
     } else if(_lastCommand != 'C' && _lastCommand != 'c' && _lastCommand != 'S' && _lastCommand != 's') {
         NSLog(@"*** PocketSVG Error: S command must follow C or S");
@@ -291,16 +293,18 @@ static void _pathWalker(void *info, const CGPathElement *el)
     }
     
     // (x2, y2, x, y)
-    CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-    CGFloat x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
-    CGFloat y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
-    CGFloat x2 = [operands[0] floatValue] + (cmd == 's' ? currentPoint.x : 0);
-    CGFloat y2 = [operands[1] floatValue] + (cmd == 's' ? currentPoint.y : 0);
-    CGFloat x  = [operands[2] floatValue] + (cmd == 's' ? currentPoint.x : 0);
-    CGFloat y  = [operands[3] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+    for(NSUInteger i = 0; i < [operands count]; i += 6) {
+        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
+        CGFloat y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
+        CGFloat x2 = [operands[i+0] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+        CGFloat y2 = [operands[i+1] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+        CGFloat x  = [operands[i+2] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+        CGFloat y  = [operands[i+3] floatValue] + (cmd == 's' ? currentPoint.y : 0);
 
-    CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
-    _lastControlPoint = CGPointMake(x2, y2);
+        CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
+        _lastControlPoint = CGPointMake(x2, y2);
+    }
 }
 
 @end
