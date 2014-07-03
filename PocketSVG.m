@@ -107,12 +107,12 @@ static void _pathWalker(void *info, const CGPathElement *el)
             break;
         case kCGPathElementAddQuadCurveToPoint:
             [svg appendFormat:@"Q%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
-                                               el->points[1].x, el->points[1].y];
+                                                       el->points[1].x, el->points[1].y];
             break;
         case kCGPathElementAddCurveToPoint:
             [svg appendFormat:@"C%.3g,%.3g,%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
-                                                     el->points[1].x, el->points[1].y,
-                                                     el->points[2].x, el->points[2].y];
+                                                                 el->points[1].x, el->points[1].y,
+                                                                 el->points[2].x, el->points[2].y];
             break;
         case kCGPathElementCloseSubpath:
             [svg appendFormat:@"Z"];
