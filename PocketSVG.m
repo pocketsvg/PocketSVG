@@ -27,6 +27,9 @@
 
 NSString * const kPSVGValidCommands = @"CcMmLlHhVvZzqQaAsS";
 
+static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t triplet) CF_RETURNS_RETAINED;
+static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *tripletStr) CF_RETURNS_RETAINED;
+
 @interface PSVGParser : NSObject {
     CGMutablePathRef _path;
     CGPoint          _lastControlPoint;
@@ -40,39 +43,81 @@ NSString * const kPSVGValidCommands = @"CcMmLlHhVvZzqQaAsS";
 - (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands;
 @end
 
-
-NSArray *PSVGPathsFromSVGString(NSString *svgString)
+NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
 {
     NSCParameterAssert(svgString);
     
-    static NSRegularExpression *dStringRegex;
+    static NSRegularExpression *attrRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dStringRegex = [NSRegularExpression
-                        regularExpressionWithPattern:@"[^\\w]d=\"([^\"]+)\""
-                        options:NSRegularExpressionCaseInsensitive
-                        error:nil];
+        attrRegex = [NSRegularExpression
+                     regularExpressionWithPattern:@"[^\\w]([\\w_-]+)\\s*=\\s*\"([^\"]+)\""
+                     options:NSRegularExpressionCaseInsensitive
+                     error:nil];
     });
-    NSArray *matches = [dStringRegex matchesInString:svgString
-                                             options:0
-                                               range:(NSRange) { 0, svgString.length }];
-    
-    if([matches count] == 0) {
-        NSLog(@"*** PocketSVG Error: No d attributes found in SVG file.");
-        return nil;
-    }           
-    
-    NSMutableArray *result = [NSMutableArray new];
+   
     PSVGParser *parser = [PSVGParser new];
-    for(NSTextCheckingResult *match in matches) {
-        NSString *dAttr = [svgString substringWithRange:(NSRange)[match rangeAtIndex:1]];
-        CGPathRef path = [parser parsePath:dAttr];
-        if(!path)
-            NSLog(@"*** PocketSVG Error: Invalid d attribute: `%@`", dAttr);
-        else
-            [result addObject:(__bridge id)path];
+    NSMutableArray *paths = [NSMutableArray new];
+    if(outAttributes)
+        *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
+
+    NSArray *candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    for(NSString *candidate in candidates) {
+        if(![candidate hasPrefix:@"path "])
+            continue;
+        
+        NSArray *matches = [attrRegex matchesInString:candidate
+                                                 options:0
+                                                   range:(NSRange) { 0, [candidate length] }];
+        
+        CGPathRef path = NULL;
+        CGColorRef fillColor = NULL, strokeColor = NULL;
+        float fillOpacity = 1, strokeOpacity = 1;
+        float strokeWidth = 0;
+        for(NSTextCheckingResult *match in matches) {
+            NSString *attr = [candidate substringWithRange:(NSRange)[match rangeAtIndex:1]];
+            NSString *content = [candidate substringWithRange:(NSRange)[match rangeAtIndex:2]];
+            
+            if([attr isEqualToString:@"d"])
+                path = [parser parsePath:content];
+            else if(!outAttributes)
+                continue;
+            else if([attr isEqualToString:@"fill"])
+                fillColor = CGColorFromHexTriplet(content);
+            else if([attr isEqualToString:@"fill-opacity"])
+                fillOpacity = [content floatValue];
+            else if([attr isEqualToString:@"stroke"])
+                strokeColor = CGColorFromHexTriplet(content);
+            else if([attr isEqualToString:@"stroke-opacity"])
+                strokeOpacity = [content floatValue];
+            else if([attr isEqualToString:@"stroke-width"])
+                strokeWidth = [content floatValue];
+        }
+        if(!path) {
+            NSLog(@"*** PocketSVG Error: Invalid/missing d attribute in %@", candidate);
+            continue;
+        } else {
+            [paths addObject:(__bridge id)path];
+            if(outAttributes) {
+                NSMutableDictionary *attrs = [NSMutableDictionary new];
+                if(fillColor) {
+                    if(fillOpacity < 1.0)
+                        fillColor = CGColorCreateCopyWithAlpha(fillColor, fillOpacity);
+                    attrs[@"fillColor"] = (__bridge id)fillColor;
+                }
+                if(strokeColor) {
+                    if(strokeOpacity < 1.0)
+                        strokeColor = CGColorCreateCopyWithAlpha(strokeColor, strokeOpacity);
+                    attrs[@"strokeColor"] = (__bridge id)strokeColor;
+                    attrs[@"strokeWidth"] = @(strokeWidth);
+                }
+                if([attrs count] > 0)
+                    [*outAttributes setObject:attrs forKey:(__bridge id)path];
+            }
+        }
+
     }
-    return result;
+    return paths;
 }
 
 static void _pathWalker(void *info, const CGPathElement *el);
@@ -323,7 +368,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 + (NSArray *)ps_pathsFromSVGString:(NSString *)svgString
 {
-    NSArray *pathRefs = PSVGPathsFromSVGString(svgString);
+    NSArray *pathRefs = PSVGPathsFromSVGString(svgString, NULL);
     NSMutableArray *paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
         [paths addObject:[UIBezierPath bezierPathWithCGPath:(__bridge CGPathRef)pathRef]];
@@ -337,3 +382,32 @@ static void _pathWalker(void *info, const CGPathElement *el)
 }
 @end
 #endif
+
+static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t triplet)
+{
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef color = CGColorCreate(colorSpace,
+                         (CGFloat[]) {
+                             ((float)((triplet & 0xFF0000) >> 16))/255.0,
+                             ((float)((triplet & 0xFF00) >> 8))/255.0,
+                             ((float)(triplet & 0xFF))/255.0,
+                             1
+                         });
+    CFRelease(colorSpace);
+    return color;
+}
+
+static __attribute__((overloadable)) CF_RETURNS_RETAINED CGColorRef CGColorFromHexTriplet(NSString *tripletStr)
+{
+    NSCParameterAssert([tripletStr hasPrefix:@"#"]);
+    NSCParameterAssert([tripletStr length] == 3 || [tripletStr length] == 7);
+    if([tripletStr length] == 3) {
+        tripletStr = [tripletStr mutableCopy];
+        [(NSMutableString *)tripletStr insertString:@"0" atIndex:5];
+        [(NSMutableString *)tripletStr insertString:@"0" atIndex:3];
+        [(NSMutableString *)tripletStr insertString:@"0" atIndex:1];
+    }
+    uint32_t triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
+                              NULL, 16);
+    return CGColorFromHexTriplet(triplet);
+}

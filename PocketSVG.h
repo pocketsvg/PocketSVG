@@ -32,7 +32,8 @@
  *
  *  @return An array of CGPathRef objects or nil if none are found
  */
-NSArray *PSVGPathsFromSVGString(NSString *svgString);
+NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
+
 
 /*!
  *  Returns SVG representing `paths`
