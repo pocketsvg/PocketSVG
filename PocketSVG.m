@@ -407,9 +407,9 @@ static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *
         [(NSMutableString *)tripletStr insertString:@"0" atIndex:3];
         [(NSMutableString *)tripletStr insertString:@"0" atIndex:1];
     }
-    uint32_t triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
-                              NULL, 16);
-    return CGColorFromHexTriplet(triplet);
+    long triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
+                          NULL, 16);
+    return CGColorFromHexTriplet((uint32_t)triplet);
 }
 
 static NSString *CGColorToHexTriplet(CGColorRef color, CGFloat *outAlpha)
