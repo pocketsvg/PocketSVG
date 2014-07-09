@@ -411,12 +411,12 @@ static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t t
 static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *tripletStr)
 {
     NSCParameterAssert([tripletStr hasPrefix:@"#"]);
-    NSCParameterAssert([tripletStr length] == 3 || [tripletStr length] == 7);
-    if([tripletStr length] == 3) {
+    NSCParameterAssert([tripletStr length] == 4 || [tripletStr length] == 7);
+    if([tripletStr length] == 4) {
         tripletStr = [tripletStr mutableCopy];
-        [(NSMutableString *)tripletStr insertString:@"0" atIndex:5];
-        [(NSMutableString *)tripletStr insertString:@"0" atIndex:3];
-        [(NSMutableString *)tripletStr insertString:@"0" atIndex:1];
+        [(NSMutableString *)tripletStr insertString:[tripletStr substringWithRange:(NSRange) { 3, 1 }] atIndex:3];
+        [(NSMutableString *)tripletStr insertString:[tripletStr substringWithRange:(NSRange) { 2, 1 }] atIndex:2];
+        [(NSMutableString *)tripletStr insertString:[tripletStr substringWithRange:(NSRange) { 1, 1 }] atIndex:1];
     }
     long triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
                           NULL, 16);
