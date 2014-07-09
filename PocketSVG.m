@@ -29,6 +29,7 @@ NSString * const kPSVGValidCommands = @"CcMmLlHhVvZzqQaAsS";
 
 static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t triplet) CF_RETURNS_RETAINED;
 static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *tripletStr) CF_RETURNS_RETAINED;
+static                               NSString  *CGColorToHexTriplet(CGColorRef color, CGFloat *outAlpha);
 
 @interface PSVGParser : NSObject {
     CGMutablePathRef _path;
@@ -58,8 +59,11 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
    
     PSVGParser *parser = [PSVGParser new];
     NSMutableArray *paths = [NSMutableArray new];
-    if(outAttributes)
+    NSMutableDictionary *attrs = nil;
+    if(outAttributes) {
         *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
+        attrs = [NSMutableDictionary new];
+    }
 
     NSArray *candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     for(NSString *candidate in candidates) {
@@ -71,9 +75,6 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                                                    range:(NSRange) { 0, [candidate length] }];
         
         CGPathRef path = NULL;
-        CGColorRef fillColor = NULL, strokeColor = NULL;
-        float fillOpacity = 1, strokeOpacity = 1;
-        float strokeWidth = 0;
         for(NSTextCheckingResult *match in matches) {
             NSString *attr = [candidate substringWithRange:(NSRange)[match rangeAtIndex:1]];
             NSString *content = [candidate substringWithRange:(NSRange)[match rangeAtIndex:2]];
@@ -82,16 +83,10 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                 path = [parser parsePath:content];
             else if(!outAttributes)
                 continue;
-            else if([attr isEqualToString:@"fill"])
-                fillColor = CGColorFromHexTriplet(content);
-            else if([attr isEqualToString:@"fill-opacity"])
-                fillOpacity = [content floatValue];
-            else if([attr isEqualToString:@"stroke"])
-                strokeColor = CGColorFromHexTriplet(content);
-            else if([attr isEqualToString:@"stroke-opacity"])
-                strokeOpacity = [content floatValue];
-            else if([attr isEqualToString:@"stroke-width"])
-                strokeWidth = [content floatValue];
+            else if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"])
+                attrs[attr] = (__bridge id)CGColorFromHexTriplet(content);
+            else
+                attrs[attr] = content;
         }
         if(!path) {
             NSLog(@"*** PocketSVG Error: Invalid/missing d attribute in %@", candidate);
@@ -99,18 +94,12 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
         } else {
             [paths addObject:(__bridge id)path];
             if(outAttributes) {
-                NSMutableDictionary *attrs = [NSMutableDictionary new];
-                if(fillColor) {
-                    if(fillOpacity < 1.0)
-                        fillColor = CGColorCreateCopyWithAlpha(fillColor, fillOpacity);
-                    attrs[@"fillColor"] = (__bridge id)fillColor;
-                }
-                if(strokeColor) {
-                    if(strokeOpacity < 1.0)
-                        strokeColor = CGColorCreateCopyWithAlpha(strokeColor, strokeOpacity);
-                    attrs[@"strokeColor"] = (__bridge id)strokeColor;
-                    attrs[@"strokeWidth"] = @(strokeWidth);
-                }
+                if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0)
+                     attrs[@"fill"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
+                                                                              [attrs[@"fill-opacity"] floatValue]);
+                if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0)
+                    attrs[@"stroke"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"stroke"],
+                                                                               [attrs[@"stroke-opacity"] floatValue]);
                 if([attrs count] > 0)
                     [*outAttributes setObject:attrs forKey:(__bridge id)path];
             }
@@ -122,15 +111,26 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
 
 static void _pathWalker(void *info, const CGPathElement *el);
 
-NSString *PSVGFromPaths(NSArray *paths)
+NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes)
 {
     NSMutableString * const svg = [@"<svg xmlns=\"http://www.w3.org/2000/svg\""
                                    @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
                                    @" width=\"100%\" height=\"100%\">\n" mutableCopy];
     
-    for(NSUInteger i = 0; i < [paths count]; ++i) {
-        [svg appendString:@"  <path d=\""];
-        CGPathApply((__bridge CGPathRef)paths[i], (__bridge void *)svg, &_pathWalker);
+    for(id path in paths) {
+        [svg appendString:@"  <path"];
+        NSDictionary *pathAttrs = [attributes objectForKey:path];
+        for(NSString *key in pathAttrs) {
+            if(![pathAttrs[key] isKindOfClass:[NSString class]]) { // Color
+                CGFloat alpha;
+                [svg appendFormat:@" %@=\"%@\"", key, CGColorToHexTriplet((__bridge CGColorRef)pathAttrs[key], &alpha)];
+                if(alpha < 1.0)
+                    [svg appendFormat:@" %@-opacity=\"%.2g\"", key, alpha];
+            } else
+                [svg appendFormat:@" %@=\"%@\"", key, pathAttrs[key]];
+        }
+        [svg appendString:@" d=\""];
+        CGPathApply((__bridge CGPathRef)path, (__bridge void *)svg, &_pathWalker);
         [svg appendString:@"\"/>\n"];
     }
     
@@ -378,7 +378,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (NSString *)ps_SVGRepresentation
 {
-    return PSVGFromPaths(@[(__bridge id)self.CGPath]);
+    return PSVGFromPaths(@[(__bridge id)self.CGPath], nil);
 }
 @end
 #endif
@@ -397,7 +397,7 @@ static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t t
     return color;
 }
 
-static __attribute__((overloadable)) CF_RETURNS_RETAINED CGColorRef CGColorFromHexTriplet(NSString *tripletStr)
+static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *tripletStr)
 {
     NSCParameterAssert([tripletStr hasPrefix:@"#"]);
     NSCParameterAssert([tripletStr length] == 3 || [tripletStr length] == 7);
@@ -410,4 +410,13 @@ static __attribute__((overloadable)) CF_RETURNS_RETAINED CGColorRef CGColorFromH
     uint32_t triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
                               NULL, 16);
     return CGColorFromHexTriplet(triplet);
+}
+
+static NSString *CGColorToHexTriplet(CGColorRef color, CGFloat *outAlpha)
+{
+    const CGFloat *rgba = CGColorGetComponents(color);
+    if(outAlpha) *outAlpha = rgba[3];
+    return [NSString stringWithFormat:@"#%02x%02x%02x", (int)roundf(rgba[0]*255.0),
+            (int)roundf(rgba[1]*255.0),
+            (int)roundf(rgba[2]*255.0)];
 }
