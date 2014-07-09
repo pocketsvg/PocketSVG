@@ -42,14 +42,14 @@
     
     NSMapTable *attributes;
     NSArray *paths = PSVGPathsFromSVGString(svg, &attributes);
-    NSLog(@"%@", PSVGFromPaths(paths, nil));
+    NSLog(@"%@", PSVGFromPaths(paths, attributes));
 
     for(id path in paths) {
         // 2: To display it on screen, you can create a CAShapeLayer:
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = (__bridge CGPathRef)path;
         
-        // 3: Fiddle with it using CAShapeLayer's properties:
+        // 3: Apply the path's attributes
         NSDictionary *attrs = [attributes objectForKey:path];
         layer.strokeColor = (__bridge CGColorRef)attrs[@"stroke"]
                           ?:[[UIColor redColor] CGColor];

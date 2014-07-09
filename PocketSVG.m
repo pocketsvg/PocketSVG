@@ -418,8 +418,7 @@ static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *
         [(NSMutableString *)tripletStr insertString:[tripletStr substringWithRange:(NSRange) { 2, 1 }] atIndex:2];
         [(NSMutableString *)tripletStr insertString:[tripletStr substringWithRange:(NSRange) { 1, 1 }] atIndex:1];
     }
-    long triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1,
-                          NULL, 16);
+    long triplet = strtol([tripletStr cStringUsingEncoding:NSASCIIStringEncoding]+1, NULL, 16);
     return CGColorFromHexTriplet((uint32_t)triplet);
 }
 
