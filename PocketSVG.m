@@ -59,17 +59,14 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
    
     PSVGParser *parser = [PSVGParser new];
     NSMutableArray *paths = [NSMutableArray new];
-    NSMutableDictionary *attrs = nil;
-    if(outAttributes) {
+    if(outAttributes)
         *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
-        attrs = [NSMutableDictionary new];
-    }
 
     NSArray *candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     for(NSString *candidate in candidates) {
         if(![candidate hasPrefix:@"path "])
             continue;
-        
+        NSMutableDictionary *attrs = outAttributes ? [NSMutableDictionary new] : nil;
         NSArray *matches = [attrRegex matchesInString:candidate
                                                  options:0
                                                    range:(NSRange) { 0, [candidate length] }];
@@ -94,17 +91,20 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
         } else {
             [paths addObject:(__bridge id)path];
             if(outAttributes) {
-                if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0)
+                if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0) {
                      attrs[@"fill"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
                                                                               [attrs[@"fill-opacity"] floatValue]);
-                if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0)
+                    [attrs removeObjectForKey:@"fill-opacity"];
+                }
+                if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0) {
                     attrs[@"stroke"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"stroke"],
                                                                                [attrs[@"stroke-opacity"] floatValue]);
+                    [attrs removeObjectForKey:@"stroke-opacity"];
+                }
                 if([attrs count] > 0)
                     [*outAttributes setObject:attrs forKey:(__bridge id)path];
             }
         }
-
     }
     return paths;
 }
@@ -113,11 +113,17 @@ static void _pathWalker(void *info, const CGPathElement *el);
 
 NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes)
 {
-    NSMutableString * const svg = [@"<svg xmlns=\"http://www.w3.org/2000/svg\""
-                                   @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
-                                   @" width=\"100%\" height=\"100%\">\n" mutableCopy];
-    
+    CGRect bounds = CGRectZero;
+    NSMutableString * const svg = [NSMutableString new];
     for(id path in paths) {
+        CGRect localBounds = CGPathGetBoundingBox((__bridge CGPathRef)path);
+        bounds = (CGRect) {
+            MIN(bounds.origin.x, localBounds.origin.x),
+            MIN(bounds.origin.x, localBounds.origin.x),
+            MAX(CGRectGetMaxX(bounds) - bounds.origin.x, CGRectGetMaxX(localBounds) - bounds.origin.x),
+            MAX(CGRectGetMaxY(bounds) - bounds.origin.y, CGRectGetMaxY(localBounds) - bounds.origin.y),
+        };
+        
         [svg appendString:@"  <path"];
         NSDictionary *pathAttrs = [attributes objectForKey:path];
         for(NSString *key in pathAttrs) {
@@ -134,8 +140,13 @@ NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes)
         [svg appendString:@"\"/>\n"];
     }
     
-    [svg appendString:@"</svg>"];
-    return svg;
+    return [NSString stringWithFormat:
+            @"<svg xmlns=\"http://www.w3.org/2000/svg\""
+            @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
+            @" width=\"%.4g\" height=\"%.4g\">\n%@\n</svg>\n",
+            bounds.size.width,
+            bounds.size.height,
+            svg];
 
 }
 
