@@ -143,7 +143,7 @@ NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes)
     return [NSString stringWithFormat:
             @"<svg xmlns=\"http://www.w3.org/2000/svg\""
             @" xmlns:xlink=\"http://www.w3.org/1999/xlink\""
-            @" width=\"%.4g\" height=\"%.4g\">\n%@\n</svg>\n",
+            @" width=\"%.0f\" height=\"%.0f\">\n%@\n</svg>\n",
             bounds.size.width,
             bounds.size.height,
             svg];
@@ -154,26 +154,36 @@ static void _pathWalker(void *info, const CGPathElement *el)
 {
     NSMutableString *svg = (__bridge id)info;
     
+    static NSNumberFormatter *fmt;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        fmt = [NSNumberFormatter new];
+        fmt.numberStyle = NSNumberFormatterDecimalStyle;
+        fmt.maximumSignificantDigits = 3;
+    });
+    
+    #define FMT(n) [fmt stringFromNumber:@(n)]
     switch(el->type) {
         case kCGPathElementMoveToPoint:
-            [svg appendFormat:@"M%.3g,%.3g", el->points[0].x, el->points[0].y];
+            [svg appendFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
             break;
         case kCGPathElementAddLineToPoint:
-            [svg appendFormat:@"L%.3g,%.3g", el->points[0].x, el->points[0].y];
+            [svg appendFormat:@"L%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
             break;
         case kCGPathElementAddQuadCurveToPoint:
-            [svg appendFormat:@"Q%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
-                                                       el->points[1].x, el->points[1].y];
+            [svg appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                                               FMT(el->points[1].x), FMT(el->points[1].y)];
             break;
         case kCGPathElementAddCurveToPoint:
-            [svg appendFormat:@"C%.3g,%.3g,%.3g,%.3g,%.3g,%.3g", el->points[0].x, el->points[0].y,
-                                                                 el->points[1].x, el->points[1].y,
-                                                                 el->points[2].x, el->points[2].y];
+            [svg appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                                                     FMT(el->points[1].x), FMT(el->points[1].y),
+                                                     FMT(el->points[2].x), FMT(el->points[2].y)];
             break;
         case kCGPathElementCloseSubpath:
             [svg appendFormat:@"Z"];
             break;
 	}
+    #undef FMT
 }
 
 
