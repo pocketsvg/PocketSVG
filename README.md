@@ -4,7 +4,7 @@ This makes it easy to create vector-based paths and shapes in your iOS or OS X a
 
 Feedback, improvements, and pull requests are welcome.
 
-[![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
+[![Build Status](https://travis-ci.org/fjolnir/PocketSVG.svg?branch=master)](https://travis-ci.org/fjolnir/PocketSVG)
 
 ## Usage
 1. Make your drawing in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
