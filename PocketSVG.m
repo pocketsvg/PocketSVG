@@ -81,7 +81,12 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
             else if(!outAttributes)
                 continue;
             else if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"])
-                attrs[attr] = (__bridge id)CGColorFromHexTriplet(content);
+                if([content isEqualToString:@"none"]) {
+                    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+                    attrs[attr] = (__bridge id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
+                    CFRelease(colorSpace);
+                } else
+                    attrs[attr] = (__bridge id)CGColorFromHexTriplet(content);
             else
                 attrs[attr] = content;
         }
