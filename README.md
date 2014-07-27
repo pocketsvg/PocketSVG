@@ -9,18 +9,18 @@ A simple toolkit for reading SVG paths as CGPathRefs. Only the path element is s
     NSString *svgPath = [[NSBundle mainBundle] pathForResource:@"myImage" ofType:@"svg"];
     NSString *svgString = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
     
-    // 1: Turn your SVG into CGPathRefs:
-    for(id path in PSVGPathsFromSVGString(svgString)) {
-        // 2: To display a path on screen, you can create a CAShapeLayer:
+    // Parse your SVG data
+    for(id path in PSVGPathsFromSVGString(svgString, NULL)) {
+        // Create a layer for each path
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = (__bridge CGPathRef)path;
         
-        // 3: Configure how it should be rendered
-        layer.strokeColor = [[UIColor redColor] CGColor];
+        // Set its display properties
         layer.lineWidth   = 4;
-        layer.fillColor   = [[UIColor clearColor] CGColor];
+        layer.strokeColor = [[UIColor blackColor] CGColor];
+        layer.fillColor   = [[UIColor redColor] CGColor];
     
-        // 4: Display it!
+        // Add it to the layer hierarchy
         [self.view.layer addSublayer:layer];
     }
 ```

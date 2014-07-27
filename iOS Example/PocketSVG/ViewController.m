@@ -33,35 +33,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //1: Turn your SVG into a CGPath:
+
     NSString *svg = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BezierCurve1"
                                                                                        ofType:@"svg"]
                                           usedEncoding:NULL
                                                  error:NULL];
-    
+
     NSMapTable *attributes;
     NSArray *paths = PSVGPathsFromSVGString(svg, &attributes);
     NSLog(@"%@", PSVGFromPaths(paths, attributes));
 
     for(id path in paths) {
-        // 2: To display it on screen, you can create a CAShapeLayer:
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = (__bridge CGPathRef)path;
-        
-        // 3: Apply the path's attributes
+
         NSDictionary *attrs = [attributes objectForKey:path];
         layer.strokeColor = (__bridge CGColorRef)attrs[@"stroke"]
                           ?:[[UIColor redColor] CGColor];
         layer.lineWidth   = [attrs[@"stroke-width"] floatValue];
         layer.fillColor   = (__bridge CGColorRef)attrs[@"fill"]
                           ?: [[UIColor blueColor] CGColor];
-        
-        //4: Display it!
+
         [self.view.layer addSublayer:layer];
     }
-    
-    
 }
 
 - (BOOL)prefersStatusBarHidden
