@@ -33,28 +33,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
-    
-    //2: To display it on screen, you can create a CAShapeLayer
-    //and set myPath as its path property:
-    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
-    
-    
-    //3: Fiddle with it using CAShapeLayer's properties:
-    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
-    myShapeLayer.lineWidth = 4;
-    myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
-    
-    //4: Display it!
-    [self.view.layer addSublayer:myShapeLayer];
-    
-    
+
+    NSString *svg = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"BezierCurve1"
+                                                                                       ofType:@"svg"]
+                                          usedEncoding:NULL
+                                                 error:NULL];
+
+    NSMapTable *attributes;
+    NSArray *paths = PSVGPathsFromSVGString(svg, &attributes);
+    NSLog(@"%@", PSVGFromPaths(paths, attributes));
+
+    for(id path in paths) {
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        layer.path = (__bridge CGPathRef)path;
+
+        NSDictionary *attrs = [attributes objectForKey:path];
+        layer.strokeColor = (__bridge CGColorRef)attrs[@"stroke"]
+                          ?:[[UIColor redColor] CGColor];
+        layer.lineWidth   = [attrs[@"stroke-width"] floatValue];
+        layer.fillColor   = (__bridge CGColorRef)attrs[@"fill"]
+                          ?: [[UIColor blueColor] CGColor];
+
+        [self.view.layer addSublayer:layer];
+    }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
