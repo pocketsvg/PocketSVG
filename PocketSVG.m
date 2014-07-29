@@ -64,7 +64,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
 
     NSArray *candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     for(NSString *candidate in candidates) {
-        if(![candidate hasPrefix:@"path "])
+        if(![candidate hasPrefix:@"path"])
             continue;
         NSMutableDictionary *attrs = outAttributes ? [NSMutableDictionary new] : nil;
         NSArray *matches = [attrRegex matchesInString:candidate
