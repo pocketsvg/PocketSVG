@@ -1,16 +1,18 @@
-# PocketSVG
-A simple toolkit for reading SVG paths as CGPathRefs. Only the path element is supported.
+# SVGPathSerializer
+A simple toolkit for reading reading/writing bezier paths to/from SVG. Only the path element is supported.
+
+This project started as a fork of Ariel Elkin's PocketSVG.
 
 [![Build Status](https://travis-ci.org/fjolnir/PocketSVG.svg?branch=master)](https://travis-ci.org/fjolnir/PocketSVG)
 
-## Usage
+## Basic Usage
 
 ```obj-c
     NSString *svgPath = [[NSBundle mainBundle] pathForResource:@"myImage" ofType:@"svg"];
     NSString *svgString = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
     
     // Parse your SVG data
-    for(id path in PSVGPathsFromSVGString(svgString, NULL)) {
+    for(id path in CGPathsFromSVGString(svgString, NULL)) {
         // Create a layer for each path
         CAShapeLayer *layer = [CAShapeLayer layer];
         layer.path = (__bridge CGPathRef)path;

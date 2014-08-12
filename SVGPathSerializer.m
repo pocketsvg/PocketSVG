@@ -1,7 +1,7 @@
 //
-//  PocketSVG.m
+//  SVGPathSerializer.m
 //
-//  Copyright (c) 2013 Ponderwell, Ariel Elkin, and Contributors
+//  Copyright (c) 2013 Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,15 @@
 //
 
 
-#import "PocketSVG.h"
+#import "SVGPathSerializer.h"
 
-NSString * const kPSVGValidCommands = @"CcMmLlHhVvZzqQaAsS";
+NSString * const kValidSVGCommands = @"CcMmLlHhVvZzqQaAsS";
 
 static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t triplet) CF_RETURNS_RETAINED;
 static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *tripletStr) CF_RETURNS_RETAINED;
 static                               NSString  *CGColorToHexTriplet(CGColorRef color, CGFloat *outAlpha);
 
-@interface PSVGParser : NSObject {
+@interface _SVGParser : NSObject {
     CGMutablePathRef _path;
     CGPoint          _lastControlPoint;
     unichar  _lastCommand;
@@ -44,7 +44,7 @@ static                               NSString  *CGColorToHexTriplet(CGColorRef c
 - (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands;
 @end
 
-NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
+NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
 {
     NSCParameterAssert(svgString);
     
@@ -57,7 +57,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                      error:nil];
     });
    
-    PSVGParser *parser = [PSVGParser new];
+    _SVGParser *parser = [_SVGParser new];
     NSMutableArray *paths = [NSMutableArray new];
     if(outAttributes)
         *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
@@ -91,7 +91,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                 attrs[attr] = content;
         }
         if(!path) {
-            NSLog(@"*** PocketSVG Error: Invalid/missing d attribute in %@", candidate);
+            NSLog(@"*** Error: Invalid/missing d attribute in %@", candidate);
             continue;
         } else {
             [paths addObject:(__bridge id)path];
@@ -116,7 +116,7 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
 
 static void _pathWalker(void *info, const CGPathElement *el);
 
-NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes)
+NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes)
 {
     CGRect bounds = CGRectZero;
     NSMutableString * const svg = [NSMutableString new];
@@ -193,11 +193,11 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 
 
-@implementation PSVGParser
+@implementation _SVGParser
 
 - (CGPathRef)parsePath:(NSString *)attr
 {
-#ifdef PSVG_DEBUG
+#ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
@@ -208,7 +208,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
     [separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     scanner.charactersToBeSkipped = separators;
     
-    NSCharacterSet *commands = [NSCharacterSet characterSetWithCharactersInString:kPSVGValidCommands];
+    NSCharacterSet *commands = [NSCharacterSet characterSetWithCharactersInString:kValidSVGCommands];
     
     NSString *cmd;
     NSMutableArray *operands = [NSMutableArray new];
@@ -225,7 +225,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
         [operands removeAllObjects];
     }
     if(scanner.scanLocation < [attr length])
-        NSLog(@"*** PocketSVG parse error at index: %d: '%c'",
+        NSLog(@"*** SVG parse error at index: %d: '%c'",
               (int)scanner.scanLocation, [attr characterAtIndex:scanner.scanLocation]);
     
     return _path;
@@ -233,7 +233,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 - (void)handleCommand:(unichar)opcode withOperands:(NSArray *)operands
 {
-#ifdef PSVG_DEBUG
+#ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"%c %@", opcode, operands);
 #endif
     switch (opcode) {
@@ -259,14 +259,14 @@ static void _pathWalker(void *info, const CGPathElement *el)
             break;
         case 'a':
         case 'A':
-            NSLog(@"*** PocketSVG Error: Elliptical arcs not supported"); // TODO
+            NSLog(@"*** Error: Elliptical arcs not supported"); // TODO
             break;
         case 'Z':
         case 'z':
             CGPathCloseSubpath(_path);
             break;
         default:
-            NSLog(@"*** PocketSVG Error: Cannot process command : '%c'", opcode);
+            NSLog(@"*** Error: Cannot process command : '%c'", opcode);
             break;
     }
     _lastCommand         = opcode;
@@ -275,7 +275,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 - (void)appendSVGMoveto:(unichar)cmd withOperands:(NSArray *)operands
 {
     if ([operands count]%2 != 0) {
-        NSLog(@"*** PocketSVG Error: Invalid parameter count in M style token");
+        NSLog(@"*** Error: Invalid parameter count in M style token");
         return;
     }
     
@@ -383,18 +383,18 @@ static void _pathWalker(void *info, const CGPathElement *el)
 #pragma mark -
 
 #if TARGET_OS_IPHONE
-@implementation UIBezierPath (PocketSVG)
+@implementation UIBezierPath (SVGPathSerializer)
 
-+ (NSArray *)ps_pathsFromContentsOfSVGFile:(NSString * const)aPath
++ (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
 {
     BOOL isDir;
     NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
-    return [self ps_pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
+    return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
 }
 
-+ (NSArray *)ps_pathsFromSVGString:(NSString *)svgString
++ (NSArray *)pathsFromSVGString:(NSString *)svgString
 {
-    NSArray *pathRefs = PSVGPathsFromSVGString(svgString, NULL);
+    NSArray *pathRefs = CGPathsFromSVGString(svgString, NULL);
     NSMutableArray *paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
         [paths addObject:[UIBezierPath bezierPathWithCGPath:(__bridge CGPathRef)pathRef]];
@@ -402,9 +402,9 @@ static void _pathWalker(void *info, const CGPathElement *el)
     return paths;
 }
 
-- (NSString *)ps_SVGRepresentation
+- (NSString *)SVGRepresentation
 {
-    return PSVGFromPaths(@[(__bridge id)self.CGPath], nil);
+    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], nil);
 }
 @end
 #endif

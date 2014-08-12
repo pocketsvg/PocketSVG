@@ -1,7 +1,7 @@
 //
-//  PocketSVG.h
+//  SVGPathSerializer.h
 //
-//  Copyright (c) 2013 Ponderwell, Ariel Elkin, and Contributors
+//  Copyright (c) 2013 Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
  *
  *  @return An array of CGPathRef objects or nil if none are found
  */
-NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
+NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
 
 
 /*!
@@ -44,14 +44,14 @@ NSArray *PSVGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
  *
  *  @return SVG representing `paths`
  */
-NSString *PSVGFromPaths(NSArray *paths, NSMapTable *attributes);
+NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
-@interface UIBezierPath (PocketSVG)
-+ (NSArray *)ps_pathsFromContentsOfSVGFile:(NSString *)aPath;
-+ (NSArray *)ps_pathsFromSVGString:(NSString *)svgString;
-- (NSString *)ps_SVGRepresentation;
+@interface UIBezierPath (SVGPathSerializer)
++ (NSArray *)pathsFromContentsOfSVGFile:(NSString *)aPath;
++ (NSArray *)pathsFromSVGString:(NSString *)svgString;
+- (NSString *)SVGRepresentation;
 @end
 #endif

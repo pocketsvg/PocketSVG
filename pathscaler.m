@@ -1,4 +1,4 @@
-#import "PocketSVG.h"
+#import "SVGPathSerializer.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     NSString * const svg = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
     NSCAssert(svg, @"Failed to open SVG!");
     NSMapTable *attributes;
-    NSArray * const inPaths = PSVGPathsFromSVGString(svg, &attributes);
+    NSArray * const inPaths = CGPathsFromSVGString(svg, &attributes);
 
     NSMutableArray * const outPaths = [NSMutableArray arrayWithCapacity:[inPaths count]];
     NSMapTable * const outAttributes = [NSMapTable strongToStrongObjectsMapTable];
@@ -19,6 +19,6 @@ int main(int argc, char *argv[])
         [outPaths addObject:(__bridge id)scaledPath];
         [outAttributes setObject:[attributes objectForKey:path] forKey:(__bridge id)scaledPath];
     }
-    printf("%s\n", [PSVGFromPaths(outPaths, outAttributes) UTF8String]);
+    printf("%s\n", [SVGStringFromCGPaths(outPaths, outAttributes) UTF8String]);
     return 0;
 }
