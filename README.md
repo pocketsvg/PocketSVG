@@ -3,8 +3,6 @@ A simple toolkit for reading reading/writing bezier paths to/from SVG. Only the 
 
 This project started as a fork of Ariel Elkin's PocketSVG.
 
-[![Build Status](https://travis-ci.org/fjolnir/PocketSVG.svg?branch=master)](https://travis-ci.org/fjolnir/PocketSVG)
-
 ## Basic Usage
 
 ```obj-c
