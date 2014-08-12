@@ -306,7 +306,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
             case 'L':
                 x += [operands[i] floatValue];
                 if (++i == [operands count]) {
-                    NSLog(@"*** PocketSVG Error: Invalid parameter count in L style token");
+                    NSLog(@"*** Error: Invalid parameter count in L style token");
                     return;
                 }
                 y += [operands[i] floatValue];
@@ -324,7 +324,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
                 x = currentPoint.x;
                 break;
             default:
-                NSLog(@"*** PocketSVG Error: Unrecognised L style command.");
+                NSLog(@"*** Error: Unrecognised L style command.");
                 return;
         }
         CGPathAddLineToPoint(_path, NULL, x, y);
@@ -334,7 +334,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 - (void)appendSVGCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
     if([operands count]%6 != 0) {
-        NSLog(@"*** PocketSVG Error: Invalid number of parameters for C command");
+        NSLog(@"*** Error: Invalid number of parameters for C command");
         return;
     }
     
@@ -356,7 +356,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 - (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands
 {
     if([operands count]%4 != 0) {
-        NSLog(@"*** PocketSVG Error: Invalid number of parameters for S command");
+        NSLog(@"*** Error: Invalid number of parameters for S command");
         return;
     }
     if(_lastCommand != 'C' && _lastCommand != 'c' && _lastCommand != 'S' && _lastCommand != 's')
