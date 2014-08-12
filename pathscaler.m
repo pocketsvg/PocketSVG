@@ -1,3 +1,6 @@
+// Example program that reads in an svg, scales it by a
+// factor passed to it and writes the scaled SVG to stdout
+
 #import "SVGPathSerializer.h"
 
 int main(int argc, char *argv[])
