@@ -387,8 +387,10 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 + (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
 {
+#ifndef NS_BLOCK_ASSERTIONS
     BOOL isDir;
     NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
+#endif
     return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
 }
 
