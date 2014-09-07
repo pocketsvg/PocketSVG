@@ -115,6 +115,23 @@ unichar const invalidCommand		= '*';
 #endif
 }
 
++ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size {
+    return [self pathFromSVGFileNamed:nameOfSVG scaleToFitSize:size borderPadding:0];
+}
+
++ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size borderPadding:(float)borderPadding {
+    size = CGSizeMake(size.width - (borderPadding * 2), size.height - (borderPadding * 2));
+    
+    CGPathRef pathDefaultScale = [self pathFromSVGFileNamed:nameOfSVG];
+    CGSize defaultScaleSize = CGPathGetBoundingBox(pathDefaultScale).size;
+    
+    float widthDifference = size.width / defaultScaleSize.width;
+    float heightDifference = size.height / defaultScaleSize.height;
+    float scale = MIN(widthDifference, heightDifference);
+    
+    return [self pathFromSVGFileNamed:nameOfSVG scale:scale];
+}
+
 + (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
 {
     NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
@@ -320,6 +337,7 @@ unichar const invalidCommand		= '*';
 					  (long)index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
+            
 			// Maintain scale.
             value = value * scale;
 			pathScale = (abs(value) > pathScale) ? abs(value) : pathScale;
