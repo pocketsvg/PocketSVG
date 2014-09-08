@@ -102,12 +102,16 @@ unichar const invalidCommand		= '*';
 
 + (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG
 {
-    return [PocketSVG pathFromSVGFileNamed:nameOfSVG scale:1.0];
+    return [self pathFromSVGFileNamed:nameOfSVG scale:1.0];
 }
 
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale
++ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale {
+    return [self pathFromSVGFileNamed:nameOfSVG scale:scale borderPadding:0];
+}
+
++ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale borderPadding:(float)borderPadding
 {
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] scale:scale];
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] scale:scale borderPadding:borderPadding];
 #if TARGET_OS_IPHONE
     return pocketSVG.bezier.CGPath;
 #else
@@ -129,7 +133,7 @@ unichar const invalidCommand		= '*';
     float heightDifference = size.height / defaultScaleSize.height;
     float scale = MIN(widthDifference, heightDifference);
     
-    return [self pathFromSVGFileNamed:nameOfSVG scale:scale];
+    return [self pathFromSVGFileNamed:nameOfSVG scale:scale borderPadding:borderPadding];
 }
 
 + (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
@@ -240,7 +244,11 @@ unichar const invalidCommand		= '*';
     return [self initFromSVGPathNodeDAttr:attr scale:1.0];
 }
 
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr scale:(float)scale
+- (id)initFromSVGPathNodeDAttr:(NSString *)attr scale:(float)scale {
+    return [self initFromSVGPathNodeDAttr:attr scale:scale borderPadding:0];
+}
+
+- (id)initFromSVGPathNodeDAttr:(NSString *)attr scale:(float)scale borderPadding:(float)borderPadding
 {
 	self = [super init];
 	if (self) {
@@ -248,7 +256,7 @@ unichar const invalidCommand		= '*';
 		[self reset];
 		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
 		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		tokens = [self parsePath:attr scale:scale];
+		tokens = [self parsePath:attr scale:scale borderPadding:borderPadding];
 		bezier = [self generateBezier:tokens];
 	}
 	return self;
@@ -276,7 +284,11 @@ unichar const invalidCommand		= '*';
     return [self parsePath:attr scale:1.0];
 }
 
-- (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale
+- (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale {
+    return [self parsePath:attr scale:scale borderPadding:0];
+}
+
+- (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale borderPadding:(float)borderPadding
 {
 	NSMutableArray *stringTokens = [NSMutableArray arrayWithCapacity: maxPathComplexity];
 	
@@ -340,6 +352,9 @@ unichar const invalidCommand		= '*';
             
 			// Maintain scale.
             value = value * scale;
+            
+            value = value + borderPadding;
+            
 			pathScale = (abs(value) > pathScale) ? abs(value) : pathScale;
 			[token addValue:value];
 		}
