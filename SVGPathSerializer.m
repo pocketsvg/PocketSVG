@@ -22,7 +22,6 @@
 //  THE SOFTWARE.
 //
 
-
 #import "SVGPathSerializer.h"
 
 NSString * const kValidSVGCommands = @"CcMmLlHhVvZzqQaAsS";
