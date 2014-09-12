@@ -39,26 +39,10 @@
 
 @property(nonatomic, readonly) UIBezierPath *bezier;
 
-
-/*!
- *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
- *
- *  @param nameOfSVG The name of the SVG file. The methods looks for a SVG with the specified in the application's main bundle.
- *
- *  @return A CGPathRef object for the SVG in the specified file, or nil if the object could not be found or could not be parsed.
- */
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG;
-
-/*!
- *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
- *
- *  @param nameOfSVG The name of the SVG file. The methods looks for a SVG with the specified in the application's main bundle.
- *  
- *  @param scale The scale at which to draw the SVG file.
- *
- *  @return A CGPathRef object for the SVG in the specified file, or nil if the object could not be found or could not be parsed.
- */
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale;
+- (id)initWithSVGFileNamed:(NSString *)nameOfSVG;
+- (id)initWithSVGFileAtURL:(NSURL *)svgFileURL;
+- (id)initWithSVGString:(NSString *)svgString;
+- (id)initWithDAttribute:(NSString *)dAttribute;
 
 /*!
  *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
@@ -72,30 +56,6 @@
  *  @return A CGPathRef object for the SVG in the specified file, or nil if the object could not be found or could not be parsed.
  */
 + (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale borderPadding:(float)borderPadding;
-
-/*!
- *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
- *
- *  @param nameOfSVG The name of the SVG file. The methods looks for a SVG with the specified in the application's main bundle.
- *
- *  @param scaleToFillSize The size the SVG image should fit into.
- *
- *  @return A CGPathRef object for the SVG in the specified file, or nil if the object could not be found or could not be parsed.
- */
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size;
-
-/*!
- *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
- *
- *  @param nameOfSVG The name of the SVG file. The methods looks for a SVG with the specified in the application's main bundle.
- *
- *  @param scaleToFillSize The size the SVG image should fit into.
- *
- *  @param borderPadding Additional space required surrounding the path once scaled, possibly for a border.
- *
- *  @return A CGPathRef object for the SVG in the specified file, or nil if the object could not be found or could not be parsed.
- */
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size borderPadding:(float)borderPadding;
 
 /*!
  *  Returns a CGPathRef corresponding to the path represented by a local SVG file's D attribute

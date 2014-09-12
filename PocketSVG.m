@@ -96,36 +96,50 @@ unichar const invalidCommand		= '*';
 
 @synthesize bezier;
 
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG
-{
-    return [self pathFromSVGFileNamed:nameOfSVG scale:1.0];
+- (id)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
 }
 
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale {
-    return [self pathFromSVGFileNamed:nameOfSVG scale:scale borderPadding:0];
+- (id)initWithSVGFileNamed:(NSString *)nameOfSVG {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (id)initWithSVGFileAtURL:(NSURL *)svgFileURL {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (id)initWithSVGString:(NSString *)svgString {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (id)initWithDAttribute:(NSString *)dAttribute {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
 }
 
 + (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale borderPadding:(float)borderPadding
 {
     PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] scale:scale borderPadding:borderPadding];
     return pocketSVG.bezier.CGPath;
-}
-
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size {
-    return [self pathFromSVGFileNamed:nameOfSVG scaleToFitSize:size borderPadding:0];
-}
-
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scaleToFitSize:(CGSize)size borderPadding:(float)borderPadding {
-    size = CGSizeMake(size.width - (borderPadding * 2), size.height - (borderPadding * 2));
-    
-    CGPathRef pathDefaultScale = [self pathFromSVGFileNamed:nameOfSVG];
-    CGSize defaultScaleSize = CGPathGetBoundingBox(pathDefaultScale).size;
-    
-    float widthDifference = size.width / defaultScaleSize.width;
-    float heightDifference = size.height / defaultScaleSize.height;
-    float scale = MIN(widthDifference, heightDifference);
-    
-    return [self pathFromSVGFileNamed:nameOfSVG scale:scale borderPadding:borderPadding];
 }
 
 + (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
