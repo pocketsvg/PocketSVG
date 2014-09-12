@@ -22,20 +22,12 @@
 //  THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-#else
-#import <Cocoa/Cocoa.h>
-#endif
 
 @interface PocketSVG : NSObject {
 	@private
 	float			pathScale;
-#if TARGET_OS_IPHONE
 	UIBezierPath    *bezier;
-#else
-	NSBezierPath    *bezier;
-#endif
 	CGPoint			lastPoint;
 	CGPoint			lastControlPoint;
 	BOOL			validLastControlPoint;
@@ -44,11 +36,8 @@
     
     NSMutableArray  *tokens;
 }
-#if TARGET_OS_IPHONE
+
 @property(nonatomic, readonly) UIBezierPath *bezier;
-#else
-@property(nonatomic, readonly) NSBezierPath *bezier;
-#endif
 
 
 /*!
@@ -153,11 +142,5 @@
  *  @return The PocketSVG object for the specified file, or nil if the object could not be found or could not be parsed.
  */
 - (instancetype)initWithURL:(NSURL *)svgFileURL __attribute__((deprecated));
-
-
-
-#if !TARGET_OS_IPHONE
-+ (CGPathRef)getCGPathFromNSBezierPath:(NSBezierPath *)quartzPath;
-#endif
 
 @end
