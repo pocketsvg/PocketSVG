@@ -89,6 +89,8 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGCCommand:(Token *)token;
 - (void)appendSVGSCommand:(Token *)token;
 
+@property (nonatomic, strong) NSString *dAttribute;
+
 @end
 
 
@@ -107,7 +109,8 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGFileNamed:(NSString *)nameOfSVG {
     self = [super init];
     if (self) {
-        
+        NSURL *svgFileURL = [[NSBundle mainBundle] URLForResource:nameOfSVG withExtension:@"svg"];
+        self.dAttribute = [[self class] svgStringAtURL:svgFileURL];
     }
     return self;
 }
@@ -115,7 +118,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGFileAtURL:(NSURL *)svgFileURL {
     self = [super init];
     if (self) {
-        
+        self.dAttribute = [[self class] svgStringAtURL:svgFileURL];
     }
     return self;
 }
@@ -123,7 +126,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGString:(NSString *)svgString {
     self = [super init];
     if (self) {
-        
+        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     }
     return self;
 }
@@ -131,7 +134,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithDAttribute:(NSString *)dAttribute {
     self = [super init];
     if (self) {
-        
+        self.dAttribute = dAttribute;
     }
     return self;
 }
