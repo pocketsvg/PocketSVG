@@ -80,7 +80,6 @@ unichar const invalidCommand		= '*';
 
 @interface PocketSVG ()
 
-- (NSMutableArray *)parsePath:(NSString *)attr;
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
 
 - (void)reset;
@@ -152,30 +151,6 @@ unichar const invalidCommand		= '*';
     return bezier.CGPath;
 }
 
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale borderPadding:(float)borderPadding
-{
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG] scale:scale borderPadding:borderPadding];
-    return pocketSVG.bezier.CGPath;
-}
-
-+ (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
-{
-    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-    return [[self class] pathFromSVGString:svgString];
-}
-
-+ (CGPathRef)pathFromSVGString:(NSString *)svgString
-{
-    NSString *dAttribute = [self dStringFromRawSVGString:svgString];
-    return [self pathFromDAttribute:dAttribute];
-}
-
-+ (CGPathRef)pathFromDAttribute:(NSString *)dAttribute
-{
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:dAttribute];
-    return pocketSVG.bezier.CGPath;
-}
-
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
 {
     NSError *error = nil;
@@ -190,8 +165,6 @@ unichar const invalidCommand		= '*';
     }
     return svgString;
 }
-
-
 
 /********
  Returns the content of the SVG's d attribute as an NSString
@@ -247,29 +220,6 @@ unichar const invalidCommand		= '*';
     return dString;
 }
 
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr {
-    return [self initFromSVGPathNodeDAttr:attr scale:1.0];
-}
-
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr scale:(float)scale {
-    return [self initFromSVGPathNodeDAttr:attr scale:scale borderPadding:0];
-}
-
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr scale:(float)scale borderPadding:(float)borderPadding
-{
-	self = [super init];
-	if (self) {
-		pathScale = 0;
-		[self reset];
-		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
-		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		tokens = [self parsePath:attr scale:scale borderPadding:borderPadding];
-		bezier = [self generateBezier:tokens];
-	}
-	return self;
-}
-
-
 #pragma mark - Private methods
 
 /*
@@ -286,14 +236,6 @@ unichar const invalidCommand		= '*';
 		start a new token
 	throw away empty token
 */
-
-- (NSMutableArray *)parsePath:(NSString *)attr {
-    return [self parsePath:attr scale:1.0];
-}
-
-- (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale {
-    return [self parsePath:attr scale:scale borderPadding:0];
-}
 
 - (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale borderPadding:(float)borderPadding
 {
