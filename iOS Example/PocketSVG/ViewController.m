@@ -41,7 +41,7 @@
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = [pocketSVG path];
+    myShapeLayer.path = [pocketSVG bezierPath].CGPath;
     
     
     //3: Fiddle with it using CAShapeLayer's properties:

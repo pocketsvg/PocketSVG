@@ -37,13 +37,11 @@
     NSMutableArray  *tokens;
 }
 
-@property(nonatomic, readonly) UIBezierPath *bezier;
-
 - (id)initWithSVGFileNamed:(NSString *)nameOfSVG;
 - (id)initWithSVGFileAtURL:(NSURL *)svgFileURL;
 - (id)initWithSVGString:(NSString *)svgString;
 - (id)initWithDAttribute:(NSString *)dAttribute;
 
-- (CGPathRef)path;
+- (UIBezierPath *)bezierPath;
 
 @end

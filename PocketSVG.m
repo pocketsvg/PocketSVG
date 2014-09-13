@@ -95,8 +95,6 @@ unichar const invalidCommand		= '*';
 
 @implementation PocketSVG
 
-@synthesize bezier;
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -140,15 +138,13 @@ unichar const invalidCommand		= '*';
     return self;
 }
 
-- (CGPathRef)path {
+- (UIBezierPath *)bezierPath {
     pathScale = 0;
     [self reset];
     separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
     commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
     tokens = [self parsePath:self.dAttribute scale:1.0 borderPadding:0];
-    bezier = [self generateBezier:tokens];
-    
-    return bezier.CGPath;
+    return [self generateBezier:tokens];
 }
 
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
