@@ -77,8 +77,18 @@ unichar const invalidCommand		= '*';
 
 @end
 
-
-@interface PocketSVG ()
+@interface PocketSVG () {
+@private
+	float			pathScale;
+	UIBezierPath    *bezier;
+	CGPoint			lastPoint;
+	CGPoint			lastControlPoint;
+	BOOL			validLastControlPoint;
+	NSCharacterSet  *separatorSet;
+	NSCharacterSet  *commandSet;
+    
+    NSMutableArray  *tokens;
+}
 
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
 
@@ -160,18 +170,15 @@ unichar const invalidCommand		= '*';
     return [self generateBezier:tokens];
 }
 
-- (void)setSize:(CGSize)size {
-    _size = size;
-    
+- (double)scaleToFitSize:(CGSize)size {
     CGSize realSize = CGSizeMake(size.width - (self.borderPadding * 2), size.height - (self.borderPadding * 2));
-    
-    CGPathRef pathDefaultScale = [self bezierPathWithScale:1.0 borderPadding:0].CGPath;
+    CGPathRef pathDefaultScale = [self bezierPathWithScale:1.0 borderPadding:self.borderPadding].CGPath;
     CGSize defaultScaleSize = CGPathGetBoundingBox(pathDefaultScale).size;
     
     float widthDifference = realSize.width / defaultScaleSize.width;
     float heightDifference = realSize.height / defaultScaleSize.height;
     
-    self.scale = MIN(widthDifference, heightDifference);
+    return MIN(widthDifference, heightDifference);
 }
 
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
