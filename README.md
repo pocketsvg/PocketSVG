@@ -18,9 +18,9 @@ Feedback, improvements, and pull requests are welcome.
     //1: Turn your SVG into a CGPath:
     PocketSVG *pocketSVG = [[PocketSVG alloc] initWithSVGFileNamed:@"BezierCurve1"];
 
-	//2: Scale it by using scale, or setting the size. Add borderPadding to half of your intended lineWidth, so the lineWidth doesn't end in an image bigger than you wanted.
+	//2: Scale it by using scale, or the scaleToFitSize: helper method. Add borderPadding to half of your intended lineWidth, so the lineWidth doesn't end in an image bigger than you wanted.
 	pocketSVG.borderPadding = 2;
-	pocketSVG.size = CGSizeMake(100, 100)
+	pocketSVG.scale = [pocketSVG scaleToFitSize:CGSizeMake(100, 100)];
     
     //3: To display it on screen, you can create a CAShapeLayer
     //and set [pocketSVG bezierPath].CGPath as its path property:
