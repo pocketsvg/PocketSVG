@@ -77,8 +77,18 @@ unichar const invalidCommand		= '*';
 
 @end
 
-
-@interface PocketSVG ()
+@interface PocketSVG () {
+@private
+	float			pathScale;
+	UIBezierPath    *bezier;
+	CGPoint			lastPoint;
+	CGPoint			lastControlPoint;
+	BOOL			validLastControlPoint;
+	NSCharacterSet  *separatorSet;
+	NSCharacterSet  *commandSet;
+    
+    NSMutableArray  *tokens;
+}
 
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
 

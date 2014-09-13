@@ -24,18 +24,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PocketSVG : NSObject {
-	@private
-	float			pathScale;
-	UIBezierPath    *bezier;
-	CGPoint			lastPoint;
-	CGPoint			lastControlPoint;
-	BOOL			validLastControlPoint;
-	NSCharacterSet  *separatorSet;
-	NSCharacterSet  *commandSet;
-    
-    NSMutableArray  *tokens;
-}
+@interface PocketSVG : NSObject
 
 - (id)initWithSVGFileNamed:(NSString *)nameOfSVG;
 - (id)initWithSVGFileAtURL:(NSURL *)svgFileURL;
