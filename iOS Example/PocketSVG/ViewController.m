@@ -35,12 +35,17 @@
     [super viewDidLoad];
     
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve3" scaleToFitSize:CGSizeMake(100, 100) borderPadding:2];
+    
+    PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"icon_twitter"];
+    svg.borderPadding = 2;
+    svg.size = CGSizeMake(100, 100);
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
+    myShapeLayer.path = [svg bezierPath].CGPath;
+    myShapeLayer.frame = CGRectMake(1, 1, 100, 100);
+    
     
     
     //3: Fiddle with it using CAShapeLayer's properties:
