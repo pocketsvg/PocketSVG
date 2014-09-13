@@ -3,13 +3,10 @@ An Objective-C class that converts Scalable Vector Graphics (SVG) into:
 * CGPaths
 * CAShapeLayers
 * UIBezierPaths
-* NSBezierCurves 
 
-This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
+This makes it easy to create vector-based paths and shapes in your iOS apps. 
 
 Feedback, improvements, and pull requests are welcome.
-
-[![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
 
 ## Usage
 1. Make your drawing in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
@@ -19,19 +16,23 @@ Feedback, improvements, and pull requests are welcome.
 
 ```obj-c
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initWithSVGFileNamed:@"BezierCurve1"];
+
+	//2: Scale it by using scale, or setting the size. Add borderPadding to half of your intended lineWidth, so the lineWidth doesn't end in an image bigger than you wanted.
+	pocketSVG.borderPadding = 2;
+	pocketSVG.size = CGSizeMake(100, 100)
     
-    //2: To display it on screen, you can create a CAShapeLayer
-    //and set myPath as its path property:
+    //3: To display it on screen, you can create a CAShapeLayer
+    //and set [pocketSVG bezierPath].CGPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
+    myShapeLayer.path = [pocketSVG bezierPath].CGPath;
     
-    //3: Fiddle with it using CAShapeLayer's properties:
+    //4: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
 
-    //4: Display it!
+    //5: Display it!
     [self.view.layer addSublayer:myShapeLayer];
 ```
 
