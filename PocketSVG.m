@@ -157,11 +157,7 @@ unichar const invalidCommand		= '*';
 + (CGPathRef)pathFromDAttribute:(NSString *)dAttribute
 {
     PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:dAttribute];
-#if TARGET_OS_IPHONE
     return pocketSVG.bezier.CGPath;
-#else
-    return [PocketSVG getCGPathFromNSBezierPath:pocketSVG.bezier];
-#endif
 }
 
 - (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
