@@ -98,7 +98,7 @@ unichar const invalidCommand		= '*';
 - (id)init {
     self = [super init];
     if (self) {
-        
+        [self initialSetupPocketSVG];
     }
     return self;
 }
@@ -106,6 +106,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGFileNamed:(NSString *)nameOfSVG {
     self = [super init];
     if (self) {
+        [self initialSetupPocketSVG];
         NSURL *svgFileURL = [[NSBundle mainBundle] URLForResource:nameOfSVG withExtension:@"svg"];
         NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
         self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
@@ -116,6 +117,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGFileAtURL:(NSURL *)svgFileURL {
     self = [super init];
     if (self) {
+        [self initialSetupPocketSVG];
         NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
         self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     }
@@ -125,6 +127,7 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGString:(NSString *)svgString {
     self = [super init];
     if (self) {
+        [self initialSetupPocketSVG];
         self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     }
     return self;
@@ -133,9 +136,15 @@ unichar const invalidCommand		= '*';
 - (id)initWithDAttribute:(NSString *)dAttribute {
     self = [super init];
     if (self) {
+        [self initialSetupPocketSVG];
         self.dAttribute = dAttribute;
     }
     return self;
+}
+
+- (void)initialSetupPocketSVG {
+    self.scale = 1.0;
+    self.borderPadding = 0;
 }
 
 - (UIBezierPath *)bezierPath {
@@ -143,7 +152,7 @@ unichar const invalidCommand		= '*';
     [self reset];
     separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
     commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-    tokens = [self parsePath:self.dAttribute scale:1.0 borderPadding:0];
+    tokens = [self parsePath:self.dAttribute scale:self.scale borderPadding:self.borderPadding];
     return [self generateBezier:tokens];
 }
 

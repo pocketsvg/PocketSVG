@@ -42,6 +42,9 @@
 - (id)initWithSVGString:(NSString *)svgString;
 - (id)initWithDAttribute:(NSString *)dAttribute;
 
+@property (nonatomic) double scale;
+@property (nonatomic) double borderPadding;
+
 - (UIBezierPath *)bezierPath;
 
 @end
