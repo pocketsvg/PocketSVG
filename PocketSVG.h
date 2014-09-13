@@ -44,6 +44,8 @@
 - (id)initWithSVGString:(NSString *)svgString;
 - (id)initWithDAttribute:(NSString *)dAttribute;
 
+- (CGPathRef)path;
+
 /*!
  *  Returns a CGPathRef corresponding to the path represented by a local SVG file's d attribute.
  *

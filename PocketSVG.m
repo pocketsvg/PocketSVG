@@ -110,7 +110,8 @@ unichar const invalidCommand		= '*';
     self = [super init];
     if (self) {
         NSURL *svgFileURL = [[NSBundle mainBundle] URLForResource:nameOfSVG withExtension:@"svg"];
-        self.dAttribute = [[self class] svgStringAtURL:svgFileURL];
+        NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     }
     return self;
 }
@@ -118,7 +119,8 @@ unichar const invalidCommand		= '*';
 - (id)initWithSVGFileAtURL:(NSURL *)svgFileURL {
     self = [super init];
     if (self) {
-        self.dAttribute = [[self class] svgStringAtURL:svgFileURL];
+        NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     }
     return self;
 }
@@ -137,6 +139,17 @@ unichar const invalidCommand		= '*';
         self.dAttribute = dAttribute;
     }
     return self;
+}
+
+- (CGPathRef)path {
+    pathScale = 0;
+    [self reset];
+    separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+    commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+    tokens = [self parsePath:self.dAttribute scale:1.0 borderPadding:0];
+    bezier = [self generateBezier:tokens];
+    
+    return bezier.CGPath;
 }
 
 + (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG scale:(float)scale borderPadding:(float)borderPadding
