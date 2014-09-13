@@ -36,12 +36,13 @@
     
     //1: Turn your SVG into a CGPath:
     
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initWithSVGFileNamed:@"BezierCurve3"];
+    PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"BezierCurve3"];
+    svg.size = CGSizeMake(400, 400);
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = [pocketSVG bezierPath].CGPath;
+    myShapeLayer.path = [svg bezierPath].CGPath;
     
     
     //3: Fiddle with it using CAShapeLayer's properties:

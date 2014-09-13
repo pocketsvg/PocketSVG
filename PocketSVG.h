@@ -44,6 +44,7 @@
 
 @property (nonatomic) double scale;
 @property (nonatomic) double borderPadding;
+@property (nonatomic) CGSize size; //Adjusts scale when set. Takes border padding into account when setting.
 
 - (UIBezierPath *)bezierPath;
 

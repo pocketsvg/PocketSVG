@@ -148,12 +148,30 @@ unichar const invalidCommand		= '*';
 }
 
 - (UIBezierPath *)bezierPath {
+    return [self bezierPathWithScale:self.scale borderPadding:self.borderPadding];
+}
+
+- (UIBezierPath *)bezierPathWithScale:(double)scale borderPadding:(double)borderPadding {
     pathScale = 0;
     [self reset];
     separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
     commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-    tokens = [self parsePath:self.dAttribute scale:self.scale borderPadding:self.borderPadding];
+    tokens = [self parsePath:self.dAttribute scale:scale borderPadding:borderPadding];
     return [self generateBezier:tokens];
+}
+
+- (void)setSize:(CGSize)size {
+    _size = size;
+    
+    CGSize realSize = CGSizeMake(size.width - (self.borderPadding * 2), size.height - (self.borderPadding * 2));
+    
+    CGPathRef pathDefaultScale = [self bezierPathWithScale:1.0 borderPadding:0].CGPath;
+    CGSize defaultScaleSize = CGPathGetBoundingBox(pathDefaultScale).size;
+    
+    float widthDifference = realSize.width / defaultScaleSize.width;
+    float heightDifference = realSize.height / defaultScaleSize.height;
+    
+    self.scale = MIN(widthDifference, heightDifference);
 }
 
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
