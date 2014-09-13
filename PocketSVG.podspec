@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "PocketSVG"
-  s.version      = "0.7"
+  s.version      = "0.8"
   s.summary      = "An Objective-C class that converts Scalable Vector Graphics into Core Graphics elements."
   s.homepage     = "https://github.com/ProjectDent/PocketSVG"
 
