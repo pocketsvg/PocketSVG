@@ -44,8 +44,10 @@
 
 @property (nonatomic) double scale;
 @property (nonatomic) double borderPadding;
-@property (nonatomic) CGSize size; //Adjusts scale when set. Takes border padding into account when setting.
 
 - (UIBezierPath *)bezierPath;
+
+//Gives scale that fits the svg within a size, taking border padding into account.
+- (double)scaleToFitSize:(CGSize)size;
 
 @end
