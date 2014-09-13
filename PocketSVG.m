@@ -160,17 +160,6 @@ unichar const invalidCommand		= '*';
     return pocketSVG.bezier.CGPath;
 }
 
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
-    return [self initFromSVGPathNodeDAttr:[[self class] parseSVGNamed:nameOfSVG]];
-}
-
-- (id)initWithURL:(NSURL *)svgFileURL
-{
-    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-    
-    return [self initFromSVGPathNodeDAttr:[[self class] dStringFromRawSVGString:svgString]];
-}
-
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
 {
     NSError *error = nil;
