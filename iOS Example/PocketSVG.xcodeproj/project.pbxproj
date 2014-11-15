@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49155E1519C46C9A00181D20 /* icon_twitter.svg in Resources */ = {isa = PBXBuildFile; fileRef = 49155E1419C46C9A00181D20 /* icon_twitter.svg */; };
+		492262B41A178E9200AD0966 /* layers.svg in Resources */ = {isa = PBXBuildFile; fileRef = 492262B31A178E9200AD0966 /* layers.svg */; };
+		492262B61A17958300AD0966 /* news.svg in Resources */ = {isa = PBXBuildFile; fileRef = 492262B51A17958300AD0966 /* news.svg */; };
+		492262BE1A17A8CB00AD0966 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 492262BB1A17A8CB00AD0966 /* HTMLNode.m */; };
+		492262BF1A17A8CB00AD0966 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 492262BD1A17A8CB00AD0966 /* HTMLParser.m */; };
+		492262C11A17AA7800AD0966 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 492262C01A17AA7800AD0966 /* libxml2.dylib */; };
 		B039268D163F072100EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B039268C163F072100EF033B /* PocketSVG.m */; };
 		B0392691163F072800EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268E163F072800EF033B /* BezierCurve1.svg */; };
 		B0392692163F072800EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268F163F072800EF033B /* BezierCurve2.svg */; };
@@ -22,6 +28,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49155E1419C46C9A00181D20 /* icon_twitter.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = icon_twitter.svg; path = ../../icon_twitter.svg; sourceTree = "<group>"; };
+		492262B31A178E9200AD0966 /* layers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = layers.svg; path = ../../layers.svg; sourceTree = "<group>"; };
+		492262B51A17958300AD0966 /* news.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = news.svg; path = ../../news.svg; sourceTree = "<group>"; };
+		492262BA1A17A8CB00AD0966 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = ../HTMLParser/HTMLNode.h; sourceTree = "<group>"; };
+		492262BB1A17A8CB00AD0966 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = ../HTMLParser/HTMLNode.m; sourceTree = "<group>"; };
+		492262BC1A17A8CB00AD0966 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = ../HTMLParser/HTMLParser.h; sourceTree = "<group>"; };
+		492262BD1A17A8CB00AD0966 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = ../HTMLParser/HTMLParser.m; sourceTree = "<group>"; };
+		492262C01A17AA7800AD0966 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		B039268B163F072100EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../PocketSVG.h; sourceTree = "<group>"; };
 		B039268C163F072100EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../PocketSVG.m; sourceTree = "<group>"; };
 		B039268E163F072800EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
@@ -47,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492262C11A17AA7800AD0966 /* libxml2.dylib in Frameworks */,
 				B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */,
 				B0A9DB9115CA9B340095DFAF /* UIKit.framework in Frameworks */,
 				B0A9DB9315CA9B340095DFAF /* Foundation.framework in Frameworks */,
@@ -57,9 +72,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		492262B91A17A8C200AD0966 /* HTMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				492262BA1A17A8CB00AD0966 /* HTMLNode.h */,
+				492262BB1A17A8CB00AD0966 /* HTMLNode.m */,
+				492262BC1A17A8CB00AD0966 /* HTMLParser.h */,
+				492262BD1A17A8CB00AD0966 /* HTMLParser.m */,
+			);
+			name = HTMLParser;
+			sourceTree = "<group>";
+		};
 		B0A9DB8115CA9B340095DFAF = {
 			isa = PBXGroup;
 			children = (
+				492262B91A17A8C200AD0966 /* HTMLParser */,
 				B0A9DB9615CA9B340095DFAF /* PocketSVG */,
 				B0A9DB8F15CA9B340095DFAF /* Frameworks */,
 				B0A9DB8D15CA9B340095DFAF /* Products */,
@@ -77,6 +104,7 @@
 		B0A9DB8F15CA9B340095DFAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				492262C01A17AA7800AD0966 /* libxml2.dylib */,
 				B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */,
 				B0A9DB9015CA9B340095DFAF /* UIKit.framework */,
 				B0A9DB9215CA9B340095DFAF /* Foundation.framework */,
@@ -91,6 +119,9 @@
 				B039268E163F072800EF033B /* BezierCurve1.svg */,
 				B039268F163F072800EF033B /* BezierCurve2.svg */,
 				B0392690163F072800EF033B /* BezierCurve3.svg */,
+				49155E1419C46C9A00181D20 /* icon_twitter.svg */,
+				492262B31A178E9200AD0966 /* layers.svg */,
+				492262B51A17958300AD0966 /* news.svg */,
 				B0A9DB9F15CA9B340095DFAF /* AppDelegate.h */,
 				B0A9DBA015CA9B340095DFAF /* AppDelegate.m */,
 				B039268B163F072100EF033B /* PocketSVG.h */,
@@ -164,8 +195,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0A9DB9B15CA9B340095DFAF /* InfoPlist.strings in Resources */,
+				49155E1519C46C9A00181D20 /* icon_twitter.svg in Resources */,
+				492262B41A178E9200AD0966 /* layers.svg in Resources */,
 				B0392691163F072800EF033B /* BezierCurve1.svg in Resources */,
 				B0392692163F072800EF033B /* BezierCurve2.svg in Resources */,
+				492262B61A17958300AD0966 /* news.svg in Resources */,
 				B0392693163F072800EF033B /* BezierCurve3.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492262BE1A17A8CB00AD0966 /* HTMLNode.m in Sources */,
+				492262BF1A17A8CB00AD0966 /* HTMLParser.m in Sources */,
 				B0A9DB9D15CA9B340095DFAF /* main.m in Sources */,
 				B0A9DBA115CA9B340095DFAF /* AppDelegate.m in Sources */,
 				B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */,
@@ -269,6 +305,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -283,6 +324,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;

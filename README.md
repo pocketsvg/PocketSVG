@@ -3,35 +3,42 @@ An Objective-C class that converts Scalable Vector Graphics (SVG) into:
 * CGPaths
 * CAShapeLayers
 * UIBezierPaths
-* NSBezierCurves 
 
-This makes it easy to create vector-based paths and shapes in your iOS or OS X apps. 
+This makes it easy to create vector-based paths and shapes in your iOS apps. 
 
 Feedback, improvements, and pull requests are welcome.
 
-[![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
-
 ## Usage
+Drop PocketSVG.h, PocketSVG.m, HTMLNode.h, HTMLNode.m, HTMLParser.h and HTMLParser.m into an XCode project.
+
+In the project settings add "/usr/include/libxml2" to the "header search paths" field.
+
+Ctrl Click the Frameworks group choose Add -> Existing Frameworks and from the list choose "libxml2.dylib".
+
 1. Make your drawing in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
-1. Save as an SVG.
-1. Drag and drop it into your Xcode project.
-1. Follow these easy steps:
+2. Save as an SVG.
+3. Drag and drop it into your Xcode project.
+4. Follow these easy steps:
 
 ```obj-c
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
+    PocketSVG *pocketSVG = [[PocketSVG alloc] initWithSVGFileNamed:@"BezierCurve1"];
+
+	//2: Scale it by using scale, or the scaleToFitSize: helper method. Add borderPadding to half of your intended lineWidth, so the lineWidth doesn't end in an image bigger than you wanted.
+	pocketSVG.borderPadding = 2;
+	pocketSVG.scale = [pocketSVG scaleToFitSize:CGSizeMake(100, 100)];
     
-    //2: To display it on screen, you can create a CAShapeLayer
-    //and set myPath as its path property:
+    //3: To display it on screen, you can create a CAShapeLayer
+    //and set [pocketSVG bezierPath].CGPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
+    myShapeLayer.path = [pocketSVG bezierPath].CGPath;
     
-    //3: Fiddle with it using CAShapeLayer's properties:
+    //4: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
 
-    //4: Display it!
+    //5: Display it!
     [self.view.layer addSublayer:myShapeLayer];
 ```
 
@@ -52,8 +59,7 @@ Feedback, improvements, and pull requests are welcome.
 * Simplified PocketSVG's init method (thanks to [johnnyknox](https://github.com/johnnyknox)).
 
 ## To Do
-* Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html).
-* Support for SVGs with more than one path (currently PocketSVG renders the last path).
+* Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html), outside of Rects.
 * Improve parser efficiency.
 
 ## Support
@@ -68,6 +74,9 @@ Please ask questions and report bugs on [the project's Issues Page](https://gith
 * [mindbrix](https://github.com/mindbrix)
 * [johnnyknox](https://github.com/johnnyknox)
 * [JagieChen](https://github.com/JagieChen)
+
+## External Libraries
+PocketSVG uses [HTMLParser](https://github.com/zootreeves/Objective-C-HMTL-Parser) to parse SVG strings for rectangles.
 
 ## License
 

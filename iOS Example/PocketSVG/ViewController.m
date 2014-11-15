@@ -35,19 +35,20 @@
     [super viewDidLoad];
     
     //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
+    PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"news"];
+    svg.borderPadding = 0;
+//    svg.scale = [svg scaleToFitSize:CGSizeMake(100, 100)];
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:
     CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
-    
+    myShapeLayer.path = [svg bezierPath].CGPath;
+    myShapeLayer.frame = CGRectMake(100, 100, 100, 100);
     
     //3: Fiddle with it using CAShapeLayer's properties:
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
-    myShapeLayer.lineWidth = 4;
+    myShapeLayer.lineWidth = 1;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
     
     //4: Display it!
     [self.view.layer addSublayer:myShapeLayer];

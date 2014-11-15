@@ -24,6 +24,7 @@
 
 
 #import "PocketSVG.h"
+#import "HTMLParser.h"
 
 NSInteger const maxPathComplexity	= 1000;
 NSInteger const maxParameters		= 64;
@@ -32,7 +33,17 @@ NSString* const separatorCharString = @"-, CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
 
+//Represents a rectangle at 1.0 scale.
+@interface Rectangle: NSObject
 
+@property (nonatomic) CGRect rect;
+@property (nonatomic) float cornerRadius;
+
+@end
+
+@implementation Rectangle
+
+@end
 
 @interface Token : NSObject {
 	@private
@@ -77,15 +88,20 @@ unichar const invalidCommand		= '*';
 
 @end
 
+@interface PocketSVG () {
+@private
+	float			pathScale;
+	UIBezierPath    *bezier;
+	CGPoint			lastPoint;
+	CGPoint			lastControlPoint;
+	BOOL			validLastControlPoint;
+	NSCharacterSet  *separatorSet;
+	NSCharacterSet  *commandSet;
+    
+    NSMutableArray  *tokens;
+}
 
-@interface PocketSVG ()
-
-- (NSMutableArray *)parsePath:(NSString *)attr;
-#if TARGET_OS_IPHONE
 - (UIBezierPath *) generateBezier:(NSArray *)tokens;
-#else
-- (NSBezierPath *) generateBezier:(NSArray *)tokens;
-#endif
 
 - (void)reset;
 - (void)appendSVGMCommand:(Token *)token;
@@ -93,54 +109,133 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGCCommand:(Token *)token;
 - (void)appendSVGSCommand:(Token *)token;
 
+@property (nonatomic, strong) NSString *dAttribute;
+
+//Bezier paths of rectangles, deduced from an SVG string
+@property (nonatomic, strong) NSMutableArray *rectangles;
 @end
 
 
 @implementation PocketSVG
 
-@synthesize bezier;
-
-+ (CGPathRef)pathFromSVGFileNamed:(NSString *)nameOfSVG
-{
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:[self parseSVGNamed:nameOfSVG]];
-#if TARGET_OS_IPHONE
-    return pocketSVG.bezier.CGPath;
-#else
-    return [PocketSVG getCGPathFromNSBezierPath:pocketSVG.bezier];
-#endif
+- (id)init {
+    self = [super init];
+    if (self) {
+        [self initialSetupPocketSVG];
+    }
+    return self;
 }
 
-+ (CGPathRef)pathFromSVGFileAtURL:(NSURL *)svgFileURL
-{
-    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-    return [[self class] pathFromSVGString:svgString];
+- (id)initWithSVGFileNamed:(NSString *)nameOfSVG {
+    self = [super init];
+    if (self) {
+        [self initialSetupPocketSVG];
+        NSURL *svgFileURL = [[NSBundle mainBundle] URLForResource:nameOfSVG withExtension:@"svg"];
+        NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+        [self setupWithSVGString:svgString];
+    }
+    return self;
 }
 
-+ (CGPathRef)pathFromSVGString:(NSString *)svgString
-{
-    NSString *dAttribute = [self dStringFromRawSVGString:svgString];
-    return [self pathFromDAttribute:dAttribute];
+- (id)initWithSVGFileAtURL:(NSURL *)svgFileURL {
+    self = [super init];
+    if (self) {
+        [self initialSetupPocketSVG];
+        NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+        [self setupWithSVGString:svgString];
+    }
+    return self;
 }
 
-+ (CGPathRef)pathFromDAttribute:(NSString *)dAttribute
-{
-    PocketSVG *pocketSVG = [[PocketSVG alloc] initFromSVGPathNodeDAttr:dAttribute];
-#if TARGET_OS_IPHONE
-    return pocketSVG.bezier.CGPath;
-#else
-    return [PocketSVG getCGPathFromNSBezierPath:pocketSVG.bezier];
-#endif
+- (id)initWithSVGString:(NSString *)svgString {
+    self = [super init];
+    if (self) {
+        [self initialSetupPocketSVG];
+        [self setupWithSVGString:svgString];
+    }
+    return self;
 }
 
-- (id)initFromSVGFileNamed:(NSString *)nameOfSVG{
-    return [self initFromSVGPathNodeDAttr:[[self class] parseSVGNamed:nameOfSVG]];
+- (id)initWithDAttribute:(NSString *)dAttribute {
+    self = [super init];
+    if (self) {
+        [self initialSetupPocketSVG];
+        self.dAttribute = dAttribute;
+    }
+    return self;
 }
 
-- (id)initWithURL:(NSURL *)svgFileURL
-{
-    NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
+- (void)initialSetupPocketSVG {
+    self.scale = 1.0;
+    self.borderPadding = 0;
+    self.rectangles = [NSMutableArray new];
+}
+
+- (void)setupWithSVGString:(NSString *)svgString {
+    self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
     
-    return [self initFromSVGPathNodeDAttr:[[self class] dStringFromRawSVGString:svgString]];
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:svgString error:nil];
+    HTMLNode *docNode = [parser doc];
+    
+    for (HTMLNode *rectNode in [docNode findChildTags:@"rect"]) {
+        float x = [rectNode getAttributeNamed:@"x"].floatValue;
+        float y = [rectNode getAttributeNamed:@"y"].floatValue;
+        float width = [rectNode getAttributeNamed:@"width"].floatValue;
+        float height = [rectNode getAttributeNamed:@"height"].floatValue;
+        
+        float radius;
+        if ([rectNode getAttributeNamed:@"rx"]) {
+            radius = [rectNode getAttributeNamed:@"rx"].floatValue;
+        } else {
+            radius = 0;
+        }
+        
+        CGRect rect = CGRectMake(x + 0.5, y + 0.5, width - 1, height - 1);
+        
+        Rectangle *rectangle = [Rectangle new];
+        rectangle.rect = rect;
+        rectangle.cornerRadius = radius;
+        [self.rectangles addObject:rectangle];
+    }
+}
+
+- (UIBezierPath *)bezierPath {
+    return [self bezierPathWithScale:self.scale borderPadding:self.borderPadding];
+}
+
+- (UIBezierPath *)bezierPathWithScale:(double)scale borderPadding:(double)borderPadding {
+    pathScale = 0;
+    [self reset];
+    separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
+    commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
+    tokens = [self parsePath:self.dAttribute scale:scale borderPadding:borderPadding];
+    UIBezierPath *bezierPath = [self generateBezier:tokens];
+    
+    for (Rectangle *rectangle in self.rectangles) {
+        
+        CGRect scaledRect = CGRectMake((rectangle.rect.origin.x * scale) + (borderPadding / 2),
+                                       (rectangle.rect.origin.y * scale) + (borderPadding / 2),
+                                       (rectangle.rect.size.width * scale) + (borderPadding / 2),
+                                       (rectangle.rect.size.height * scale) + (borderPadding / 2));
+        
+        float scaledRadius = rectangle.cornerRadius * scale;
+        
+        UIBezierPath *rectangleBezierPath = [UIBezierPath bezierPathWithRoundedRect:scaledRect cornerRadius:scaledRadius];
+        [bezierPath appendPath:rectangleBezierPath];
+    }
+    
+    return bezierPath;
+}
+
+- (double)scaleToFitSize:(CGSize)size {
+    CGSize realSize = CGSizeMake(size.width - (self.borderPadding * 2), size.height - (self.borderPadding * 2));
+    CGPathRef pathDefaultScale = [self bezierPathWithScale:1.0 borderPadding:self.borderPadding].CGPath;
+    CGSize defaultScaleSize = CGPathGetBoundingBox(pathDefaultScale).size;
+    
+    float widthDifference = realSize.width / defaultScaleSize.width;
+    float heightDifference = realSize.height / defaultScaleSize.height;
+    
+    return MIN(widthDifference, heightDifference);
 }
 
 + (NSString *)svgStringAtURL:(NSURL *)svgFileURL
@@ -157,8 +252,6 @@ unichar const invalidCommand		= '*';
     }
     return svgString;
 }
-
-
 
 /********
  Returns the content of the SVG's d attribute as an NSString
@@ -191,43 +284,42 @@ unichar const invalidCommand		= '*';
     
     svgString = [svgString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
     
-    NSArray *components = [svgString componentsSeparatedByString:@"d="];
+    NSString *finalString = @"";
+    
+    NSMutableArray *components = [NSMutableArray arrayWithArray:[svgString componentsSeparatedByString:@"d="]];
     
     if([components count] < 2){
         NSLog(@"*** PocketSVG Error: No d attribute found in SVG file.");
         return nil;
     }
     
-    NSString *dString = [components lastObject];
-    dString = [dString substringFromIndex:1];
-    NSRange d = [dString rangeOfString:@"\""];
-    dString = [dString substringToIndex:d.location];
-    dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
+    [components removeObjectAtIndex:0];
     
-    NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    for (NSString *string in components) {
+        
+        //Needs to be done to modify the string.
+        NSString *dString = string;
+        
+        dString = [dString substringFromIndex:1];
+        NSRange d = [dString rangeOfString:@"\""];
+        dString = [dString substringToIndex:d.location];
+        dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
+        
+        NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
+        
+//        NSLog(@"*** PocketSVG: Path data is: %@", dString);
+        
+        if (finalString.length > 0) {
+            finalString = [finalString stringByAppendingString:@", "];
+        }
+        
+        finalString = [finalString stringByAppendingString:dString];
+    }
     
-    dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
-    
-    //Uncomment the line below to print the raw path data of the SVG file:
-    //NSLog(@"*** PocketSVG: Path data of %@ is: %@", nameOfSVG, dString);
-    
-    return dString;
+    return finalString;
 }
-
-- (id)initFromSVGPathNodeDAttr:(NSString *)attr
-{
-	self = [super init];
-	if (self) {
-		pathScale = 0;
-		[self reset];
-		separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
-		commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
-		tokens = [self parsePath:attr];
-		bezier = [self generateBezier:tokens];
-	}
-	return self;
-}
-
 
 #pragma mark - Private methods
 
@@ -246,7 +338,7 @@ unichar const invalidCommand		= '*';
 	throw away empty token
 */
 
-- (NSMutableArray *)parsePath:(NSString *)attr
+- (NSMutableArray *)parsePath:(NSString *)attr scale:(float)scale borderPadding:(float)borderPadding
 {
 	NSMutableArray *stringTokens = [NSMutableArray arrayWithCapacity: maxPathComplexity];
 	
@@ -307,7 +399,12 @@ unichar const invalidCommand		= '*';
 					  (long)index, [stringToken cStringUsingEncoding:NSUTF8StringEncoding], [attr cStringUsingEncoding:NSUTF8StringEncoding]);
 				return nil;
 			}
+            
 			// Maintain scale.
+            value = value * scale;
+            
+            value = value + borderPadding;
+            
 			pathScale = (abs(value) > pathScale) ? abs(value) : pathScale;
 			[token addValue:value];
 		}
@@ -319,15 +416,9 @@ unichar const invalidCommand		= '*';
 	return tokens;
 }
 
-#if TARGET_OS_IPHONE
 - (UIBezierPath *)generateBezier:(NSArray *)inTokens
 {
 	bezier = [[UIBezierPath alloc] init];
-#else
-- (NSBezierPath *)generateBezier:(NSArray *)inTokens
-{
-    bezier = [[NSBezierPath alloc] init];
-#endif
 
 	[self reset];
 	for (Token *thisToken in inTokens) {
@@ -362,26 +453,6 @@ unichar const invalidCommand		= '*';
 				break;
 		}
 	}
-#if !TARGET_OS_IPHONE
-    
-//-(CGAffineTransform)uiKitCTM:( CGRect) bounds
-//    {
-//        return CGAffineTransformConcat( CGAffineTransformMakeScale( 1.0f, -1.0f ), CGAffineTransformMakeTranslation( 0.0f, viewBounds.size.height ));
-//    };
-    
-//    NSAffineTransform* xform = [NSAffineTransform transform];
-//    [xform rotateByDegrees:180];
-//    [bezier transformUsingAffineTransform:xform];
-    
-//    CGContextRef graphicsContext = [[NSGraphicsContext currentContext] graphicsPort];
-//    CGContextSaveGState(graphicsContext);
-//    CGContextTranslateCTM(graphicsContext, 0.0, bezier.bounds.size.heigth);
-//    CGContextScaleCTM(graphicsContext, 1.0, -1.0);
-//    CGContextDrawImage(graphicsContext, bezier, CGRectMake(0, 0, imageWidth, imageHeight));
-//    CGContextRestoreGState(graphicsContext);
-//    [bezier transformUsingAffineTransform:(NSAffineTransform)(CGAffineTransformConcat( CGAffineTransformMakeScale( 1.0f, -1.0f ), CGAffineTransformMakeTranslation( 0.0f, bezier.bounds.size.height )))];
-    
-#endif
 	return bezier;
 }
 
@@ -409,11 +480,7 @@ unichar const invalidCommand		= '*';
 			first = NO;
 		}
 		else {
-#if TARGET_OS_IPHONE
 			[bezier addLineToPoint:lastPoint];
-#else
-			[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
-#endif
 		}
 		index++;
 	}
@@ -455,11 +522,7 @@ unichar const invalidCommand		= '*';
 				return;
 		}
 		lastPoint = CGPointMake(x, y);
-#if TARGET_OS_IPHONE
 		[bezier addLineToPoint:lastPoint];
-#else
-		[bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
-#endif
 		index++;
 	}
 }
@@ -475,15 +538,9 @@ unichar const invalidCommand		= '*';
 		CGFloat x  = [token parameter:index++] + ([token command] == 'c' ? lastPoint.x : 0);
 		CGFloat y  = [token parameter:index++] + ([token command] == 'c' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
-#if TARGET_OS_IPHONE
 		[bezier addCurveToPoint:lastPoint 
 				  controlPoint1:CGPointMake(x1,y1) 
 				  controlPoint2:CGPointMake(x2, y2)];
-#else
-		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
-			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
-#endif
         lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
 	}
@@ -506,15 +563,9 @@ unichar const invalidCommand		= '*';
 		CGFloat x  = [token parameter:index++] + ([token command] == 's' ? lastPoint.x : 0);
 		CGFloat y  = [token parameter:index++] + ([token command] == 's' ? lastPoint.y : 0);
 		lastPoint = CGPointMake(x, y);
-#if TARGET_OS_IPHONE
 		[bezier addCurveToPoint:lastPoint 
 				  controlPoint1:CGPointMake(x1,y1)
 				  controlPoint2:CGPointMake(x2, y2)];
-#else
-		[bezier curveToPoint:NSPointFromCGPoint(lastPoint)
-			   controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1)) 
-			   controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
-#endif
 		lastControlPoint = CGPointMake(x2, y2);
 		validLastControlPoint = YES;
 	}
@@ -522,69 +573,5 @@ unichar const invalidCommand		= '*';
 		NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
 	}
 }
-    
-#if !TARGET_OS_IPHONE
-//NSBezierPaths don't have a CGPath property, so we need to fetch their CGPath manually.
-//This comes from the "Creating a CGPathRef From an NSBezierPath Object" section of
-//https://developer.apple.com/library/mac/#documentation/cocoa/Conceptual/CocoaDrawingGuide/Paths/Paths.html
-
-+ (CGPathRef)getCGPathFromNSBezierPath:(NSBezierPath *)quartzPath
-{
-    int i;
-    NSInteger numElements;
-    // Need to begin a path here.
-    CGPathRef           immutablePath = NULL;
-    
-    // Then draw the path elements.
-    numElements = [quartzPath elementCount];
-    if (numElements > 0)
-    {
-        CGMutablePathRef    path = CGPathCreateMutable();
-        NSPoint             points[3];
-        BOOL                didClosePath = YES;
-        
-        for (i = 0; i < numElements; i++)
-        {
-            switch ([quartzPath elementAtIndex:i associatedPoints:points])
-            {
-                case NSMoveToBezierPathElement:
-                    CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
-                    break;
-                    
-                case NSLineToBezierPathElement:
-                    CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
-                    didClosePath = NO;
-                    break;
-                    
-                case NSCurveToBezierPathElement:
-                    CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
-                                          points[1].x, points[1].y,
-                                          points[2].x, points[2].y);
-                    didClosePath = NO;
-                    break;
-                    
-                case NSClosePathBezierPathElement:
-                    CGPathCloseSubpath(path);
-                    didClosePath = YES;
-                    break;
-            }
-        }
-        
-        immutablePath = CGPathCreateCopy(path);
-        CGPathRelease(path);
-    }
-    
-    //TODO:
-    //At this stage, immutablePath is upside down. I'm currently flipping it back using CGAffineTransforms,
-    //the path rotates fine, but its positioning needs to be fixed.
-    
-    CGAffineTransform flip = CGAffineTransformMake(1, 0, 0, -1, 0, CGPathGetBoundingBox(immutablePath).size.height);
-    CGAffineTransform moveDown = CGAffineTransformMakeTranslation(0, -100);
-    CGAffineTransform trans = CGAffineTransformConcat(flip, moveDown);
-    CGPathRef betterPath = CGPathCreateCopyByTransformingPath(immutablePath, &trans);
-    return betterPath;
-}
-#endif
-
 
 @end

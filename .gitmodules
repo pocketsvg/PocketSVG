@@ -1,0 +1,3 @@
+[submodule "HTMLParser"]
+	path = HTMLParser
+	url = https://github.com/zootreeves/Objective-C-HMTL-Parser.git
