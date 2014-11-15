@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.1.1 (8761) - http://www.bohemiancoding.com/sketch -->
+    <title>Newspaper</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-17" sketch:type="MSArtboardGroup" stroke="#979797">
+            <g id="Newspaper" sketch:type="MSLayerGroup">
+                <rect id="Rectangle-462" sketch:type="MSShapeGroup" x="0" y="0" width="24" height="20" rx="2"></rect>
+                <path d="M4.5,4.5 L19.5,4.5" id="Line-5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path d="M3.5,14.5 L10.5,14.5" id="Path" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path d="M3.5,12.5 L10.5,12.5" id="Path" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path d="M3.5,10.5 L10.5,10.5" id="Path" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path d="M3.5,8.5 L10.5,8.5" id="Path" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <rect id="Rectangle-357" sketch:type="MSShapeGroup" x="13" y="8" width="8" height="8"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

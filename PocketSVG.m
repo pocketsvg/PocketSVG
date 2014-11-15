@@ -24,6 +24,7 @@
 
 
 #import "PocketSVG.h"
+#import "HTMLParser.h"
 
 NSInteger const maxPathComplexity	= 1000;
 NSInteger const maxParameters		= 64;
@@ -32,7 +33,17 @@ NSString* const separatorCharString = @"-, CcMmLlHhVvZzqQaAsS";
 NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
 unichar const invalidCommand		= '*';
 
+//Represents a rectangle at 1.0 scale.
+@interface Rectangle: NSObject
 
+@property (nonatomic) CGRect rect;
+@property (nonatomic) float cornerRadius;
+
+@end
+
+@implementation Rectangle
+
+@end
 
 @interface Token : NSObject {
 	@private
@@ -100,6 +111,8 @@ unichar const invalidCommand		= '*';
 
 @property (nonatomic, strong) NSString *dAttribute;
 
+//Bezier paths of rectangles, deduced from an SVG string
+@property (nonatomic, strong) NSMutableArray *rectangles;
 @end
 
 
@@ -119,7 +132,7 @@ unichar const invalidCommand		= '*';
         [self initialSetupPocketSVG];
         NSURL *svgFileURL = [[NSBundle mainBundle] URLForResource:nameOfSVG withExtension:@"svg"];
         NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
+        [self setupWithSVGString:svgString];
     }
     return self;
 }
@@ -129,7 +142,7 @@ unichar const invalidCommand		= '*';
     if (self) {
         [self initialSetupPocketSVG];
         NSString *svgString = [[self class] svgStringAtURL:svgFileURL];
-        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
+        [self setupWithSVGString:svgString];
     }
     return self;
 }
@@ -138,7 +151,7 @@ unichar const invalidCommand		= '*';
     self = [super init];
     if (self) {
         [self initialSetupPocketSVG];
-        self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
+        [self setupWithSVGString:svgString];
     }
     return self;
 }
@@ -155,6 +168,35 @@ unichar const invalidCommand		= '*';
 - (void)initialSetupPocketSVG {
     self.scale = 1.0;
     self.borderPadding = 0;
+    self.rectangles = [NSMutableArray new];
+}
+
+- (void)setupWithSVGString:(NSString *)svgString {
+    self.dAttribute = [[self class] dStringFromRawSVGString:svgString];
+    
+    HTMLParser *parser = [[HTMLParser alloc] initWithString:svgString error:nil];
+    HTMLNode *docNode = [parser doc];
+    
+    for (HTMLNode *rectNode in [docNode findChildTags:@"rect"]) {
+        float x = [rectNode getAttributeNamed:@"x"].floatValue;
+        float y = [rectNode getAttributeNamed:@"y"].floatValue;
+        float width = [rectNode getAttributeNamed:@"width"].floatValue;
+        float height = [rectNode getAttributeNamed:@"height"].floatValue;
+        
+        float radius;
+        if ([rectNode getAttributeNamed:@"rx"]) {
+            radius = [rectNode getAttributeNamed:@"rx"].floatValue;
+        } else {
+            radius = 0;
+        }
+        
+        CGRect rect = CGRectMake(x, y, width, height);
+        
+        Rectangle *rectangle = [Rectangle new];
+        rectangle.rect = rect;
+        rectangle.cornerRadius = radius;
+        [self.rectangles addObject:rectangle];
+    }
 }
 
 - (UIBezierPath *)bezierPath {
@@ -167,7 +209,22 @@ unichar const invalidCommand		= '*';
     separatorSet = [NSCharacterSet characterSetWithCharactersInString:separatorCharString];
     commandSet = [NSCharacterSet characterSetWithCharactersInString:commandCharString];
     tokens = [self parsePath:self.dAttribute scale:scale borderPadding:borderPadding];
-    return [self generateBezier:tokens];
+    UIBezierPath *bezierPath = [self generateBezier:tokens];
+    
+    for (Rectangle *rectangle in self.rectangles) {
+        
+        CGRect scaledRect = CGRectMake((rectangle.rect.origin.x * scale) + (borderPadding / 2),
+                                       (rectangle.rect.origin.y * scale) + (borderPadding / 2),
+                                       (rectangle.rect.size.width * scale) + (borderPadding / 2),
+                                       (rectangle.rect.size.height * scale) + (borderPadding / 2));
+        
+        float scaledRadius = rectangle.cornerRadius * scale;
+        
+        UIBezierPath *rectangleBezierPath = [UIBezierPath bezierPathWithRoundedRect:scaledRect cornerRadius:scaledRadius];
+        [bezierPath appendPath:rectangleBezierPath];
+    }
+    
+    return bezierPath;
 }
 
 - (double)scaleToFitSize:(CGSize)size {
