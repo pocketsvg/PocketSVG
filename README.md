@@ -54,7 +54,6 @@ Feedback, improvements, and pull requests are welcome.
 
 ## To Do
 * Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html).
-* Support for SVGs with more than one path (currently PocketSVG renders the last path).
 * Improve parser efficiency.
 
 ## Support

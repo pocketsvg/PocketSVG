@@ -36,8 +36,8 @@
     
     //1: Turn your SVG into a CGPath:
     
-    PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"icon_twitter"];
-    svg.borderPadding = 2;
+    PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"layers"];
+    svg.borderPadding = 0;
     svg.scale = [svg scaleToFitSize:CGSizeMake(100, 100)];
     
     //2: To display it on screen, you can create a CAShapeLayer

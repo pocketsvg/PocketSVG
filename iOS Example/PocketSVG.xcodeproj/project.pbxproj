@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49155E1519C46C9A00181D20 /* icon_twitter.svg in Resources */ = {isa = PBXBuildFile; fileRef = 49155E1419C46C9A00181D20 /* icon_twitter.svg */; };
+		492262B41A178E9200AD0966 /* layers.svg in Resources */ = {isa = PBXBuildFile; fileRef = 492262B31A178E9200AD0966 /* layers.svg */; };
 		B039268D163F072100EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B039268C163F072100EF033B /* PocketSVG.m */; };
 		B0392691163F072800EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268E163F072800EF033B /* BezierCurve1.svg */; };
 		B0392692163F072800EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268F163F072800EF033B /* BezierCurve2.svg */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		49155E1419C46C9A00181D20 /* icon_twitter.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = icon_twitter.svg; path = ../../icon_twitter.svg; sourceTree = "<group>"; };
+		492262B31A178E9200AD0966 /* layers.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = layers.svg; path = ../../layers.svg; sourceTree = "<group>"; };
 		B039268B163F072100EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../PocketSVG.h; sourceTree = "<group>"; };
 		B039268C163F072100EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../PocketSVG.m; sourceTree = "<group>"; };
 		B039268E163F072800EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				B039268F163F072800EF033B /* BezierCurve2.svg */,
 				B0392690163F072800EF033B /* BezierCurve3.svg */,
 				49155E1419C46C9A00181D20 /* icon_twitter.svg */,
+				492262B31A178E9200AD0966 /* layers.svg */,
 				B0A9DB9F15CA9B340095DFAF /* AppDelegate.h */,
 				B0A9DBA015CA9B340095DFAF /* AppDelegate.m */,
 				B039268B163F072100EF033B /* PocketSVG.h */,
@@ -168,6 +171,7 @@
 			files = (
 				B0A9DB9B15CA9B340095DFAF /* InfoPlist.strings in Resources */,
 				49155E1519C46C9A00181D20 /* icon_twitter.svg in Resources */,
+				492262B41A178E9200AD0966 /* layers.svg in Resources */,
 				B0392691163F072800EF033B /* BezierCurve1.svg in Resources */,
 				B0392692163F072800EF033B /* BezierCurve2.svg in Resources */,
 				B0392693163F072800EF033B /* BezierCurve3.svg in Resources */,

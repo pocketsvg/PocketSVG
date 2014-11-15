@@ -227,27 +227,41 @@ unichar const invalidCommand		= '*';
     
     svgString = [svgString stringByReplacingOccurrencesOfString:@"id=" withString:@""];
     
-    NSArray *components = [svgString componentsSeparatedByString:@"d="];
+    NSString *finalString = @"";
+    
+    NSMutableArray *components = [NSMutableArray arrayWithArray:[svgString componentsSeparatedByString:@"d="]];
     
     if([components count] < 2){
         NSLog(@"*** PocketSVG Error: No d attribute found in SVG file.");
         return nil;
     }
     
-    NSString *dString = [components lastObject];
-    dString = [dString substringFromIndex:1];
-    NSRange d = [dString rangeOfString:@"\""];
-    dString = [dString substringToIndex:d.location];
-    dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
+    [components removeObjectAtIndex:0];
     
-    NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    for (NSString *string in components) {
+        
+        //Needs to be done to modify the string.
+        NSString *dString = string;
+        
+        dString = [dString substringFromIndex:1];
+        NSRange d = [dString rangeOfString:@"\""];
+        dString = [dString substringToIndex:d.location];
+        dString = [dString stringByReplacingOccurrencesOfString:@" " withString:@","];
+        
+        NSArray *dStringWithPossibleWhiteSpace = [dString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
+        
+//        NSLog(@"*** PocketSVG: Path data is: %@", dString);
+        
+        if (finalString.length > 0) {
+            finalString = [finalString stringByAppendingString:@", "];
+        }
+        
+        finalString = [finalString stringByAppendingString:dString];
+    }
     
-    dString = [dStringWithPossibleWhiteSpace componentsJoinedByString:@""];
-    
-    //Uncomment the line below to print the raw path data of the SVG file:
-    //NSLog(@"*** PocketSVG: Path data of %@ is: %@", nameOfSVG, dString);
-    
-    return dString;
+    return finalString;
 }
 
 #pragma mark - Private methods
