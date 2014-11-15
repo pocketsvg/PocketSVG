@@ -37,7 +37,7 @@
     //1: Turn your SVG into a CGPath:
     PocketSVG *svg = [[PocketSVG alloc] initWithSVGFileNamed:@"news"];
     svg.borderPadding = 0;
-    svg.scale = [svg scaleToFitSize:CGSizeMake(100, 100)];
+//    svg.scale = [svg scaleToFitSize:CGSizeMake(100, 100)];
     
     //2: To display it on screen, you can create a CAShapeLayer
     //and set myPath as its path property:

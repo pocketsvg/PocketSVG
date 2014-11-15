@@ -190,7 +190,7 @@ unichar const invalidCommand		= '*';
             radius = 0;
         }
         
-        CGRect rect = CGRectMake(x, y, width, height);
+        CGRect rect = CGRectMake(x + 0.5, y + 0.5, width - 1, height - 1);
         
         Rectangle *rectangle = [Rectangle new];
         rectangle.rect = rect;
