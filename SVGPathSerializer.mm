@@ -23,15 +23,33 @@
 //
 
 #import "SVGPathSerializer.h"
+#import <libxml/xmlreader.h>
 #import <vector>
 
 NSString * const kValidSVGCommands = @"CcMmLlHhVvZzqQaAsS";
 
-struct pathDefinitionParser {
-public:
-    CGPathRef parse(NSString *definition);
+struct svgParser {
+    svgParser(NSString *);
+    NSArray *parse(NSMapTable **aoAttributes);
 
 protected:
+    NSString *_source;
+    xmlTextReaderPtr _xmlReader;
+
+    void pushGroup();
+    void popGroup();
+
+    CGPathRef readPathTag();
+    NSDictionary *readAttributes();
+};
+
+struct pathDefinitionParser {
+public:
+    pathDefinitionParser(NSString *);
+    CGPathRef parse();
+
+protected:
+    NSString *_definition;
     CGMutablePathRef _path;
     CGPoint _lastControlPoint;
     unichar _cmd, _lastCmd;
@@ -59,81 +77,102 @@ static NSDictionary *parseStyle(NSString *body);
 
 #pragma mark -
 
-NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
+svgParser::svgParser(NSString *aSource)
 {
-    NSCParameterAssert(svgString);
-    
-    static NSRegularExpression *attrRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        attrRegex = [NSRegularExpression
-                     regularExpressionWithPattern:@"[^\\w]([\\w_-]+)\\s*=\\s*\"([^\"]+)\""
-                     options:NSRegularExpressionCaseInsensitive
-                     error:nil];
-    });
-   
-    NSMutableArray * const paths = [NSMutableArray new];
-    if(outAttributes)
-        *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
+    NSCParameterAssert(aSource);
+    _source = aSource;
+}
 
-    NSArray * const candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    for(NSString *candidate in candidates) {
-        if(![candidate hasPrefix:@"path"])
-            continue;
+NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
+{
+    _xmlReader = xmlReaderForDoc((xmlChar *)[_source UTF8String], NULL, NULL, 0);
+    NSCAssert(_xmlReader, @"Failed to create XML parser");
 
-        NSMutableDictionary * const attrs   = outAttributes ? [NSMutableDictionary new] : nil;
-        NSArray             * const matches = [attrRegex matchesInString:candidate
-                                                                 options:0
-                                                                   range:(NSRange) { 0, [candidate length] }];
-        
-        CGPathRef path = NULL;
-        pathDefinitionParser parser;
-        for(NSTextCheckingResult *match in matches) {
-            NSString * const attr    = [candidate substringWithRange:(NSRange)[match rangeAtIndex:1]],
-                     * const content = [candidate substringWithRange:(NSRange)[match rangeAtIndex:2]];
-            
-            if([attr isEqualToString:@"d"])
-                path = parser.parse(content);
-            else if(!outAttributes)
-                continue;
-            else if([attr isEqualToString:@"style"])
-                [attrs addEntriesFromDictionary:parseStyle(content)];
-            else
-                attrs[attr] = content;
-        }
-        for(NSString *attr in attrs.allKeys) {
-            if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"]) {
-                if([attrs[attr] isEqualToString:@"none"]) {
-                    CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
-                    attrs[attr] = (__bridge id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
-                    CFRelease(colorSpace);
-                } else
-                    attrs[attr] = (__bridge id)hexTriplet(attrs[attr]).CGColor();
-            }
-        }
+    if(aoAttributes) *aoAttributes = [NSMapTable strongToStrongObjectsMapTable];
+    NSMutableArray * const paths  = [NSMutableArray new];
 
-        if(!path) {
-            NSLog(@"*** Error: Invalid/missing d attribute in %@", candidate);
-            continue;
-        } else {
-            [paths addObject:(__bridge id)path];
-            if(outAttributes) {
-                if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0) {
-                     attrs[@"fill"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
-                                                                              [attrs[@"fill-opacity"] floatValue]);
-                    [attrs removeObjectForKey:@"fill-opacity"];
+    while(xmlTextReaderRead(_xmlReader) == 1) {
+        int const type = xmlTextReaderNodeType(_xmlReader);
+        const char * const tag = (char *)xmlTextReaderConstName(_xmlReader);
+        if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0) {
+            CGPathRef const path = readPathTag();
+            if(path) {
+                [paths addObject:(__bridge id)path];
+
+                if(aoAttributes) {
+                    NSDictionary * const attributes = readAttributes();
+                    if(attributes)
+                        [*aoAttributes setObject:attributes forKey:(__bridge id)path];
                 }
-                if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0) {
-                    attrs[@"stroke"] = (__bridge id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"stroke"],
-                                                                               [attrs[@"stroke-opacity"] floatValue]);
-                    [attrs removeObjectForKey:@"stroke-opacity"];
-                }
-                if([attrs count] > 0)
-                    [*outAttributes setObject:attrs forKey:(__bridge id)path];
             }
         }
     }
+    xmlFreeTextReader(_xmlReader);
     return paths;
+}
+
+CGPathRef svgParser::readPathTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "path") == 0,
+              @"Not on a <path>");
+
+    char * const pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"d");
+    if(!pathDef)
+        return NULL;
+
+    CGPathRef const path = pathDefinitionParser(@(pathDef)).parse();
+    free(pathDef);
+
+    if(!path) {
+        NSLog(@"*** Error: Invalid/missing d attribute in <path>");
+        return NULL;
+    } else {
+        return path;
+    }
+}
+
+NSDictionary *svgParser::readAttributes()
+{
+    NSMutableDictionary * const attrs = [NSMutableDictionary new];
+    while(xmlTextReaderMoveToNextAttribute(_xmlReader)) {
+        const char * const attrName  = (char *)xmlTextReaderConstName(_xmlReader),
+                   * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
+
+        if(strcasecmp("style", attrName) == 0)
+            [attrs addEntriesFromDictionary:parseStyle(@(attrValue))];
+        else
+            attrs[@(attrName)] = @(attrValue);
+    }
+    xmlTextReaderMoveToElement(_xmlReader);
+
+    for(NSString *attr in attrs.allKeys) {
+        if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"]) {
+            if([attrs[attr] isEqualToString:@"none"]) {
+                CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
+                attrs[attr] = (__bridge_transfer id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
+                CFRelease(colorSpace);
+            } else
+                attrs[attr] = (__bridge_transfer id)hexTriplet(attrs[attr]).CGColor();
+        }
+    }
+
+    if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0) {
+        attrs[@"fill"] = (__bridge_transfer id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
+                                                                          [attrs[@"fill-opacity"] floatValue]);
+        [attrs removeObjectForKey:@"fill-opacity"];
+    }
+    if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0) {
+        attrs[@"stroke"] = (__bridge_transfer id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"stroke"],
+                                                                            [attrs[@"stroke-opacity"] floatValue]);
+        [attrs removeObjectForKey:@"stroke-opacity"];
+    }
+    return [attrs count] > 0 ? attrs : nil;
+}
+
+NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
+{
+    svgParser parser(svgString);
+    return parser.parse(outAttributes);
 }
 
 NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
@@ -205,7 +244,12 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
 
 }
 
-CGPathRef pathDefinitionParser::parse(NSString *definition)
+pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
+{
+    _definition = aDefinition;
+}
+
+CGPathRef pathDefinitionParser::parse()
 {
 #ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"d=%@", attr);
@@ -213,12 +257,15 @@ CGPathRef pathDefinitionParser::parse(NSString *definition)
     _path = CGPathCreateMutable();
     CGPathMoveToPoint(_path, NULL, 0, 0);
 
-    NSScanner * const scanner = [NSScanner scannerWithString:definition];
-    NSMutableCharacterSet * const separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
-    [separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSScanner * const scanner = [NSScanner scannerWithString:_definition];
+    static NSCharacterSet *separators, *commands;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        commands   = [NSCharacterSet characterSetWithCharactersInString:kValidSVGCommands];
+        separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
+        [(NSMutableCharacterSet *)separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    });
     scanner.charactersToBeSkipped = separators;
-
-    NSCharacterSet * const commands = [NSCharacterSet characterSetWithCharactersInString:kValidSVGCommands];
 
     NSString *cmdBuf;
     while([scanner scanCharactersFromSet:commands intoString:&cmdBuf]) {
@@ -230,6 +277,7 @@ CGPathRef pathDefinitionParser::parse(NSString *definition)
                 [scanner scanFloat:&operand];
                 _operands.push_back(operand));
         }
+
 #ifdef SVG_PATH_SERIALIZER_DEBUG
         NSLog(@"%c %@", opcode, operands);
 #endif
@@ -261,9 +309,9 @@ CGPathRef pathDefinitionParser::parse(NSString *definition)
                 break;
         }
     }
-    if(scanner.scanLocation < [definition length])
+    if(scanner.scanLocation < [_definition length])
         NSLog(@"*** SVG parse error at index: %d: '%c'",
-              (int)scanner.scanLocation, [definition characterAtIndex:scanner.scanLocation]);
+              (int)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
 
     return _path;
 }
