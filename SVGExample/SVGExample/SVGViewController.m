@@ -8,7 +8,7 @@
     [super viewDidLoad];
 
     // This can be set using KVC in Interface Builder
-    _svgView.svgFileName = @"iceland";
+    _svgView.svgFileName = @"tiger";
 }
 
 - (BOOL)prefersStatusBarHidden

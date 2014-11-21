@@ -25,6 +25,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*!
  *  Returns an array of CGPathRefs contained within the passed SVG string.
  *
@@ -54,4 +58,8 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 + (NSArray *)pathsFromSVGString:(NSString *)svgString;
 - (NSString *)SVGRepresentation;
 @end
+#endif
+
+#ifdef __cplusplus
+};
 #endif
