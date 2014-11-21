@@ -150,9 +150,9 @@ CGPathRef svgParser::readRectTag()
               @"Not on a <polygon>");
 
     xmlAutoFree char * const xDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"x"),
-         * const yDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"y"),
-         * const widthDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"width"),
-         * const heightDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"height");
+                     * const yDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"y"),
+                     * const widthDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"width"),
+                     * const heightDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"height");
 
     CGRect const rect = { atof(xDef), atof(yDef), atof(widthDef), atof(heightDef) };
     NSString * const pathDefinition = [NSString stringWithFormat:
@@ -178,9 +178,9 @@ CGPathRef svgParser::readPolygonTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polygon") == 0,
               @"Not on a <polygon>");
     
-    xmlAutoFree char * const pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
+    xmlAutoFree char * const pointsDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
     NSCharacterSet   * const separators = [NSCharacterSet characterSetWithCharactersInString:@", "];
-    NSMutableArray   * const items = [[@(pathDef) componentsSeparatedByCharactersInSet:separators] mutableCopy];
+    NSMutableArray   * const items      = [[@(pointsDef) componentsSeparatedByCharactersInSet:separators] mutableCopy];
     
     if([items count] < 2) {
         NSLog(@"*** Error: Too few points in <polygon>");
