@@ -240,7 +240,9 @@ NSDictionary *svgParser::readAttributes()
             [skippedChars addCharactersInString:@"(),"];
             scanner.charactersToBeSkipped = skippedChars;
 
-            CGAffineTransform transform = CGAffineTransformIdentity;
+            CGAffineTransform transform = attrs[@"transform"]
+                                        ? [attrs[@"transform"] CGAffineTransformValue]
+                                        : CGAffineTransformIdentity;
             NSString *transformCmd;
             std::vector<float> transformOperands;
             while([scanner scanUpToString:@"(" intoString:&transformCmd]) {
