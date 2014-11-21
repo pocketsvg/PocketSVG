@@ -33,7 +33,7 @@ static                               NSString  *CGColorToHexTriplet(CGColorRef c
 @interface _SVGParser : NSObject {
     CGMutablePathRef _path;
     CGPoint          _lastControlPoint;
-    unichar  _lastCommand;
+    unichar          _lastCommand;
 }
 
 - (CGPathRef)parsePath:(NSString *)attr;
@@ -43,7 +43,7 @@ static                               NSString  *CGColorToHexTriplet(CGColorRef c
 - (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands;
 @end
 
-NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
+NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
 {
     NSCParameterAssert(svgString);
     
@@ -56,24 +56,25 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                      error:nil];
     });
    
-    _SVGParser *parser = [_SVGParser new];
-    NSMutableArray *paths = [NSMutableArray new];
+    _SVGParser    * const parser = [_SVGParser new];
+    NSMutableArray * const paths = [NSMutableArray new];
     if(outAttributes)
         *outAttributes = [NSMapTable strongToStrongObjectsMapTable];
 
-    NSArray *candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    NSArray * const candidates = [svgString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     for(NSString *candidate in candidates) {
         if(![candidate hasPrefix:@"path"])
             continue;
-        NSMutableDictionary *attrs = outAttributes ? [NSMutableDictionary new] : nil;
-        NSArray *matches = [attrRegex matchesInString:candidate
-                                                 options:0
-                                                   range:(NSRange) { 0, [candidate length] }];
+
+        NSMutableDictionary * const attrs   = outAttributes ? [NSMutableDictionary new] : nil;
+        NSArray             * const matches = [attrRegex matchesInString:candidate
+                                                                 options:0
+                                                                   range:(NSRange) { 0, [candidate length] }];
         
         CGPathRef path = NULL;
         for(NSTextCheckingResult *match in matches) {
-            NSString *attr = [candidate substringWithRange:(NSRange)[match rangeAtIndex:1]];
-            NSString *content = [candidate substringWithRange:(NSRange)[match rangeAtIndex:2]];
+            NSString * const attr    = [candidate substringWithRange:(NSRange)[match rangeAtIndex:1]],
+                     * const content = [candidate substringWithRange:(NSRange)[match rangeAtIndex:2]];
             
             if([attr isEqualToString:@"d"])
                 path = [parser parsePath:content];
@@ -81,7 +82,7 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
                 continue;
             else if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"])
                 if([content isEqualToString:@"none"]) {
-                    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+                    CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
                     attrs[attr] = (__bridge id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
                     CFRelease(colorSpace);
                 } else
@@ -89,6 +90,7 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
             else
                 attrs[attr] = content;
         }
+
         if(!path) {
             NSLog(@"*** Error: Invalid/missing d attribute in %@", candidate);
             continue;
@@ -113,20 +115,14 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **outAttributes)
     return paths;
 }
 
-static void _pathWalker(void *info, const CGPathElement *el);
+static void _pathWalker(void * const info, const CGPathElement * const el);
 
-NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes)
+NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
 {
     CGRect bounds = CGRectZero;
     NSMutableString * const svg = [NSMutableString new];
     for(id path in paths) {
-        CGRect localBounds = CGPathGetBoundingBox((__bridge CGPathRef)path);
-        bounds = (CGRect) {
-            MIN(bounds.origin.x, localBounds.origin.x),
-            MIN(bounds.origin.x, localBounds.origin.x),
-            MAX(CGRectGetMaxX(bounds) - bounds.origin.x, CGRectGetMaxX(localBounds) - bounds.origin.x),
-            MAX(CGRectGetMaxY(bounds) - bounds.origin.y, CGRectGetMaxY(localBounds) - bounds.origin.y),
-        };
+        bounds = CGRectUnion(bounds, CGPathGetBoundingBox((__bridge CGPathRef)path));
         
         [svg appendString:@"  <path"];
         NSDictionary *pathAttrs = [attributes objectForKey:path];
@@ -154,9 +150,9 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes)
 
 }
 
-static void _pathWalker(void *info, const CGPathElement *el)
+static void _pathWalker(void * const info, const CGPathElement * const el)
 {
-    NSMutableString *svg = (__bridge id)info;
+    NSMutableString * const svg = (__bridge id)info;
     
     static NSNumberFormatter *fmt;
     static dispatch_once_t onceToken;
@@ -176,12 +172,12 @@ static void _pathWalker(void *info, const CGPathElement *el)
             break;
         case kCGPathElementAddQuadCurveToPoint:
             [svg appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                               FMT(el->points[1].x), FMT(el->points[1].y)];
+                                                   FMT(el->points[1].x), FMT(el->points[1].y)];
             break;
         case kCGPathElementAddCurveToPoint:
             [svg appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                                     FMT(el->points[1].x), FMT(el->points[1].y),
-                                                     FMT(el->points[2].x), FMT(el->points[2].y)];
+                                                           FMT(el->points[1].x), FMT(el->points[1].y),
+                                                           FMT(el->points[2].x), FMT(el->points[2].y)];
             break;
         case kCGPathElementCloseSubpath:
             [svg appendFormat:@"Z"];
@@ -194,7 +190,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
 
 @implementation _SVGParser
 
-- (CGPathRef)parsePath:(NSString *)attr
+- (CGPathRef)parsePath:(NSString * const)attr
 {
 #ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"d=%@", attr);
@@ -230,7 +226,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
     return _path;
 }
 
-- (void)handleCommand:(unichar)opcode withOperands:(NSArray *)operands
+- (void)handleCommand:(unichar const)opcode withOperands:(NSArray * const)operands
 {
 #ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"%c %@", opcode, operands);
@@ -268,37 +264,35 @@ static void _pathWalker(void *info, const CGPathElement *el)
             NSLog(@"*** Error: Cannot process command : '%c'", opcode);
             break;
     }
-    _lastCommand         = opcode;
+    _lastCommand = opcode;
 }
 
-- (void)appendSVGMoveto:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGMoveto:(unichar const)cmd withOperands:(NSArray * const)operands
 {
     if ([operands count]%2 != 0) {
         NSLog(@"*** Error: Invalid parameter count in M style token");
         return;
     }
     
-    for(NSUInteger i = 0; i < [operands count]; ++i) {
+    for(NSUInteger i = 0; i < [operands count]; i += 2) {
         CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-        CGFloat x = [operands[i++] floatValue] + (cmd == 'm' ? currentPoint.x : 0);
-        CGFloat y = [operands[i]   floatValue] + (cmd == 'm' ? currentPoint.y : 0);
+        CGFloat x = [operands[i+0]   floatValue] + (cmd == 'm' ? currentPoint.x : 0);
+        CGFloat y = [operands[i+1]   floatValue] + (cmd == 'm' ? currentPoint.y : 0);
 
-        if (i == 1) {
+        if(i == 0)
             CGPathMoveToPoint(_path, NULL, x, y);
-        }
-        else {
+        else
             CGPathAddLineToPoint(_path, NULL, x, y);
-        }
     }
 }
 
-- (void)appendSVGLineto:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGLineto:(unichar const)cmd withOperands:(NSArray * const)operands
 {
     for(NSUInteger i = 0; i < [operands count]; ++i) {
         CGFloat x = 0;
         CGFloat y = 0;
-        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-        switch (cmd) {
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        switch(cmd) {
             case 'l':
                 x = currentPoint.x;
                 y = currentPoint.y;
@@ -330,7 +324,7 @@ static void _pathWalker(void *info, const CGPathElement *el)
     }
 }
 
-- (void)appendSVGCurve:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGCurve:(unichar const)cmd withOperands:(NSArray * const)operands
 {
     if([operands count]%6 != 0) {
         NSLog(@"*** Error: Invalid number of parameters for C command");
@@ -339,20 +333,20 @@ static void _pathWalker(void *info, const CGPathElement *el)
     
     // (x1, y1, x2, y2, x, y)
     for(NSUInteger i = 0; i < [operands count]; i += 6) {
-        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-        CGFloat x1 = [operands[i+0] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-        CGFloat y1 = [operands[i+1] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
-        CGFloat x2 = [operands[i+2] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-        CGFloat y2 = [operands[i+3] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
-        CGFloat x  = [operands[i+4] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
-        CGFloat y  = [operands[i+5] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat const x1 = [operands[i+0] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat const y1 = [operands[i+1] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        CGFloat const x2 = [operands[i+2] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat const y2 = [operands[i+3] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
+        CGFloat const x  = [operands[i+4] floatValue] + (cmd == 'c' ? currentPoint.x : 0);
+        CGFloat const y  = [operands[i+5] floatValue] + (cmd == 'c' ? currentPoint.y : 0);
         
         CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
         _lastControlPoint = CGPointMake(x2, y2);
     }
 }
 
-- (void)appendSVGShorthandCurve:(unichar)cmd withOperands:(NSArray *)operands
+- (void)appendSVGShorthandCurve:(unichar const)cmd withOperands:(NSArray * const)operands
 {
     if([operands count]%4 != 0) {
         NSLog(@"*** Error: Invalid number of parameters for S command");
@@ -363,13 +357,13 @@ static void _pathWalker(void *info, const CGPathElement *el)
     
     // (x2, y2, x, y)
     for(NSUInteger i = 0; i < [operands count]; i += 4) {
-        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-        CGFloat x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
-        CGFloat y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
-        CGFloat x2 = [operands[i+0] floatValue] + (cmd == 's' ? currentPoint.x : 0);
-        CGFloat y2 = [operands[i+1] floatValue] + (cmd == 's' ? currentPoint.y : 0);
-        CGFloat x  = [operands[i+2] floatValue] + (cmd == 's' ? currentPoint.x : 0);
-        CGFloat y  = [operands[i+3] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat const x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
+        CGFloat const y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
+        CGFloat const x2 = [operands[i+0] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+        CGFloat const y2 = [operands[i+1] floatValue] + (cmd == 's' ? currentPoint.y : 0);
+        CGFloat const x  = [operands[i+2] floatValue] + (cmd == 's' ? currentPoint.x : 0);
+        CGFloat const y  = [operands[i+3] floatValue] + (cmd == 's' ? currentPoint.y : 0);
 
         CGPathAddCurveToPoint(_path, NULL, x1, y1, x2, y2, x, y);
         _lastControlPoint = CGPointMake(x2, y2);
@@ -393,10 +387,10 @@ static void _pathWalker(void *info, const CGPathElement *el)
     return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
 }
 
-+ (NSArray *)pathsFromSVGString:(NSString *)svgString
++ (NSArray *)pathsFromSVGString:(NSString * const)svgString
 {
-    NSArray *pathRefs = CGPathsFromSVGString(svgString, NULL);
-    NSMutableArray *paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
+    NSArray        * const pathRefs = CGPathsFromSVGString(svgString, NULL);
+    NSMutableArray * const paths    = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
         [paths addObject:[UIBezierPath bezierPathWithCGPath:(__bridge CGPathRef)pathRef]];
     }
@@ -410,16 +404,16 @@ static void _pathWalker(void *info, const CGPathElement *el)
 @end
 #endif
 
-static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t triplet)
+static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(uint32_t const triplet)
 {
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef color = CGColorCreate(colorSpace,
-                         (CGFloat[]) {
-                             ((float)((triplet & 0xFF0000) >> 16))/255.0,
-                             ((float)((triplet & 0xFF00) >> 8))/255.0,
-                             ((float)(triplet & 0xFF))/255.0,
-                             1
-                         });
+    CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef const color = CGColorCreate(colorSpace,
+                             (CGFloat[]) {
+                                 ((float)((triplet & 0xFF0000) >> 16)) / 255.0,
+                                 ((float)((triplet & 0xFF00) >> 8))    / 255.0,
+                                 ((float)(triplet & 0xFF))             / 255.0,
+                                 1
+                             });
     CFRelease(colorSpace);
     return color;
 }
@@ -438,7 +432,7 @@ static __attribute__((overloadable)) CGColorRef CGColorFromHexTriplet(NSString *
     return CGColorFromHexTriplet((uint32_t)triplet);
 }
 
-static NSString *CGColorToHexTriplet(CGColorRef color, CGFloat *outAlpha)
+static NSString *CGColorToHexTriplet(CGColorRef const color, CGFloat *outAlpha)
 {
     const CGFloat *rgba = CGColorGetComponents(color);
     if(outAlpha) *outAlpha = rgba[3];
