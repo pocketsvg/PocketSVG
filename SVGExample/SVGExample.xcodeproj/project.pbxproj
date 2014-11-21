@@ -50,7 +50,6 @@
 		C7FCE42E1A1ECE8E00A0BE0D = {
 			isa = PBXGroup;
 			children = (
-				C763A80D1A1F50A6007D5576 /* libxml2.dylib */,
 				C7FCE4391A1ECE8E00A0BE0D /* SVGExample */,
 				C7FCE4381A1ECE8E00A0BE0D /* Products */,
 			);
@@ -85,6 +84,7 @@
 		C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C763A80D1A1F50A6007D5576 /* libxml2.dylib */,
 				C7FCE43B1A1ECE8E00A0BE0D /* Info.plist */,
 				C7FCE43C1A1ECE8E00A0BE0D /* main.m */,
 			);

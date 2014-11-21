@@ -37,9 +37,10 @@ struct svgParser {
 
 protected:
     NSString *_source;
+    NSMutableArray *_attributeStack;
     xmlTextReaderPtr _xmlReader;
 
-    void pushGroup();
+    void pushGroup(NSDictionary *aGroupAttributes);
     void popGroup();
 
     CGPathRef readPathTag();
@@ -101,17 +102,19 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
         const char * const tag = (char *)xmlTextReaderConstName(_xmlReader);
         
         CGPathRef path = NULL;
-        
-        if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0) {
+        if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
             path = readPathTag();
-        }
-        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polygon") == 0) {
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polygon") == 0)
             path = readPolygonTag();
-        }
-        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0) {
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0)
             path = readRectTag();
+        else if(strcasecmp(tag, "g") == 0) {
+            if(type == XML_READER_TYPE_ELEMENT)
+                pushGroup(readAttributes());
+            else if(type == XML_READER_TYPE_END_ELEMENT)
+                popGroup();
         }
-        
+
         if(path) {
             [paths addObject:(__bridge id)path];
             
@@ -124,6 +127,21 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
     }
     xmlFreeTextReader(_xmlReader);
     return paths;
+}
+
+void svgParser::pushGroup(NSDictionary *aGroupAttributes)
+{
+    if(!_attributeStack)
+        _attributeStack = [NSMutableArray new];
+
+    [_attributeStack addObject:[_attributeStack.lastObject mutableCopy] ?: [NSMutableDictionary new]];
+    if(aGroupAttributes)
+        [_attributeStack.lastObject addEntriesFromDictionary:aGroupAttributes];
+}
+void svgParser::popGroup()
+{
+    if([_attributeStack count] > 0)
+        [_attributeStack removeLastObject];
 }
 
 CGPathRef svgParser::readPathTag()
@@ -205,7 +223,8 @@ CGPathRef svgParser::readPolygonTag()
 
 NSDictionary *svgParser::readAttributes()
 {
-    NSMutableDictionary * const attrs = [NSMutableDictionary new];
+    NSMutableDictionary * const attrs = [_attributeStack.lastObject mutableCopy]
+                                     ?: [NSMutableDictionary new];
     while(xmlTextReaderMoveToNextAttribute(_xmlReader)) {
         const char * const attrName  = (char *)xmlTextReaderConstName(_xmlReader),
                    * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
@@ -218,8 +237,10 @@ NSDictionary *svgParser::readAttributes()
     xmlTextReaderMoveToElement(_xmlReader);
 
     for(NSString *attr in attrs.allKeys) {
-        if([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"]) {
-            if([attrs[attr] isEqualToString:@"none"]) {
+        if([attrs[attr] isKindOfClass:[NSString class]] &&
+           ([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"]))
+        {
+            if([attrs[attr] isEqual:@"none"]) {
                 CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
                 attrs[attr] = (__bridge_transfer id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
                 CFRelease(colorSpace);
