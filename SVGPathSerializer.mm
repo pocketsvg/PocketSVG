@@ -231,7 +231,45 @@ NSDictionary *svgParser::readAttributes()
 
         if(strcasecmp("style", attrName) == 0)
             [attrs addEntriesFromDictionary:parseStyle(@(attrValue))];
-        else
+        else if(strcasecmp("transform", attrName) == 0) {
+            // TODO: report syntax errors
+            NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
+            NSMutableCharacterSet *skippedChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
+            [skippedChars addCharactersInString:@"(),"];
+            scanner.charactersToBeSkipped = skippedChars;
+
+            CGAffineTransform transform = CGAffineTransformIdentity;
+            NSString *transformCmd;
+            std::vector<float> transformOperands;
+            while([scanner scanUpToString:@"(" intoString:&transformCmd]) {
+                transformOperands.clear();
+                for(float operand; [scanner scanFloat:&operand]; transformOperands.push_back(operand));
+
+                CGAffineTransform additionalTransform = CGAffineTransformIdentity;
+                if([transformCmd isEqualToString:@"matrix"])
+                    additionalTransform = CGAffineTransformMake(transformOperands[0], transformOperands[1],
+                                                                transformOperands[2], transformOperands[3],
+                                                                transformOperands[4], transformOperands[5]);
+                else if([transformCmd isEqualToString:@"rotate"]) {
+                    // Todo, rotate about point
+                    float const radians = transformOperands[0] * M_PI / 180.0;
+                    additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
+                                                                -sinf(radians), cosf(radians),
+                                                                0, 0);
+                } else if([transformCmd isEqualToString:@"translate"])
+                    additionalTransform = CGAffineTransformMakeTranslation(transformOperands[0], transformOperands[1]);
+                else if([transformCmd isEqualToString:@"scale"])
+                    additionalTransform = CGAffineTransformMakeScale(transformOperands[0], transformOperands[1]);
+                else if([transformCmd isEqualToString:@"skewX"])
+                    additionalTransform.c = tanf(transformOperands[0] * M_PI / 180.0);
+                else if([transformCmd isEqualToString:@"skewY"])
+                    additionalTransform.b = tanf(transformOperands[0] * M_PI / 180.0);
+
+                transform = CGAffineTransformConcat(transform, additionalTransform);
+            }
+            if(!CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity))
+                attrs[@"transform"] = [NSValue valueWithCGAffineTransform:transform];
+        } else
             attrs[@(attrName)] = @(attrValue);
     }
     xmlTextReaderMoveToElement(_xmlReader);

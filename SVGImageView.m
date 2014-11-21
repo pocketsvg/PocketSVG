@@ -84,13 +84,20 @@ static CGRect _AdjustCGRectForContentMode(CGRect aRect, CGSize aSize, UIViewCont
     for(id path in CGPathsFromSVGString(aSVG, &attributes)) {
         CAShapeLayer * const layer = [CAShapeLayer new];
         NSDictionary * const attrs = [attributes objectForKey:path];
-        layer.path      = (__bridge CGPathRef)path;
-        layer.lineWidth = [attrs[@"stroke-width"] floatValue];
-        layer.opacity   = attrs[@"opacity"] ? [attrs[@"opacity"] floatValue] : 1;
 
+        if(attrs[@"transform"]) {
+            CGAffineTransform const transform = [attrs[@"transform"] CGAffineTransformValue];
+            layer.path = CGPathCreateCopyByTransformingPath((__bridge CGPathRef)path, &transform);
+            [attributes setObject:[attributes objectForKey:path] forKey:(__bridge id)layer.path];
+            [attributes removeObjectForKey:path];
+        } else
+            layer.path      = (__bridge CGPathRef)path;
+
+        layer.lineWidth = attrs[@"stroke-width"] ? [attrs[@"stroke-width"] floatValue] : 1.0;
+        layer.opacity   = attrs[@"opacity"] ? [attrs[@"opacity"] floatValue] : 1;
         [self.layer insertSublayer:layer atIndex:(unsigned int)[_shapeLayers count]];
         [_shapeLayers addObject:layer];
-        [_untouchedPaths addObject:path];
+        [_untouchedPaths addObject:(__bridge id)layer.path];
     }
     _pathAttributes = attributes;
 
