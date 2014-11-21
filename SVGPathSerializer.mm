@@ -26,6 +26,9 @@
 #import <libxml/xmlreader.h>
 #import <vector>
 
+static void __attribute__((__overloadable__)) _xmlFreePtr(char * const *p) { xmlFree(*p); }
+#define xmlAutoFree __attribute__((__cleanup__(_xmlFreePtr)))
+
 NSString * const kValidSVGCommands = @"CcMmLlHhVvZzqQaAsS";
 
 struct svgParser {
@@ -128,13 +131,11 @@ CGPathRef svgParser::readPathTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "path") == 0,
               @"Not on a <path>");
 
-    char * const pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"d");
+    xmlAutoFree char * const pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"d");
     if(!pathDef)
         return NULL;
 
     CGPathRef const path = pathDefinitionParser(@(pathDef)).parse();
-    free(pathDef);
-
     if(!path) {
         NSLog(@"*** Error: Invalid/missing d attribute in <path>");
         return NULL;
@@ -147,28 +148,22 @@ CGPathRef svgParser::readRectTag()
 {
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "rect") == 0,
               @"Not on a <polygon>");
-    
-    char *xDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"x");
-    char *yDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"y");
-    char *widthDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"width");
-    char *heightDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"height");
-    
-    CGRect rectRect = CGRectMake(atof(xDef), atof(yDef), atof(widthDef), atof(heightDef));
-    
-    free(xDef);
-    free(yDef);
-    free(widthDef);
-    free(heightDef);
-    
-    NSMutableString *pathAttribute = [[NSMutableString alloc] init];
-    [pathAttribute appendFormat:@"M %f %f ", CGRectGetMinX(rectRect), CGRectGetMinY(rectRect)];
-    [pathAttribute appendFormat:@"H %f ", CGRectGetMaxX(rectRect)];
-    [pathAttribute appendFormat:@"V %f ", CGRectGetMaxY(rectRect)];
-    [pathAttribute appendFormat:@"H %f ", CGRectGetMinX(rectRect)];
-    [pathAttribute appendFormat:@"V %f Z", CGRectGetMinY(rectRect)];
-    
-    CGPathRef const path = pathDefinitionParser(pathAttribute).parse();
-    
+
+    xmlAutoFree char * const xDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"x"),
+         * const yDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"y"),
+         * const widthDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"width"),
+         * const heightDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"height");
+
+    CGRect const rect = { atof(xDef), atof(yDef), atof(widthDef), atof(heightDef) };
+    NSString * const pathDefinition = [NSString stringWithFormat:
+                                       @"M %f %f "
+                                       @"H %f V %f"
+                                       @"H %f V %f Z",
+                                       CGRectGetMinX(rect), CGRectGetMinY(rect),
+                                       CGRectGetMaxX(rect), CGRectGetMaxY(rect),
+                                       CGRectGetMinX(rect), CGRectGetMinY(rect)];
+
+    CGPathRef const path = pathDefinitionParser(pathDefinition).parse();
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
         return NULL;
@@ -183,28 +178,23 @@ CGPathRef svgParser::readPolygonTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polygon") == 0,
               @"Not on a <polygon>");
     
-    char *pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
+    xmlAutoFree char * const pathDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
+    NSCharacterSet   * const separators = [NSCharacterSet characterSetWithCharactersInString:@", "];
+    NSMutableArray   * const items = [[@(pathDef) componentsSeparatedByCharactersInSet:separators] mutableCopy];
     
-    NSString *pointsString = [[NSString alloc] initWithCString:pathDef encoding:NSUTF8StringEncoding];
-    NSMutableArray *items = [[pointsString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@", "]] mutableCopy];
-    
-    if([items count] < 1) {
+    if([items count] < 2) {
         NSLog(@"*** Error: Too few points in <polygon>");
         return NULL;
     }
     
-    NSString *x = [items objectAtIndex:0];
-    [items removeObjectAtIndex:0];
+    NSString * const x = [items objectAtIndex:0],
+             * const y = [items objectAtIndex:1];
+    [items removeObjectsInRange:(NSRange) { 0, 2 }];
     
-    NSString *y = [items objectAtIndex:0];
-    [items removeObjectAtIndex:0];
-    
-    NSMutableString *pathAttributes = [[NSString stringWithFormat:@"M%@,%@L%@", x, y, [items componentsJoinedByString:@" "]] mutableCopy];
-    [pathAttributes appendString:@"Z"];
-    
+    NSString * const pathAttributes = [NSString stringWithFormat:@"M%@,%@L%@Z",
+                                                                 x, y, [items componentsJoinedByString:@" "]];
+
     CGPathRef const path = pathDefinitionParser(pathAttributes).parse();
-    free(pathDef);
-    
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
         return NULL;
