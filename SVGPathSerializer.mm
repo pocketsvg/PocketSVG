@@ -243,7 +243,9 @@ NSDictionary *svgParser::readAttributes()
             std::vector<float> transformOperands;
             while([scanner scanUpToString:@"(" intoString:&transformCmd]) {
                 transformOperands.clear();
-                for(float operand; [scanner scanFloat:&operand]; transformOperands.push_back(operand));
+                for(float operand;
+                    [scanner scanFloat:&operand];
+                    transformOperands.push_back(operand));
 
                 CGAffineTransform additionalTransform = CGAffineTransformIdentity;
                 if([transformCmd isEqualToString:@"matrix"])
