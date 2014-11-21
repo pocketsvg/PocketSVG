@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C763A80D1A1F50A6007D5576 /* libxml2.dylib */; };
-		C770EE561A1F635D00DF2CD1 /* saver-52.svg in Resources */ = {isa = PBXBuildFile; fileRef = C770EE551A1F635D00DF2CD1 /* saver-52.svg */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		C72C7BF11A1F278C006C80E5 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = SOURCE_ROOT; };
 		C763A80D1A1F50A6007D5576 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		C770EE551A1F635D00DF2CD1 /* saver-52.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "saver-52.svg"; sourceTree = SOURCE_ROOT; };
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FCE43B1A1ECE8E00A0BE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializer.mm */,
 				C72C7BF11A1F278C006C80E5 /* tiger.svg */,
 				C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */,
-				C770EE551A1F635D00DF2CD1 /* saver-52.svg */,
 				C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */,
 				C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */,
 				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
@@ -155,7 +152,6 @@
 				C7FCE4671A1ED0FA00A0BE0D /* iceland.svg in Resources */,
 				C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */,
 				C7FCE44B1A1ECE8E00A0BE0D /* LaunchScreen.xib in Resources */,
-				C770EE561A1F635D00DF2CD1 /* saver-52.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
