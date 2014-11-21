@@ -274,7 +274,7 @@ void pathDefinitionParser::appendMoveTo()
         NSLog(@"*** Error: Invalid parameter count in M style token");
         return;
     }
-    
+
     for(NSUInteger i = 0; i < _operands.size(); i += 2) {
         CGPoint currentPoint = CGPathGetCurrentPoint(_path);
         CGFloat x = _operands[i+0] + (_cmd == 'm' ? currentPoint.x : 0);
