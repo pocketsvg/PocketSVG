@@ -91,7 +91,7 @@ static CGRect _AdjustCGRectForContentMode(CGRect aRect, CGSize aSize, UIViewCont
             [attributes setObject:[attributes objectForKey:path] forKey:(__bridge id)layer.path];
             [attributes removeObjectForKey:path];
         } else
-            layer.path      = (__bridge CGPathRef)path;
+            layer.path = (__bridge CGPathRef)path;
 
         layer.lineWidth = attrs[@"stroke-width"] ? [attrs[@"stroke-width"] floatValue] : 1.0;
         layer.opacity   = attrs[@"opacity"] ? [attrs[@"opacity"] floatValue] : 1;

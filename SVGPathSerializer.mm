@@ -94,7 +94,9 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
     _xmlReader = xmlReaderForDoc((xmlChar *)[_source UTF8String], NULL, NULL, 0);
     NSCAssert(_xmlReader, @"Failed to create XML parser");
 
-    if(aoAttributes) *aoAttributes = [NSMapTable strongToStrongObjectsMapTable];
+    if(aoAttributes)
+        *aoAttributes = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory|NSMapTableObjectPointerPersonality
+                                              valueOptions:NSMapTableStrongMemory];
     NSMutableArray * const paths  = [NSMutableArray new];
 
     while(xmlTextReaderRead(_xmlReader) == 1) {
