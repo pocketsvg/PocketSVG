@@ -268,7 +268,6 @@ CGPathRef pathDefinitionParser::parse(NSString *definition)
     return _path;
 }
 
-//static void _pathDef_appendMoveTo(struct pathDef_parserState *state)
 void pathDefinitionParser::appendMoveTo()
 {
     if(_operands.size()%2 != 0) {
