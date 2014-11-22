@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C763A80D1A1F50A6007D5576 /* libxml2.dylib */; };
+		C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9061A201C4F0054C25D /* SVGLayer.m */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* Begin PBXFileReference section */
 		C72C7BF11A1F278C006C80E5 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = SOURCE_ROOT; };
 		C763A80D1A1F50A6007D5576 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		C76FD9051A201C4F0054C25D /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGLayer.h; path = ../../SVGLayer.h; sourceTree = "<group>"; };
+		C76FD9061A201C4F0054C25D /* SVGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGLayer.m; path = ../../SVGLayer.m; sourceTree = "<group>"; };
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FCE43B1A1ECE8E00A0BE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -70,6 +73,8 @@
 				C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */,
 				C7FCE4601A1ECE9E00A0BE0D /* SVGImageView.h */,
 				C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */,
+				C76FD9051A201C4F0054C25D /* SVGLayer.h */,
+				C76FD9061A201C4F0054C25D /* SVGLayer.m */,
 				C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializer.h */,
 				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializer.mm */,
 				C72C7BF11A1F278C006C80E5 /* tiger.svg */,
@@ -162,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */,
 				C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */,
 				C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializer.mm in Sources */,
 				C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */,
