@@ -29,7 +29,7 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
-@interface UIBezierPath (SVGPathSerializer)
+@interface UIBezierPath (SVGPathSerializing)
 + (NSArray *)pathsFromContentsOfSVGFile:(NSString *)aPath;
 + (NSArray *)pathsFromSVGString:(NSString *)svgString;
 - (NSString *)SVGRepresentation;

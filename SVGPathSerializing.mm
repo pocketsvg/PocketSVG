@@ -1,4 +1,4 @@
-#import "SVGPathSerializer.h"
+#import "SVGPathSerializing.h"
 #import <libxml/xmlreader.h>
 #import <vector>
 
@@ -597,7 +597,7 @@ static NSDictionary *parseStyle(NSString * const body)
 #pragma mark -
 
 #if TARGET_OS_IPHONE
-@implementation UIBezierPath (SVGPathSerializer)
+@implementation UIBezierPath (SVGPathSerializing)
 
 + (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
 {

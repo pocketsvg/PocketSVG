@@ -15,7 +15,7 @@
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
 		C7FCE44B1A1ECE8E00A0BE0D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */; };
 		C7FCE4641A1ECE9E00A0BE0D /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */; };
-		C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializer.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializer.mm */; };
+		C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */; };
 		C7FCE4671A1ED0FA00A0BE0D /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 /* End PBXBuildFile section */
 
@@ -33,8 +33,8 @@
 		C7FCE44A1A1ECE8E00A0BE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C7FCE4601A1ECE9E00A0BE0D /* SVGImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGImageView.h; path = ../../SVGImageView.h; sourceTree = "<group>"; };
 		C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGImageView.m; path = ../../SVGImageView.m; sourceTree = "<group>"; };
-		C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGPathSerializer.h; path = ../../SVGPathSerializer.h; sourceTree = "<group>"; };
-		C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SVGPathSerializer.mm; path = ../../SVGPathSerializer.mm; sourceTree = "<group>"; };
+		C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGPathSerializing.h; path = ../../SVGPathSerializing.h; sourceTree = "<group>"; };
+		C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SVGPathSerializing.mm; path = ../../SVGPathSerializing.mm; sourceTree = "<group>"; };
 		C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -75,8 +75,8 @@
 				C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */,
 				C76FD9051A201C4F0054C25D /* SVGLayer.h */,
 				C76FD9061A201C4F0054C25D /* SVGLayer.m */,
-				C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializer.h */,
-				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializer.mm */,
+				C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializing.h */,
+				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */,
 				C72C7BF11A1F278C006C80E5 /* tiger.svg */,
 				C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */,
 				C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */,
@@ -169,7 +169,7 @@
 			files = (
 				C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */,
 				C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */,
-				C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializer.mm in Sources */,
+				C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializing.mm in Sources */,
 				C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */,
 				C7FCE4641A1ECE9E00A0BE0D /* SVGImageView.m in Sources */,
 			);

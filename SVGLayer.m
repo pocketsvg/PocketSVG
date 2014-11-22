@@ -1,5 +1,5 @@
 #import "SVGLayer.h"
-#import "SVGPathSerializer.h"
+#import "SVGPathSerializing.h"
 #if TARGET_OS_IPHONE
 #   import <UIKit/UIKit.h>
 #endif
