@@ -1,4 +1,4 @@
-# SVGPathSerializer
+# SVGPathSerializing
 A simple toolkit for reading reading/writing bezier paths to/from SVG. Only the path, polygon, & rectangle elements are supported.
 
 This project started as a fork of Ariel Elkin's PocketSVG.
