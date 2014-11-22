@@ -3,7 +3,7 @@ A simple toolkit for reading reading/writing bezier paths to/from SVG. Only the 
 
 This project started as a fork of Ariel Elkin's PocketSVG.
 
-![http://d.asgeirsson.is/1ktx0.png](Screenshot)
+![Screnshot](http://d.asgeirsson.is/1ktx0.png)
 
 ## Basic Usage
 
