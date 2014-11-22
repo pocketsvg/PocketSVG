@@ -81,23 +81,25 @@ static CGRect _AdjustCGRectForContentMode(CGRect aRect, CGSize aSize, UIViewCont
     [CATransaction setDisableActions:YES];
     _untouchedPaths = [NSMutableArray new];
     NSMapTable *attributes;
-    for(id path in CGPathsFromSVGString(aSVG, &attributes)) {
+    for(__strong id path in CGPathsFromSVGString(aSVG, &attributes)) {
         CAShapeLayer * const layer = [CAShapeLayer new];
         NSDictionary * const attrs = [attributes objectForKey:path];
 
         if(attrs[@"transform"]) {
             CGAffineTransform const transform = [attrs[@"transform"] CGAffineTransformValue];
-            layer.path = CGPathCreateCopyByTransformingPath((__bridge CGPathRef)path, &transform);
-            [attributes setObject:[attributes objectForKey:path] forKey:(__bridge id)layer.path];
+            CGPathRef const newPath = CGPathCreateCopyByTransformingPath((__bridge CGPathRef)path, &transform);
+            [attributes setObject:[attributes objectForKey:path]
+                           forKey:(__bridge id)newPath];
             [attributes removeObjectForKey:path];
-        } else
-            layer.path = (__bridge CGPathRef)path;
+            path = (__bridge id)newPath;
+        }
 
+        layer.path = (__bridge CGPathRef)path;
         layer.lineWidth = attrs[@"stroke-width"] ? [attrs[@"stroke-width"] floatValue] : 1.0;
         layer.opacity   = attrs[@"opacity"] ? [attrs[@"opacity"] floatValue] : 1;
         [self.layer insertSublayer:layer atIndex:(unsigned int)[_shapeLayers count]];
         [_shapeLayers addObject:layer];
-        [_untouchedPaths addObject:(__bridge id)layer.path];
+        [_untouchedPaths addObject:path];
     }
     _pathAttributes = attributes;
 
