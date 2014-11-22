@@ -160,7 +160,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     
     NSAssert([_shapeLayers count] == [_untouchedPaths count],
              @"Layer & Path count in SVG Image View does not match!");
-    
+
     for(NSUInteger i = 0; i < [_untouchedPaths count]; ++i) {
         CGPathRef      const path  = (__bridge CGPathRef)_untouchedPaths[i];
         CAShapeLayer * const layer = _shapeLayers[i];
