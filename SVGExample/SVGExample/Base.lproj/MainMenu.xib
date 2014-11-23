@@ -103,7 +103,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="SVGExample" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Tiger!" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="tiger" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
@@ -127,6 +127,31 @@
                 </constraints>
             </view>
             <point key="canvasLocation" x="504" y="430"/>
+        </window>
+        <window title="Iceland" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="iceland" animationBehavior="default" id="58C-Gc-gxZ">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="163" y="480" width="480" height="360"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="fVr-w9-S3u">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wz-0t-TuL" customClass="SVGImageView">
+                        <rect key="frame" x="20" y="20" width="440" height="320"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="svgFileName" value="iceland"/>
+                        </userDefinedRuntimeAttributes>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3wz-0t-TuL" firstAttribute="leading" secondItem="fVr-w9-S3u" secondAttribute="leading" constant="20" symbolic="YES" id="LBJ-Ur-dto"/>
+                    <constraint firstAttribute="bottom" secondItem="3wz-0t-TuL" secondAttribute="bottom" constant="20" symbolic="YES" id="PYk-QS-pXe"/>
+                    <constraint firstAttribute="trailing" secondItem="3wz-0t-TuL" secondAttribute="trailing" constant="20" symbolic="YES" id="qCV-QB-cfS"/>
+                    <constraint firstItem="3wz-0t-TuL" firstAttribute="top" secondItem="fVr-w9-S3u" secondAttribute="top" constant="20" symbolic="YES" id="vTc-QB-wXw"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="674" y="624"/>
         </window>
     </objects>
 </document>
