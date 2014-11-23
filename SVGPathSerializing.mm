@@ -168,10 +168,8 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
         return NULL;
-    } else {
+    } else
         return path;
-    }
-    
 }
 
 CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
