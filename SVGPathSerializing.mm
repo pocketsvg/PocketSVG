@@ -208,7 +208,11 @@ NSDictionary *svgParser::readAttributes()
 {
     NSMutableDictionary * const attrs = [_attributeStack.lastObject mutableCopy]
                                      ?: [NSMutableDictionary new];
-    while(xmlTextReaderMoveToNextAttribute(_xmlReader)) {
+    if(!xmlTextReaderHasAttributes(_xmlReader))
+        return attrs;
+
+    xmlTextReaderMoveToFirstAttribute(_xmlReader);
+    do {
         const char * const attrName  = (char *)xmlTextReaderConstName(_xmlReader),
                    * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
 
@@ -258,7 +262,7 @@ NSDictionary *svgParser::readAttributes()
                 attrs[@"transform"] = [NSValue svg_valueWithCGAffineTransform:transform];
         } else
             attrs[@(attrName)] = @(attrValue);
-    }
+    } while(xmlTextReaderMoveToNextAttribute(_xmlReader));
     xmlTextReaderMoveToElement(_xmlReader);
 
     for(NSString *attr in attrs.allKeys) {
