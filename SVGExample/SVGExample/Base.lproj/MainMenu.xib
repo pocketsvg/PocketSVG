@@ -106,14 +106,14 @@
         <window title="Tiger!" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="tiger" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="534" height="482"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="534" height="482"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pm6-jj-BZp" customClass="SVGImageView">
-                        <rect key="frame" x="20" y="20" width="440" height="320"/>
+                        <rect key="frame" x="20" y="20" width="494" height="442"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="svgFileName" value="tiger"/>
                         </userDefinedRuntimeAttributes>
@@ -126,7 +126,7 @@
                     <constraint firstItem="Pm6-jj-BZp" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="zqu-1T-zhI"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="504" y="430"/>
+            <point key="canvasLocation" x="350" y="518"/>
         </window>
         <window title="Iceland" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="iceland" animationBehavior="default" id="58C-Gc-gxZ">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -151,7 +151,7 @@
                     <constraint firstItem="3wz-0t-TuL" firstAttribute="top" secondItem="fVr-w9-S3u" secondAttribute="top" constant="20" symbolic="YES" id="vTc-QB-wXw"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="674" y="624"/>
+            <point key="canvasLocation" x="562" y="294"/>
         </window>
     </objects>
 </document>

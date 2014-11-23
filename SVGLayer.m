@@ -162,6 +162,11 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 {
     [super layoutSublayers];
 
+#if !TARGET_OS_IPHONE && TARGET_INTERFACE_BUILDER
+    self.sublayerTransform = CATransform3DTranslate(CATransform3DMakeScale(1, -1, 1),
+                                                    0, -self.bounds.size.height, 0);
+#endif
+
     CGSize const size  = [self preferredFrameSize];
     CGRect const frame = _AdjustCGRectForContentsGravity(self.bounds, size, self.contentsGravity);
 

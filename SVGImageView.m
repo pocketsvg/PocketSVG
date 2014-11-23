@@ -1,10 +1,12 @@
 #import "SVGImageView.h"
 #import "SVGLayer.h"
+#import "SVGPortability.h"
 
 @implementation SVGImageView
-@dynamic fillColor, strokeColor, svgFileName, svgString;
 
 #if TARGET_OS_IPHONE
+@dynamic fillColor, strokeColor, svgFileName, svgString;
+
 + (Class)layerClass
 {
     return [SVGLayer class];
@@ -12,7 +14,14 @@
 #else
 - (CALayer *)makeBackingLayer
 {
-    return [SVGLayer new];
+    SVGLayer * const layer = [SVGLayer new];
+    layer.fillColor   = _fillColor.CGColor;
+    layer.strokeColor = _strokeColor.CGColor;
+    if(_svgFileName)
+        layer.svgFileName = _svgFileName;
+    else if(_svgString)
+        layer.svgString = _svgString;
+    return layer;
 }
 - (BOOL)isFlipped
 {
@@ -24,20 +33,31 @@
 }
 #endif
 
-- (id)forwardingTargetForSelector:(SEL const)aSelector
-{
-    if([self.layer respondsToSelector:aSelector])
-        return self.layer;
-    else
-        return nil;
-}
+- (SVGLayer *)_svgLayer { return (id)self.layer; }
 
-- (void)setValue:(id const)aValue forUndefinedKey:(NSString * const)aKey
-{
-    if(self.layer)
-        [self.layer setValue:aValue forKey:aKey];
-    else
-        [super setValue:aValue forUndefinedKey:aKey];
+- (void)setSvgString:(NSString * const)aSVG {
+#if !TARGET_OS_IPHONE
+    _svgString = aSVG;
+#endif
+    self._svgLayer.svgString = aSVG;
+}
+- (void)setSvgFileName:(NSString * const)aFileName {
+#if !TARGET_OS_IPHONE
+    _svgFileName = aFileName;
+#endif
+    self._svgLayer.svgFileName = aFileName;
+}
+- (void)setFillColor:(SVGUI(Color) * const)aColor {
+#if !TARGET_OS_IPHONE
+    _fillColor = aColor;
+#endif
+    self._svgLayer.fillColor = aColor.CGColor;
+}
+- (void)setStrokeColor:(SVGUI(Color) * const)aColor {
+#if !TARGET_OS_IPHONE
+    _strokeColor = aColor;
+#endif
+    self._svgLayer.strokeColor = aColor.CGColor;
 }
 
 - (CGSize)sizeThatFits:(CGSize)aSize
