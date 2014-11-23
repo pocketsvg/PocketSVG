@@ -372,7 +372,7 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
 
 pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
-    _definition = aDefinition;
+    _definition = [aDefinition stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 CGPathRef pathDefinitionParser::parse()
