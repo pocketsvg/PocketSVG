@@ -31,7 +31,6 @@ protected:
 struct pathDefinitionParser {
 public:
     pathDefinitionParser(NSString *);
-    ~pathDefinitionParser();
     CF_RETURNS_RETAINED CGPathRef parse();
 
 protected:
@@ -373,10 +372,6 @@ pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
     _definition = [aDefinition stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
-pathDefinitionParser::~pathDefinitionParser()
-{
-    CGPathRelease(_path);
-}
 
 CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
 {
@@ -442,7 +437,7 @@ CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
         NSLog(@"*** SVG parse error at index: %d: '%c'",
               (int)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
 
-    return CGPathRetain(_path);
+    return _path;
 }
 
 void pathDefinitionParser::appendMoveTo()
