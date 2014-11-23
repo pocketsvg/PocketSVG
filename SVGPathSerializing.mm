@@ -44,8 +44,8 @@ protected:
 };
 
 struct hexTriplet {
-    hexTriplet(uint32_t);
-    hexTriplet(NSString *stringRepresentation);
+    hexTriplet(uint32_t bytes);
+    hexTriplet(NSString *str);
     hexTriplet(CGColorRef color);
 
     CGColorRef CGColor();
@@ -532,17 +532,20 @@ void pathDefinitionParser::appendShorthandCurve()
     }
 }
 
-hexTriplet::hexTriplet(NSString *stringRepresentation)
+hexTriplet::hexTriplet(NSString *str)
 {
-    NSCParameterAssert([stringRepresentation hasPrefix:@"#"]);
-    NSCParameterAssert([stringRepresentation length] == 4 || [stringRepresentation length] == 7);
-    if([stringRepresentation length] == 4) {
-        stringRepresentation = [stringRepresentation mutableCopy];
-        [(NSMutableString *)stringRepresentation insertString:[stringRepresentation substringWithRange:(NSRange) { 3, 1 }] atIndex:3];
-        [(NSMutableString *)stringRepresentation insertString:[stringRepresentation substringWithRange:(NSRange) { 2, 1 }] atIndex:2];
-        [(NSMutableString *)stringRepresentation insertString:[stringRepresentation substringWithRange:(NSRange) { 1, 1 }] atIndex:1];
+    NSCParameterAssert([str hasPrefix:@"#"]);
+    NSCParameterAssert([str length] == 4 || [str length] == 7);
+    if([str length] == 4) {
+        str = [str mutableCopy];
+        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 3, 1 }]
+                                                      atIndex:3];
+        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 2, 1 }]
+                                                      atIndex:2];
+        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 1, 1 }]
+                                                      atIndex:1];
     }
-    _data = (uint32_t)strtol([stringRepresentation cStringUsingEncoding:NSASCIIStringEncoding]+1, NULL, 16);
+    _data = (uint32_t)strtol([str cStringUsingEncoding:NSASCIIStringEncoding]+1, NULL, 16);
 }
 
 hexTriplet::hexTriplet(CGColorRef const color)
