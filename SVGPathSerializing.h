@@ -41,6 +41,9 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 - (CGAffineTransform)svg_CGAffineTransformValue;
 @end
 
+#import "SVGImageView.h"
+#import "SVGLayer.h"
+
 #ifdef __cplusplus
 };
 #endif

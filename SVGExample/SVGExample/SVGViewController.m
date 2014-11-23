@@ -1,5 +1,5 @@
 #import "SVGViewController.h"
-#import "SVGImageView.h"
+@import SVGPathSerializing;
 
 @implementation SVGViewController
 

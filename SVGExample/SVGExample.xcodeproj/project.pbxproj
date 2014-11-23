@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C71E5EF81A21B52B00400396 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */; };
 		C71E5EF91A21B69800400396 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 		C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
@@ -15,33 +14,59 @@
 		C71E5F091A21C56F00400396 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C763A80D1A1F50A6007D5576 /* libxml2.dylib */; };
-		C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9061A201C4F0054C25D /* SVGLayer.m */; };
 		C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
 		C76FD92A1A21B2B20054C25D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76FD9281A21B2B20054C25D /* MainMenu.xib */; };
 		C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C76FD93D1A21B33D0054C25D /* libxml2.dylib */; };
-		C76FD93F1A21B34D0054C25D /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9061A201C4F0054C25D /* SVGLayer.m */; };
-		C76FD9401A21B34D0054C25D /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */; };
+		C79800EF1A21CC1C00380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */; };
+		C79801131A21CE6300380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79801121A21CE5D00380860 /* SVGPathSerializing.framework */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
 		C7FCE44B1A1ECE8E00A0BE0D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */; };
-		C7FCE4641A1ECE9E00A0BE0D /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */; };
-		C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */; };
 		C7FCE4671A1ED0FA00A0BE0D /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C79800EB1A21CC0300380860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C79800BB1A21CB5300380860;
+			remoteInfo = SVGPathSerializing;
+		};
+		C79800ED1A21CC1600380860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C79800BA1A21CB5300380860;
+			remoteInfo = SVGPathSerializing;
+		};
+		C798010E1A21CE5D00380860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C79800F41A21CDFD00380860;
+			remoteInfo = "SVGPathSerializing (Mac)";
+		};
+		C79801111A21CE5D00380860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C79800F51A21CDFD00380860;
+			remoteInfo = "SVGPathSerializing (Mac)";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		C71E5EFB1A21B9F100400396 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
-		C71E5EFC1A21BD8400400396 /* SVGPortability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SVGPortability.h; path = ../../SVGPortability.h; sourceTree = "<group>"; };
 		C72C7BF11A1F278C006C80E5 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = SOURCE_ROOT; };
 		C763A80D1A1F50A6007D5576 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		C76FD9051A201C4F0054C25D /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGLayer.h; path = ../../SVGLayer.h; sourceTree = "<group>"; };
-		C76FD9061A201C4F0054C25D /* SVGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGLayer.m; path = ../../SVGLayer.m; sourceTree = "<group>"; };
 		C76FD91D1A21B2B20054C25D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76FD9211A21B2B20054C25D /* SVGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAppDelegate.h; sourceTree = "<group>"; };
 		C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAppDelegate.m; sourceTree = "<group>"; };
 		C76FD9291A21B2B20054C25D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C76FD93D1A21B33D0054C25D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
+		C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SVGPathSerializing.xcodeproj; path = ../SVGPathSerializing.xcodeproj; sourceTree = "<group>"; };
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FCE43B1A1ECE8E00A0BE0D /* Info-Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,10 +74,6 @@
 		C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGViewController.m; sourceTree = "<group>"; };
 		C7FCE4451A1ECE8E00A0BE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7FCE44A1A1ECE8E00A0BE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C7FCE4601A1ECE9E00A0BE0D /* SVGImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGImageView.h; path = ../../SVGImageView.h; sourceTree = "<group>"; };
-		C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGImageView.m; path = ../../SVGImageView.m; sourceTree = "<group>"; };
-		C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGPathSerializing.h; path = ../../SVGPathSerializing.h; sourceTree = "<group>"; };
-		C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SVGPathSerializing.mm; path = ../../SVGPathSerializing.mm; sourceTree = "<group>"; };
 		C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -61,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79801131A21CE6300380860 /* SVGPathSerializing.framework in Frameworks */,
 				C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C79800EF1A21CC1C00380860 /* SVGPathSerializing.framework in Frameworks */,
 				C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,9 +111,19 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		C79800E81A21CC0300380860 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */,
+				C79801121A21CE5D00380860 /* SVGPathSerializing.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C7FCE42E1A1ECE8E00A0BE0D = {
 			isa = PBXGroup;
 			children = (
+				C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */,
 				C7FCE4391A1ECE8E00A0BE0D /* SVGExample */,
 				C7FCE4381A1ECE8E00A0BE0D /* Products */,
 			);
@@ -108,15 +141,8 @@
 		C7FCE4391A1ECE8E00A0BE0D /* SVGExample */ = {
 			isa = PBXGroup;
 			children = (
-				C71E5EFC1A21BD8400400396 /* SVGPortability.h */,
 				C7FCE4411A1ECE8E00A0BE0D /* SVGViewController.h */,
 				C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */,
-				C7FCE4601A1ECE9E00A0BE0D /* SVGImageView.h */,
-				C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */,
-				C76FD9051A201C4F0054C25D /* SVGLayer.h */,
-				C76FD9061A201C4F0054C25D /* SVGLayer.m */,
-				C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializing.h */,
-				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */,
 				C79800B01A21CACA00380860 /* Resources */,
 				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
 			);
@@ -151,6 +177,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C798010F1A21CE5D00380860 /* PBXTargetDependency */,
 			);
 			name = "SVGExample(Mac)";
 			productName = SVGExample;
@@ -168,6 +195,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C79800EE1A21CC1600380860 /* PBXTargetDependency */,
 			);
 			name = "SVGExample(iPhone)";
 			productName = SVGExample;
@@ -202,6 +230,12 @@
 			mainGroup = C7FCE42E1A1ECE8E00A0BE0D;
 			productRefGroup = C7FCE4381A1ECE8E00A0BE0D /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C79800E81A21CC0300380860 /* Products */;
+					ProjectRef = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C7FCE4361A1ECE8E00A0BE0D /* SVGExample(iPhone) */,
@@ -209,6 +243,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGPathSerializing.framework;
+			remoteRef = C79800EB1A21CC0300380860 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C79801121A21CE5D00380860 /* SVGPathSerializing.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SVGPathSerializing.framework;
+			remoteRef = C79801111A21CE5D00380860 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C76FD91B1A21B2B20054C25D /* Resources */ = {
@@ -241,10 +292,7 @@
 			files = (
 				C71E5EFE1A21C12B00400396 /* SVGViewController.m in Sources */,
 				C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */,
-				C76FD93F1A21B34D0054C25D /* SVGLayer.m in Sources */,
 				C71E5F091A21C56F00400396 /* main.m in Sources */,
-				C76FD9401A21B34D0054C25D /* SVGPathSerializing.mm in Sources */,
-				C71E5EF81A21B52B00400396 /* SVGImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,16 +300,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */,
 				C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */,
-				C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializing.mm in Sources */,
 				C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */,
 				C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */,
-				C7FCE4641A1ECE9E00A0BE0D /* SVGImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C79800EE1A21CC1600380860 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVGPathSerializing;
+			targetProxy = C79800ED1A21CC1600380860 /* PBXContainerItemProxy */;
+		};
+		C798010F1A21CE5D00380860 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SVGPathSerializing (Mac)";
+			targetProxy = C798010E1A21CE5D00380860 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C76FD9281A21B2B20054C25D /* MainMenu.xib */ = {
