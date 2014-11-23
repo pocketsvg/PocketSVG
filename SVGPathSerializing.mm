@@ -139,9 +139,8 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPathTag()
     if(!path) {
         NSLog(@"*** Error: Invalid/missing d attribute in <path>");
         return NULL;
-    } else {
+    } else
         return path;
-    }
 }
 
 CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
@@ -197,9 +196,8 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
         return NULL;
-    } else {
+    } else
         return path;
-    }
 }
 
 NSDictionary *svgParser::readAttributes()
