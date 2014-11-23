@@ -37,8 +37,6 @@
 		C79800DD1A21CB9A00380860 /* SVGPortability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPortability.h; sourceTree = SOURCE_ROOT; };
 		C79800E51A21CBB900380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C79801051A21CDFD00380860 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C79801061A21CDFD00380860 /* SVGPathSerializingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGPathSerializingTests.m; sourceTree = "<group>"; };
 		C798011B1A21CEC200380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		C79801271A21F13E00380860 /* SVGImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView.h; sourceTree = SOURCE_ROOT; };
 		C798012B1A21F35C00380860 /* SVGImageView-iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGImageView-iOS.h"; sourceTree = SOURCE_ROOT; };
@@ -69,8 +67,16 @@
 		C79800B11A21CB5300380860 = {
 			isa = PBXGroup;
 			children = (
-				C79800BD1A21CB5300380860 /* SVGPathSerializing */,
-				C79801031A21CDFD00380860 /* SVGPathSerializingTests */,
+				C79800DD1A21CB9A00380860 /* SVGPortability.h */,
+				C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */,
+				C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */,
+				C79800D91A21CB9A00380860 /* SVGLayer.h */,
+				C79800DA1A21CB9A00380860 /* SVGLayer.m */,
+				C79801271A21F13E00380860 /* SVGImageView.h */,
+				C798012B1A21F35C00380860 /* SVGImageView-iOS.h */,
+				C798012C1A21F35C00380860 /* SVGImageView-Mac.h */,
+				C798012D1A21F35C00380860 /* SVGImageView.m */,
+				C79800BE1A21CB5300380860 /* Supporting Files */,
 				C79800BC1A21CB5300380860 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,23 +90,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C79800BD1A21CB5300380860 /* SVGPathSerializing */ = {
-			isa = PBXGroup;
-			children = (
-				C79800DD1A21CB9A00380860 /* SVGPortability.h */,
-				C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */,
-				C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */,
-				C79800D91A21CB9A00380860 /* SVGLayer.h */,
-				C79800DA1A21CB9A00380860 /* SVGLayer.m */,
-				C79801271A21F13E00380860 /* SVGImageView.h */,
-				C798012B1A21F35C00380860 /* SVGImageView-iOS.h */,
-				C798012C1A21F35C00380860 /* SVGImageView-Mac.h */,
-				C798012D1A21F35C00380860 /* SVGImageView.m */,
-				C79800BE1A21CB5300380860 /* Supporting Files */,
-			);
-			path = SVGPathSerializing;
-			sourceTree = "<group>";
-		};
 		C79800BE1A21CB5300380860 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,23 +98,7 @@
 				C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C79801031A21CDFD00380860 /* SVGPathSerializingTests */ = {
-			isa = PBXGroup;
-			children = (
-				C79801061A21CDFD00380860 /* SVGPathSerializingTests.m */,
-				C79801041A21CDFD00380860 /* Supporting Files */,
-			);
-			path = SVGPathSerializingTests;
-			sourceTree = "<group>";
-		};
-		C79801041A21CDFD00380860 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C79801051A21CDFD00380860 /* Info.plist */,
-			);
-			name = "Supporting Files";
+			path = SVGPathSerializing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
