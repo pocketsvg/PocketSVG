@@ -37,10 +37,15 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     return self;
 }
 
-- (void)setSvgString:(NSString * const)aSVG
+- (void)setSvgSource:(NSString * const)aSVG
 {
-    [self willChangeValueForKey:@"svgString"];
-    _svgString = aSVG;
+    [self willChangeValueForKey:@"svgSource"];
+#ifdef DEBUG
+    if(_fileWatcher)
+        dispatch_source_cancel(_fileWatcher), _fileWatcher = NULL;
+#endif
+
+    _svgSource = aSVG;
     
     [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [_shapeLayers removeAllObjects];
@@ -76,13 +81,11 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     [self setNeedsLayout];
     [self layoutIfNeeded];
     [CATransaction commit];
-    [self didChangeValueForKey:@"svgString"];
+    [self didChangeValueForKey:@"svgSource"];
 }
 
-- (void)setSvgFileName:(NSString * const)aFileName
+- (void)loadSVGNamed:(NSString * const)aFileName
 {
-    [self willChangeValueForKey:@"svgFileName"];
-    _svgFileName = aFileName;
 #if !TARGET_INTERFACE_BUILDER
     NSString * const path = [[NSBundle mainBundle] pathForResource:aFileName ofType:@"svg"];
     NSParameterAssert(aFileName && path);
@@ -101,10 +104,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     }
 #endif
     
-    self.svgString = [NSString stringWithContentsOfFile:path
+    self.svgSource = [NSString stringWithContentsOfFile:path
                                            usedEncoding:NULL
                                                   error:nil];
-    [self didChangeValueForKey:@"svgFileName"];
+
 #ifdef DEBUG
     __weak SVGLayer *self_ = self;
     int const fdes = open([path fileSystemRepresentation], O_RDONLY);
@@ -118,7 +121,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             dispatch_source_cancel(_fileWatcher);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
-                self_.svgFileName = aFileName;
+                [self_ loadSVGNamed:aFileName];
             });
         }
     });

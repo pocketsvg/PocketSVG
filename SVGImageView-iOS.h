@@ -2,6 +2,6 @@
 
 IB_DESIGNABLE
 @interface SVGImageView : UIView
-@property(nonatomic, copy) IBInspectable NSString *svgString, *svgFileName;
+@property(nonatomic, copy) NSString *svgSource;
 @property(nonatomic, copy) IBInspectable UIColor *fillColor, *strokeColor;
 @end

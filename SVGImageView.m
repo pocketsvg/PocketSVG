@@ -5,8 +5,6 @@
 @implementation SVGImageView
 
 #if TARGET_OS_IPHONE
-@dynamic fillColor, strokeColor, svgFileName, svgString;
-
 + (Class)layerClass
 {
     return [SVGLayer class];
@@ -17,10 +15,10 @@
     SVGLayer * const layer = [SVGLayer new];
     layer.fillColor   = _fillColor.CGColor;
     layer.strokeColor = _strokeColor.CGColor;
-    if(_svgFileName)
-        layer.svgFileName = _svgFileName;
-    else if(_svgString)
-        layer.svgString = _svgString;
+    if(_svgName)
+        [layer loadSVGFromFileNamed:_svgName];
+    else if(_svgSource)
+        layer.svgSource = _svgSource;
     return layer;
 }
 - (BOOL)isFlipped
@@ -35,28 +33,20 @@
 
 - (SVGLayer *)_svgLayer { return (id)self.layer; }
 
-- (void)setSvgString:(NSString * const)aSVG {
-#if !TARGET_OS_IPHONE
-    _svgString = aSVG;
-#endif
-    self._svgLayer.svgString = aSVG;
+- (void)setsvgSource:(NSString * const)aSVG {
+    _svgSource = aSVG;
+    self._svgLayer.svgSource = aSVG;
 }
-- (void)setSvgFileName:(NSString * const)aFileName {
-#if !TARGET_OS_IPHONE
-    _svgFileName = aFileName;
-#endif
-    self._svgLayer.svgFileName = aFileName;
+- (void)setSvgName:(NSString * const)aName {
+    _svgName = aName;
+    [self._svgLayer loadSVGNamed:_svgName];
 }
 - (void)setFillColor:(SVGUI(Color) * const)aColor {
-#if !TARGET_OS_IPHONE
     _fillColor = aColor;
-#endif
     self._svgLayer.fillColor = aColor.CGColor;
 }
 - (void)setStrokeColor:(SVGUI(Color) * const)aColor {
-#if !TARGET_OS_IPHONE
     _strokeColor = aColor;
-#endif
     self._svgLayer.strokeColor = aColor.CGColor;
 }
 

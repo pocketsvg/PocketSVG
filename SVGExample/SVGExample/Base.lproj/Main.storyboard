@@ -21,7 +21,7 @@
                                 <rect key="frame" x="16" y="0.0" width="568" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="svgFileName" value="tiger"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="svgName" value="tiger"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

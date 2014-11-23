@@ -6,3 +6,7 @@
 #else
 #   import "SVGImageView-Mac.h"
 #endif
+
+@interface SVGImageView ()
+@property(nonatomic, copy) IBInspectable NSString *svgName;
+@end

@@ -115,7 +115,7 @@
                     <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pm6-jj-BZp" customClass="SVGImageView">
                         <rect key="frame" x="20" y="20" width="494" height="442"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="svgFileName" value="tiger"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="svgName" value="tiger"/>
                         </userDefinedRuntimeAttributes>
                     </customView>
                 </subviews>
@@ -140,7 +140,7 @@
                     <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3wz-0t-TuL" customClass="SVGImageView">
                         <rect key="frame" x="20" y="20" width="440" height="320"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="svgFileName" value="iceland"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="svgName" value="iceland"/>
                         </userDefinedRuntimeAttributes>
                     </customView>
                 </subviews>
