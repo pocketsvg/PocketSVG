@@ -1,8 +1,6 @@
 #import "SVGLayer.h"
+#import "SVGPortability.h"
 #import "SVGPathSerializing.h"
-#if TARGET_OS_IPHONE
-#   import <UIKit/UIKit.h>
-#endif
 
 CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
 
@@ -168,7 +166,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
         NSDictionary * const attrs = [_pathAttributes objectForKey:(__bridge id)path];
         layer.fillColor   = _fillColor
                          ?: (__bridge CGColorRef)attrs[@"fill"]
-                         ?: [[UIColor blackColor] CGColor];
+                         ?: [[SVGUI(Color) blackColor] CGColor];
         layer.strokeColor = _strokeColor
                          ?: (__bridge CGColorRef)attrs[@"stroke"];
         

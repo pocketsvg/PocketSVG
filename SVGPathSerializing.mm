@@ -217,7 +217,7 @@ NSDictionary *svgParser::readAttributes()
             scanner.charactersToBeSkipped = skippedChars;
 
             CGAffineTransform transform = attrs[@"transform"]
-                                        ? [attrs[@"transform"] CGAffineTransformValue]
+                                        ? [attrs[@"transform"] svg_CGAffineTransformValue]
                                         : CGAffineTransformIdentity;
             NSString *transformCmd;
             std::vector<float> transformOperands;
@@ -626,26 +626,30 @@ static NSDictionary *parseStyle(NSString * const body)
     return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], nil);
 }
 @end
+
 #endif
 
 @implementation NSValue (SVGPathSerializing)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform
 {
-    if([self respondsToSelector:@selector(valueWithCGAffineTransform:)])
-        return [self valueWithCGAffineTransform:aTransform];
-    else
-        return [self valueWithBytes:&aTransform objCType:@encode(CGAffineTransform)];
+#if TARGET_OS_IPHONE
+    return [self valueWithCGAffineTransform:aTransform];
+#else
+    return [self valueWithBytes:&aTransform objCType:@encode(CGAffineTransform)];
+#endif
 }
+
 - (CGAffineTransform)svg_CGAffineTransformValue
 {
-    if([self respondsToSelector:@selector(CGAffineTransformValue)])
-        return [self CGAffineTransformValue];
-    else if(strcmp(self.objCType, @encode(CGAffineTransform)) == 0) {
+#if TARGET_OS_IPHONE
+    return [self CGAffineTransformValue];
+#else
+    if(strcmp(self.objCType, @encode(CGAffineTransform)) == 0) {
         CGAffineTransform transform;
         [self getValue:&transform];
         return transform;
     } else
         return (CGAffineTransform) {0};
+#endif
 }
-
 @end

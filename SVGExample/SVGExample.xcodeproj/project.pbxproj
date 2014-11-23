@@ -7,9 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C71E5EF81A21B52B00400396 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4611A1ECE9E00A0BE0D /* SVGImageView.m */; };
+		C71E5EF91A21B69800400396 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
+		C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
+		C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
+		C71E5EFE1A21C12B00400396 /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
+		C71E5F091A21C56F00400396 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C763A80D1A1F50A6007D5576 /* libxml2.dylib */; };
 		C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9061A201C4F0054C25D /* SVGLayer.m */; };
+		C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
+		C76FD92A1A21B2B20054C25D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76FD9281A21B2B20054C25D /* MainMenu.xib */; };
+		C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C76FD93D1A21B33D0054C25D /* libxml2.dylib */; };
+		C76FD93F1A21B34D0054C25D /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9061A201C4F0054C25D /* SVGLayer.m */; };
+		C76FD9401A21B34D0054C25D /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
@@ -20,12 +31,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C71E5EFB1A21B9F100400396 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		C71E5EFC1A21BD8400400396 /* SVGPortability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SVGPortability.h; path = ../../SVGPortability.h; sourceTree = "<group>"; };
 		C72C7BF11A1F278C006C80E5 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = SOURCE_ROOT; };
 		C763A80D1A1F50A6007D5576 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C76FD9051A201C4F0054C25D /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVGLayer.h; path = ../../SVGLayer.h; sourceTree = "<group>"; };
 		C76FD9061A201C4F0054C25D /* SVGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVGLayer.m; path = ../../SVGLayer.m; sourceTree = "<group>"; };
+		C76FD91D1A21B2B20054C25D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C76FD9211A21B2B20054C25D /* SVGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAppDelegate.h; sourceTree = "<group>"; };
+		C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAppDelegate.m; sourceTree = "<group>"; };
+		C76FD9291A21B2B20054C25D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C76FD93D1A21B33D0054C25D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7FCE43B1A1ECE8E00A0BE0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7FCE43B1A1ECE8E00A0BE0D /* Info-Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C7FCE4411A1ECE8E00A0BE0D /* SVGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGViewController.h; sourceTree = "<group>"; };
 		C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGViewController.m; sourceTree = "<group>"; };
@@ -39,6 +57,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C76FD91A1A21B2B20054C25D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7FCE4341A1ECE8E00A0BE0D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -50,6 +76,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C79800B01A21CACA00380860 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C72C7BF11A1F278C006C80E5 /* tiger.svg */,
+				C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */,
+				C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */,
+				C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */,
+				C76FD9281A21B2B20054C25D /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		C7FCE42E1A1ECE8E00A0BE0D = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */,
+				C76FD91D1A21B2B20054C25D /* SVGExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,6 +108,7 @@
 		C7FCE4391A1ECE8E00A0BE0D /* SVGExample */ = {
 			isa = PBXGroup;
 			children = (
+				C71E5EFC1A21BD8400400396 /* SVGPortability.h */,
 				C7FCE4411A1ECE8E00A0BE0D /* SVGViewController.h */,
 				C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */,
 				C7FCE4601A1ECE9E00A0BE0D /* SVGImageView.h */,
@@ -77,10 +117,7 @@
 				C76FD9061A201C4F0054C25D /* SVGLayer.m */,
 				C7FCE4621A1ECE9E00A0BE0D /* SVGPathSerializing.h */,
 				C7FCE4631A1ECE9E00A0BE0D /* SVGPathSerializing.mm */,
-				C72C7BF11A1F278C006C80E5 /* tiger.svg */,
-				C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */,
-				C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */,
-				C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */,
+				C79800B01A21CACA00380860 /* Resources */,
 				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
 			);
 			path = SVGExample;
@@ -90,7 +127,11 @@
 			isa = PBXGroup;
 			children = (
 				C763A80D1A1F50A6007D5576 /* libxml2.dylib */,
-				C7FCE43B1A1ECE8E00A0BE0D /* Info.plist */,
+				C76FD93D1A21B33D0054C25D /* libxml2.dylib */,
+				C7FCE43B1A1ECE8E00A0BE0D /* Info-Mac.plist */,
+				C71E5EFB1A21B9F100400396 /* Info-iOS.plist */,
+				C76FD9211A21B2B20054C25D /* SVGAppDelegate.h */,
+				C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */,
 				C7FCE43C1A1ECE8E00A0BE0D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -99,9 +140,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C7FCE4361A1ECE8E00A0BE0D /* SVGExample */ = {
+		C76FD91C1A21B2B20054C25D /* SVGExample(Mac) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C7FCE45A1A1ECE8E00A0BE0D /* Build configuration list for PBXNativeTarget "SVGExample" */;
+			buildConfigurationList = C76FD9371A21B2B20054C25D /* Build configuration list for PBXNativeTarget "SVGExample(Mac)" */;
+			buildPhases = (
+				C76FD9191A21B2B20054C25D /* Sources */,
+				C76FD91A1A21B2B20054C25D /* Frameworks */,
+				C76FD91B1A21B2B20054C25D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SVGExample(Mac)";
+			productName = SVGExample;
+			productReference = C76FD91D1A21B2B20054C25D /* SVGExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C7FCE4361A1ECE8E00A0BE0D /* SVGExample(iPhone) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7FCE45A1A1ECE8E00A0BE0D /* Build configuration list for PBXNativeTarget "SVGExample(iPhone)" */;
 			buildPhases = (
 				C7FCE4331A1ECE8E00A0BE0D /* Sources */,
 				C7FCE4341A1ECE8E00A0BE0D /* Frameworks */,
@@ -111,7 +169,7 @@
 			);
 			dependencies = (
 			);
-			name = SVGExample;
+			name = "SVGExample(iPhone)";
 			productName = SVGExample;
 			productReference = C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */;
 			productType = "com.apple.product-type.application";
@@ -125,6 +183,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Fjölnir Ásgeirsson";
 				TargetAttributes = {
+					C76FD91C1A21B2B20054C25D = {
+						CreatedOnToolsVersion = 6.1;
+					};
 					C7FCE4361A1ECE8E00A0BE0D = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -143,12 +204,23 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C7FCE4361A1ECE8E00A0BE0D /* SVGExample */,
+				C7FCE4361A1ECE8E00A0BE0D /* SVGExample(iPhone) */,
+				C76FD91C1A21B2B20054C25D /* SVGExample(Mac) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C76FD91B1A21B2B20054C25D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C71E5EF91A21B69800400396 /* tiger.svg in Resources */,
+				C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */,
+				C76FD92A1A21B2B20054C25D /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7FCE4351A1ECE8E00A0BE0D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,6 +235,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C76FD9191A21B2B20054C25D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C71E5EFE1A21C12B00400396 /* SVGViewController.m in Sources */,
+				C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */,
+				C76FD93F1A21B34D0054C25D /* SVGLayer.m in Sources */,
+				C71E5F091A21C56F00400396 /* main.m in Sources */,
+				C76FD9401A21B34D0054C25D /* SVGPathSerializing.mm in Sources */,
+				C71E5EF81A21B52B00400396 /* SVGImageView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7FCE4331A1ECE8E00A0BE0D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +255,7 @@
 				C76FD9071A201C4F0054C25D /* SVGLayer.m in Sources */,
 				C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */,
 				C7FCE4651A1ECE9E00A0BE0D /* SVGPathSerializing.mm in Sources */,
+				C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */,
 				C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */,
 				C7FCE4641A1ECE9E00A0BE0D /* SVGImageView.m in Sources */,
 			);
@@ -178,6 +264,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		C76FD9281A21B2B20054C25D /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C76FD9291A21B2B20054C25D /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -197,6 +291,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C76FD9381A21B2B20054C25D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = SVGExample;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C76FD9391A21B2B20054C25D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = SVGExample;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		C7FCE4581A1ECE8E00A0BE0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -232,6 +369,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -268,6 +406,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -284,9 +423,9 @@
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = SVGExample/Info.plist;
+				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SVGExample;
 			};
 			name = Debug;
 		};
@@ -299,15 +438,24 @@
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
 				);
-				INFOPLIST_FILE = SVGExample/Info.plist;
+				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SVGExample;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C76FD9371A21B2B20054C25D /* Build configuration list for PBXNativeTarget "SVGExample(Mac)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C76FD9381A21B2B20054C25D /* Debug */,
+				C76FD9391A21B2B20054C25D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C7FCE4321A1ECE8E00A0BE0D /* Build configuration list for PBXProject "SVGExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -317,7 +465,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C7FCE45A1A1ECE8E00A0BE0D /* Build configuration list for PBXNativeTarget "SVGExample" */ = {
+		C7FCE45A1A1ECE8E00A0BE0D /* Build configuration list for PBXNativeTarget "SVGExample(iPhone)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7FCE45B1A1ECE8E00A0BE0D /* Debug */,

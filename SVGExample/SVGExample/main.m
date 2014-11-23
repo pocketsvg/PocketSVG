@@ -1,13 +1,19 @@
-#import <UIKit/UIKit.h>
+#import "SVGAppDelegate.h"
+#import <TargetConditionals.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-@property (strong, nonatomic) UIWindow *window;
-@end
-@implementation AppDelegate
-@end
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SVGAppDelegate class]));
     }
 }
+
+#else
+#import <AppKit/AppKit.h>
+
+int main(int argc, const char * argv[]) {
+    return NSApplicationMain(argc, argv);
+}
+#endif
