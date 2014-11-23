@@ -19,9 +19,9 @@ protected:
     void pushGroup(NSDictionary *aGroupAttributes);
     void popGroup();
 
-    CGPathRef readPathTag();
-    CGPathRef readPolygonTag();
-    CGPathRef readRectTag();
+    CF_RETURNS_RETAINED CGPathRef readPathTag();
+    CF_RETURNS_RETAINED CGPathRef readPolygonTag();
+    CF_RETURNS_RETAINED CGPathRef readRectTag();
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
@@ -31,7 +31,8 @@ protected:
 struct pathDefinitionParser {
 public:
     pathDefinitionParser(NSString *);
-    CGPathRef parse();
+    ~pathDefinitionParser();
+    CF_RETURNS_RETAINED CGPathRef parse();
 
 protected:
     NSString *_definition;
@@ -98,7 +99,7 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
         }
 
         if(path) {
-            [paths addObject:(__bridge id)path];
+            [paths addObject:CFBridgingRelease(path)];
             
             if(aoAttributes) {
                 NSDictionary * const attributes = readAttributes();
@@ -126,7 +127,7 @@ void svgParser::popGroup()
         [_attributeStack removeLastObject];
 }
 
-CGPathRef svgParser::readPathTag()
+CF_RETURNS_RETAINED CGPathRef svgParser::readPathTag()
 {
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "path") == 0,
               @"Not on a <path>");
@@ -144,7 +145,7 @@ CGPathRef svgParser::readPathTag()
     }
 }
 
-CGPathRef svgParser::readRectTag()
+CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
 {
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "rect") == 0,
               @"Not on a <polygon>");
@@ -174,7 +175,7 @@ CGPathRef svgParser::readRectTag()
     
 }
 
-CGPathRef svgParser::readPolygonTag()
+CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
 {
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polygon") == 0,
               @"Not on a <polygon>");
@@ -242,7 +243,7 @@ NSDictionary *svgParser::readAttributes()
                                                                 transformOperands[2], transformOperands[3],
                                                                 transformOperands[4], transformOperands[5]);
                 else if([transformCmd isEqualToString:@"rotate"]) {
-                    // Todo, rotate about point
+                    // TODO: rotate about point
                     float const radians = transformOperands[0] * M_PI / 180.0;
                     additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
                                                                 -sinf(radians), cosf(radians),
@@ -305,8 +306,7 @@ NSString *svgParser::readStringAttribute(NSString * const aName)
 
 NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
 {
-    svgParser parser(svgString);
-    return parser.parse(outAttributes);
+    return svgParser(svgString).parse(outAttributes);
 }
 
 NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
@@ -367,15 +367,18 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
             bounds.size.width,
             bounds.size.height,
             svg];
-
 }
 
 pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
     _definition = [aDefinition stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
+pathDefinitionParser::~pathDefinitionParser()
+{
+    CGPathRelease(_path);
+}
 
-CGPathRef pathDefinitionParser::parse()
+CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
 {
 #ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"d=%@", attr);
@@ -439,7 +442,7 @@ CGPathRef pathDefinitionParser::parse()
         NSLog(@"*** SVG parse error at index: %d: '%c'",
               (int)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
 
-    return _path;
+    return CGPathRetain(_path);
 }
 
 void pathDefinitionParser::appendMoveTo()
