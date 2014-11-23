@@ -22,7 +22,10 @@ protected:
     CGPathRef readPathTag();
     CGPathRef readPolygonTag();
     CGPathRef readRectTag();
+
     NSDictionary *readAttributes();
+    float readFloatAttribute(NSString *aName);
+    NSString *readStringAttribute(NSString *aName);
 };
 
 struct pathDefinitionParser {
@@ -55,7 +58,8 @@ protected:
     uint32_t _data;
 };
 
-static NSDictionary *parseStyle(NSString *body);
+static NSDictionary *_SVGParseStyle(NSString *body);
+static NSString *_SVGFormatNumber(NSNumber *aNumber);
 
 #pragma mark -
 
@@ -145,19 +149,20 @@ CGPathRef svgParser::readRectTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "rect") == 0,
               @"Not on a <polygon>");
 
-    xmlAutoFree char * const xDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"x"),
-                     * const yDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"y"),
-                     * const widthDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"width"),
-                     * const heightDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"height");
-
-    CGRect const rect = { (CGFloat)atof(xDef), (CGFloat)atof(yDef), (CGFloat)atof(widthDef), (CGFloat)atof(heightDef) };
+    CGRect const rect = {
+        readFloatAttribute(@"x"),     readFloatAttribute(@"y"),
+        readFloatAttribute(@"width"), readFloatAttribute(@"height")
+    };
     NSString * const pathDefinition = [NSString stringWithFormat:
-                                       @"M %f %f "
-                                       @"H %f V %f"
-                                       @"H %f V %f Z",
-                                       CGRectGetMinX(rect), CGRectGetMinY(rect),
-                                       CGRectGetMaxX(rect), CGRectGetMaxY(rect),
-                                       CGRectGetMinX(rect), CGRectGetMinY(rect)];
+                                       @"M%@,%@"
+                                       @"H%@V%@"
+                                       @"H%@V%@Z",
+                                       _SVGFormatNumber(@(CGRectGetMinX(rect))),
+                                       _SVGFormatNumber(@(CGRectGetMinY(rect))),
+                                       _SVGFormatNumber(@(CGRectGetMaxX(rect))),
+                                       _SVGFormatNumber(@(CGRectGetMaxY(rect))),
+                                       _SVGFormatNumber(@(CGRectGetMinX(rect))),
+                                       _SVGFormatNumber(@(CGRectGetMinY(rect)))];
 
     CGPathRef const path = pathDefinitionParser(pathDefinition).parse();
     if(!path) {
@@ -208,7 +213,7 @@ NSDictionary *svgParser::readAttributes()
                    * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
 
         if(strcasecmp("style", attrName) == 0)
-            [attrs addEntriesFromDictionary:parseStyle(@(attrValue))];
+            [attrs addEntriesFromDictionary:_SVGParseStyle(@(attrValue))];
         else if(strcasecmp("transform", attrName) == 0) {
             // TODO: report syntax errors
             NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
@@ -282,6 +287,18 @@ NSDictionary *svgParser::readAttributes()
     return [attrs count] > 0 ? attrs : nil;
 }
 
+float svgParser::readFloatAttribute(NSString * const aName)
+{
+    xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)[aName UTF8String]);
+    return value ? strtof(value, NULL) : 0.0;
+}
+
+NSString *svgParser::readStringAttribute(NSString * const aName)
+{
+    xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)[aName UTF8String]);
+    return value ? @(value) : nil;
+}
+
 NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
 {
     svgParser parser(svgString);
@@ -290,14 +307,6 @@ NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttrib
 
 NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
 {
-    static NSNumberFormatter *fmt;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        fmt = [NSNumberFormatter new];
-        fmt.numberStyle = NSNumberFormatterDecimalStyle;
-        fmt.maximumSignificantDigits = 3;
-    });
-
     CGRect bounds = CGRectZero;
     NSMutableString * const svg = [NSMutableString new];
     for(id path in paths) {
@@ -321,7 +330,7 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
         {
             NSMutableString * const svg = (__bridge id)info;
             
-            #define FMT(n) [fmt stringFromNumber:@(n)]
+            #define FMT(n) _SVGFormatNumber(@(n))
             switch(el->type) {
                 case kCGPathElementMoveToPoint:
                     [svg appendFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
@@ -578,7 +587,7 @@ NSString *hexTriplet::string()
             (_data & 0x0000FF)];
 }
 
-static NSDictionary *parseStyle(NSString * const body)
+static NSDictionary *_SVGParseStyle(NSString * const body)
 {
     NSScanner * const scanner = [NSScanner scannerWithString:body];
     NSMutableCharacterSet * const separators = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
@@ -595,6 +604,18 @@ static NSDictionary *parseStyle(NSString * const body)
         style[key] = value;
     }
     return style;
+}
+
+static NSString *_SVGFormatNumber(NSNumber * const aNumber)
+{
+    static NSNumberFormatter *fmt;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        fmt = [NSNumberFormatter new];
+        fmt.numberStyle = NSNumberFormatterDecimalStyle;
+        fmt.maximumSignificantDigits = 3;
+    });
+    return [fmt stringFromNumber:aNumber];
 }
 
 #pragma mark -

@@ -37,8 +37,6 @@
 		C79800DD1A21CB9A00380860 /* SVGPortability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPortability.h; sourceTree = SOURCE_ROOT; };
 		C79800E51A21CBB900380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C79800F81A21CDFD00380860 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C79800F91A21CDFD00380860 /* SVGPathSerializing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGPathSerializing.h; sourceTree = "<group>"; };
 		C79801051A21CDFD00380860 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C79801061A21CDFD00380860 /* SVGPathSerializingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGPathSerializingTests.m; sourceTree = "<group>"; };
 		C798011B1A21CEC200380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
@@ -72,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				C79800BD1A21CB5300380860 /* SVGPathSerializing */,
-				C79800F61A21CDFD00380860 /* SVGPathSerializing */,
 				C79801031A21CDFD00380860 /* SVGPathSerializingTests */,
 				C79800BC1A21CB5300380860 /* Products */,
 			);
@@ -110,23 +107,6 @@
 				C798011B1A21CEC200380860 /* libxml2.dylib */,
 				C79800E51A21CBB900380860 /* libxml2.dylib */,
 				C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C79800F61A21CDFD00380860 /* SVGPathSerializing */ = {
-			isa = PBXGroup;
-			children = (
-				C79800F91A21CDFD00380860 /* SVGPathSerializing.h */,
-				C79800F71A21CDFD00380860 /* Supporting Files */,
-			);
-			path = SVGPathSerializing;
-			sourceTree = "<group>";
-		};
-		C79800F71A21CDFD00380860 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C79800F81A21CDFD00380860 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -493,6 +473,7 @@
 				C798010A1A21CDFD00380860 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
