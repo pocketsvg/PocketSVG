@@ -628,14 +628,14 @@ static NSDictionary *parseStyle(NSString * const body)
 @implementation NSValue (SVGPathSerializing)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform
 {
-    if([self respondsToSelector:@selector(valueWithCGAffineTransform:)] &&NO)
+    if([self respondsToSelector:@selector(valueWithCGAffineTransform:)])
         return [self valueWithCGAffineTransform:aTransform];
     else
         return [self valueWithBytes:&aTransform objCType:@encode(CGAffineTransform)];
 }
 - (CGAffineTransform)svg_CGAffineTransformValue
 {
-    if([self respondsToSelector:@selector(CGAffineTransformValue)]&&NO)
+    if([self respondsToSelector:@selector(CGAffineTransformValue)])
         return [self CGAffineTransformValue];
     else if(strcmp(self.objCType, @encode(CGAffineTransform)) == 0) {
         CGAffineTransform transform;
