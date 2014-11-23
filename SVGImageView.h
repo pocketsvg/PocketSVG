@@ -2,9 +2,9 @@
 
 // This setup is just so Interface Builder doesn't get confused.
 #if TARGET_OS_IPHONE
-#   import "SVGImageView-iOS.h"
+#   import "SVGImageView_iOS.h"
 #else
-#   import "SVGImageView-Mac.h"
+#   import "SVGImageView_Mac.h"
 #endif
 
 @interface SVGImageView ()

@@ -21,8 +21,8 @@
 		C798011C1A21CEC200380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C798011B1A21CEC200380860 /* libxml2.dylib */; };
 		C79801281A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; };
 		C79801291A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; };
-		C798012E1A21F35C00380860 /* SVGImageView-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012B1A21F35C00380860 /* SVGImageView-iOS.h */; };
-		C79801311A21F35C00380860 /* SVGImageView-Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012C1A21F35C00380860 /* SVGImageView-Mac.h */; };
+		C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012B1A21F35C00380860 /* SVGImageView_iOS.h */; };
+		C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012C1A21F35C00380860 /* SVGImageView_Mac.h */; };
 		C79801321A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
 		C79801331A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
 /* End PBXBuildFile section */
@@ -39,8 +39,8 @@
 		C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798011B1A21CEC200380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		C79801271A21F13E00380860 /* SVGImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView.h; sourceTree = SOURCE_ROOT; };
-		C798012B1A21F35C00380860 /* SVGImageView-iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGImageView-iOS.h"; sourceTree = SOURCE_ROOT; };
-		C798012C1A21F35C00380860 /* SVGImageView-Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVGImageView-Mac.h"; sourceTree = SOURCE_ROOT; };
+		C798012B1A21F35C00380860 /* SVGImageView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView_iOS.h; sourceTree = SOURCE_ROOT; };
+		C798012C1A21F35C00380860 /* SVGImageView_Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView_Mac.h; sourceTree = SOURCE_ROOT; };
 		C798012D1A21F35C00380860 /* SVGImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGImageView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -73,8 +73,8 @@
 				C79800D91A21CB9A00380860 /* SVGLayer.h */,
 				C79800DA1A21CB9A00380860 /* SVGLayer.m */,
 				C79801271A21F13E00380860 /* SVGImageView.h */,
-				C798012B1A21F35C00380860 /* SVGImageView-iOS.h */,
-				C798012C1A21F35C00380860 /* SVGImageView-Mac.h */,
+				C798012B1A21F35C00380860 /* SVGImageView_iOS.h */,
+				C798012C1A21F35C00380860 /* SVGImageView_Mac.h */,
 				C798012D1A21F35C00380860 /* SVGImageView.m */,
 				C79800BE1A21CB5300380860 /* Supporting Files */,
 				C79800BC1A21CB5300380860 /* Products */,
@@ -108,7 +108,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C798012E1A21F35C00380860 /* SVGImageView-iOS.h in Headers */,
+				C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */,
 				C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */,
 				C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */,
 				C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */,
@@ -120,7 +120,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C79801311A21F35C00380860 /* SVGImageView-Mac.h in Headers */,
+				C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */,
 				C79801151A21CEAE00380860 /* SVGLayer.h in Headers */,
 				C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */,
 				C79801171A21CEB000380860 /* SVGPortability.h in Headers */,
