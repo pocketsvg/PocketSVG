@@ -49,12 +49,12 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     
     [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [_shapeLayers removeAllObjects];
+    _untouchedPaths = [NSMutableArray new];
     if([aSVG length] == 0)
         return;
 
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    _untouchedPaths = [NSMutableArray new];
     NSMapTable *attributes;
     for(__strong id path in CGPathsFromSVGString(aSVG, &attributes)) {
         CAShapeLayer * const layer = [CAShapeLayer new];
