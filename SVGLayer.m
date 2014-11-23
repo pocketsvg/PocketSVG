@@ -58,7 +58,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
         NSDictionary * const attrs = [attributes objectForKey:path];
 
         if(attrs[@"transform"]) {
-            CGAffineTransform const transform = [attrs[@"transform"] CGAffineTransformValue];
+            CGAffineTransform const transform = [attrs[@"transform"] svg_CGAffineTransformValue];
             CGPathRef const newPath = CGPathCreateCopyByTransformingPath((__bridge CGPathRef)path, &transform);
             [attributes setObject:[attributes objectForKey:path]
                            forKey:(__bridge id)newPath];

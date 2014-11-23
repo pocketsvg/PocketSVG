@@ -250,7 +250,7 @@ NSDictionary *svgParser::readAttributes()
                 transform = CGAffineTransformConcat(transform, additionalTransform);
             }
             if(!CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity))
-                attrs[@"transform"] = [NSValue valueWithCGAffineTransform:transform];
+                attrs[@"transform"] = [NSValue svg_valueWithCGAffineTransform:transform];
         } else
             attrs[@(attrName)] = @(attrValue);
     }
@@ -599,16 +599,16 @@ static NSDictionary *parseStyle(NSString * const body)
 #if TARGET_OS_IPHONE
 @implementation UIBezierPath (SVGPathSerializing)
 
-+ (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
++ (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString * const)aPath
 {
 #ifndef NS_BLOCK_ASSERTIONS
     BOOL isDir;
     NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
 #endif
-    return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
+    return [self svg_pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
 }
 
-+ (NSArray *)pathsFromSVGString:(NSString * const)svgString
++ (NSArray *)svg_pathsFromSVGString:(NSString * const)svgString
 {
     NSArray        * const pathRefs = CGPathsFromSVGString(svgString, NULL);
     NSMutableArray * const paths    = [NSMutableArray arrayWithCapacity:pathRefs.count];
@@ -618,9 +618,31 @@ static NSDictionary *parseStyle(NSString * const body)
     return paths;
 }
 
-- (NSString *)SVGRepresentation
+- (NSString *)svg_SVGRepresentation
 {
     return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], nil);
 }
 @end
 #endif
+
+@implementation NSValue (SVGPathSerializing)
++ (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform
+{
+    if([self respondsToSelector:@selector(valueWithCGAffineTransform:)] &&NO)
+        return [self valueWithCGAffineTransform:aTransform];
+    else
+        return [self valueWithBytes:&aTransform objCType:@encode(CGAffineTransform)];
+}
+- (CGAffineTransform)svg_CGAffineTransformValue
+{
+    if([self respondsToSelector:@selector(CGAffineTransformValue)]&&NO)
+        return [self CGAffineTransformValue];
+    else if(strcmp(self.objCType, @encode(CGAffineTransform)) == 0) {
+        CGAffineTransform transform;
+        [self getValue:&transform];
+        return transform;
+    } else
+        return (CGAffineTransform) {0};
+}
+
+@end

@@ -30,11 +30,16 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 #import <UIKit/UIKit.h>
 
 @interface UIBezierPath (SVGPathSerializing)
-+ (NSArray *)pathsFromContentsOfSVGFile:(NSString *)aPath;
-+ (NSArray *)pathsFromSVGString:(NSString *)svgString;
-- (NSString *)SVGRepresentation;
++ (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString *)aPath;
++ (NSArray *)svg_pathsFromSVGString:(NSString *)svgString;
+- (NSString *)svg_SVGRepresentation;
 @end
 #endif
+
+@interface NSValue (SVGPathSerializing)
++ (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform;
+- (CGAffineTransform)svg_CGAffineTransformValue;
+@end
 
 #ifdef __cplusplus
 };
