@@ -79,12 +79,27 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     [self didChangeValueForKey:@"svgString"];
 }
 
-- (void)setSvgFileName:(NSString *)aFileName
+- (void)setSvgFileName:(NSString * const)aFileName
 {
     [self willChangeValueForKey:@"svgFileName"];
     _svgFileName = aFileName;
+#if !TARGET_INTERFACE_BUILDER
     NSString * const path = [[NSBundle mainBundle] pathForResource:aFileName ofType:@"svg"];
     NSParameterAssert(aFileName && path);
+#else
+    NSString *path = nil;
+    NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
+                                [aFileName stringByAppendingPathExtension:@"svg"]];
+    NSString * const sourceDirs = [[NSProcessInfo processInfo] environment][@"IB_PROJECT_SOURCE_DIRECTORIES"];
+    for(NSString *dir in [sourceDirs componentsSeparatedByString:@","]) {
+        NSArray * const results = [[[NSFileManager defaultManager] subpathsAtPath:dir]
+                                   filteredArrayUsingPredicate:pred];
+        if([results count] > 0) {
+            path = [dir stringByAppendingPathComponent:results[0]];
+            break;
+        }
+    }
+#endif
     
     self.svgString = [NSString stringWithContentsOfFile:path
                                            usedEncoding:NULL

@@ -1,13 +1,8 @@
 #import "SVGImageView.h"
 #import "SVGLayer.h"
-#import "SVGPortability.h"
-
-@interface SVGImageView ()
-@property(nonatomic, readonly) SVGLayer *svgLayer;
-@end
 
 @implementation SVGImageView
-@dynamic fillColor, strokeColor, svgFileName, svgString, svgLayer;
+@dynamic fillColor, strokeColor, svgFileName, svgString;
 
 #if TARGET_OS_IPHONE
 + (Class)layerClass
@@ -29,54 +24,25 @@
 }
 #endif
 
-- (SVGLayer *)svgLayer
+- (id)forwardingTargetForSelector:(SEL const)aSelector
 {
-    return (SVGLayer *)self.layer;
+    if([self.layer respondsToSelector:aSelector])
+        return self.layer;
+    else
+        return nil;
 }
 
-- (instancetype)initWithSVGNamed:(NSString * const)aName
-                       fillColor:(SVGUI(Color) * const)aFillColor
-                     strokeColor:(SVGUI(Color) * const)aStrokeColor
+- (void)setValue:(id const)aValue forUndefinedKey:(NSString * const)aKey
 {
-    if((self = [self init])) {
-        self.fillColor   = aFillColor;
-        self.strokeColor = aStrokeColor;
-        self.svgFileName = aName;
-
-        [self sizeToFit];
-    }
-    return self;
+    if(self.layer)
+        [self.layer setValue:aValue forKey:aKey];
+    else
+        [super setValue:aValue forUndefinedKey:aKey];
 }
-
-- (instancetype)initWithSVGString:(NSString * const)aSVG
-                        fillColor:(SVGUI(Color) * const)aFillColor
-                      strokeColor:(SVGUI(Color) * const)aStrokeColor
-{
-    if((self = [self init])) {
-        self.fillColor   = aFillColor;
-        self.strokeColor = aStrokeColor;
-        self.svgString   = aSVG;
-
-        [self sizeToFit];
-    }
-    return self;
-}
-
-- (void)setSvgString:(NSString * const)aSVG { self.svgLayer.svgString = aSVG; }
-- (NSString *)svgString { return self.svgLayer.svgString; }
-
-- (void)setSvgFileName:(NSString * const)aFileName { self.svgLayer.svgFileName = aFileName; }
-- (NSString *)svgFileName { return self.svgLayer.svgFileName; }
-
-- (void)setFillColor:(SVGUI(Color) * const)aColor { self.svgLayer.fillColor = aColor.CGColor; }
-- (SVGUI(Color) *)fillColor { return [SVGUI(Color) colorWithCGColor:self.svgLayer.fillColor]; }
-
-- (void)setStrokeColor:(SVGUI(Color) * const)aColor { self.svgLayer.strokeColor = aColor.CGColor; }
-- (SVGUI(Color) *)strokeColor { return [SVGUI(Color) colorWithCGColor:self.svgLayer.strokeColor]; }
 
 - (CGSize)sizeThatFits:(CGSize)aSize
 {
-    return self.svgLayer.preferredFrameSize;
+    return self.layer.preferredFrameSize;
 }
 
 @end

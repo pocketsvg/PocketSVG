@@ -10,7 +10,6 @@
 		C71E5EF91A21B69800400396 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 		C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
-		C71E5EFE1A21C12B00400396 /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C71E5F091A21C56F00400396 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C72C7BF21A1F278C006C80E5 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C763A80D1A1F50A6007D5576 /* libxml2.dylib */; };
@@ -20,7 +19,6 @@
 		C79800EF1A21CC1C00380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */; };
 		C79801131A21CE6300380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79801121A21CE5D00380860 /* SVGPathSerializing.framework */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
-		C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
 		C7FCE44B1A1ECE8E00A0BE0D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */; };
 		C7FCE4671A1ED0FA00A0BE0D /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
@@ -70,8 +68,6 @@
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FCE43B1A1ECE8E00A0BE0D /* Info-Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C7FCE4411A1ECE8E00A0BE0D /* SVGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGViewController.h; sourceTree = "<group>"; };
-		C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGViewController.m; sourceTree = "<group>"; };
 		C7FCE4451A1ECE8E00A0BE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7FCE44A1A1ECE8E00A0BE0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = SOURCE_ROOT; };
@@ -109,6 +105,7 @@
 				C76FD9281A21B2B20054C25D /* MainMenu.xib */,
 			);
 			name = Resources;
+			path = SVGExample;
 			sourceTree = "<group>";
 		};
 		C79800E81A21CC0300380860 /* Products */ = {
@@ -124,7 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */,
-				C7FCE4391A1ECE8E00A0BE0D /* SVGExample */,
+				C79800B01A21CACA00380860 /* Resources */,
+				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
 				C7FCE4381A1ECE8E00A0BE0D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -136,17 +134,6 @@
 				C76FD91D1A21B2B20054C25D /* SVGExample.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C7FCE4391A1ECE8E00A0BE0D /* SVGExample */ = {
-			isa = PBXGroup;
-			children = (
-				C7FCE4411A1ECE8E00A0BE0D /* SVGViewController.h */,
-				C7FCE4421A1ECE8E00A0BE0D /* SVGViewController.m */,
-				C79800B01A21CACA00380860 /* Resources */,
-				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
-			);
-			path = SVGExample;
 			sourceTree = "<group>";
 		};
 		C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */ = {
@@ -161,6 +148,7 @@
 				C7FCE43C1A1ECE8E00A0BE0D /* main.m */,
 			);
 			name = "Supporting Files";
+			path = SVGExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,7 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C71E5EFE1A21C12B00400396 /* SVGViewController.m in Sources */,
 				C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */,
 				C71E5F091A21C56F00400396 /* main.m in Sources */,
 			);
@@ -300,7 +287,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7FCE4431A1ECE8E00A0BE0D /* SVGViewController.m in Sources */,
 				C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */,
 				C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */,
 			);
