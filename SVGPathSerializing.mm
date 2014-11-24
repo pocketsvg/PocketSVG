@@ -77,7 +77,7 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
     if(aoAttributes)
         *aoAttributes = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory|NSMapTableObjectPointerPersonality
                                               valueOptions:NSMapTableStrongMemory];
-    NSMutableArray * const paths  = [NSMutableArray new];
+    NSMutableArray * const paths = [NSMutableArray new];
 
     while(xmlTextReaderRead(_xmlReader) == 1) {
         int const type = xmlTextReaderNodeType(_xmlReader);
