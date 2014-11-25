@@ -609,9 +609,10 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
     static NSNumberFormatter *fmt;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        fmt = [NSNumberFormatter new];
-        fmt.numberStyle = NSNumberFormatterDecimalStyle;
-        fmt.maximumSignificantDigits = 3;
+        fmt.numberStyle           = NSNumberFormatterDecimalStyle;
+        fmt.maximumFractionDigits = 3;
+        fmt.decimalSeparator      = @".";
+        fmt.usesGroupingSeparator = NO;
     });
     return [fmt stringFromNumber:aNumber];
 }
