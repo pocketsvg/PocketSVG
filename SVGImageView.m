@@ -16,7 +16,7 @@
     layer.fillColor   = _fillColor.CGColor;
     layer.strokeColor = _strokeColor.CGColor;
     if(_svgName)
-        [layer loadSVGFromFileNamed:_svgName];
+        [layer loadSVGNamed:_svgName];
     else if(_svgSource)
         layer.svgSource = _svgSource;
     return layer;

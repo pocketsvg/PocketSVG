@@ -612,6 +612,7 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
         fmt.numberStyle           = NSNumberFormatterDecimalStyle;
         fmt.maximumFractionDigits = 3;
         fmt.decimalSeparator      = @".";
+        fmt.minusSign             = @"-";
         fmt.usesGroupingSeparator = NO;
     });
     return [fmt stringFromNumber:aNumber];
