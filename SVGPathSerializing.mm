@@ -327,27 +327,27 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
         CGPathApply((__bridge CGPathRef)path, (__bridge void *)svg,
                     [](void * const info, const CGPathElement * const el)
         {
-            NSMutableString * const svg = (__bridge id)info;
+            NSMutableString * const svg_ = (__bridge id)info;
             
             #define FMT(n) _SVGFormatNumber(@(n))
             switch(el->type) {
                 case kCGPathElementMoveToPoint:
-                    [svg appendFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
+                    [svg_ appendFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
                     break;
                 case kCGPathElementAddLineToPoint:
-                    [svg appendFormat:@"L%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
+                    [svg_ appendFormat:@"L%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
                     break;
                 case kCGPathElementAddQuadCurveToPoint:
-                    [svg appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                    [svg_ appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
                                                            FMT(el->points[1].x), FMT(el->points[1].y)];
                     break;
                 case kCGPathElementAddCurveToPoint:
-                    [svg appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                    [svg_ appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
                                                                    FMT(el->points[1].x), FMT(el->points[1].y),
                                                                    FMT(el->points[2].x), FMT(el->points[2].y)];
                     break;
                 case kCGPathElementCloseSubpath:
-                    [svg appendFormat:@"Z"];
+                    [svg_ appendFormat:@"Z"];
                     break;
             }
             #undef FMT
