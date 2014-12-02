@@ -8,10 +8,11 @@ Pod::Spec.new do |s|
     :type => 'MIT',
     :file => 'LICENSE'
   }
-  
+
   s.authors      = { "Ponderwell, Ariel Elkin, and Contributors" => "https://github.com/arielelkin/PocketSVG" }
   s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => 'v0.5' }
   s.ios.deployment_target = '5.0'
+  s.osx.deployment_target = '10.7'
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
   s.source_files = 'PocketSVG.{h,m}'
