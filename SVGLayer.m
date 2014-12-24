@@ -94,11 +94,23 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
                                 [aFileName stringByAppendingPathExtension:@"svg"]];
     NSString * const sourceDirs = [[NSProcessInfo processInfo] environment][@"IB_PROJECT_SOURCE_DIRECTORIES"];
-    for(NSString *dir in [sourceDirs componentsSeparatedByString:@","]) {
-        NSArray * const results = [[[NSFileManager defaultManager] subpathsAtPath:dir]
+    for(__strong NSString *dir in [sourceDirs componentsSeparatedByString:@","]) {
+        // Go up the hiearchy until we don't find an xcodeproj
+
+        NSString *projectDir = dir;
+        NSPredicate *xcodePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH[c] %@", @".xcodeproj"];
+        do {
+            NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dir error:NULL];
+            if([[contents filteredArrayUsingPredicate:xcodePredicate] count] > 0) {
+                projectDir = dir;
+            }
+            NSLog(@"%@", dir);
+        } while(![(dir = dir.stringByDeletingLastPathComponent) isEqual:@"/"]);
+
+        NSArray * const results = [[[NSFileManager defaultManager] subpathsAtPath:projectDir]
                                    filteredArrayUsingPredicate:pred];
         if([results count] > 0) {
-            path = [dir stringByAppendingPathComponent:results[0]];
+            path = [projectDir stringByAppendingPathComponent:results[0]];
             break;
         }
     }

@@ -33,7 +33,7 @@
 
 - (SVGLayer *)_svgLayer { return (id)self.layer; }
 
-- (void)setsvgSource:(NSString * const)aSVG {
+- (void)setSvgSource:(NSString * const)aSVG {
     _svgSource = aSVG;
     self._svgLayer.svgSource = aSVG;
 }
