@@ -187,10 +187,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 
     CGAffineTransform const scale = CGAffineTransformMakeScale(frame.size.width  / size.width,
                                                                frame.size.height / size.height);
-    CGAffineTransform const layerTransform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(frame.origin.x,
-                                                                                                      frame.origin.y),
-                                                                     scale);
-    
+    CGAffineTransform const layerTransform = CGAffineTransformConcat(scale,
+                                                                     CGAffineTransformMakeTranslation(frame.origin.x,
+                                                                                                      frame.origin.y));
+
     NSAssert([_shapeLayers count] == [_untouchedPaths count],
              @"Layer & Path count in SVG Image View does not match!");
 
