@@ -7,6 +7,8 @@ The goal of this project is not to be a fully compatible SVG parser/renderer. Bu
 
 ## Basic Usage
 
+(Note: If you just want to display an SVG, using SVGImageView is much easier, and it'll render the SVG within Interface Builder as well)
+
 ```obj-c
     NSString *svgPath = [[NSBundle mainBundle] pathForResource:@"myImage" ofType:@"svg"];
     NSString *svgString = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
