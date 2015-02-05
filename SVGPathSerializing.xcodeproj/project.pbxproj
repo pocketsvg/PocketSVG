@@ -19,9 +19,9 @@
 		C79801191A21CEBB00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
 		C798011A1A21CEBB00380860 /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */; };
 		C798011C1A21CEC200380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C798011B1A21CEC200380860 /* libxml2.dylib */; };
-		C79801281A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; };
+		C79801281A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801291A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; };
-		C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012B1A21F35C00380860 /* SVGImageView_iOS.h */; };
+		C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012B1A21F35C00380860 /* SVGImageView_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012C1A21F35C00380860 /* SVGImageView_Mac.h */; };
 		C79801321A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
 		C79801331A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
@@ -108,11 +108,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */,
 				C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */,
+				C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */,
+				C79801281A21F13E00380860 /* SVGImageView.h in Headers */,
 				C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */,
 				C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */,
-				C79801281A21F13E00380860 /* SVGImageView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
