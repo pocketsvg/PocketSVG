@@ -88,7 +88,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 {
 #if !TARGET_INTERFACE_BUILDER
     NSString * const path = [[NSBundle mainBundle] pathForResource:aFileName ofType:@"svg"];
-    NSParameterAssert(aFileName && path);
+    NSParameterAssert(!aFileName || path);
 #else
     NSString *path = nil;
     NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
