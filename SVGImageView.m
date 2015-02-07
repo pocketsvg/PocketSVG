@@ -54,5 +54,9 @@
 {
     return self.layer.preferredFrameSize;
 }
+- (CGSize)intrinsicContentSize
+{
+    return [self sizeThatFits:CGSizeZero];
+}
 
 @end
