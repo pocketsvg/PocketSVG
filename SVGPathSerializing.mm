@@ -254,7 +254,7 @@ NSDictionary *svgParser::readAttributes()
 
                 transform = CGAffineTransformConcat(transform, additionalTransform);
             }
-            if(!CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity))
+            if(attrs[@"transform"] || !CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity))
                 attrs[@"transform"] = [NSValue svg_valueWithCGAffineTransform:transform];
         } else
             attrs[@(attrName)] = @(attrValue);
