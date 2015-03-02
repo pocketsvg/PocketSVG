@@ -79,7 +79,6 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     _pathAttributes = attributes;
 
     [self setNeedsLayout];
-    [self layoutIfNeeded];
     [CATransaction commit];
     [self didChangeValueForKey:@"svgSource"];
 }
