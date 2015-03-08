@@ -12,27 +12,50 @@ Feedback, improvements, and pull requests are welcome.
 [![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
 
 ## Usage
-1. Make your drawing in a vector graphics editor such as Illustrator, Inkscape, [Sketch](http://www.bohemiancoding.com/sketch/), etc.
-1. Save as an SVG.
-1. Drag and drop it into your Xcode project.
-1. Follow these easy steps:
+Drag and drop the SVG files into your Xcode project. 
+
+###Swift
+1. Xcode will ask "**Would you like to configure an Objective-C bridging header?**", Click **Yes**.
+1. Add this line to the bridging header file:
+`#import "PocketSVG.h"`
+1. Follow these simple steps:
+
+```swift
+//1: Turn your SVG into a CGPath:
+let myPath = PocketSVG.pathFromSVGFileNamed("BezierCurve1").takeUnretainedValue()
+
+//2: To display it on screen, you can create a CAShapeLayer
+//and set myPath as its path property:
+let myShapeLayer = CAShapeLayer()
+myShapeLayer.path = myPath
+
+//3: Fiddle with it using CAShapeLayer's properties:
+myShapeLayer.strokeColor = UIColor.redColor().CGColor
+myShapeLayer.lineWidth = 3
+myShapeLayer.fillColor = UIColor.clearColor().CGColor
+
+//4: Display it!
+self.view.layer.addSublayer(myShapeLayer)
+```
+
+###Objective-C
 
 ```obj-c
-    //1: Turn your SVG into a CGPath:
-    CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
-    
-    //2: To display it on screen, you can create a CAShapeLayer
-    //and set myPath as its path property:
-    CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
-    myShapeLayer.path = myPath;
-    
-    //3: Fiddle with it using CAShapeLayer's properties:
-    myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
-    myShapeLayer.lineWidth = 4;
-    myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
+//1: Turn your SVG into a CGPath:
+CGPathRef myPath = [PocketSVG pathFromSVGFileNamed:@"BezierCurve1"];
 
-    //4: Display it!
-    [self.view.layer addSublayer:myShapeLayer];
+//2: To display it on screen, you can create a CAShapeLayer
+//and set myPath as its path property:
+CAShapeLayer *myShapeLayer = [CAShapeLayer layer];
+myShapeLayer.path = myPath;
+
+//3: Fiddle with it using CAShapeLayer's properties:
+myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
+myShapeLayer.lineWidth = 4;
+myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
+
+//4: Display it!
+[self.view.layer addSublayer:myShapeLayer];
 ```
 
 ## Useful Documentation
@@ -41,15 +64,6 @@ Feedback, improvements, and pull requests are welcome.
 * [CGPath](https://developer.apple.com/library/mac/documentation/graphicsimaging/reference/CGPath/Reference/reference.html) - Class Reference.
 * [CAShapeLayers](https://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html) – Class Reference. Tells you which properties of the shape/path can be manipulated. 
 * [Drawing Shapes Using Bezier Paths](http://developer.apple.com/library/ios/#documentation/2ddrawing/conceptual/drawingprintingios/BezierPaths/BezierPaths.html) – From Apple's Drawing and Printing Guide for iOS.
-
-## Latest Fixes
-* PocketSVG is now on CocoaPods!
-* Created factory methods to obtain `CGPaths`.
-* Added support for NSBezierPaths (thanks to [mcianni](https://github.com/mcianni)).
-* Fixed problem that causes SVGs to render with wrong frame dimensions.
-* Fixed problem that causes some SVGs to render incorrectly.
-* Fixed parse bug for SVGs with blank spaces in them (thanks to [mindbrix](https://github.com/mindbrix)).
-* Simplified PocketSVG's init method (thanks to [johnnyknox](https://github.com/johnnyknox)).
 
 ## To Do
 * Support for SVG's [Basic Shapes](http://www.w3.org/TR/SVG/shapes.html).
@@ -78,4 +92,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
