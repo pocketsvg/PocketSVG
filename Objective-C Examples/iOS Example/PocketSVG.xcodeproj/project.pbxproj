@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B039268D163F072100EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B039268C163F072100EF033B /* PocketSVG.m */; };
-		B0392691163F072800EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268E163F072800EF033B /* BezierCurve1.svg */; };
-		B0392692163F072800EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B039268F163F072800EF033B /* BezierCurve2.svg */; };
-		B0392693163F072800EF033B /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0392690163F072800EF033B /* BezierCurve3.svg */; };
 		B0A9DB9115CA9B340095DFAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DB9015CA9B340095DFAF /* UIKit.framework */; };
 		B0A9DB9315CA9B340095DFAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DB9215CA9B340095DFAF /* Foundation.framework */; };
 		B0A9DB9515CA9B340095DFAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DB9415CA9B340095DFAF /* CoreGraphics.framework */; };
@@ -19,14 +15,13 @@
 		B0A9DBA115CA9B340095DFAF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA015CA9B340095DFAF /* AppDelegate.m */; };
 		B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A9DBA915CA9B340095DFAF /* ViewController.m */; };
 		B0A9DBC415CAA2380095DFAF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */; };
+		B0E705801AABD9B300F1E8A7 /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E7057D1AABD9B300F1E8A7 /* BezierCurve1.svg */; };
+		B0E705811AABD9B300F1E8A7 /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E7057E1AABD9B300F1E8A7 /* BezierCurve2.svg */; };
+		B0E705821AABD9B300F1E8A7 /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E7057F1AABD9B300F1E8A7 /* BezierCurve3.svg */; };
+		B0E705851AABD9BE00F1E8A7 /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E705841AABD9BE00F1E8A7 /* PocketSVG.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B039268B163F072100EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../PocketSVG.h; sourceTree = "<group>"; };
-		B039268C163F072100EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../PocketSVG.m; sourceTree = "<group>"; };
-		B039268E163F072800EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
-		B039268F163F072800EF033B /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../../BezierCurve2.svg; sourceTree = "<group>"; };
-		B0392690163F072800EF033B /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../BezierCurve3.svg; sourceTree = "<group>"; };
 		B0A9DB8C15CA9B340095DFAF /* PocketSVG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketSVG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0A9DB9015CA9B340095DFAF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B0A9DB9215CA9B340095DFAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,6 +35,11 @@
 		B0A9DBA815CA9B340095DFAF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B0A9DBA915CA9B340095DFAF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B0A9DBC315CAA2380095DFAF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B0E7057D1AABD9B300F1E8A7 /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
+		B0E7057E1AABD9B300F1E8A7 /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../../BezierCurve2.svg; sourceTree = "<group>"; };
+		B0E7057F1AABD9B300F1E8A7 /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../BezierCurve3.svg; sourceTree = "<group>"; };
+		B0E705831AABD9BE00F1E8A7 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../../PocketSVG.h; sourceTree = "<group>"; };
+		B0E705841AABD9BE00F1E8A7 /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../../PocketSVG.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +60,9 @@
 		B0A9DB8115CA9B340095DFAF = {
 			isa = PBXGroup;
 			children = (
+				B0E7057D1AABD9B300F1E8A7 /* BezierCurve1.svg */,
+				B0E7057E1AABD9B300F1E8A7 /* BezierCurve2.svg */,
+				B0E7057F1AABD9B300F1E8A7 /* BezierCurve3.svg */,
 				B0A9DB9615CA9B340095DFAF /* PocketSVG */,
 				B0A9DB8F15CA9B340095DFAF /* Frameworks */,
 				B0A9DB8D15CA9B340095DFAF /* Products */,
@@ -88,13 +91,10 @@
 		B0A9DB9615CA9B340095DFAF /* PocketSVG */ = {
 			isa = PBXGroup;
 			children = (
-				B039268E163F072800EF033B /* BezierCurve1.svg */,
-				B039268F163F072800EF033B /* BezierCurve2.svg */,
-				B0392690163F072800EF033B /* BezierCurve3.svg */,
 				B0A9DB9F15CA9B340095DFAF /* AppDelegate.h */,
 				B0A9DBA015CA9B340095DFAF /* AppDelegate.m */,
-				B039268B163F072100EF033B /* PocketSVG.h */,
-				B039268C163F072100EF033B /* PocketSVG.m */,
+				B0E705831AABD9BE00F1E8A7 /* PocketSVG.h */,
+				B0E705841AABD9BE00F1E8A7 /* PocketSVG.m */,
 				B0A9DBA815CA9B340095DFAF /* ViewController.h */,
 				B0A9DBA915CA9B340095DFAF /* ViewController.m */,
 				B0A9DB9715CA9B340095DFAF /* Supporting Files */,
@@ -139,7 +139,7 @@
 		B0A9DB8315CA9B340095DFAF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = B0A9DB8615CA9B340095DFAF /* Build configuration list for PBXProject "PocketSVG" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -163,10 +163,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E705811AABD9B300F1E8A7 /* BezierCurve2.svg in Resources */,
 				B0A9DB9B15CA9B340095DFAF /* InfoPlist.strings in Resources */,
-				B0392691163F072800EF033B /* BezierCurve1.svg in Resources */,
-				B0392692163F072800EF033B /* BezierCurve2.svg in Resources */,
-				B0392693163F072800EF033B /* BezierCurve3.svg in Resources */,
+				B0E705801AABD9B300F1E8A7 /* BezierCurve1.svg in Resources */,
+				B0E705821AABD9B300F1E8A7 /* BezierCurve3.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,10 +177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E705851AABD9BE00F1E8A7 /* PocketSVG.m in Sources */,
 				B0A9DB9D15CA9B340095DFAF /* main.m in Sources */,
 				B0A9DBA115CA9B340095DFAF /* AppDelegate.m in Sources */,
 				B0A9DBAA15CA9B340095DFAF /* ViewController.m in Sources */,
-				B039268D163F072100EF033B /* PocketSVG.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,9 +208,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -243,9 +245,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -271,7 +275,7 @@
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -285,7 +289,7 @@
 				GCC_PREFIX_HEADER = "PocketSVG/PocketSVG-Prefix.pch";
 				INFOPLIST_FILE = "PocketSVG/PocketSVG-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -47,11 +47,15 @@
     myShapeLayer.strokeColor = [[UIColor redColor] CGColor];
     myShapeLayer.lineWidth = 4;
     myShapeLayer.fillColor = [[UIColor clearColor] CGColor];
-    
-    
+
     //4: Display it!
     [self.view.layer addSublayer:myShapeLayer];
-    
+
+
+    //Make it smaller if we're on an iPhone:
+    if([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        myShapeLayer.transform = CATransform3DMakeScale(0.3, .3, 0.3);
+    }
     
 }
 

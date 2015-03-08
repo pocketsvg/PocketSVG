@@ -13,11 +13,11 @@
 		B03926B4163F087800EF033B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03926B2163F087800EF033B /* Credits.rtf */; };
 		B03926B7163F087800EF033B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B03926B6163F087800EF033B /* AppDelegate.m */; };
 		B03926BA163F087800EF033B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B03926B8163F087800EF033B /* MainMenu.xib */; };
-		B03926C3163F088400EF033B /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C0163F088400EF033B /* BezierCurve1.svg */; };
-		B03926C4163F088400EF033B /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C1163F088400EF033B /* BezierCurve2.svg */; };
-		B03926C5163F088400EF033B /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03926C2163F088400EF033B /* BezierCurve3.svg */; };
-		B03926C8163F08A600EF033B /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B03926C7163F08A600EF033B /* PocketSVG.m */; };
 		B03926CA163F08B400EF033B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03926C9163F08B400EF033B /* QuartzCore.framework */; };
+		B0E705891AABDB2D00F1E8A7 /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705861AABDB2D00F1E8A7 /* BezierCurve1.svg */; };
+		B0E7058A1AABDB2D00F1E8A7 /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705871AABDB2D00F1E8A7 /* BezierCurve2.svg */; };
+		B0E7058B1AABDB2D00F1E8A7 /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705881AABDB2D00F1E8A7 /* BezierCurve3.svg */; };
+		B0E7058E1AABDB3700F1E8A7 /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E7058D1AABDB3700F1E8A7 /* PocketSVG.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,12 +34,12 @@
 		B03926B5163F087800EF033B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B03926B6163F087800EF033B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B03926B9163F087800EF033B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		B03926C0163F088400EF033B /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../BezierCurve1.svg; sourceTree = "<group>"; };
-		B03926C1163F088400EF033B /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../../BezierCurve2.svg; sourceTree = "<group>"; };
-		B03926C2163F088400EF033B /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../BezierCurve3.svg; sourceTree = "<group>"; };
-		B03926C6163F08A600EF033B /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../../PocketSVG.h; sourceTree = "<group>"; };
-		B03926C7163F08A600EF033B /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../../PocketSVG.m; sourceTree = "<group>"; };
 		B03926C9163F08B400EF033B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B0E705861AABDB2D00F1E8A7 /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../../../BezierCurve1.svg; sourceTree = "<group>"; };
+		B0E705871AABDB2D00F1E8A7 /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../../../BezierCurve2.svg; sourceTree = "<group>"; };
+		B0E705881AABDB2D00F1E8A7 /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../../../BezierCurve3.svg; sourceTree = "<group>"; };
+		B0E7058C1AABDB3700F1E8A7 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../../../PocketSVG.h; sourceTree = "<group>"; };
+		B0E7058D1AABDB3700F1E8A7 /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../../../PocketSVG.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +58,9 @@
 		B0392694163F087800EF033B = {
 			isa = PBXGroup;
 			children = (
-				B03926C0163F088400EF033B /* BezierCurve1.svg */,
-				B03926C1163F088400EF033B /* BezierCurve2.svg */,
-				B03926C2163F088400EF033B /* BezierCurve3.svg */,
+				B0E705861AABDB2D00F1E8A7 /* BezierCurve1.svg */,
+				B0E705871AABDB2D00F1E8A7 /* BezierCurve2.svg */,
+				B0E705881AABDB2D00F1E8A7 /* BezierCurve3.svg */,
 				B03926A9163F087800EF033B /* PocketSVG OS X */,
 				B03926A2163F087800EF033B /* Frameworks */,
 				B03926A0163F087800EF033B /* Products */,
@@ -100,8 +100,8 @@
 			children = (
 				B03926B5163F087800EF033B /* AppDelegate.h */,
 				B03926B6163F087800EF033B /* AppDelegate.m */,
-				B03926C6163F08A600EF033B /* PocketSVG.h */,
-				B03926C7163F08A600EF033B /* PocketSVG.m */,
+				B0E7058C1AABDB3700F1E8A7 /* PocketSVG.h */,
+				B0E7058D1AABDB3700F1E8A7 /* PocketSVG.m */,
 				B03926B8163F087800EF033B /* MainMenu.xib */,
 				B03926AA163F087800EF033B /* Supporting Files */,
 			);
@@ -146,7 +146,7 @@
 		B0392696163F087800EF033B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Ariel;
 			};
 			buildConfigurationList = B0392699163F087800EF033B /* Build configuration list for PBXProject "PocketSVG OS X" */;
@@ -172,11 +172,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03926AE163F087800EF033B /* InfoPlist.strings in Resources */,
+				B0E705891AABDB2D00F1E8A7 /* BezierCurve1.svg in Resources */,
+				B0E7058A1AABDB2D00F1E8A7 /* BezierCurve2.svg in Resources */,
+				B0E7058B1AABDB2D00F1E8A7 /* BezierCurve3.svg in Resources */,
 				B03926B4163F087800EF033B /* Credits.rtf in Resources */,
 				B03926BA163F087800EF033B /* MainMenu.xib in Resources */,
-				B03926C3163F088400EF033B /* BezierCurve1.svg in Resources */,
-				B03926C4163F088400EF033B /* BezierCurve2.svg in Resources */,
-				B03926C5163F088400EF033B /* BezierCurve3.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,9 +187,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E7058E1AABDB3700F1E8A7 /* PocketSVG.m in Sources */,
 				B03926B0163F087800EF033B /* main.m in Sources */,
 				B03926B7163F087800EF033B /* AppDelegate.m in Sources */,
-				B03926C8163F08A600EF033B /* PocketSVG.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +227,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -257,7 +256,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -319,6 +317,7 @@
 				B03926BF163F087800EF033B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
