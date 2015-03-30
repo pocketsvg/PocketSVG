@@ -4,6 +4,14 @@
 
 @implementation SVGImageView
 
++ (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName
+{
+    SVGImageView * const view = [self new];
+    view.svgName = aSVGName;
+    [view sizeToFit];
+    return view;
+}
+
 #if TARGET_OS_IPHONE
 + (Class)layerClass
 {

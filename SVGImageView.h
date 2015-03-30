@@ -9,4 +9,5 @@
 
 @interface SVGImageView ()
 @property(nonatomic, copy) IBInspectable NSString *svgName;
++ (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName;
 @end
