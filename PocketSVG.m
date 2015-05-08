@@ -355,7 +355,7 @@ unichar const invalidCommand		= '*';
                 return nil;
             }
             // Maintain scale.
-            pathScale = (abs(value) > pathScale) ? abs(value) : pathScale;
+            pathScale = (fabsf(value) > pathScale) ? fabsf(value) : pathScale;
             [token addValue:value];
         }
         
@@ -394,6 +394,12 @@ unichar const invalidCommand		= '*';
             case 'c':
                 [self appendSVGCCommand:thisToken];
                 break;
+            case 'T':
+            case 't':
+            case 'Q':
+            case 'q':
+                [self appendSVGQCommand:thisToken];
+                break;
             case 'S':
             case 's':
                 [self appendSVGSCommand:thisToken];
@@ -412,12 +418,12 @@ unichar const invalidCommand		= '*';
 - (void)reset
 {
     lastPoint = CGPointMake(0, 0);
-    validLastControlPoint = NO;
+    _controlPointType = PocketSVGControlPointInvalid;
 }
 
 - (void)appendSVGMCommand:(Token *)token
 {
-    validLastControlPoint = NO;
+    _controlPointType = PocketSVGControlPointInvalid;
     NSInteger index = 0;
     BOOL first = YES;
     while (index < [token valence]) {
@@ -445,7 +451,7 @@ unichar const invalidCommand		= '*';
 
 - (void)appendSVGLCommand:(Token *)token
 {
-    validLastControlPoint = NO;
+    _controlPointType = PocketSVGControlPointInvalid;
     NSInteger index = 0;
     while (index < [token valence]) {
         CGFloat x = 0;
@@ -488,6 +494,78 @@ unichar const invalidCommand		= '*';
     }
 }
 
+- (void)appendSVGQCommand:(Token *)token
+{
+
+    NSInteger index = 0;
+    while (index < [token valence]) {
+        CGFloat x = 0;
+        CGFloat y = 0;
+        CGFloat x1 = 0;
+        CGFloat y1 = 0;
+        switch ([token command]) {
+            case 't':
+                x = lastPoint.x;
+                y = lastPoint.y;
+            case 'T':
+                x += [token parameter:index];
+                if (++index == [token valence]) {
+                    NSLog(@"*** PocketSVG Error: Invalid parameter count in T style token");
+                    return;
+                }
+                y += [token parameter:index];
+                if (_controlPointType != PocketSVGControlPointQ) {
+                    x1 = lastControlPoint.x;
+                    y1 = lastControlPoint.y;
+                } else {
+                    x1 = x;
+                    y1 = y;
+                }
+                break;
+            case 'q' :
+                x = lastPoint.x;
+                y = lastPoint.y;
+                if (_controlPointType != PocketSVGControlPointQ) {
+                    NSLog(@"*** PocketSVG Error: Invalid last control point in Q command");
+                }
+                x1 = lastControlPoint.x;
+                y1 = lastControlPoint.y;
+            case 'Q' :
+                x1 += [token parameter:index++];
+                y1 += [token parameter:index++];
+                x += [token parameter:index];
+                if (++index == [token valence]) {
+                    NSLog(@"*** PocketSVG Error: Invalid parameter count in Q style token");
+                    return;
+                }
+                y += [token parameter:index++];
+                break;
+            default:
+                NSLog(@"*** PocketSVG Error: Unrecognised Q style command.");
+                
+        }
+        lastControlPoint    = CGPointMake(x1, y1);
+        _controlPointType   = PocketSVGControlPointQ;
+#if TARGET_OS_IPHONE
+        lastPoint           = CGPointMake(x, y);
+        [bezier addQuadCurveToPoint:lastPoint
+                       controlPoint:lastControlPoint];
+#else
+        // Solve cubic bezier with cubic coefficent = 0 to get quadratic
+        CGFloat scalar      = 2/3;
+        CGPoint startPoint  = lastPoint;
+        lastPoint           = CGPointMake(x, y);
+        [bezier addCurveToPoint:NSPointFromCGPoint(lastPoint)
+                  controlPoint1:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - startPoint.x), startPoint.y + scalar*(lastControlPoint.y - startPoint.y)))
+                  controlPoint2:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - lastPoint.x), startPoint.y + scalar*(lastControlPoint.y - lastPoint.y)))];
+#endif
+    }
+    if (index == 0) {
+        NSLog(@"*** PocketSVG Error: Insufficient parameters for Q command");
+    }
+}
+
+
 - (void)appendSVGCCommand:(Token *)token
 {
     NSInteger index = 0;
@@ -509,7 +587,7 @@ unichar const invalidCommand		= '*';
                controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
         lastControlPoint = CGPointMake(x2, y2);
-        validLastControlPoint = YES;
+        _controlPointType = PocketSVGControlPointS;
     }
     if (index == 0) {
         NSLog(@"*** PocketSVG Error: Insufficient parameters for C command");
@@ -518,7 +596,7 @@ unichar const invalidCommand		= '*';
 
 - (void)appendSVGSCommand:(Token *)token
 {
-    if (!validLastControlPoint) {
+    if (_controlPointType == PocketSVGControlPointS) {
         NSLog(@"*** PocketSVG Error: Invalid last control point in S command");
     }
     NSInteger index = 0;
@@ -540,7 +618,7 @@ unichar const invalidCommand		= '*';
                controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
         lastControlPoint = CGPointMake(x2, y2);
-        validLastControlPoint = YES;
+        _controlPointType = PocketSVGControlPointS;
     }
     if (index == 0) {
         NSLog(@"*** PocketSVG Error: Insufficient parameters for S command");
