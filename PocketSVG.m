@@ -95,7 +95,8 @@ unichar const invalidCommand		= '*';
     if (acutalValance == targetValence) {
         return YES;
     }
-    NSLog(@"*** PocketSVG Error: %ld parameters for %hu command, expected %ld", (long)acutalValance, self.command, (long)targetValence);
+    unichar const invalidCommand = self.command;
+    NSLog(@"*** PocketSVG Error: %ld parameters for %@ command, expected %ld", (long)acutalValance, [NSString stringWithCharacters:&invalidCommand length:1], (long)targetValence);
     return NO;
 }
 
@@ -459,7 +460,7 @@ unichar const invalidCommand		= '*';
                 x = lastPoint.x;
                 y = lastPoint.y;
             case 'L':
-                if (![token doesValenceMatch:1]) {
+                if (![token doesValenceMatch:2]) {
                     return;
                 }
                 x += [token parameter:index++];
