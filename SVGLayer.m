@@ -67,6 +67,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
                            forKey:(__bridge id)newPath];
             [attributes removeObjectForKey:path];
             path = (__bridge id)newPath;
+            CGPathRelease(newPath);
         }
 
         layer.path = (__bridge CGPathRef)path;
