@@ -551,9 +551,9 @@ unichar const invalidCommand		= '*';
         CGFloat scalar      = 2/3;
         CGPoint startPoint  = lastPoint;
         lastPoint           = CGPointMake(x, y);
-        [bezier addCurveToPoint:NSPointFromCGPoint(lastPoint)
-                  controlPoint1:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - startPoint.x), startPoint.y + scalar*(lastControlPoint.y - startPoint.y)))
-                  controlPoint2:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - lastPoint.x), startPoint.y + scalar*(lastControlPoint.y - lastPoint.y)))];
+        [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+               controlPoint1:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - startPoint.x), startPoint.y + scalar*(lastControlPoint.y - startPoint.y)))
+               controlPoint2:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - lastPoint.x), startPoint.y + scalar*(lastControlPoint.y - lastPoint.y)))];
 #endif
     }
 }
