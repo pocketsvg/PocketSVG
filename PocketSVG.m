@@ -191,8 +191,13 @@ unichar const invalidCommand		= '*';
  Returns the content of the SVG's d attribute as an NSString
  */
 + (NSString *)parseSVGNamed:(NSString *)nameOfSVG{
+#if !TARGET_INTERFACE_BUILDER
+    NSBundle *bundle = [NSBundle mainBundle];
+#else
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+#endif
     
-    NSString *pathOfSVGFile = [[NSBundle bundleForClass:[self class]] pathForResource:nameOfSVG ofType:@"svg"]; // Use 'bundleForClass' instead of 'mainBundle' for Interface Builder Designable compatibility.
+    NSString *pathOfSVGFile = [bundle pathForResource:nameOfSVG ofType:@"svg"]; // Use 'bundleForClass' instead of 'mainBundle' for Interface Builder Designable compatibility.
     
     if(pathOfSVGFile == nil){
         NSLog(@"*** PocketSVG Error: No SVG file named \"%@\".", nameOfSVG);
