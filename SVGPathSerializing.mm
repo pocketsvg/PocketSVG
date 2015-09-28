@@ -622,6 +622,24 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 
 #if TARGET_OS_IPHONE
 @implementation UIBezierPath (SVGPathSerializing)
++ (NSArray *)svg_pathsFromSVGNamed:(NSString * const)aName
+{
+    static NSCache *pathCache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        pathCache = [NSCache new];
+    });
+    
+    NSArray *paths = [pathCache objectForKey:aName];
+    if (!paths) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:aName ofType:@"svg"];
+        paths = [self svg_pathsFromContentsOfSVGFile:path];
+        if (paths) {
+            [pathCache setObject:paths forKey:aName];
+        }
+    }
+    return paths;
+}
 
 + (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString * const)aPath
 {

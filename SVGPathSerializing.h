@@ -30,6 +30,7 @@ NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 #import <UIKit/UIKit.h>
 
 @interface UIBezierPath (SVGPathSerializing)
++ (NSArray *)svg_pathsFromSVGNamed:(NSString *)aName;
 + (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString *)aPath;
 + (NSArray *)svg_pathsFromSVGString:(NSString *)svgString;
 - (NSString *)svg_SVGRepresentation;
