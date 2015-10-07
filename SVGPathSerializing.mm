@@ -638,7 +638,7 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
             [pathCache setObject:paths forKey:aName];
         }
     }
-    return paths;
+    return [[NSArray alloc] initWithArray:paths copyItems:YES];
 }
 
 + (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString * const)aPath
