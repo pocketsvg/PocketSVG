@@ -10,7 +10,7 @@
 		04ECF1811BDB8D6500B524FA /* PocketSVGFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1801BDB8D6500B524FA /* PocketSVGFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04ECF1881BDB8D6600B524FA /* PocketSVGFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */; };
 		04ECF18D1BDB8D6600B524FA /* PocketSVGFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ECF18C1BDB8D6600B524FA /* PocketSVGFrameworkTests.m */; };
-		04ECF1991BDB8D9600B524FA /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1971BDB8D9600B524FA /* PocketSVG.h */; };
+		04ECF1991BDB8D9600B524FA /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1971BDB8D9600B524FA /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04ECF19A1BDB8D9600B524FA /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ECF1981BDB8D9600B524FA /* PocketSVG.m */; };
 /* End PBXBuildFile section */
 
