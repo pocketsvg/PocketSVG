@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04ECF1811BDB8D6500B524FA /* PocketSVGFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1801BDB8D6500B524FA /* PocketSVGFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04ECF1881BDB8D6600B524FA /* PocketSVGFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */; };
-		04ECF18D1BDB8D6600B524FA /* PocketSVGFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ECF18C1BDB8D6600B524FA /* PocketSVGFrameworkTests.m */; };
 		04ECF1991BDB8D9600B524FA /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1971BDB8D9600B524FA /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04ECF19A1BDB8D9600B524FA /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ECF1981BDB8D9600B524FA /* PocketSVG.m */; };
 /* End PBXBuildFile section */
@@ -29,8 +28,6 @@
 		04ECF1801BDB8D6500B524FA /* PocketSVGFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PocketSVGFramework.h; sourceTree = "<group>"; };
 		04ECF1821BDB8D6500B524FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04ECF1871BDB8D6600B524FA /* PocketSVGFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketSVGFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		04ECF18C1BDB8D6600B524FA /* PocketSVGFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PocketSVGFrameworkTests.m; sourceTree = "<group>"; };
-		04ECF18E1BDB8D6600B524FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04ECF1971BDB8D9600B524FA /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = "<group>"; };
 		04ECF1981BDB8D9600B524FA /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketSVG.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,7 +57,6 @@
 				04ECF1971BDB8D9600B524FA /* PocketSVG.h */,
 				04ECF1981BDB8D9600B524FA /* PocketSVG.m */,
 				04ECF17F1BDB8D6500B524FA /* PocketSVGFramework */,
-				04ECF18B1BDB8D6600B524FA /* PocketSVGFrameworkTests */,
 				04ECF17E1BDB8D6500B524FA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,15 +77,6 @@
 				04ECF1821BDB8D6500B524FA /* Info.plist */,
 			);
 			path = PocketSVGFramework;
-			sourceTree = "<group>";
-		};
-		04ECF18B1BDB8D6600B524FA /* PocketSVGFrameworkTests */ = {
-			isa = PBXGroup;
-			children = (
-				04ECF18C1BDB8D6600B524FA /* PocketSVGFrameworkTests.m */,
-				04ECF18E1BDB8D6600B524FA /* Info.plist */,
-			);
-			path = PocketSVGFrameworkTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,7 +195,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04ECF18D1BDB8D6600B524FA /* PocketSVGFrameworkTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +368,7 @@
 				04ECF1931BDB8D6600B524FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04ECF1941BDB8D6600B524FA /* Build configuration list for PBXNativeTarget "PocketSVGFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -390,6 +377,7 @@
 				04ECF1961BDB8D6600B524FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
