@@ -2,8 +2,7 @@
 //  PocketSVGFramework.h
 //  PocketSVGFramework
 //
-//  Created by Johan Torås Halseth on 24/10/15.
-//  Copyright © 2015 Johan Torås Halseth. All rights reserved.
+//  Created by halseth on 24/10/15.
 //
 
 #import <UIKit/UIKit.h>
