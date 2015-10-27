@@ -8,26 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		04ECF1811BDB8D6500B524FA /* PocketSVGFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1801BDB8D6500B524FA /* PocketSVGFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		04ECF1881BDB8D6600B524FA /* PocketSVGFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */; };
 		04ECF1991BDB8D9600B524FA /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 04ECF1971BDB8D9600B524FA /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04ECF19A1BDB8D9600B524FA /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ECF1981BDB8D9600B524FA /* PocketSVG.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		04ECF1891BDB8D6600B524FA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04ECF1741BDB8D6500B524FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04ECF17C1BDB8D6500B524FA;
-			remoteInfo = PocketSVGFramework;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketSVGFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04ECF1801BDB8D6500B524FA /* PocketSVGFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PocketSVGFramework.h; sourceTree = "<group>"; };
 		04ECF1821BDB8D6500B524FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04ECF1871BDB8D6600B524FA /* PocketSVGFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketSVGFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04ECF1971BDB8D9600B524FA /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = "<group>"; };
 		04ECF1981BDB8D9600B524FA /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketSVG.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,14 +25,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04ECF1841BDB8D6600B524FA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04ECF1881BDB8D6600B524FA /* PocketSVGFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */,
-				04ECF1871BDB8D6600B524FA /* PocketSVGFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,24 +91,6 @@
 			productReference = 04ECF17D1BDB8D6500B524FA /* PocketSVGFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		04ECF1861BDB8D6600B524FA /* PocketSVGFrameworkTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04ECF1941BDB8D6600B524FA /* Build configuration list for PBXNativeTarget "PocketSVGFrameworkTests" */;
-			buildPhases = (
-				04ECF1831BDB8D6600B524FA /* Sources */,
-				04ECF1841BDB8D6600B524FA /* Frameworks */,
-				04ECF1851BDB8D6600B524FA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				04ECF18A1BDB8D6600B524FA /* PBXTargetDependency */,
-			);
-			name = PocketSVGFrameworkTests;
-			productName = PocketSVGFrameworkTests;
-			productReference = 04ECF1871BDB8D6600B524FA /* PocketSVGFrameworkTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -140,9 +101,6 @@
 				ORGANIZATIONNAME = "Johan Torås Halseth";
 				TargetAttributes = {
 					04ECF17C1BDB8D6500B524FA = {
-						CreatedOnToolsVersion = 7.1;
-					};
-					04ECF1861BDB8D6600B524FA = {
 						CreatedOnToolsVersion = 7.1;
 					};
 				};
@@ -160,20 +118,12 @@
 			projectRoot = "";
 			targets = (
 				04ECF17C1BDB8D6500B524FA /* PocketSVGFramework */,
-				04ECF1861BDB8D6600B524FA /* PocketSVGFrameworkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		04ECF17B1BDB8D6500B524FA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04ECF1851BDB8D6600B524FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -191,22 +141,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		04ECF1831BDB8D6600B524FA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		04ECF18A1BDB8D6600B524FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04ECF17C1BDB8D6500B524FA /* PocketSVGFramework */;
-			targetProxy = 04ECF1891BDB8D6600B524FA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		04ECF18F1BDB8D6600B524FA /* Debug */ = {
@@ -307,7 +242,7 @@
 				INFOPLIST_FILE = PocketSVGFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.soundio.PocketSVGFramework;
+				PRODUCT_BUNDLE_IDENTIFIER = arielito.PocketSVGFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -323,29 +258,9 @@
 				INFOPLIST_FILE = PocketSVGFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.soundio.PocketSVGFramework;
+				PRODUCT_BUNDLE_IDENTIFIER = arielito.PocketSVGFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		04ECF1951BDB8D6600B524FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = PocketSVGFrameworkTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.soundio.PocketSVGFrameworkTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		04ECF1961BDB8D6600B524FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = PocketSVGFrameworkTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.soundio.PocketSVGFrameworkTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -366,15 +281,6 @@
 			buildConfigurations = (
 				04ECF1921BDB8D6600B524FA /* Debug */,
 				04ECF1931BDB8D6600B524FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04ECF1941BDB8D6600B524FA /* Build configuration list for PBXNativeTarget "PocketSVGFrameworkTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04ECF1951BDB8D6600B524FA /* Debug */,
-				04ECF1961BDB8D6600B524FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
