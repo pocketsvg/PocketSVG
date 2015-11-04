@@ -9,5 +9,6 @@
 
 @interface SVGImageView ()
 @property(nonatomic, copy) IBInspectable NSString *svgName;
+@property(nonatomic) IBInspectable BOOL scaleLineWidth;
 + (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName;
 @end

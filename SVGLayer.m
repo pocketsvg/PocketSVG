@@ -203,6 +203,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
                          ?: [[SVGUI(Color) blackColor] CGColor];
         layer.strokeColor = _strokeColor
                          ?: (__bridge CGColorRef)attrs[@"stroke"];
+        if (_scaleLineWidth && attrs[@"stroke-width"]) {
+            CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
+            layer.lineWidth = [attrs[@"stroke-width"] floatValue] * lineScale;
+        }
         
         CGRect const pathBounds = CGPathGetPathBoundingBox(path);
         layer.frame = CGRectApplyAffineTransform(pathBounds, layerTransform);
