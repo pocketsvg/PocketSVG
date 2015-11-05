@@ -191,8 +191,13 @@ unichar const invalidCommand		= '*';
  Returns the content of the SVG's d attribute as an NSString
  */
 + (NSString *)parseSVGNamed:(NSString *)nameOfSVG{
+#if !TARGET_INTERFACE_BUILDER
+    NSBundle *bundle = [NSBundle mainBundle];
+#else
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+#endif
     
-    NSString *pathOfSVGFile = [[NSBundle bundleForClass:[self class]] pathForResource:nameOfSVG ofType:@"svg"]; // Use 'bundleForClass' instead of 'mainBundle' for Interface Builder Designable compatibility.
+    NSString *pathOfSVGFile = [bundle pathForResource:nameOfSVG ofType:@"svg"]; // Use 'bundleForClass' instead of 'mainBundle' for Interface Builder Designable compatibility.
     
     if(pathOfSVGFile == nil){
         NSLog(@"*** PocketSVG Error: No SVG file named \"%@\".", nameOfSVG);
@@ -551,9 +556,9 @@ unichar const invalidCommand		= '*';
         CGFloat scalar      = 2/3;
         CGPoint startPoint  = lastPoint;
         lastPoint           = CGPointMake(x, y);
-        [bezier addCurveToPoint:NSPointFromCGPoint(lastPoint)
-                  controlPoint1:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - startPoint.x), startPoint.y + scalar*(lastControlPoint.y - startPoint.y)))
-                  controlPoint2:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - lastPoint.x), startPoint.y + scalar*(lastControlPoint.y - lastPoint.y)))];
+        [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+               controlPoint1:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - startPoint.x), startPoint.y + scalar*(lastControlPoint.y - startPoint.y)))
+               controlPoint2:NSPointFromCGPoint(CGPointMake(startPoint.x + scalar*(lastControlPoint.x - lastPoint.x), startPoint.y + scalar*(lastControlPoint.y - lastPoint.y)))];
 #endif
     }
 }

@@ -78,10 +78,7 @@ Please ask questions and report bugs on [the project's Issues Page](https://gith
 * [Ariel Elkin](http://www.github.com/arielelkin)
 * [Pieter Omvlee](http://www.bohemiancoding.com/)
 * Dominic Mortlock
-* [mcianni](https://github.com/mcianni)
-* [mindbrix](https://github.com/mindbrix)
-* [johnnyknox](https://github.com/johnnyknox)
-* [JagieChen](https://github.com/JagieChen)
+* [And more](https://github.com/arielelkin/PocketSVG/graphs/contributors).
 
 ## License
 
