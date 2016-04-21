@@ -1,12 +1,12 @@
 #import "SVGLayer.h"
 #import "SVGPortability.h"
 #import "SVGPathSerializing.h"
+#import "SVGBezierPath.h"
 
 CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
 
 @implementation SVGLayer {
-    NSMutableArray *_untouchedPaths;
-    NSMapTable *_pathAttributes;
+    NSMutableArray<SVGBezierPath*> *_untouchedPaths;
     NSMutableArray *_shapeLayers;
 
 #ifdef DEBUG
@@ -37,6 +37,34 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     return self;
 }
 
+- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths
+{
+    [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    [_shapeLayers removeAllObjects];
+    _untouchedPaths = [NSMutableArray new];
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    for(__strong SVGBezierPath *path in paths) {
+        CAShapeLayer * const layer = [CAShapeLayer new];
+
+        if(path.svgAttributes[@"transform"]) {
+            SVGBezierPath * const newPath = [path copy];
+            [newPath applyTransform:[path.svgAttributes[@"transform"] svg_CGAffineTransformValue]];
+            path = newPath;
+        }
+
+        layer.path = path.CGPath;
+        layer.lineWidth = path.svgAttributes[@"stroke-width"] ? [path.svgAttributes[@"stroke-width"] floatValue] : 1.0;
+        layer.opacity   = path.svgAttributes[@"opacity"] ? [path.svgAttributes[@"opacity"] floatValue] : 1;
+        [self insertSublayer:layer atIndex:(unsigned int)[_shapeLayers count]];
+        [_shapeLayers addObject:layer];
+        [_untouchedPaths addObject:path];
+    }
+    [self setNeedsLayout];
+    [CATransaction commit];
+}
+
 - (void)setSvgSource:(NSString * const)aSVG
 {
     [self willChangeValueForKey:@"svgSource"];
@@ -46,48 +74,19 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
 
     _svgSource = aSVG;
-    
-    [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-    [_shapeLayers removeAllObjects];
-    _untouchedPaths = [NSMutableArray new];
     if([aSVG length] == 0)
         return;
+    
+    [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:_svgSource]];
 
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    NSMapTable *attributes;
-    for(__strong id path in CGPathsFromSVGString(aSVG, &attributes)) {
-        CAShapeLayer * const layer = [CAShapeLayer new];
-        NSDictionary * const attrs = [attributes objectForKey:path];
-
-        if(attrs[@"transform"]) {
-            CGAffineTransform const transform = [attrs[@"transform"] svg_CGAffineTransformValue];
-            CGPathRef const newPath = CGPathCreateCopyByTransformingPath((__bridge CGPathRef)path, &transform);
-            [attributes setObject:[attributes objectForKey:path]
-                           forKey:(__bridge id)newPath];
-            [attributes removeObjectForKey:path];
-            path = (__bridge id)newPath;
-            CGPathRelease(newPath);
-        }
-
-        layer.path = (__bridge CGPathRef)path;
-        layer.lineWidth = attrs[@"stroke-width"] ? [attrs[@"stroke-width"] floatValue] : 1.0;
-        layer.opacity   = attrs[@"opacity"] ? [attrs[@"opacity"] floatValue] : 1;
-        [self insertSublayer:layer atIndex:(unsigned int)[_shapeLayers count]];
-        [_shapeLayers addObject:layer];
-        [_untouchedPaths addObject:path];
-    }
-    _pathAttributes = attributes;
-
-    [self setNeedsLayout];
-    [CATransaction commit];
     [self didChangeValueForKey:@"svgSource"];
 }
 
 - (void)loadSVGNamed:(NSString * const)aFileName
 {
 #if !TARGET_INTERFACE_BUILDER
-    NSString * const path = [[NSBundle mainBundle] pathForResource:aFileName ofType:@"svg"];
+    NSBundle * const bundle = [NSBundle mainBundle];
+    NSString * const path = [bundle pathForResource:aFileName ofType:@"svg"];
     NSParameterAssert(!aFileName || path);
 #else
     NSString *path = nil;
@@ -115,9 +114,16 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     }
 #endif
     
-    self.svgSource = [NSString stringWithContentsOfFile:path
-                                           usedEncoding:NULL
-                                                  error:nil];
+    [self willChangeValueForKey:@"svgSource"];
+    _svgSource = [NSString stringWithContentsOfFile:path
+                                       usedEncoding:NULL
+                                              error:nil];
+#if !TARGET_INTERFACE_BUILDER
+    [self _cr_setPaths:[SVGBezierPath pathsFromSVGNamed:aFileName inBundle:bundle]];
+#else
+    [self _cr_setPaths:[SVGBezierPath pathsFromContentsOfSVGFile:path]];
+#endif
+    [self didChangeValueForKey:@"svgSource"];
 
 #ifdef DEBUG
     __weak SVGLayer *self_ = self;
@@ -132,6 +138,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             dispatch_source_cancel(_fileWatcher);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
+                [SVGBezierPath resetCache];
                 [self_ loadSVGNamed:aFileName];
             });
         }
@@ -166,8 +173,8 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 - (CGSize)preferredFrameSize
 {
     CGRect bounds = CGRectZero;
-    for(id path in _untouchedPaths) {
-        bounds = CGRectUnion(bounds, CGPathGetPathBoundingBox((__bridge CGPathRef)path));
+    for(SVGBezierPath *path in _untouchedPaths) {
+        bounds = CGRectUnion(bounds, path.bounds);
     }
     return bounds.size;
 }
@@ -194,27 +201,26 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
              @"Layer & Path count in SVG Image View does not match!");
 
     for(NSUInteger i = 0; i < [_untouchedPaths count]; ++i) {
-        CGPathRef      const path  = (__bridge CGPathRef)_untouchedPaths[i];
-        CAShapeLayer * const layer = _shapeLayers[i];
+        SVGBezierPath * const path  = _untouchedPaths[i];
+        CAShapeLayer  * const layer = _shapeLayers[i];
         
-        NSDictionary * const attrs = [_pathAttributes objectForKey:(__bridge id)path];
         layer.fillColor   = _fillColor
-                         ?: (__bridge CGColorRef)attrs[@"fill"]
+                         ?: (__bridge CGColorRef)path.svgAttributes[@"fill"]
                          ?: [[SVGUI(Color) blackColor] CGColor];
         layer.strokeColor = _strokeColor
-                         ?: (__bridge CGColorRef)attrs[@"stroke"];
-        if (_scaleLineWidth && attrs[@"stroke-width"]) {
+                         ?: (__bridge CGColorRef)path.svgAttributes[@"stroke"];
+        if (_scaleLineWidth && path.svgAttributes[@"stroke-width"]) {
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
-            layer.lineWidth = [attrs[@"stroke-width"] floatValue] * lineScale;
+            layer.lineWidth = [path.svgAttributes[@"stroke-width"] floatValue] * lineScale;
         }
         
-        CGRect const pathBounds = CGPathGetPathBoundingBox(path);
+        CGRect const pathBounds = path.bounds;
         layer.frame = CGRectApplyAffineTransform(pathBounds, layerTransform);
         CGAffineTransform const pathTransform = CGAffineTransformConcat(
                                                     CGAffineTransformMakeTranslation(-pathBounds.origin.x,
                                                                                      -pathBounds.origin.y),
                                                     scale);
-        CGPathRef const transformedPath = CGPathCreateCopyByTransformingPath(path, &pathTransform);
+        CGPathRef const transformedPath = CGPathCreateCopyByTransformingPath(path.CGPath, &pathTransform);
         layer.path = transformedPath;
         CGPathRelease(transformedPath);
     }

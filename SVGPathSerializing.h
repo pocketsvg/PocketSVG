@@ -26,22 +26,12 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
  */
 NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-
-@interface UIBezierPath (SVGPathSerializing)
-+ (NSArray *)svg_pathsFromSVGNamed:(NSString *)aName;
-+ (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString *)aPath;
-+ (NSArray *)svg_pathsFromSVGString:(NSString *)svgString;
-- (NSString *)svg_SVGRepresentation;
-@end
-#endif
-
 @interface NSValue (SVGPathSerializing)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform;
 - (CGAffineTransform)svg_CGAffineTransformValue;
 @end
 
+#import "SVGBezierPath.h"
 #import "SVGImageView.h"
 #import "SVGLayer.h"
 

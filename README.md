@@ -10,19 +10,15 @@ The goal of this project is not to be a fully compatible SVG parser/renderer. Bu
 (Note: If you just want to display an SVG, using SVGImageView is much easier, and it'll render the SVG within Interface Builder as well)
 
 ```obj-c
-    NSString *svgPath = [[NSBundle mainBundle] pathForResource:@"myImage" ofType:@"svg"];
-    NSString *svgString = [NSString stringWithContentsOfFile:svgPath usedEncoding:NULL error:NULL];
-    
-    // Parse your SVG data
-    for(id path in CGPathsFromSVGString(svgString, NULL)) {
+    for(SVGBezierPath *path in [SVGBezierPath pathsFromSVGNamed:@"myImage"]) {
         // Create a layer for each path
         CAShapeLayer *layer = [CAShapeLayer layer];
-        layer.path = (__bridge CGPathRef)path;
+        layer.path = path.CGPath;
         
         // Set its display properties
         layer.lineWidth   = 4;
-        layer.strokeColor = [[UIColor blackColor] CGColor];
-        layer.fillColor   = [[UIColor redColor] CGColor];
+        layer.strokeColor = [path.svgAttributes[@"stroke"] ?: [UIColor blackColor] CGColor];
+        layer.fillColor   = [path.svgAttributes[@"fill"] ?: [UIColor redColor] CGColor];
     
         // Add it to the layer hierarchy
         [self.view.layer addSublayer:layer];

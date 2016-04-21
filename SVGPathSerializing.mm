@@ -620,54 +620,6 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 
 #pragma mark -
 
-#if TARGET_OS_IPHONE
-@implementation UIBezierPath (SVGPathSerializing)
-+ (NSArray *)svg_pathsFromSVGNamed:(NSString * const)aName
-{
-    static NSCache *pathCache;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        pathCache = [NSCache new];
-    });
-    
-    NSArray *paths = [pathCache objectForKey:aName];
-    if (!paths) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:aName ofType:@"svg"];
-        paths = [self svg_pathsFromContentsOfSVGFile:path];
-        if (paths) {
-            [pathCache setObject:paths forKey:aName];
-        }
-    }
-    return [[NSArray alloc] initWithArray:paths copyItems:YES];
-}
-
-+ (NSArray *)svg_pathsFromContentsOfSVGFile:(NSString * const)aPath
-{
-#ifndef NS_BLOCK_ASSERTIONS
-    BOOL isDir;
-    NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
-#endif
-    return [self svg_pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
-}
-
-+ (NSArray *)svg_pathsFromSVGString:(NSString * const)svgString
-{
-    NSArray        * const pathRefs = CGPathsFromSVGString(svgString, NULL);
-    NSMutableArray * const paths    = [NSMutableArray arrayWithCapacity:pathRefs.count];
-    for(id pathRef in pathRefs) {
-        [paths addObject:[UIBezierPath bezierPathWithCGPath:(__bridge CGPathRef)pathRef]];
-    }
-    return paths;
-}
-
-- (NSString *)svg_SVGRepresentation
-{
-    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], nil);
-}
-@end
-
-#endif
-
 @implementation NSValue (SVGPathSerializing)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform
 {

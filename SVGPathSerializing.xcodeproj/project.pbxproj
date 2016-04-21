@@ -7,27 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DC5ADD31CC9B17A008FDA98 /* SVGBezierPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DC5ADD41CC9B17A008FDA98 /* SVGBezierPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DC5ADD51CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */; };
+		1DC5ADD61CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */; };
 		C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E11A21CB9A00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
 		C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E31A21CB9A00380860 /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */; };
-		C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; };
+		C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E61A21CBB900380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C79800E51A21CBB900380860 /* libxml2.dylib */; };
 		C79801151A21CEAE00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79801171A21CEB000380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; };
+		C79801171A21CEB000380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801191A21CEBB00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
 		C798011A1A21CEBB00380860 /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */; };
 		C798011C1A21CEC200380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C798011B1A21CEC200380860 /* libxml2.dylib */; };
 		C79801281A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79801291A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; };
+		C79801291A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012B1A21F35C00380860 /* SVGImageView_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012C1A21F35C00380860 /* SVGImageView_Mac.h */; };
+		C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = C798012C1A21F35C00380860 /* SVGImageView_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801321A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
 		C79801331A21F35C00380860 /* SVGImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C798012D1A21F35C00380860 /* SVGImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGBezierPath.h; sourceTree = "<group>"; };
+		1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SVGBezierPath.mm; sourceTree = "<group>"; };
 		C79800BB1A21CB5300380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Framework-Info-iOS.plist"; sourceTree = "<group>"; };
 		C79800D91A21CB9A00380860 /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGLayer.h; sourceTree = SOURCE_ROOT; };
@@ -76,6 +82,8 @@
 				C798012B1A21F35C00380860 /* SVGImageView_iOS.h */,
 				C798012C1A21F35C00380860 /* SVGImageView_Mac.h */,
 				C798012D1A21F35C00380860 /* SVGImageView.m */,
+				1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */,
+				1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */,
 				C79800BE1A21CB5300380860 /* Supporting Files */,
 				C79800BC1A21CB5300380860 /* Products */,
 			);
@@ -112,6 +120,7 @@
 				C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */,
 				C79801281A21F13E00380860 /* SVGImageView.h in Headers */,
 				C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */,
+				1DC5ADD31CC9B17A008FDA98 /* SVGBezierPath.h in Headers */,
 				C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,11 +129,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */,
 				C79801151A21CEAE00380860 /* SVGLayer.h in Headers */,
-				C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */,
+				C79801311A21F35C00380860 /* SVGImageView_Mac.h in Headers */,
+				1DC5ADD41CC9B17A008FDA98 /* SVGBezierPath.h in Headers */,
 				C79801171A21CEB000380860 /* SVGPortability.h in Headers */,
 				C79801291A21F13E00380860 /* SVGImageView.h in Headers */,
+				C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC5ADD51CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */,
 				C79801321A21F35C00380860 /* SVGImageView.m in Sources */,
 				C79800E11A21CB9A00380860 /* SVGLayer.m in Sources */,
 				C79800E31A21CB9A00380860 /* SVGPathSerializing.mm in Sources */,
@@ -234,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC5ADD61CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */,
 				C79801331A21F35C00380860 /* SVGImageView.m in Sources */,
 				C79801191A21CEBB00380860 /* SVGLayer.m in Sources */,
 				C798011A1A21CEBB00380860 /* SVGPathSerializing.mm in Sources */,
