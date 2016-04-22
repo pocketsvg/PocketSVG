@@ -36,12 +36,12 @@
 }
 + (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString * const)aName inBundle:(NSBundle * const)aBundle
 {
-    NSArray<SVGBezierPath*> *paths = [self.class._svg_pathCache objectForKey:aName];
+    NSArray<SVGBezierPath*> *paths = [self._svg_pathCache objectForKey:aName];
     if (!paths) {
         NSString *path = [aBundle pathForResource:aName ofType:@"svg"];
         paths = [self pathsFromContentsOfSVGFile:path];
         if (paths) {
-            [self.class._svg_pathCache setObject:paths forKey:aName];
+            [self._svg_pathCache setObject:paths forKey:aName];
         }
     }
     return [[NSArray alloc] initWithArray:paths copyItems:YES];
@@ -62,7 +62,7 @@
     NSArray        * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs);
     NSMutableArray * const paths    = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
-        SVGBezierPath * const uiPath = [self.class bezierPathWithCGPath:(__bridge CGPathRef)pathRef];
+        SVGBezierPath * const uiPath = [self bezierPathWithCGPath:(__bridge CGPathRef)pathRef];
         uiPath->_svgAttributes = [cgAttrs objectForKey:pathRef] ?: @{};
         [paths addObject:uiPath];
     }
@@ -84,7 +84,19 @@
     return copy;
 }
 
-#if !TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
++ (instancetype)bezierPathWithCGPath:(CGPathRef)cgPath
+{
+    if (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion >= 9) {
+        return [super bezierPathWithCGPath:cgPath];
+    } else {
+        // iOS 8 and lower don't return instancetype...
+        SVGBezierPath *path = [self new];
+        path.CGPath = cgPath;
+        return path;
+    }
+}
+#else
 + (instancetype)bezierPathWithCGPath:(CGPathRef)cgPath
 {
     SVGBezierPath *path = [self new];
