@@ -25,18 +25,18 @@
 
 #import "PocketSVG.h"
 
-NSInteger const maxPathComplexity	= 1000;
-NSInteger const maxParameters		= 64;
-NSInteger const maxTokenLength		= 64;
+NSInteger const maxPathComplexity   = 1000;
+NSInteger const maxParameters       = 64;
+NSInteger const maxTokenLength      = 64;
 NSString* const separatorCharString = @"-, CcMmLlHhVvZzqQaAsS";
-NSString* const commandCharString	= @"CcMmLlHhVvZzqQaAsS";
-unichar const invalidCommand		= '*';
+NSString* const commandCharString   = @"CcMmLlHhVvZzqQaAsS";
+unichar const invalidCommand        = '*';
 
 
 
 @interface Token : NSObject {
 @private
-    unichar			command;
+    unichar         command;
     NSMutableArray  *values;
 }
 
@@ -292,19 +292,19 @@ unichar const invalidCommand		= '*';
 #pragma mark - Private methods
 
 /*
-	Tokenise pseudocode, used in parsePath below
-
-	start a token
-	eat a character
-	while more characters to eat
-		add character to token
-		while in a token and more characters to eat
-			eat character
-			add character to token
-		add completed token to store
-		start a new token
-	throw away empty token
-*/
+    Tokenise pseudocode, used in parsePath below
+ 
+    start a token
+    eat a character
+    while more characters to eat
+ add character to token
+ while in a token and more characters to eat
+ eat character
+ add character to token
+ add completed token to store
+ start a new token
+    throw away empty token
+ */
 
 - (NSMutableArray *)parsePath:(NSString *)attr
 {
@@ -312,7 +312,7 @@ unichar const invalidCommand		= '*';
     
     NSInteger index = 0;
     while (index < [attr length]) {
-        unichar	charAtIndex = [attr characterAtIndex:index];
+        unichar charAtIndex = [attr characterAtIndex:index];
         //Jagie:Skip whitespace
         if (charAtIndex == 32) {
             index ++;
@@ -374,7 +374,7 @@ unichar const invalidCommand		= '*';
         }
         
         // now we've reached a command or the end of the stringTokens array
-        [localTokens	addObject:token];
+        [localTokens    addObject:token];
     }
     
     return localTokens;
@@ -438,19 +438,38 @@ unichar const invalidCommand		= '*';
 - (void)appendSVGMCommand:(Token *)token
 {
     _controlPointType = PocketSVGControlPointInvalid;
-    if (![token doesValenceMatch:2]) {
+    if (token.valence < 2 || token.valence % 2 != 0) {
         return;
     }
+    
     NSInteger index = 0;
     BOOL isRelative = [token command] == 'm';
     CGFloat x = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
     CGFloat y = [token parameter:index] + (isRelative ? lastPoint.y : 0);
     lastPoint = CGPointMake(x, y);
 #if TARGET_OS_IPHONE
-        [bezier moveToPoint:lastPoint];
+    [bezier moveToPoint:lastPoint];
 #else
-        [bezier moveToPoint:NSPointFromCGPoint(lastPoint)];
+    [bezier moveToPoint:NSPointFromCGPoint(lastPoint)];
 #endif
+    
+    // do the imiplicit line commmand
+    if (token.valence > 2) {
+        int pos = 2;
+        
+        // create a line token
+        unichar c = isRelative ? 'l' : 'L';
+        Token * t = [[Token alloc ]initWithCommand: c];
+        
+        while (pos < token.valence) {
+            [t addValue: [token parameter:pos]];
+            [t addValue: [token parameter:pos + 1]];
+            pos += 2;
+        }
+
+        // call the relevant svg command with new token
+        [self appendSVGLCommand:t];
+    }
 }
 
 - (void)appendSVGLCommand:(Token *)token
@@ -465,7 +484,7 @@ unichar const invalidCommand		= '*';
                 x = lastPoint.x;
                 y = lastPoint.y;
             case 'L':
-                if (![token doesValenceMatch:2]) {
+                if (token.valence < 2 || token.valence % 2 != 0) {
                     return;
                 }
                 x += [token parameter:index++];
@@ -474,18 +493,12 @@ unichar const invalidCommand		= '*';
             case 'h' :
                 x = lastPoint.x;
             case 'H' :
-                if (![token doesValenceMatch:1]) {
-                    return;
-                }
                 x += [token parameter:index++];
                 y = lastPoint.y;
                 break;
             case 'v' :
                 y = lastPoint.y;
             case 'V' :
-                if (![token doesValenceMatch:1]) {
-                    return;
-                }
                 y += [token parameter:index++];
                 x = lastPoint.x;
                 break;
@@ -499,15 +512,15 @@ unichar const invalidCommand		= '*';
 #else
         [bezier lineToPoint:NSPointFromCGPoint(lastPoint)];
 #endif
-        index++;
     }
 }
 
 - (void)appendSVGQCommand:(Token *)token
 {
     NSInteger index = 0;
-    BOOL hasLastControlPoint = _controlPointType == PocketSVGControlPointQ;
     while (index < [token valence]) {
+        BOOL hasLastControlPoint = _controlPointType == PocketSVGControlPointQ;
+
         CGFloat x = 0;
         CGFloat y = 0;
         CGFloat x1 = 0;
@@ -517,7 +530,7 @@ unichar const invalidCommand		= '*';
                 x = lastPoint.x;
                 y = lastPoint.y;
             case 'T':
-                if (![token doesValenceMatch:2]) {
+                if (token.valence % 2 != 0 || token.valence < 2) {
                     _controlPointType = PocketSVGControlPointInvalid;
                     return;
                 }
@@ -532,7 +545,7 @@ unichar const invalidCommand		= '*';
                 x1 = x;
                 y1 = y;
             case 'Q' :
-                if (![token doesValenceMatch:4]) {
+                if (token.valence % 4 != 0 || token.valence < 2) {
                     _controlPointType = PocketSVGControlPointInvalid;
                     return;
                 }
@@ -566,62 +579,68 @@ unichar const invalidCommand		= '*';
 
 - (void)appendSVGCCommand:(Token *)token
 {
-    // we must have 6 floats here (x1, y1, x2, y2, x, y).
-    if (![token doesValenceMatch:6]) {
+    // we must have multiple of 6 floats.
+    if (token.valence < 6 || token.valence % 6 != 0) {
         _controlPointType = PocketSVGControlPointInvalid;
         return;
     }
+    
     NSInteger index = 0;
     BOOL isRelative = [token command] == 'c';
-    CGFloat x1 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
-    CGFloat y1 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
-    CGFloat x2 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
-    CGFloat y2 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
-    CGFloat x  = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
-    CGFloat y  = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
-    lastPoint = CGPointMake(x, y);
+    while (index < token.valence) {
+        CGFloat x1 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
+        CGFloat y1 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
+        CGFloat x2 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
+        CGFloat y2 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
+        CGFloat x  = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
+        CGFloat y  = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
+        lastPoint = CGPointMake(x, y);
 #if TARGET_OS_IPHONE
-    [bezier addCurveToPoint:lastPoint
+        [bezier addCurveToPoint:lastPoint
               controlPoint1:CGPointMake(x1,y1)
               controlPoint2:CGPointMake(x2, y2)];
 #else
-    [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+        [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
            controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
            controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
-    lastControlPoint = CGPointMake(x2, y2);
-    _controlPointType = PocketSVGControlPointS;
+        lastControlPoint = CGPointMake(x2, y2);
+        _controlPointType = PocketSVGControlPointS;
+    }
 }
 
 - (void)appendSVGSCommand:(Token *)token
 {
-    // we must have 4 floats here (x2, y2, x, y).
-    if (![token doesValenceMatch:4]) {
+    // we must have multiple of 4 floats here (x2, y2, x, y).
+    if (token.valence < 4 || token.valence % 4 != 0) {
         _controlPointType = PocketSVGControlPointInvalid;
         return;
     }
+    
     NSInteger index = 0;
     BOOL isRelative = [token command] == 's';
-    BOOL hasLastControlPoint = _controlPointType == PocketSVGControlPointS;
-    CGFloat x2 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
-    CGFloat y2 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
-    CGFloat x  = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
-    CGFloat y  = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
-    CGFloat x1 = hasLastControlPoint ? lastPoint.x + (lastPoint.x - lastControlPoint.x) : lastPoint.x;
-    CGFloat y1 = hasLastControlPoint ? lastPoint.y + (lastPoint.y - lastControlPoint.y) : lastPoint.y;
-    lastPoint = CGPointMake(x, y);
+    while (index < token.valence) {
+        BOOL hasLastControlPoint = _controlPointType == PocketSVGControlPointS;
+
+        CGFloat x2 = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
+        CGFloat y2 = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
+        CGFloat x  = [token parameter:index++] + (isRelative ? lastPoint.x : 0);
+        CGFloat y  = [token parameter:index++] + (isRelative ? lastPoint.y : 0);
+        CGFloat x1 = hasLastControlPoint ? lastPoint.x + (lastPoint.x - lastControlPoint.x) : lastPoint.x;
+        CGFloat y1 = hasLastControlPoint ? lastPoint.y + (lastPoint.y - lastControlPoint.y) : lastPoint.y;
+        lastPoint = CGPointMake(x, y);
 #if TARGET_OS_IPHONE
-    [bezier addCurveToPoint:lastPoint
+        [bezier addCurveToPoint:lastPoint
               controlPoint1:CGPointMake(x1,y1)
               controlPoint2:CGPointMake(x2, y2)];
 #else
-    [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
+        [bezier curveToPoint:NSPointFromCGPoint(lastPoint)
            controlPoint1:NSPointFromCGPoint(CGPointMake(x1,y1))
            controlPoint2:NSPointFromCGPoint(CGPointMake(x2, y2))];
 #endif
-    lastControlPoint = CGPointMake(x2, y2);
-    _controlPointType = PocketSVGControlPointS;
-
+        lastControlPoint = CGPointMake(x2, y2);
+        _controlPointType = PocketSVGControlPointS;
+    }
 }
 
 #if !TARGET_OS_IPHONE
