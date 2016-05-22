@@ -1,4 +1,4 @@
-#import "SVGPathSerializing.h"
+#import "PocketSVG.h"
 #import <libxml/xmlreader.h>
 #import <vector>
 
@@ -620,7 +620,7 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 
 #pragma mark -
 
-@implementation NSValue (SVGPathSerializing)
+@implementation NSValue (PocketSVG)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform
 {
 #if TARGET_OS_IPHONE

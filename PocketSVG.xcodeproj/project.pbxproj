@@ -13,15 +13,15 @@
 		1DC5ADD61CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */; };
 		C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E11A21CB9A00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
-		C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79800E31A21CB9A00380860 /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */; };
+		C79800E21A21CB9A00380860 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C79800E31A21CB9A00380860 /* PocketSVG.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* PocketSVG.mm */; };
 		C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E61A21CBB900380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C79800E51A21CBB900380860 /* libxml2.dylib */; };
 		C79801151A21CEAE00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C79801161A21CEAE00380860 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DB1A21CB9A00380860 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801171A21CEB000380860 /* SVGPortability.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800DD1A21CB9A00380860 /* SVGPortability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801191A21CEBB00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
-		C798011A1A21CEBB00380860 /* SVGPathSerializing.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */; };
+		C798011A1A21CEBB00380860 /* PocketSVG.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* PocketSVG.mm */; };
 		C798011C1A21CEC200380860 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C798011B1A21CEC200380860 /* libxml2.dylib */; };
 		C79801281A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79801291A21F13E00380860 /* SVGImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C79801271A21F13E00380860 /* SVGImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,15 +34,15 @@
 /* Begin PBXFileReference section */
 		1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGBezierPath.h; sourceTree = "<group>"; };
 		1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SVGBezierPath.mm; sourceTree = "<group>"; };
-		C79800BB1A21CB5300380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C79800BB1A21CB5300380860 /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Framework-Info-iOS.plist"; sourceTree = "<group>"; };
 		C79800D91A21CB9A00380860 /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGLayer.h; sourceTree = SOURCE_ROOT; };
 		C79800DA1A21CB9A00380860 /* SVGLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGLayer.m; sourceTree = SOURCE_ROOT; };
-		C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPathSerializing.h; sourceTree = SOURCE_ROOT; };
-		C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SVGPathSerializing.mm; sourceTree = SOURCE_ROOT; };
+		C79800DB1A21CB9A00380860 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = SOURCE_ROOT; };
+		C79800DC1A21CB9A00380860 /* PocketSVG.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PocketSVG.mm; sourceTree = SOURCE_ROOT; };
 		C79800DD1A21CB9A00380860 /* SVGPortability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGPortability.h; sourceTree = SOURCE_ROOT; };
 		C79800E51A21CBB900380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPathSerializing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C79800F51A21CDFD00380860 /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C798011B1A21CEC200380860 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		C79801271A21F13E00380860 /* SVGImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView.h; sourceTree = SOURCE_ROOT; };
 		C798012B1A21F35C00380860 /* SVGImageView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGImageView_iOS.h; sourceTree = SOURCE_ROOT; };
@@ -74,8 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				C79800DD1A21CB9A00380860 /* SVGPortability.h */,
-				C79800DB1A21CB9A00380860 /* SVGPathSerializing.h */,
-				C79800DC1A21CB9A00380860 /* SVGPathSerializing.mm */,
+				C79800DB1A21CB9A00380860 /* PocketSVG.h */,
+				C79800DC1A21CB9A00380860 /* PocketSVG.mm */,
 				C79800D91A21CB9A00380860 /* SVGLayer.h */,
 				C79800DA1A21CB9A00380860 /* SVGLayer.m */,
 				C79801271A21F13E00380860 /* SVGImageView.h */,
@@ -92,8 +92,8 @@
 		C79800BC1A21CB5300380860 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C79800BB1A21CB5300380860 /* SVGPathSerializing.framework */,
-				C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */,
+				C79800BB1A21CB5300380860 /* PocketSVG.framework */,
+				C79800F51A21CDFD00380860 /* PocketSVG.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 				C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */,
 				C798012E1A21F35C00380860 /* SVGImageView_iOS.h in Headers */,
 				C79801281A21F13E00380860 /* SVGImageView.h in Headers */,
-				C79800E21A21CB9A00380860 /* SVGPathSerializing.h in Headers */,
+				C79800E21A21CB9A00380860 /* PocketSVG.h in Headers */,
 				1DC5ADD31CC9B17A008FDA98 /* SVGBezierPath.h in Headers */,
 				C79800E41A21CB9A00380860 /* SVGPortability.h in Headers */,
 			);
@@ -134,16 +134,16 @@
 				1DC5ADD41CC9B17A008FDA98 /* SVGBezierPath.h in Headers */,
 				C79801171A21CEB000380860 /* SVGPortability.h in Headers */,
 				C79801291A21F13E00380860 /* SVGImageView.h in Headers */,
-				C79801161A21CEAE00380860 /* SVGPathSerializing.h in Headers */,
+				C79801161A21CEAE00380860 /* PocketSVG.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C79800BA1A21CB5300380860 /* SVGPathSerializing (iOS) */ = {
+		C79800BA1A21CB5300380860 /* PocketSVG (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C79800D11A21CB5300380860 /* Build configuration list for PBXNativeTarget "SVGPathSerializing (iOS)" */;
+			buildConfigurationList = C79800D11A21CB5300380860 /* Build configuration list for PBXNativeTarget "PocketSVG (iOS)" */;
 			buildPhases = (
 				C79800B61A21CB5300380860 /* Sources */,
 				C79800B71A21CB5300380860 /* Frameworks */,
@@ -154,14 +154,14 @@
 			);
 			dependencies = (
 			);
-			name = "SVGPathSerializing (iOS)";
+			name = "PocketSVG (iOS)";
 			productName = SVGPathSerializing;
-			productReference = C79800BB1A21CB5300380860 /* SVGPathSerializing.framework */;
+			productReference = C79800BB1A21CB5300380860 /* PocketSVG.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C79800F41A21CDFD00380860 /* SVGPathSerializing (Mac) */ = {
+		C79800F41A21CDFD00380860 /* PocketSVG (Mac) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C79801081A21CDFD00380860 /* Build configuration list for PBXNativeTarget "SVGPathSerializing (Mac)" */;
+			buildConfigurationList = C79801081A21CDFD00380860 /* Build configuration list for PBXNativeTarget "PocketSVG (Mac)" */;
 			buildPhases = (
 				C79800F01A21CDFD00380860 /* Sources */,
 				C79800F11A21CDFD00380860 /* Frameworks */,
@@ -172,9 +172,9 @@
 			);
 			dependencies = (
 			);
-			name = "SVGPathSerializing (Mac)";
+			name = "PocketSVG (Mac)";
 			productName = SVGPathSerializing;
-			productReference = C79800F51A21CDFD00380860 /* SVGPathSerializing.framework */;
+			productReference = C79800F51A21CDFD00380860 /* PocketSVG.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C79800B51A21CB5300380860 /* Build configuration list for PBXProject "SVGPathSerializing" */;
+			buildConfigurationList = C79800B51A21CB5300380860 /* Build configuration list for PBXProject "PocketSVG" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -206,8 +206,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C79800BA1A21CB5300380860 /* SVGPathSerializing (iOS) */,
-				C79800F41A21CDFD00380860 /* SVGPathSerializing (Mac) */,
+				C79800BA1A21CB5300380860 /* PocketSVG (iOS) */,
+				C79800F41A21CDFD00380860 /* PocketSVG (Mac) */,
 			);
 		};
 /* End PBXProject section */
@@ -237,7 +237,7 @@
 				1DC5ADD51CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */,
 				C79801321A21F35C00380860 /* SVGImageView.m in Sources */,
 				C79800E11A21CB9A00380860 /* SVGLayer.m in Sources */,
-				C79800E31A21CB9A00380860 /* SVGPathSerializing.mm in Sources */,
+				C79800E31A21CB9A00380860 /* PocketSVG.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +248,7 @@
 				1DC5ADD61CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */,
 				C79801331A21F35C00380860 /* SVGImageView.m in Sources */,
 				C79801191A21CEBB00380860 /* SVGLayer.m in Sources */,
-				C798011A1A21CEBB00380860 /* SVGPathSerializing.mm in Sources */,
+				C798011A1A21CEBB00380860 /* PocketSVG.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +363,8 @@
 				INFOPLIST_FILE = "Framework-Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = SVGPathSerializing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
+				PRODUCT_NAME = PocketSVG;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -382,7 +383,8 @@
 				INFOPLIST_FILE = "Framework-Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = SVGPathSerializing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
+				PRODUCT_NAME = PocketSVG;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -404,7 +406,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = SVGPathSerializing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
+				PRODUCT_NAME = PocketSVG;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -424,7 +427,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = SVGPathSerializing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
+				PRODUCT_NAME = PocketSVG;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -433,7 +437,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C79800B51A21CB5300380860 /* Build configuration list for PBXProject "SVGPathSerializing" */ = {
+		C79800B51A21CB5300380860 /* Build configuration list for PBXProject "PocketSVG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C79800CF1A21CB5300380860 /* Debug */,
@@ -442,7 +446,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C79800D11A21CB5300380860 /* Build configuration list for PBXNativeTarget "SVGPathSerializing (iOS)" */ = {
+		C79800D11A21CB5300380860 /* Build configuration list for PBXNativeTarget "PocketSVG (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C79800D21A21CB5300380860 /* Debug */,
@@ -451,7 +455,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C79801081A21CDFD00380860 /* Build configuration list for PBXNativeTarget "SVGPathSerializing (Mac)" */ = {
+		C79801081A21CDFD00380860 /* Build configuration list for PBXNativeTarget "PocketSVG (Mac)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C79801091A21CDFD00380860 /* Debug */,

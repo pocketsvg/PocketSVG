@@ -1,6 +1,6 @@
 #import "SVGLayer.h"
 #import "SVGPortability.h"
-#import "SVGPathSerializing.h"
+#import "PocketSVG.h"
 #import "SVGBezierPath.h"
 
 CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);

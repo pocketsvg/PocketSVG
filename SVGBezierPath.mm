@@ -1,4 +1,4 @@
-#import "SVGPathSerializing.h"
+#import "PocketSVG.h"
 
 @implementation SVGBezierPath
 #if !TARGET_OS_IPHONE

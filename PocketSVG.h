@@ -26,7 +26,7 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
  */
 NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
 
-@interface NSValue (SVGPathSerializing)
+@interface NSValue (PocketSVG)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform;
 - (CGAffineTransform)svg_CGAffineTransformValue;
 @end
