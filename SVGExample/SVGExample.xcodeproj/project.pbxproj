@@ -196,7 +196,7 @@
 		C7FCE42F1A1ECE8E00A0BE0D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Fjölnir Ásgeirsson";
 				TargetAttributes = {
 					C76FD91C1A21B2B20054C25D = {
@@ -353,6 +353,7 @@
 				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 				SDKROOT = macosx;
 			};
@@ -373,6 +374,7 @@
 				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 				SDKROOT = macosx;
 			};
@@ -398,6 +400,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -469,6 +472,7 @@
 				);
 				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 			};
 			name = Debug;
@@ -484,6 +488,7 @@
 				);
 				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 			};
 			name = Release;
