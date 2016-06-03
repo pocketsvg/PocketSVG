@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B0E7059E1AABDBEE00F1E8A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7059D1AABDBEE00F1E8A7 /* AppDelegate.swift */; };
+		B0E705A01AABDBEE00F1E8A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7059F1AABDBEE00F1E8A7 /* ViewController.swift */; };
+		B0E705A31AABDBEE00F1E8A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E705A11AABDBEE00F1E8A7 /* Main.storyboard */; };
+		B0E705A51AABDBEE00F1E8A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0E705A41AABDBEE00F1E8A7 /* Images.xcassets */; };
+		B0E705A81AABDBEE00F1E8A7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E705A61AABDBEE00F1E8A7 /* LaunchScreen.xib */; };
+		B0E705B41AABDBEF00F1E8A7 /* PocketSVG_iOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E705B31AABDBEF00F1E8A7 /* PocketSVG_iOS_ExampleTests.swift */; };
+		B0E705C01AABDC1600F1E8A7 /* BezierCurve1.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705BD1AABDC1600F1E8A7 /* BezierCurve1.svg */; };
+		B0E705C11AABDC1600F1E8A7 /* BezierCurve2.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705BE1AABDC1600F1E8A7 /* BezierCurve2.svg */; };
+		B0E705C21AABDC1600F1E8A7 /* BezierCurve3.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0E705BF1AABDC1600F1E8A7 /* BezierCurve3.svg */; };
+		B0E705CA1AABDCBD00F1E8A7 /* PocketSVG.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E705C91AABDCBD00F1E8A7 /* PocketSVG.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0E705AE1AABDBEF00F1E8A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0E705901AABDBEE00F1E8A7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0E705971AABDBEE00F1E8A7;
+			remoteInfo = "PocketSVG iOS Example";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B0E705981AABDBEE00F1E8A7 /* PocketSVG iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PocketSVG iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0E7059C1AABDBEE00F1E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0E7059D1AABDBEE00F1E8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B0E7059F1AABDBEE00F1E8A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0E705A21AABDBEE00F1E8A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B0E705A41AABDBEE00F1E8A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B0E705A71AABDBEE00F1E8A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B0E705AD1AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PocketSVG iOS ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0E705B21AABDBEF00F1E8A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0E705B31AABDBEF00F1E8A7 /* PocketSVG_iOS_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketSVG_iOS_ExampleTests.swift; sourceTree = "<group>"; };
+		B0E705BD1AABDC1600F1E8A7 /* BezierCurve1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve1.svg; path = ../BezierCurve1.svg; sourceTree = "<group>"; };
+		B0E705BE1AABDC1600F1E8A7 /* BezierCurve2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve2.svg; path = ../BezierCurve2.svg; sourceTree = "<group>"; };
+		B0E705BF1AABDC1600F1E8A7 /* BezierCurve3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = BezierCurve3.svg; path = ../BezierCurve3.svg; sourceTree = "<group>"; };
+		B0E705C81AABDCBD00F1E8A7 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PocketSVG.h; path = ../../PocketSVG.h; sourceTree = "<group>"; };
+		B0E705C91AABDCBD00F1E8A7 /* PocketSVG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PocketSVG.m; path = ../../PocketSVG.m; sourceTree = "<group>"; };
+		B0E705CB1AABDCE000F1E8A7 /* PocketSVG iOS Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PocketSVG iOS Example-Bridging-Header.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0E705951AABDBEE00F1E8A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E705AA1AABDBEF00F1E8A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0E7058F1AABDBEE00F1E8A7 = {
+			isa = PBXGroup;
+			children = (
+				B0E705BD1AABDC1600F1E8A7 /* BezierCurve1.svg */,
+				B0E705BE1AABDC1600F1E8A7 /* BezierCurve2.svg */,
+				B0E705BF1AABDC1600F1E8A7 /* BezierCurve3.svg */,
+				B0E7059A1AABDBEE00F1E8A7 /* PocketSVG iOS Example */,
+				B0E705B01AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests */,
+				B0E705991AABDBEE00F1E8A7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0E705991AABDBEE00F1E8A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0E705981AABDBEE00F1E8A7 /* PocketSVG iOS Example.app */,
+				B0E705AD1AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B0E7059A1AABDBEE00F1E8A7 /* PocketSVG iOS Example */ = {
+			isa = PBXGroup;
+			children = (
+				B0E705C81AABDCBD00F1E8A7 /* PocketSVG.h */,
+				B0E705C91AABDCBD00F1E8A7 /* PocketSVG.m */,
+				B0E705CB1AABDCE000F1E8A7 /* PocketSVG iOS Example-Bridging-Header.h */,
+				B0E7059D1AABDBEE00F1E8A7 /* AppDelegate.swift */,
+				B0E7059F1AABDBEE00F1E8A7 /* ViewController.swift */,
+				B0E705A11AABDBEE00F1E8A7 /* Main.storyboard */,
+				B0E705A41AABDBEE00F1E8A7 /* Images.xcassets */,
+				B0E705A61AABDBEE00F1E8A7 /* LaunchScreen.xib */,
+				B0E7059B1AABDBEE00F1E8A7 /* Supporting Files */,
+			);
+			path = "PocketSVG iOS Example";
+			sourceTree = "<group>";
+		};
+		B0E7059B1AABDBEE00F1E8A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E7059C1AABDBEE00F1E8A7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0E705B01AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0E705B31AABDBEF00F1E8A7 /* PocketSVG_iOS_ExampleTests.swift */,
+				B0E705B11AABDBEF00F1E8A7 /* Supporting Files */,
+			);
+			path = "PocketSVG iOS ExampleTests";
+			sourceTree = "<group>";
+		};
+		B0E705B11AABDBEF00F1E8A7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E705B21AABDBEF00F1E8A7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0E705971AABDBEE00F1E8A7 /* PocketSVG iOS Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0E705B71AABDBEF00F1E8A7 /* Build configuration list for PBXNativeTarget "PocketSVG iOS Example" */;
+			buildPhases = (
+				B0E705941AABDBEE00F1E8A7 /* Sources */,
+				B0E705951AABDBEE00F1E8A7 /* Frameworks */,
+				B0E705961AABDBEE00F1E8A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PocketSVG iOS Example";
+			productName = "PocketSVG iOS Example";
+			productReference = B0E705981AABDBEE00F1E8A7 /* PocketSVG iOS Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B0E705AC1AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0E705BA1AABDBEF00F1E8A7 /* Build configuration list for PBXNativeTarget "PocketSVG iOS ExampleTests" */;
+			buildPhases = (
+				B0E705A91AABDBEF00F1E8A7 /* Sources */,
+				B0E705AA1AABDBEF00F1E8A7 /* Frameworks */,
+				B0E705AB1AABDBEF00F1E8A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0E705AF1AABDBEF00F1E8A7 /* PBXTargetDependency */,
+			);
+			name = "PocketSVG iOS ExampleTests";
+			productName = "PocketSVG iOS ExampleTests";
+			productReference = B0E705AD1AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0E705901AABDBEE00F1E8A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Arielito;
+				TargetAttributes = {
+					B0E705971AABDBEE00F1E8A7 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					B0E705AC1AABDBEF00F1E8A7 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = B0E705971AABDBEE00F1E8A7;
+					};
+				};
+			};
+			buildConfigurationList = B0E705931AABDBEE00F1E8A7 /* Build configuration list for PBXProject "PocketSVG iOS Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B0E7058F1AABDBEE00F1E8A7;
+			productRefGroup = B0E705991AABDBEE00F1E8A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B0E705971AABDBEE00F1E8A7 /* PocketSVG iOS Example */,
+				B0E705AC1AABDBEF00F1E8A7 /* PocketSVG iOS ExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0E705961AABDBEE00F1E8A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E705A31AABDBEE00F1E8A7 /* Main.storyboard in Resources */,
+				B0E705C01AABDC1600F1E8A7 /* BezierCurve1.svg in Resources */,
+				B0E705C11AABDC1600F1E8A7 /* BezierCurve2.svg in Resources */,
+				B0E705C21AABDC1600F1E8A7 /* BezierCurve3.svg in Resources */,
+				B0E705A81AABDBEE00F1E8A7 /* LaunchScreen.xib in Resources */,
+				B0E705A51AABDBEE00F1E8A7 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E705AB1AABDBEF00F1E8A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0E705941AABDBEE00F1E8A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E705A01AABDBEE00F1E8A7 /* ViewController.swift in Sources */,
+				B0E705CA1AABDCBD00F1E8A7 /* PocketSVG.m in Sources */,
+				B0E7059E1AABDBEE00F1E8A7 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0E705A91AABDBEF00F1E8A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0E705B41AABDBEF00F1E8A7 /* PocketSVG_iOS_ExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0E705AF1AABDBEF00F1E8A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0E705971AABDBEE00F1E8A7 /* PocketSVG iOS Example */;
+			targetProxy = B0E705AE1AABDBEF00F1E8A7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B0E705A11AABDBEE00F1E8A7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0E705A21AABDBEE00F1E8A7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B0E705A61AABDBEE00F1E8A7 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0E705A71AABDBEE00F1E8A7 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B0E705B51AABDBEF00F1E8A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B0E705B61AABDBEF00F1E8A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B0E705B81AABDBEF00F1E8A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "PocketSVG iOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PocketSVG iOS Example/PocketSVG iOS Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B0E705B91AABDBEF00F1E8A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "PocketSVG iOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PocketSVG iOS Example/PocketSVG iOS Example-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		B0E705BB1AABDBEF00F1E8A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PocketSVG iOS ExampleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketSVG iOS Example.app/PocketSVG iOS Example";
+			};
+			name = Debug;
+		};
+		B0E705BC1AABDBEF00F1E8A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PocketSVG iOS ExampleTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketSVG iOS Example.app/PocketSVG iOS Example";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0E705931AABDBEE00F1E8A7 /* Build configuration list for PBXProject "PocketSVG iOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E705B51AABDBEF00F1E8A7 /* Debug */,
+				B0E705B61AABDBEF00F1E8A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0E705B71AABDBEF00F1E8A7 /* Build configuration list for PBXNativeTarget "PocketSVG iOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E705B81AABDBEF00F1E8A7 /* Debug */,
+				B0E705B91AABDBEF00F1E8A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B0E705BA1AABDBEF00F1E8A7 /* Build configuration list for PBXNativeTarget "PocketSVG iOS ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0E705BB1AABDBEF00F1E8A7 /* Debug */,
+				B0E705BC1AABDBEF00F1E8A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B0E705901AABDBEE00F1E8A7 /* Project object */;
+}
