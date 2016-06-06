@@ -11,8 +11,7 @@ Pod::Spec.new do |s|
   }
 
   s.authors      = { "Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors" => "https://github.com/arielelkin/PocketSVG" }
-#  s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
-  s.source = {  :git => 'https://github.com/arielelkin/PocketSVG.git', :branch => 'v2-fixes', :commit => 'faf07432224fc36c05086d30b4d6adf59f1e7e45' }
+  s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
   s.library   = 'xml2'
