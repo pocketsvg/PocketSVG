@@ -13,5 +13,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
-  s.vendored_frameworks = 'PocketSVGFramework'
+  s.source_files = 'PocketSVG.{h,m}, 'pathscaler.m', 'SVGBezierPath.{h, mm}', 'SCGImageView.{h,m}', 'SVGLayer.{h,m}', 'SVGPortability.h'
+ s.ios.source_files = 'SVGImageView_iOS.h'
+ s.osx.source_files = 'SVGImageView_Mac.h'
 end
