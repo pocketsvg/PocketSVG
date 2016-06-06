@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831C54571D057F1D0045D0FD /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8374F2081D01C58900EFAEF7 /* PocketSVG.framework */; };
+		831C54581D057F360045D0FD /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8374F20A1D01C58900EFAEF7 /* PocketSVG.framework */; };
 		C71E5EF91A21B69800400396 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 		C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831C54581D057F360045D0FD /* PocketSVG.framework in Frameworks */,
 				C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831C54571D057F1D0045D0FD /* PocketSVG.framework in Frameworks */,
 				C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,7 +435,6 @@
 		C7FCE45B1A1ECE8E00A0BE0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
@@ -447,7 +450,6 @@
 		C7FCE45C1A1ECE8E00A0BE0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",

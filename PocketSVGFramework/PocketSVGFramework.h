@@ -15,4 +15,5 @@ FOUNDATION_EXPORT const unsigned char PocketSVGFrameworkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PocketSVGFramework/PublicHeader.h>
 
-#import "PocketSVG.h"
+#import "Headers/PocketSVG.h"
+#import "SVGImageView.h"
