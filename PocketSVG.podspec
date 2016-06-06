@@ -3,17 +3,21 @@ Pod::Spec.new do |s|
   s.version      = "2.0"
   s.summary      = "An Objective-C class that converts Scalable Vector Graphics into Core Graphics elements."
   s.homepage     = "https://github.com/arielelkin/PocketSVG"
-
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
   s.license = {
     :type => 'MIT',
     :file => 'LICENSE'
   }
 
   s.authors      = { "Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors" => "https://github.com/arielelkin/PocketSVG" }
-  s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
+#  s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
+  s.source = {  :git => 'https://github.com/arielelkin/PocketSVG.git', :branch => 'v2-fixes', :commit => 'faf07432224fc36c05086d30b4d6adf59f1e7e45' }
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
-  s.source_files = 'PocketSVG.{h,m}, 'pathscaler.m', 'SVGBezierPath.{h, mm}', 'SCGImageView.{h,m}', 'SVGLayer.{h,m}', 'SVGPortability.h'
+  s.library   = 'xml2'
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
+  s.source_files = 'PocketSVG.{h,mm}', 'SVGBezierPath.{h,mm}', 'SVGImageView.{h,m}', 'SVGLayer.{h,m}', 'SVGPortability.h' 
  s.ios.source_files = 'SVGImageView_iOS.h'
  s.osx.source_files = 'SVGImageView_Mac.h'
 end
