@@ -185,8 +185,8 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
         return NULL;
     }
     
-    NSString * const x = [items objectAtIndex:0],
-             * const y = [items objectAtIndex:1];
+    NSString * const x = items[0],
+             * const y = items[1];
     [items removeObjectsInRange:(NSRange) { 0, 2 }];
     
     NSString * const pathAttributes = [NSString stringWithFormat:@"M%@,%@L%@Z",
@@ -339,12 +339,12 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
                     break;
                 case kCGPathElementAddQuadCurveToPoint:
                     [svg_ appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                                           FMT(el->points[1].x), FMT(el->points[1].y)];
+                                                        FMT(el->points[1].x), FMT(el->points[1].y)];
                     break;
                 case kCGPathElementAddCurveToPoint:
                     [svg_ appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                                                   FMT(el->points[1].x), FMT(el->points[1].y),
-                                                                   FMT(el->points[2].x), FMT(el->points[2].y)];
+                                                              FMT(el->points[1].x), FMT(el->points[1].y),
+                                                              FMT(el->points[2].x), FMT(el->points[2].y)];
                     break;
                 case kCGPathElementCloseSubpath:
                     [svg_ appendFormat:@"Z"];
