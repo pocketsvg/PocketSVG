@@ -47,13 +47,21 @@
     return [[NSArray alloc] initWithArray:paths copyItems:YES];
 }
 
++ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL
+{
+    return [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
+                                                         usedEncoding:NULL
+                                                                error:NULL]];
+}
 + (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
 {
 #ifndef NS_BLOCK_ASSERTIONS
     BOOL isDir;
     NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
 #endif
-    return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath usedEncoding:NULL error:nil]];
+    return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath
+                                                          usedEncoding:NULL
+                                                                 error:nil]];
 }
 
 + (NSArray *)pathsFromSVGString:(NSString * const)svgString

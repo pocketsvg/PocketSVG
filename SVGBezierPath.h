@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString *)aName;
 + (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString *)aName inBundle:(NSBundle *)bundle;
 + (NSArray<SVGBezierPath*> *)pathsFromContentsOfSVGFile:(NSString *)aPath;
++ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL;
 + (NSArray *)pathsFromSVGString:(NSString *)svgString;
 
 
