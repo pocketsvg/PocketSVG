@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831C54571D057F1D0045D0FD /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8374F2081D01C58900EFAEF7 /* PocketSVG.framework */; };
+		831C54581D057F360045D0FD /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8374F20A1D01C58900EFAEF7 /* PocketSVG.framework */; };
 		C71E5EF91A21B69800400396 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = C72C7BF11A1F278C006C80E5 /* tiger.svg */; };
 		C71E5EFA1A21B69A00400396 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4661A1ED0FA00A0BE0D /* iceland.svg */; };
 		C71E5EFD1A21C11200400396 /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
@@ -16,8 +18,6 @@
 		C76FD9231A21B2B20054C25D /* SVGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */; };
 		C76FD92A1A21B2B20054C25D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C76FD9281A21B2B20054C25D /* MainMenu.xib */; };
 		C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C76FD93D1A21B33D0054C25D /* libxml2.dylib */; };
-		C79800EF1A21CC1C00380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */; };
-		C79801131A21CE6300380860 /* SVGPathSerializing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79801121A21CE5D00380860 /* SVGPathSerializing.framework */; };
 		C7FCE43D1A1ECE8E00A0BE0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FCE43C1A1ECE8E00A0BE0D /* main.m */; };
 		C7FCE4461A1ECE8E00A0BE0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4441A1ECE8E00A0BE0D /* Main.storyboard */; };
 		C7FCE44B1A1ECE8E00A0BE0D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7FCE4491A1ECE8E00A0BE0D /* LaunchScreen.xib */; };
@@ -25,37 +25,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C79800EB1A21CC0300380860 /* PBXContainerItemProxy */ = {
+		8374F2071D01C58900EFAEF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			containerPortal = 8374F2021D01C58900EFAEF7 /* PocketSVG.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C79800BB1A21CB5300380860;
-			remoteInfo = SVGPathSerializing;
+			remoteInfo = "PocketSVG (iOS)";
 		};
-		C79800ED1A21CC1600380860 /* PBXContainerItemProxy */ = {
+		8374F2091D01C58900EFAEF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C79800BA1A21CB5300380860;
-			remoteInfo = SVGPathSerializing;
-		};
-		C798010E1A21CE5D00380860 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C79800F41A21CDFD00380860;
-			remoteInfo = "SVGPathSerializing (Mac)";
-		};
-		C79801111A21CE5D00380860 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+			containerPortal = 8374F2021D01C58900EFAEF7 /* PocketSVG.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C79800F51A21CDFD00380860;
-			remoteInfo = "SVGPathSerializing (Mac)";
+			remoteInfo = "PocketSVG (Mac)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8374F2021D01C58900EFAEF7 /* PocketSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PocketSVG.xcodeproj; path = ../PocketSVG.xcodeproj; sourceTree = "<group>"; };
 		C71E5EFB1A21B9F100400396 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		C72C7BF11A1F278C006C80E5 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = SOURCE_ROOT; };
 		C763A80D1A1F50A6007D5576 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -64,7 +51,6 @@
 		C76FD9221A21B2B20054C25D /* SVGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGAppDelegate.m; sourceTree = "<group>"; };
 		C76FD9291A21B2B20054C25D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C76FD93D1A21B33D0054C25D /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
-		C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SVGPathSerializing.xcodeproj; path = ../SVGPathSerializing.xcodeproj; sourceTree = "<group>"; };
 		C7FCE4371A1ECE8E00A0BE0D /* SVGExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FCE43B1A1ECE8E00A0BE0D /* Info-Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		C7FCE43C1A1ECE8E00A0BE0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C79801131A21CE6300380860 /* SVGPathSerializing.framework in Frameworks */,
+				831C54581D057F360045D0FD /* PocketSVG.framework in Frameworks */,
 				C76FD93E1A21B33D0054C25D /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C79800EF1A21CC1C00380860 /* SVGPathSerializing.framework in Frameworks */,
+				831C54571D057F1D0045D0FD /* PocketSVG.framework in Frameworks */,
 				C763A80E1A1F50A6007D5576 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8374F2031D01C58900EFAEF7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8374F2081D01C58900EFAEF7 /* PocketSVG.framework */,
+				8374F20A1D01C58900EFAEF7 /* PocketSVG.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C79800B01A21CACA00380860 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,22 +103,13 @@
 			path = SVGExample;
 			sourceTree = "<group>";
 		};
-		C79800E81A21CC0300380860 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */,
-				C79801121A21CE5D00380860 /* SVGPathSerializing.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C7FCE42E1A1ECE8E00A0BE0D = {
 			isa = PBXGroup;
 			children = (
-				C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */,
 				C79800B01A21CACA00380860 /* Resources */,
 				C7FCE43A1A1ECE8E00A0BE0D /* Supporting Files */,
 				C7FCE4381A1ECE8E00A0BE0D /* Products */,
+				8374F2021D01C58900EFAEF7 /* PocketSVG.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,7 +151,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C798010F1A21CE5D00380860 /* PBXTargetDependency */,
 			);
 			name = "SVGExample(Mac)";
 			productName = SVGExample;
@@ -183,7 +168,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C79800EE1A21CC1600380860 /* PBXTargetDependency */,
 			);
 			name = "SVGExample(iPhone)";
 			productName = SVGExample;
@@ -196,7 +180,7 @@
 		C7FCE42F1A1ECE8E00A0BE0D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Fjölnir Ásgeirsson";
 				TargetAttributes = {
 					C76FD91C1A21B2B20054C25D = {
@@ -220,8 +204,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C79800E81A21CC0300380860 /* Products */;
-					ProjectRef = C79800E71A21CC0300380860 /* SVGPathSerializing.xcodeproj */;
+					ProductGroup = 8374F2031D01C58900EFAEF7 /* Products */;
+					ProjectRef = 8374F2021D01C58900EFAEF7 /* PocketSVG.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -233,18 +217,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C79800EC1A21CC0300380860 /* SVGPathSerializing.framework */ = {
+		8374F2081D01C58900EFAEF7 /* PocketSVG.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = SVGPathSerializing.framework;
-			remoteRef = C79800EB1A21CC0300380860 /* PBXContainerItemProxy */;
+			path = PocketSVG.framework;
+			remoteRef = 8374F2071D01C58900EFAEF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C79801121A21CE5D00380860 /* SVGPathSerializing.framework */ = {
+		8374F20A1D01C58900EFAEF7 /* PocketSVG.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = SVGPathSerializing.framework;
-			remoteRef = C79801111A21CE5D00380860 /* PBXContainerItemProxy */;
+			path = PocketSVG.framework;
+			remoteRef = 8374F2091D01C58900EFAEF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -294,19 +278,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		C79800EE1A21CC1600380860 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SVGPathSerializing;
-			targetProxy = C79800ED1A21CC1600380860 /* PBXContainerItemProxy */;
-		};
-		C798010F1A21CE5D00380860 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SVGPathSerializing (Mac)";
-			targetProxy = C798010E1A21CE5D00380860 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		C76FD9281A21B2B20054C25D /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
@@ -353,6 +324,7 @@
 				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 				SDKROOT = macosx;
 			};
@@ -373,6 +345,7 @@
 				INFOPLIST_FILE = "SVGExample/Info-Mac.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 				SDKROOT = macosx;
 			};
@@ -398,6 +371,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -461,7 +435,6 @@
 		C7FCE45B1A1ECE8E00A0BE0D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
@@ -469,6 +442,7 @@
 				);
 				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 			};
 			name = Debug;
@@ -476,7 +450,6 @@
 		C7FCE45C1A1ECE8E00A0BE0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
@@ -484,6 +457,7 @@
 				);
 				INFOPLIST_FILE = "SVGExample/Info-iOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "is.fjolnir.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SVGExample;
 			};
 			name = Release;
