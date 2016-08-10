@@ -314,7 +314,7 @@ unichar const invalidCommand        = '*';
     while (index < [attr length]) {
         unichar charAtIndex = [attr characterAtIndex:index];
         //Jagie:Skip whitespace
-        if (charAtIndex == 32) {
+        if ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:charAtIndex]) {
             index ++;
             continue;
         }
