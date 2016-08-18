@@ -1,14 +1,10 @@
-#import <TargetConditionals.h>
+#import "SVGPortability.h"
 
-// This setup is just so Interface Builder doesn't get confused.
-#if TARGET_OS_IPHONE
-#   import "SVGImageView_iOS.h"
-#else
-#   import "SVGImageView_Mac.h"
-#endif
-
-@interface SVGImageView ()
+IB_DESIGNABLE
+@interface SVGImageView : PSVGView
 @property(nonatomic, copy) IBInspectable NSString *svgName;
 @property(nonatomic) IBInspectable BOOL scaleLineWidth;
+@property(nonatomic, copy) NSString *svgSource;
+@property(nonatomic, copy) IBInspectable PSVGColor *fillColor, *strokeColor;
 + (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName;
 @end

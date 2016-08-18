@@ -206,7 +206,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
         
         layer.fillColor   = _fillColor
                          ?: (__bridge CGColorRef)path.svgAttributes[@"fill"]
-                         ?: [[SVGUI(Color) blackColor] CGColor];
+                         ?: [[PSVGColor blackColor] CGColor];
         layer.strokeColor = _strokeColor
                          ?: (__bridge CGColorRef)path.svgAttributes[@"stroke"];
         if (_scaleLineWidth && path.svgAttributes[@"stroke-width"]) {

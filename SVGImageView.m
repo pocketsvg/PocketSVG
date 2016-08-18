@@ -49,11 +49,11 @@
     _svgName = aName;
     [self._svgLayer loadSVGNamed:_svgName];
 }
-- (void)setFillColor:(SVGUI(Color) * const)aColor {
+- (void)setFillColor:(PSVGColor * const)aColor {
     _fillColor = aColor;
     self._svgLayer.fillColor = aColor.CGColor;
 }
-- (void)setStrokeColor:(SVGUI(Color) * const)aColor {
+- (void)setStrokeColor:(PSVGColor * const)aColor {
     _strokeColor = aColor;
     self._svgLayer.strokeColor = aColor.CGColor;
 }

@@ -1,7 +1,7 @@
 #import "SVGPortability.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface SVGBezierPath : SVGUI(BezierPath)
+@interface SVGBezierPath : PSVGBezierPath
 @property(nonatomic, readonly) NSDictionary<NSString*, id> *svgAttributes;
 @property(nonatomic, readonly) NSString *SVGRepresentation;
 #if !TARGET_OS_IPHONE
