@@ -1,7 +1,16 @@
+/*
+ * This file is part of the PocketSVG package.
+ * Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 #import "SVGLayer.h"
 #import "SVGPortability.h"
 #import "PocketSVG.h"
 #import "SVGBezierPath.h"
+#import "SVGParser.h"
 
 CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
 

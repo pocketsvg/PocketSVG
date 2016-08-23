@@ -1,4 +1,13 @@
-#import "PocketSVG.h"
+/*
+ * This file is part of the PocketSVG package.
+ * Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+#import "SVGParser.h"
+
 
 @implementation SVGBezierPath
 #if !TARGET_OS_IPHONE

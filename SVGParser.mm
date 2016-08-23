@@ -1,6 +1,21 @@
-#import "PocketSVG.h"
+/*
+ * This file is part of the PocketSVG package.
+ * Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+#import "SVGParser.h"
 #import <libxml/xmlreader.h>
 #import <vector>
+
+
+struct SVGPath {
+    CGPath *path;
+    NSDictionary *attributes;
+};
+
 
 static void __attribute__((__overloadable__)) _xmlFreePtr(char * const *p) { xmlFree(*p); }
 #define xmlAutoFree __attribute__((__cleanup__(_xmlFreePtr)))
@@ -302,6 +317,12 @@ NSString *svgParser::readStringAttribute(NSString * const aName)
 NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
 {
     return svgParser(svgString).parse(outAttributes);
+}
+
+
+
+NSArray *CGPathsFromSVGStr(NSString * const svgString) {
+    return @[@""];
 }
 
 NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
