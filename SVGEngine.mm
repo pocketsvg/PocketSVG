@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-#import "SVGParser.h"
+#import "SVGEngine.h"
 #import <libxml/xmlreader.h>
 #import <vector>
 

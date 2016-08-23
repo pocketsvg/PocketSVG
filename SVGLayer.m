@@ -10,7 +10,7 @@
 #import "SVGPortability.h"
 #import "PocketSVG.h"
 #import "SVGBezierPath.h"
-#import "SVGParser.h"
+#import "SVGEngine.h"
 
 CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
 
