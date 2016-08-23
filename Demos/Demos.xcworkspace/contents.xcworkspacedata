@@ -8,6 +8,6 @@
       location = "group:Demo-macOS/Demo-macOS.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Demo-iOS/../PocketSVG.xcodeproj">
+      location = "group:../PocketSVG.xcodeproj">
    </FileRef>
 </Workspace>

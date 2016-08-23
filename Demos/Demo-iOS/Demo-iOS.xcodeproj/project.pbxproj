@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797391D6CAECB00E9FF84 /* BezierCurve.svg */; };
+		B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973A1D6CAECB00E9FF84 /* iceland.svg */; };
+		B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973B1D6CAECB00E9FF84 /* tiger.svg */; };
 		B09D909A1D6C5E2E00360396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D90991D6C5E2E00360396 /* AppDelegate.swift */; };
 		B09D909C1D6C5E2E00360396 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D909B1D6C5E2E00360396 /* ViewController.swift */; };
 		B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A01D6C5E2E00360396 /* Assets.xcassets */; };
 		B09D90A41D6C5E2E00360396 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A21D6C5E2E00360396 /* LaunchScreen.storyboard */; };
 		B09D90BE1D6C608800360396 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09D90BD1D6C608800360396 /* PocketSVG.framework */; };
-		B0EEE2151D6C626300BCAF68 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE2121D6C626300BCAF68 /* BezierCurve.svg */; };
-		B0EEE2161D6C626300BCAF68 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE2131D6C626300BCAF68 /* iceland.svg */; };
-		B0EEE2171D6C626300BCAF68 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE2141D6C626300BCAF68 /* tiger.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B03797391D6CAECB00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
+		B037973A1D6CAECB00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
+		B037973B1D6CAECB00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 		B09D90961D6C5E2E00360396 /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D90991D6C5E2E00360396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09D909B1D6C5E2E00360396 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,9 +28,6 @@
 		B09D90A31D6C5E2E00360396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B09D90A51D6C5E2E00360396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09D90BD1D6C608800360396 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
-		B0EEE2121D6C626300BCAF68 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
-		B0EEE2131D6C626300BCAF68 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
-		B0EEE2141D6C626300BCAF68 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,12 +42,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B03797381D6CAECB00E9FF84 /* Sample SVG Files */ = {
+			isa = PBXGroup;
+			children = (
+				B03797391D6CAECB00E9FF84 /* BezierCurve.svg */,
+				B037973A1D6CAECB00E9FF84 /* iceland.svg */,
+				B037973B1D6CAECB00E9FF84 /* tiger.svg */,
+			);
+			name = "Sample SVG Files";
+			path = "../Sample SVG Files";
+			sourceTree = "<group>";
+		};
 		B09D908D1D6C5E2E00360396 = {
 			isa = PBXGroup;
 			children = (
 				B09D90981D6C5E2E00360396 /* Demo-iOS */,
-				B0EEE2111D6C626300BCAF68 /* Sample SVG Files */,
 				B09D90BD1D6C608800360396 /* PocketSVG.framework */,
+				B03797381D6CAECB00E9FF84 /* Sample SVG Files */,
 				B09D90971D6C5E2E00360396 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,17 +81,6 @@
 				B09D90A51D6C5E2E00360396 /* Info.plist */,
 			);
 			path = "Demo-iOS";
-			sourceTree = "<group>";
-		};
-		B0EEE2111D6C626300BCAF68 /* Sample SVG Files */ = {
-			isa = PBXGroup;
-			children = (
-				B0EEE2121D6C626300BCAF68 /* BezierCurve.svg */,
-				B0EEE2131D6C626300BCAF68 /* iceland.svg */,
-				B0EEE2141D6C626300BCAF68 /* tiger.svg */,
-			);
-			name = "Sample SVG Files";
-			path = "../Sample SVG Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,9 +141,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0EEE2161D6C626300BCAF68 /* iceland.svg in Resources */,
-				B0EEE2171D6C626300BCAF68 /* tiger.svg in Resources */,
-				B0EEE2151D6C626300BCAF68 /* BezierCurve.svg in Resources */,
+				B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */,
+				B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */,
+				B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */,
 				B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */,
 				B09D90A41D6C5E2E00360396 /* LaunchScreen.storyboard in Resources */,
 			);
