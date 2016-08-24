@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+@class SVGAttributeSet;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -13,7 +15,7 @@ extern "C" {
  *
  *  @return An array of CGPathRef objects or nil if none are found
  */
-NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
+NSArray *CGPathsFromSVGString(NSString *svgString, SVGAttributeSet **attributes);
 
 
 /*!
@@ -24,8 +26,15 @@ NSArray *CGPathsFromSVGString(NSString *svgString, NSMapTable **attributes);
  *
  *  @return SVG representing `paths`
  */
-NSString *SVGStringFromCGPaths(NSArray *paths, NSMapTable *attributes);
+NSString *SVGStringFromCGPaths(NSArray *paths, SVGAttributeSet *attributes);
 
+@interface SVGAttributeSet : NSObject <NSCopying, NSMutableCopying>
+- (NSDictionary<NSString*,id> *)attributesForPath:(CGPathRef)path;
+@end
+@interface SVGMutableAttributeSet : SVGAttributeSet
+- (void)setAttributes:(NSDictionary<NSString*,id> *)attributes forPath:(CGPathRef)path;
+@end
+    
 @interface NSValue (PocketSVG)
 + (instancetype)svg_valueWithCGAffineTransform:(CGAffineTransform)aTransform;
 - (CGAffineTransform)svg_CGAffineTransformValue;

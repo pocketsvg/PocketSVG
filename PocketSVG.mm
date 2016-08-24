@@ -58,6 +58,12 @@ protected:
     uint32_t _data;
 };
 
+@interface SVGAttributeSet () {
+@public
+    NSMapTable *_attributes;
+}
+@end
+
 static NSDictionary *_SVGParseStyle(NSString *body);
 static NSString *_SVGFormatNumber(NSNumber *aNumber);
 
@@ -299,12 +305,17 @@ NSString *svgParser::readStringAttribute(NSString * const aName)
     return value ? @(value) : nil;
 }
 
-NSArray *CGPathsFromSVGString(NSString * const svgString, NSMapTable **outAttributes)
+NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outAttributes)
 {
-    return svgParser(svgString).parse(outAttributes);
+    NSMapTable *attributes;
+    NSArray *paths = svgParser(svgString).parse(outAttributes ? &attributes : NULL);
+    if (outAttributes && (*outAttributes = [SVGAttributeSet new])) {
+        (*outAttributes)->_attributes = attributes;
+    }
+    return paths;
 }
 
-NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attributes)
+NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const attributes)
 {
     CGRect bounds = CGRectZero;
     NSMutableString * const svg = [NSMutableString new];
@@ -312,7 +323,7 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, NSMapTable * const attribu
         bounds = CGRectUnion(bounds, CGPathGetBoundingBox((__bridge CGPathRef)path));
         
         [svg appendString:@"  <path"];
-        NSDictionary *pathAttrs = [attributes objectForKey:path];
+        NSDictionary *pathAttrs = [attributes attributesForPath:(__bridge CGPathRef)path];
         for(NSString *key in pathAttrs) {
             if(![pathAttrs[key] isKindOfClass:[NSString class]]) { // Color
                 [svg appendFormat:@" %@=\"%@\"", key, hexTriplet((__bridge CGColorRef)pathAttrs[key]).string()];
@@ -617,6 +628,36 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
     });
     return [fmt stringFromNumber:aNumber];
 }
+
+@implementation SVGAttributeSet
+- (NSDictionary<NSString*,id> *)attributesForPath:(CGPathRef)path
+{
+    return [_attributes objectForKey:(__bridge id)path];
+}
+- (id)copyWithZone:(NSZone *)zone
+{
+    SVGMutableAttributeSet *copy = [self.class new];
+    if (copy) {
+        copy->_attributes = [_attributes copy];
+    }
+    return copy;
+}
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    SVGMutableAttributeSet *copy = [SVGMutableAttributeSet new];
+    if (copy) {
+        copy->_attributes = [_attributes copy];
+    }
+    return copy;
+}
+@end
+
+@implementation SVGMutableAttributeSet
+- (void)setAttributes:(NSDictionary<NSString*,id> *)attributes forPath:(CGPathRef)path
+{
+    [_attributes setObject:attributes forKey:(__bridge id)path];
+}
+@end
 
 #pragma mark -
 
