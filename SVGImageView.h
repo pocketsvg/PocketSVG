@@ -74,6 +74,11 @@ IB_DESIGNABLE
 @property(nonatomic, copy) IBInspectable PSVGColor *strokeColor;
 
 
+/*!
+ *  @discussion Specifies whether or not line thickness should be scaled 
+ when scaling paths.
+ *
+ */
 @property(nonatomic) IBInspectable BOOL scaleLineWidth;
 
 NS_ASSUME_NONNULL_END
