@@ -1,7 +1,26 @@
 # PocketSVG
-A simple toolkit for reading reading/writing bezier paths to/from SVG. Only the path, polygon, & rectangle elements are supported.
+
+A simple toolkit for using displaying and manipulating SVGs on iOS and OS X.
+
+Convert your SVGs into 
+
+* `UIView`
+* `NSView`
+* `CGPaths`
+* `CAShapeLayers`
+* `UIBezierPaths`
+* `NSBezierCurves`
+
+This makes it easy to create vector-based paths and shapes in your iOS or OS X apps.
+
+Currently, an SVG's' path, polygon, & rectangle elements are supported.
 
 The goal of this project is not to be a fully compatible SVG parser/renderer. But rather to use SVG as a format for serializing CG/UIPaths, meaning it only supports SVG features that can be represented by CG/UIPaths.
+
+Feedback, improvements, and pull requests are welcome.
+
+[![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
+
 
 ![Screenshot](http://d.asgeirsson.is/1ktx0.png)
 
