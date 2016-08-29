@@ -50,7 +50,6 @@ IB_DESIGNABLE
  let svgURL = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
  let svgSource = try! String(contentsOfURL: svgURL)
  svgImageView.svgSource = svgSource
- svgImageView.contentMode = .ScaleAspectFit
  view.addSubview(svgImageView)
  */
 @property(nonatomic, copy) NSString *svgSource;
