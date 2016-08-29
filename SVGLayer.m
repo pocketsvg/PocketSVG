@@ -91,7 +91,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     [self didChangeValueForKey:@"svgSource"];
 }
 
-- (void)loadSVGNamed:(NSString * const)aFileName
+- (void)renderSVGNamed:(NSString * const)aFileName
 {
 #if !TARGET_INTERFACE_BUILDER
     NSBundle * const bundle = [NSBundle mainBundle];
@@ -148,7 +148,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
                 [SVGBezierPath resetCache];
-                [self_ loadSVGNamed:aFileName];
+                [self_ renderSVGNamed:aFileName];
             });
         }
     });

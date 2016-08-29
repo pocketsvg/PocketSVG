@@ -9,16 +9,16 @@
 
 #import "SVGPortability.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-/// A view that parses, renders, and display an SVG file.
+/// A view that renders an SVG file.
 
 IB_DESIGNABLE
+
 @interface SVGImageView : PSVGView
 
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
- *  @discussion Initialises a view that parses, renders and displays the provided SVG.
+ *  @discussion Initialises a view that renders the provided SVG.
  *
  *  @param aSVGName The name of an SVG file in the app bundle.
  *
@@ -32,7 +32,7 @@ IB_DESIGNABLE
 
 
 /*!
- *  @discussion Renders a new SVG given a file name.
+ *  @discussion Renders the provided SVG given its file name.
  *
  *  @param svgName The name of an SVG file in the app bundle.
  *
@@ -42,15 +42,16 @@ IB_DESIGNABLE
 
 
 /*!
- *  @discussion Renders a new SVG given the XML string of the SVG.
+ *  @discussion Renders an SVG provided its complete XML representation.
  *
- *  @param svgSource The XML string of an SVG.
+ *  @param svgSource The entire string of the XML document representing the SVG.
  *
  *  @code let svgImageView = SVGImageView()
  let svgURL = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
  let svgSource = try! String(contentsOfURL: svgURL)
  svgImageView.svgSource = svgSource
  view.addSubview(svgImageView)
+ *
  */
 @property(nonatomic, copy) NSString *svgSource;
 

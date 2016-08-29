@@ -32,7 +32,7 @@
     layer.fillColor   = _fillColor.CGColor;
     layer.strokeColor = _strokeColor.CGColor;
     if(_svgName)
-        [layer loadSVGNamed:_svgName];
+        [layer renderSVGNamed:_svgName];
     else if(_svgSource)
         layer.svgSource = _svgSource;
     return layer;
@@ -55,7 +55,7 @@
 }
 - (void)setSvgName:(NSString * const)aName {
     _svgName = aName;
-    [self._svgLayer loadSVGNamed:_svgName];
+    [self._svgLayer renderSVGNamed:_svgName];
 }
 - (void)setFillColor:(PSVGColor * const)aColor {
     _fillColor = aColor;
