@@ -13,9 +13,10 @@
 
 IB_DESIGNABLE
 
+NS_ASSUME_NONNULL_BEGIN
 @interface SVGImageView : PSVGView
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 /*!
  *  @discussion Initialises a view that renders the provided SVG.
@@ -81,6 +82,5 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic) IBInspectable BOOL scaleLineWidth;
 
-NS_ASSUME_NONNULL_END
-
 @end
+NS_ASSUME_NONNULL_END

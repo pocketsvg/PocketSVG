@@ -8,11 +8,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-/// A CALayer subclass that renders an SVG file.
-
-@interface SVGLayer : CALayer
-
 NS_ASSUME_NONNULL_BEGIN
+
+/// A CALayer subclass that renders an SVG file.
+@interface SVGLayer : CALayer
 
 /*!
  *  @discussion Renders the provided SVG.
@@ -78,6 +77,5 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic) BOOL scaleLineWidth;
 
-NS_ASSUME_NONNULL_END
-
 @end
+NS_ASSUME_NONNULL_END
