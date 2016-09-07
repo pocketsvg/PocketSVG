@@ -16,10 +16,11 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         view.wantsLayer = true
-        
+
+        let url = NSBundle.mainBundle().URLForResource("iceland", withExtension: "svg")!
 
         //initialise a view that parses and renders an SVG file in the bundle:
-        let svgImageView = SVGImageView(SVGNamed: "tiger")
+        let svgImageView = SVGImageView(contentsOfURL: url)
 
 
         //layout the view:

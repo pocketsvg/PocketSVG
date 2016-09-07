@@ -6,55 +6,60 @@
  * file that was distributed with this source code.
  */
 
-
 #import "SVGPortability.h"
-
-/// A view that renders an SVG file.
 
 IB_DESIGNABLE
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// A view that renders an SVG file.
 @interface SVGImageView : PSVGView
 
+
+/*!
+ *  @discussion Initialises a view that renders the provided SVG data.
+ *
+ *  @param svgSource The entire string of the XML document representing the SVG.
+ *
+ *  @code let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
+ let svgSource = try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding) as String
+
+ let layer = SVGLayer(SVGSource: svgSource)
+ // set the layer's frame and add it as a sublayer to display it.
+ *
+ */
+- (instancetype)initWithSVGSource:(NSString *)svgSource NS_DESIGNATED_INITIALIZER;
 
 
 /*!
  *  @discussion Initialises a view that renders the provided SVG.
  *
- *  @param aSVGName The name of an SVG file in the app bundle.
+ *  @param url The URL of the SVG file.
  *
- *  @return An `UIView` or `NSView` displaying the SVG.
- * 
- *  @code let svgImageView = SVGImageView(SVGNamed: "svg_file_name")
- svgImageView.contentMode = .ScaleAspectFit
- view.addSubview(svgImageView)
+ *  @code let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
+ let svgImageView = SVGImageView(contentsOfURL: url)
+ *
  */
-+ (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName;
+
+- (instancetype)initWithContentsOfURL:(NSURL *)url;
 
 
 /*!
- *  @discussion Renders the provided SVG given its file name.
- *
- *  @param svgName The name of an SVG file in the app bundle.
- *
- *  @code svgImageView.svgName = "svg_file_name"
- */
-@property(nonatomic, copy) IBInspectable NSString *svgName;
-
-
-/*!
- *  @discussion Renders an SVG provided its complete XML representation.
+ *  @discussion Clears contents and renders a new SVG given its complete XML representation.
  *
  *  @param svgSource The entire string of the XML document representing the SVG.
  *
- *  @code let svgImageView = SVGImageView()
- let svgURL = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
- let svgSource = try! String(contentsOfURL: svgURL)
- svgImageView.svgSource = svgSource
- view.addSubview(svgImageView)
- *
  */
 @property(nonatomic, copy) NSString *svgSource;
+
+
+/*!
+ *  @discussion Clears contents and renders a new SVG given the URL of the SVG.
+ *
+ *  @param svgURL The XML string of an SVG.
+ *
+ */
+@property (nonatomic, copy) NSURL *svgURL;
 
 
 /*!
