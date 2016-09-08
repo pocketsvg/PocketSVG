@@ -55,7 +55,7 @@ view.addSubview(svgImageView)
 Render each path of an SVG file into its own CALayer:
 
 
-```swift
+```objective-c
 for(SVGBezierPath *path in [SVGBezierPath pathsFromSVGNamed:@"myImage"]) {
     // Create a layer for each path
     CAShapeLayer *layer = [CAShapeLayer layer];
