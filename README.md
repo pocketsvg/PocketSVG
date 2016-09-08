@@ -11,7 +11,7 @@ Convert your SVGs into
 * `CGPaths`
 * `CALayer`
 * `UIBezierPaths`
-* `NSBezierCurves`
+* `NSBezierPaths`
 
 ## Features
 
