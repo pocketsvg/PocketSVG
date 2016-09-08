@@ -8,10 +8,10 @@ Convert your SVGs into
 
 * `UIView`
 * `NSView`
-* `CGPaths`
+* `CGPath`
 * `CALayer`
-* `UIBezierPaths`
-* `NSBezierPaths`
+* `UIBezierPath`
+* `NSBezierPath`
 
 ## Features
 
