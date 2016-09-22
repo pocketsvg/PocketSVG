@@ -150,11 +150,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     self.svgSource = [NSString stringWithContentsOfFile:path
                                        usedEncoding:NULL
                                               error:nil];
-#if !TARGET_INTERFACE_BUILDER
-    [self _cr_setPaths:[SVGBezierPath pathsFromSVGNamed:svgName inBundle:bundle]];
-#else
-    [self _cr_setPaths:[SVGBezierPath pathsFromContentsOfSVGFile:path]];
-#endif
+
+
+    [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:self.svgSource]];
+
     [self didChangeValueForKey:@"svgSource"];
 
 #ifdef DEBUG

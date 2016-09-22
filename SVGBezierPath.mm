@@ -39,39 +39,14 @@
     [self._svg_pathCache removeAllObjects];
 }
 
-+ (NSArray *)pathsFromSVGNamed:(NSString * const)aName
-{
-    return [self pathsFromSVGNamed:aName inBundle:[NSBundle mainBundle]];
-}
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString * const)aName inBundle:(NSBundle * const)aBundle
-{
-    NSArray<SVGBezierPath*> *paths = [self._svg_pathCache objectForKey:aName];
-    if (!paths) {
-        NSString *path = [aBundle pathForResource:aName ofType:@"svg"];
-        paths = [self pathsFromContentsOfSVGFile:path];
-        if (paths) {
-            [self._svg_pathCache setObject:paths forKey:aName];
-        }
-    }
-    return [[NSArray alloc] initWithArray:paths copyItems:YES];
-}
-
 + (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL
 {
     return [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
                                                          usedEncoding:NULL
                                                                 error:NULL]];
 }
-+ (NSArray *)pathsFromContentsOfSVGFile:(NSString * const)aPath
-{
-#ifndef NS_BLOCK_ASSERTIONS
-    BOOL isDir;
-    NSParameterAssert([[NSFileManager defaultManager] fileExistsAtPath:aPath isDirectory:&isDir] && !isDir);
-#endif
-    return [self pathsFromSVGString:[NSString stringWithContentsOfFile:aPath
-                                                          usedEncoding:NULL
-                                                                 error:nil]];
-}
+
+
 
 + (NSArray *)pathsFromSVGString:(NSString * const)svgString
 {

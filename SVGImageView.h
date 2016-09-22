@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
  let svgImageView = SVGImageView(contentsOfURL: url)
  *
  */
-
 - (instancetype)initWithContentsOfURL:(NSURL *)url;
 
 

@@ -9,20 +9,49 @@
 #import "SVGPortability.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// A NSBezierPath or UIBezierPath subclass that represents an SVG path
+/// and its SVG attributes
 @interface SVGBezierPath : PSVGBezierPath
+
+
+/*!
+ *  @discussion A set of paths and their attributes.
+ *
+ */
 @property(nonatomic, readonly) NSDictionary<NSString*, id> *svgAttributes;
+
+
+/*!
+ *  @discussion The string representation of an SVG.
+ *
+ */
 @property(nonatomic, readonly) NSString *SVGRepresentation;
+
+
+
+/*!
+ *  Returns an array of SVGBezierPaths given an SVG's URL.
+ *
+ *  @param aURL The URL from which to load an SVG.
+ *
+ */
++ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL;
+
+
+/*!
+ *  Returns an array of paths given the XML string of an SVG.
+ *
+ */
++ (NSArray *)pathsFromSVGString:(NSString *)svgString;
+
+
 #if !TARGET_OS_IPHONE
 @property(nonatomic, readonly) CGPathRef CGPath;
 #endif
 
-+ (void)resetCache;
 
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString *)aName;
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGNamed:(NSString *)aName inBundle:(NSBundle *)bundle;
-+ (NSArray<SVGBezierPath*> *)pathsFromContentsOfSVGFile:(NSString *)aPath;
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL;
-+ (NSArray *)pathsFromSVGString:(NSString *)svgString;
++ (void)resetCache;
 
 
 #if !TARGET_OS_IPHONE
