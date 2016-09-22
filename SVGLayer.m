@@ -23,8 +23,24 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
 }
 
-- (void)_init
-{
+
+- (instancetype)initWithSVGSource:(NSString *)svgSource {
+
+    if (self = [super init]) {
+        [self commonInit];
+        self.svgSource = svgSource;
+    }
+    return self;
+}
+
+- (instancetype)initWithContentsOfURL:(NSURL *)url {
+
+    NSString *svgSource = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+
+    return [self initWithSVGSource:svgSource];
+}
+
+- (void)commonInit {
     _shapeLayers = [NSMutableArray new];
 #if TARGET_OS_IPHONE
     self.shouldRasterize = YES;
@@ -32,22 +48,20 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
 }
 
+- (instancetype)init {
+    return [self initWithSVGSource: nil];
+}
+
 - (instancetype)initWithCoder:(NSCoder * const)aDecoder
 {
-    if((self = [super initWithCoder:aDecoder]))
-        [self _init];
+    if (self = [super initWithCoder:aDecoder]) {
+        [self commonInit];
+    }
     return self;
 }
 
-- (instancetype)init
-{
-    if((self = [super init]))
-        [self _init];
-    return self;
-}
+- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths {
 
-- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths
-{
     [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [_shapeLayers removeAllObjects];
     _untouchedPaths = [NSMutableArray new];
@@ -91,12 +105,21 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     [self didChangeValueForKey:@"svgSource"];
 }
 
-- (void)renderSVGNamed:(NSString * const)aFileName
-{
+- (void)setSvgURL:(NSURL *)svgURL {
+
+    [self willChangeValueForKey:@"svgSource"];
+
+    self.svgSource = [NSString stringWithContentsOfURL:svgURL encoding:NSUTF8StringEncoding error:nil];
+
+    [self didChangeValueForKey:@"svgSource"];
+}
+
+- (void)setSvgName:(NSString *)svgName {
+
 #if !TARGET_INTERFACE_BUILDER
     NSBundle * const bundle = [NSBundle mainBundle];
-    NSString * const path = [bundle pathForResource:aFileName ofType:@"svg"];
-    NSParameterAssert(!aFileName || path);
+    NSString * const path = [bundle pathForResource:svgName ofType:@"svg"];
+    NSParameterAssert(!svgName || path);
 #else
     NSString *path = nil;
     NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
@@ -124,18 +147,17 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
     
     [self willChangeValueForKey:@"svgSource"];
-    _svgSource = [NSString stringWithContentsOfFile:path
+    self.svgSource = [NSString stringWithContentsOfFile:path
                                        usedEncoding:NULL
                                               error:nil];
 #if !TARGET_INTERFACE_BUILDER
-    [self _cr_setPaths:[SVGBezierPath pathsFromSVGNamed:aFileName inBundle:bundle]];
+    [self _cr_setPaths:[SVGBezierPath pathsFromSVGNamed:svgName inBundle:bundle]];
 #else
     [self _cr_setPaths:[SVGBezierPath pathsFromContentsOfSVGFile:path]];
 #endif
     [self didChangeValueForKey:@"svgSource"];
 
 #ifdef DEBUG
-    __weak SVGLayer *self_ = self;
     int const fdes = open([path fileSystemRepresentation], O_RDONLY);
     _fileWatcher = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fdes,
                                           DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE,
@@ -143,12 +165,12 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     dispatch_source_set_event_handler(_fileWatcher, ^{
         unsigned long const l = dispatch_source_get_data(_fileWatcher);
         if(l & DISPATCH_VNODE_DELETE || l & DISPATCH_VNODE_WRITE) {
-            NSLog(@"Reloading %@", aFileName);
+            NSLog(@"Reloading %@", svgName);
             dispatch_source_cancel(_fileWatcher);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
                 [SVGBezierPath resetCache];
-                [self_ renderSVGNamed:aFileName];
+                _svgName = svgName;
             });
         }
     });

@@ -13,43 +13,60 @@ NS_ASSUME_NONNULL_BEGIN
 /// A CALayer subclass that renders an SVG file.
 @interface SVGLayer : CALayer
 
-/*!
- *  @discussion Renders the provided SVG.
- *
- *  @param aSVGName The name of an SVG file in the app bundle.
- *
- *  @code // iOS:
- let myLayer = SVGLayer()
- myLayer.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
- myLayer.renderSVGNamed("tiger")
- view.layer.addSublayer(myLayer)
 
- // macOS:
- let myLayer = SVGLayer()
- myLayer.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
- myLayer.geometryFlipped = true
- myLayer.renderSVGNamed("tiger")
- view.layer?.addSublayer(myLayer)
+/*!
+ *  @discussion Initialises a layer that renders the provided SVG data.
+ *
+ *  @param svgSource The entire string of the XML document representing the SVG.
+ *
+ *  @code let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
+ let svgSource = try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding) as String
+
+ let layer = SVGLayer(SVGSource: svgSource)
+ // set the layer's frame and add it as a sublayer to display it.
  *
  */
-- (void)renderSVGNamed:(NSString *)aName;
+- (instancetype)initWithSVGSource:(NSString *)svgSource NS_DESIGNATED_INITIALIZER;
 
 
 /*!
- *  @discussion Renders a new SVG given the XML string of the SVG.
+ *  @discussion Initialises a layer that renders the SVG file at the URL.
+ *
+ *  @param url The URL of the SVG file.
+ *
+ *  @code let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
+ let layer = SVGLayer(contentsOfURL: url)
+ // set the layer's frame and add it as a sublayer to display it.
+ *
+ */
+- (instancetype)initWithContentsOfURL:(NSURL *)url;
+
+
+/*!
+ *  @discussion Clears contents and renders a new SVG given the XML string of the SVG.
  *
  *  @param svgSource The XML string of an SVG.
  *
- *  @code let svgURL = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
- let svgSource = try! String(contentsOfURL: svgURL)
-
- let myLayer = SVGLayer()
- myLayer.svgSource = svgSource
-
- // add the sublayer to display it.
- *
  */
 @property(nonatomic, copy) NSString *svgSource;
+
+
+/*!
+ *  @discussion Clears contents and renders a new SVG given the file name of the SVG.
+ *
+ *  @param svgName The name of the SVG file (without the .svg suffix).
+ *
+ */
+@property (nonatomic, copy) NSString *svgName;
+
+
+/*!
+ *  @discussion Renders a new SVG given the URL of an SVG file.
+ *
+ *  @param svgURL The XML string of an SVG.
+ *
+ */
+@property (nonatomic, copy) NSURL *svgURL;
 
 
 /*!

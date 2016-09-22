@@ -12,13 +12,21 @@
 
 @implementation SVGImageView
 
-+ (instancetype)imageViewWithSVGNamed:(NSString *)aSVGName
-{
-    SVGImageView * const view = [self new];
-    view.svgName = aSVGName;
-    [view sizeToFit];
-    return view;
+- (instancetype)initWithSVGSource:(NSString *)svgSource {
+    if (self = [super init]) {
+        self.svgSource = svgSource;
+    }
+    return self;
 }
+
+
+- (instancetype)initWithContentsOfURL:(NSURL *)url {
+
+    NSString *svgSource = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+
+    return [self initWithSVGSource:svgSource];
+}
+
 
 #if TARGET_OS_IPHONE
 + (Class)layerClass
@@ -31,10 +39,9 @@
     SVGLayer * const layer = [SVGLayer new];
     layer.fillColor   = _fillColor.CGColor;
     layer.strokeColor = _strokeColor.CGColor;
-    if(_svgName)
-        [layer renderSVGNamed:_svgName];
-    else if(_svgSource)
+    if (_svgSource) {
         layer.svgSource = _svgSource;
+    }
     return layer;
 }
 - (BOOL)isFlipped
@@ -52,10 +59,6 @@
 - (void)setSvgSource:(NSString * const)aSVG {
     _svgSource = aSVG;
     self._svgLayer.svgSource = aSVG;
-}
-- (void)setSvgName:(NSString * const)aName {
-    _svgName = aName;
-    [self._svgLayer renderSVGNamed:_svgName];
 }
 - (void)setFillColor:(PSVGColor * const)aColor {
     _fillColor = aColor;

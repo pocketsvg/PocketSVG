@@ -17,9 +17,9 @@ class ViewController: UIViewController {
 
         view.backgroundColor = .whiteColor()
 
+        let url = NSBundle.mainBundle().URLForResource("tiger", withExtension: "svg")!
 
-        //initialise a view that parses and renders an SVG file in the bundle:
-        let svgImageView = SVGImageView(SVGNamed: "tiger")
+        let svgImageView = SVGImageView(contentsOfURL: url)
 
 
         //scale the resulting image to fit the frame of the view, but
