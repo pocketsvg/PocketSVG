@@ -15,25 +15,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .whiteColor()
+        view.backgroundColor = .white
 
-        let url = NSBundle.mainBundle().URLForResource("tiger", withExtension: "svg")!
+        let url = Bundle.main.url(forResource: "tiger", withExtension: "svg")!
 
-        let svgImageView = SVGImageView(contentsOfURL: url)
+        //initialise a view that parses and renders an SVG file in the bundle:
+        let svgImageView = SVGImageView.init(contentsOf: url)
 
 
         //scale the resulting image to fit the frame of the view, but
         //maintain its aspect ratio:
-        svgImageView.contentMode = .ScaleAspectFit
+        svgImageView.contentMode = .scaleAspectFit
 
 
         //layout the view:
         svgImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(svgImageView)
 
-        svgImageView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        svgImageView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        svgImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-
+        svgImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        svgImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        svgImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
     }
 }

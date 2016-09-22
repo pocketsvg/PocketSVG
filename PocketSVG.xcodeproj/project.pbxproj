@@ -184,9 +184,11 @@
 				TargetAttributes = {
 					C79800BA1A21CB5300380860 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0800;
 					};
 					C79800F41A21CDFD00380860 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -365,6 +367,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
 				PRODUCT_NAME = PocketSVG;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -385,6 +388,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pocketsvg.pocketsvg;
 				PRODUCT_NAME = PocketSVG;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -409,6 +413,7 @@
 				PRODUCT_NAME = PocketSVG;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -430,6 +435,7 @@
 				PRODUCT_NAME = PocketSVG;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

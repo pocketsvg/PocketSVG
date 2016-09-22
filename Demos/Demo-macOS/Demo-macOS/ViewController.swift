@@ -17,19 +17,19 @@ class ViewController: NSViewController {
 
         view.wantsLayer = true
 
-        let url = NSBundle.mainBundle().URLForResource("iceland", withExtension: "svg")!
+        let url = Bundle.main.url(forResource: "iceland", withExtension: "svg")!
 
         //initialise a view that parses and renders an SVG file in the bundle:
-        let svgImageView = SVGImageView(contentsOfURL: url)
+        let svgImageView = SVGImageView.init(contentsOf: url)
 
 
         //layout the view:
         svgImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(svgImageView)
 
-        svgImageView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-        svgImageView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-        svgImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-        svgImageView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        svgImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        svgImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        svgImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        svgImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
