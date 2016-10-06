@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name         = "PocketSVG"
-  s.version      = "2.0"
+  s.version      = "2.0.0"
   s.summary      = "Easily convert your SVG files into CGPaths, CAShapeLayers, and UIBezierPaths"
   s.homepage     = "https://github.com/pocketsvg/PocketSVG"
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
   s.license = {
     :type => 'MIT',
