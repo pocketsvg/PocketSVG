@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
 
-A simple toolkit for displaying and manipulating SVGs on iOS and macOS.
+A simple toolkit for displaying and manipulating SVGs on iOS and macOS. 
 
 Convert your SVGs into 
 
@@ -13,13 +13,14 @@ Convert your SVGs into
 * `UIBezierPath`
 * `NSBezierPath`
 
+Thoroughly documented. 
+
 ## Features
 
 * Turn your SVG into an UIView/NSView 
 * Turn your SVG into a CALayer
 * Display all kinds of SVGs shapes and paths.
 * Fully working iOS and macOS demos.
-* Thoroughly documented. 
 * Straightforward API for typical SVG rendering (`SVGLayer` and `SVGImageView`) 
 * Supports more fine-grained SVG manipulation (`SVGBezierPath` and `SVGEngine`)
 
