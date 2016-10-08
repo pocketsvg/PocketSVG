@@ -69,6 +69,9 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     for(__strong SVGBezierPath *path in paths) {
+        if ([path.svgAttributes[@"display"] isEqualToString:@"none"]) {
+            continue;
+        }        
         CAShapeLayer * const layer = [CAShapeLayer new];
 
         if(path.svgAttributes[@"transform"]) {
