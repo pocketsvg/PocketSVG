@@ -32,6 +32,7 @@ protected:
     CF_RETURNS_RETAINED CGPathRef readPathTag();
     CF_RETURNS_RETAINED CGPathRef readPolygonTag();
     CF_RETURNS_RETAINED CGPathRef readRectTag();
+    CF_RETURNS_RETAINED CGPathRef readCircleTag();
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
@@ -106,13 +107,14 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             path = readPolygonTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0)
             path = readRectTag();
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "circle") == 0)
+            path = readCircleTag();
         else if(strcasecmp(tag, "g") == 0) {
             if(type == XML_READER_TYPE_ELEMENT)
                 pushGroup(readAttributes());
             else if(type == XML_READER_TYPE_END_ELEMENT)
                 popGroup();
         }
-
         if(path) {
             [paths addObject:CFBridgingRelease(path)];
             
@@ -214,6 +216,20 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
         return NULL;
     } else
         return path;
+}
+
+CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "circle") == 0,
+              @"Not on a <circle>");
+    CGPoint const center = {
+        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+    };
+    float radius = readFloatAttribute(@"r");
+    CGMutablePathRef circle = CGPathCreateMutable();
+    CGPathAddArc(circle, NULL, center.x, center.y, radius, 0.0, (360 * M_PI), NO);
+    
+    return circle;
 }
 
 NSDictionary *svgParser::readAttributes()
