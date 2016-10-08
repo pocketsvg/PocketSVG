@@ -30,6 +30,8 @@ protected:
     CF_RETURNS_RETAINED CGPathRef readPathTag();
     CF_RETURNS_RETAINED CGPathRef readPolygonTag();
     CF_RETURNS_RETAINED CGPathRef readRectTag();
+    CF_RETURNS_RETAINED CGPathRef readCircleTag();
+    CF_RETURNS_RETAINED CGPathRef readEllipseTag();
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
@@ -72,7 +74,7 @@ protected:
 }
 @end
 
-static NSDictionary *_SVGParseStyle(NSString *body);
+static NSMutableDictionary *_SVGParseStyle(NSString *body);
 static NSString *_SVGFormatNumber(NSNumber *aNumber);
 
 #pragma mark -
@@ -104,13 +106,16 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             path = readPolygonTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0)
             path = readRectTag();
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "circle") == 0)
+            path = readCircleTag();
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "ellipse") == 0)
+            path = readEllipseTag();
         else if(strcasecmp(tag, "g") == 0) {
             if(type == XML_READER_TYPE_ELEMENT)
                 pushGroup(readAttributes());
             else if(type == XML_READER_TYPE_END_ELEMENT)
                 popGroup();
         }
-
         if(path) {
             [paths addObject:CFBridgingRelease(path)];
             
@@ -214,6 +219,34 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
         return path;
 }
 
+CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "circle") == 0,
+              @"Not on a <circle>");
+    CGPoint const center = {
+        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+    };
+    float radius = readFloatAttribute(@"r");
+    CGMutablePathRef circle = CGPathCreateMutable();
+    CGPathAddArc(circle, NULL, center.x, center.y, radius, 0.0, (360 * M_PI), NO);
+    
+    return circle;
+}
+
+CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "ellipse") == 0,
+              @"Not on a <ellipse>");
+    CGPoint const center = {
+        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+    };
+    float rx = readFloatAttribute(@"rx");
+    float ry = readFloatAttribute(@"ry");
+    CGMutablePathRef ellipse = CGPathCreateMutable();
+    CGPathAddEllipseInRect(ellipse, NULL, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
+    return ellipse;
+}
+
 NSDictionary *svgParser::readAttributes()
 {
     NSMutableDictionary * const attrs = [_attributeStack.lastObject mutableCopy]
@@ -226,9 +259,14 @@ NSDictionary *svgParser::readAttributes()
         const char * const attrName  = (char *)xmlTextReaderConstName(_xmlReader),
                    * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
 
-        if(strcasecmp("style", attrName) == 0)
-            [attrs addEntriesFromDictionary:_SVGParseStyle(@(attrValue))];
-        else if(strcasecmp("transform", attrName) == 0) {
+        if(strcasecmp("style", attrName) == 0){
+            NSMutableDictionary *style = _SVGParseStyle(@(attrValue));
+            //Don't allow overriding of display:none
+            if ([attrs[@"display"] isEqualToString:@"none"] && style[@"display"] != nil) {
+                [style removeObjectForKey:@"display"];
+            }
+            [attrs addEntriesFromDictionary:style];
+        }else if(strcasecmp("transform", attrName) == 0) {
             // TODO: report syntax errors
             NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
             NSMutableCharacterSet *skippedChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
@@ -604,7 +642,7 @@ NSString *hexTriplet::string()
             (_data & 0x0000FF)];
 }
 
-static NSDictionary *_SVGParseStyle(NSString * const body)
+static NSMutableDictionary *_SVGParseStyle(NSString * const body)
 {
     NSScanner * const scanner = [NSScanner scannerWithString:body];
     NSMutableCharacterSet * const separators = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
@@ -628,6 +666,7 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
     static NSNumberFormatter *fmt;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        fmt = [[NSNumberFormatter alloc]init];
         fmt.numberStyle           = NSNumberFormatterDecimalStyle;
         fmt.maximumFractionDigits = 3;
         fmt.decimalSeparator      = @".";
