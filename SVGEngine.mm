@@ -76,7 +76,7 @@ protected:
 }
 @end
 
-static NSDictionary *_SVGParseStyle(NSString *body);
+static NSMutableDictionary *_SVGParseStyle(NSString *body);
 static NSString *_SVGFormatNumber(NSNumber *aNumber);
 
 #pragma mark -
@@ -261,9 +261,14 @@ NSDictionary *svgParser::readAttributes()
         const char * const attrName  = (char *)xmlTextReaderConstName(_xmlReader),
                    * const attrValue = (char *)xmlTextReaderConstValue(_xmlReader);
 
-        if(strcasecmp("style", attrName) == 0)
-            [attrs addEntriesFromDictionary:_SVGParseStyle(@(attrValue))];
-        else if(strcasecmp("transform", attrName) == 0) {
+        if(strcasecmp("style", attrName) == 0){
+            NSMutableDictionary *style = _SVGParseStyle(@(attrValue));
+            //Don't allow overriding of display:none
+            if ([attrs[@"display"] isEqualToString:@"none"] && style[@"display"] != nil) {
+                [style removeObjectForKey:@"display"];
+            }
+            [attrs addEntriesFromDictionary:style];
+        }else if(strcasecmp("transform", attrName) == 0) {
             // TODO: report syntax errors
             NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
             NSMutableCharacterSet *skippedChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
@@ -647,7 +652,7 @@ NSString *hexTriplet::string()
             (_data & 0x0000FF)];
 }
 
-static NSDictionary *_SVGParseStyle(NSString * const body)
+static NSMutableDictionary *_SVGParseStyle(NSString * const body)
 {
     NSScanner * const scanner = [NSScanner scannerWithString:body];
     NSMutableCharacterSet * const separators = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
