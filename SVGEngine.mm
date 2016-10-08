@@ -33,6 +33,7 @@ protected:
     CF_RETURNS_RETAINED CGPathRef readPolygonTag();
     CF_RETURNS_RETAINED CGPathRef readRectTag();
     CF_RETURNS_RETAINED CGPathRef readCircleTag();
+    CF_RETURNS_RETAINED CGPathRef readEllipseTag();
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
@@ -109,6 +110,8 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             path = readRectTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "circle") == 0)
             path = readCircleTag();
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "ellipse") == 0)
+            path = readEllipseTag();
         else if(strcasecmp(tag, "g") == 0) {
             if(type == XML_READER_TYPE_ELEMENT)
                 pushGroup(readAttributes());
@@ -230,6 +233,20 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
     CGPathAddArc(circle, NULL, center.x, center.y, radius, 0.0, (360 * M_PI), NO);
     
     return circle;
+}
+
+CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "ellipse") == 0,
+              @"Not on a <ellipse>");
+    CGPoint const center = {
+        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+    };
+    float rx = readFloatAttribute(@"rx");
+    float ry = readFloatAttribute(@"ry");
+    CGMutablePathRef ellipse = CGPathCreateMutable();
+    CGPathAddEllipseInRect(ellipse, NULL, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
+    return ellipse;
 }
 
 NSDictionary *svgParser::readAttributes()
