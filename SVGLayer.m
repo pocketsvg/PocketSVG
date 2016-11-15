@@ -243,6 +243,9 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
             layer.lineWidth = [path.svgAttributes[@"stroke-width"] floatValue] * lineScale;
         }
+        if (path.svgAttributes[@"fill-rule"]) {
+            layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
+        }
         
         CGRect const pathBounds = path.bounds;
         layer.frame = CGRectApplyAffineTransform(pathBounds, layerTransform);
