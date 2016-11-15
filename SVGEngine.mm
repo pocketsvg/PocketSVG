@@ -252,11 +252,17 @@ NSDictionary *svgParser::readAttributes()
                                                                 transformOperands[2], transformOperands[3],
                                                                 transformOperands[4], transformOperands[5]);
                 else if([transformCmd isEqualToString:@"rotate"]) {
-                    // TODO: rotate about point
                     float const radians = transformOperands[0] * M_PI / 180.0;
                     additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
                                                                 -sinf(radians), cosf(radians),
                                                                 0, 0);
+                    if (transformOperands.size() == 3) {
+                        float const x = transformOperands[1];
+                        float const y = transformOperands[2];
+                        additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
+                                                                    -sinf(radians), cosf(radians),
+                                                                    x-x*cosf(radians)+y*sinf(radians), y-x*sinf(radians)-y*cosf(radians));
+                    }
                 } else if([transformCmd isEqualToString:@"translate"])
                     additionalTransform = CGAffineTransformMakeTranslation(transformOperands[0], transformOperands[1]);
                 else if([transformCmd isEqualToString:@"scale"])
