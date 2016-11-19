@@ -60,6 +60,11 @@
     _svgSource = aSVG;
     self._svgLayer.svgSource = aSVG;
 }
+- (void)setSvgURL:(NSURL *)svgURL {
+    NSString *aSVG = [NSString stringWithContentsOfURL:svgURL encoding:NSUTF8StringEncoding error:nil];
+    _svgSource = aSVG;
+    self._svgLayer.svgSource = aSVG;
+}
 - (void)setFillColor:(PSVGColor * const)aColor {
     _fillColor = aColor;
     self._svgLayer.fillColor = aColor.CGColor;
