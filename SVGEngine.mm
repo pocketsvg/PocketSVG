@@ -226,12 +226,11 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "circle") == 0,
               @"Not on a <circle>");
     CGPoint const center = {
-        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+        readFloatAttribute(@"cx"), readFloatAttribute(@"cy")
     };
-    float radius = readFloatAttribute(@"r");
+    float r = readFloatAttribute(@"r");
     CGMutablePathRef circle = CGPathCreateMutable();
-    CGPathAddArc(circle, NULL, center.x, center.y, radius, 0.0, (360 * M_PI), NO);
-    
+    CGPathAddEllipseInRect(circle, NULL, CGRectMake(center.x - r, center.y - r, r * 2.0, r * 2.0));
     return circle;
 }
 
@@ -240,7 +239,7 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "ellipse") == 0,
               @"Not on a <ellipse>");
     CGPoint const center = {
-        readFloatAttribute(@"cx"),     readFloatAttribute(@"cy")
+        readFloatAttribute(@"cx"), readFloatAttribute(@"cy")
     };
     float rx = readFloatAttribute(@"rx");
     float ry = readFloatAttribute(@"ry");
