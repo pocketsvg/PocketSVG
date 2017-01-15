@@ -11,9 +11,25 @@
 #import "SVGPortability.h"
 
 @implementation SVGImageView
+#if TARGET_OS_OSX
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame])) {
+        self.wantsLayer = YES;
+    }
+    return self;
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder])) {
+        self.wantsLayer = YES;
+    }
+    return self;
+}
+#endif
 
 - (instancetype)initWithSVGSource:(NSString *)svgSource {
-    if (self = [super init]) {
+    if (self = [self init]) {
         self.svgSource = svgSource;
     }
     return self;
