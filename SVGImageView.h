@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  // set the layer's frame and add it as a sublayer to display it.
  *
  */
-- (instancetype)initWithSVGSource:(NSString *)svgSource NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSVGSource:(NSString *)svgSource;
 
 
 /*!
