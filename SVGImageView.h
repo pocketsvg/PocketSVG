@@ -8,11 +8,11 @@
 
 #import "SVGPortability.h"
 
-IB_DESIGNABLE
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// A view that renders an SVG file.
+IB_DESIGNABLE
 @interface SVGImageView : PSVGView
 
 
