@@ -49,7 +49,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 }
 
 - (instancetype)init {
-    return [self initWithSVGSource: nil];
+    return [self initWithSVGSource:(_Nonnull id)nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder * const)aDecoder
