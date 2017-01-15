@@ -7,27 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DC60E451E2BA10D0044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */; };
 		B03797431D6CAEDD00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797401D6CAEDD00E9FF84 /* BezierCurve.svg */; };
 		B03797441D6CAEDD00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797411D6CAEDD00E9FF84 /* iceland.svg */; };
 		B03797451D6CAEDD00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797421D6CAEDD00E9FF84 /* tiger.svg */; };
-		B0EEE22A1D6CA72100BCAF68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EEE2291D6CA72100BCAF68 /* AppDelegate.swift */; };
-		B0EEE22C1D6CA72100BCAF68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EEE22B1D6CA72100BCAF68 /* ViewController.swift */; };
+		B0EEE22A1D6CA72100BCAF68 /* MacDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EEE2291D6CA72100BCAF68 /* MacDemo.swift */; };
 		B0EEE22E1D6CA72100BCAF68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */; };
 		B0EEE2311D6CA72100BCAF68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE22F1D6CA72100BCAF68 /* Main.storyboard */; };
-		B0EEE2391D6CA7D300BCAF68 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0EEE2381D6CA7D300BCAF68 /* PocketSVG.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/Demos-fpvqarxjpwngakagvcwozxoheexz/Build/Products/Debug/PocketSVG.framework"; sourceTree = "<group>"; };
 		B03797401D6CAEDD00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
 		B03797411D6CAEDD00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
 		B03797421D6CAEDD00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 		B0EEE2261D6CA72100BCAF68 /* Demo-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0EEE2291D6CA72100BCAF68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B0EEE22B1D6CA72100BCAF68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0EEE2291D6CA72100BCAF68 /* MacDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacDemo.swift; sourceTree = "<group>"; };
 		B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0EEE2301D6CA72100BCAF68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0EEE2321D6CA72100BCAF68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0EEE2381D6CA7D300BCAF68 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = ../build/Debug/PocketSVG.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,13 +33,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0EEE2391D6CA7D300BCAF68 /* PocketSVG.framework in Frameworks */,
+				1DC60E451E2BA10D0044BFD3 /* PocketSVG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DC60E421E2BA1010044BFD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B037973F1D6CAEDC00E9FF84 /* Sample SVG Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,9 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				B0EEE2281D6CA72100BCAF68 /* Demo-macOS */,
-				B0EEE2381D6CA7D300BCAF68 /* PocketSVG.framework */,
 				B037973F1D6CAEDC00E9FF84 /* Sample SVG Files */,
 				B0EEE2271D6CA72100BCAF68 /* Products */,
+				1DC60E421E2BA1010044BFD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,10 +80,9 @@
 		B0EEE2281D6CA72100BCAF68 /* Demo-macOS */ = {
 			isa = PBXGroup;
 			children = (
-				B0EEE2291D6CA72100BCAF68 /* AppDelegate.swift */,
-				B0EEE22B1D6CA72100BCAF68 /* ViewController.swift */,
-				B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */,
+				B0EEE2291D6CA72100BCAF68 /* MacDemo.swift */,
 				B0EEE22F1D6CA72100BCAF68 /* Main.storyboard */,
+				B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */,
 				B0EEE2321D6CA72100BCAF68 /* Info.plist */,
 			);
 			path = "Demo-macOS";
@@ -157,8 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0EEE22C1D6CA72100BCAF68 /* ViewController.swift in Sources */,
-				B0EEE22A1D6CA72100BCAF68 /* AppDelegate.swift in Sources */,
+				B0EEE22A1D6CA72100BCAF68 /* MacDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

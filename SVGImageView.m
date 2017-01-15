@@ -18,14 +18,14 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
-        _svgLayer = self.layer;
+        _svgLayer = (SVGLayer *)self.layer;
     }
     return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder])) {
-        _svgLayer = self.layer;
+        _svgLayer = (SVGLayer *)self.layer;
     }
     return self;
 }

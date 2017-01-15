@@ -129,7 +129,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
                                 [svgName stringByAppendingPathExtension:@"svg"]];
     NSString * const sourceDirs = [[NSProcessInfo processInfo] environment][@"IB_PROJECT_SOURCE_DIRECTORIES"];
     for(__strong NSString *dir in [sourceDirs componentsSeparatedByString:@":"]) {
-        // Go up the hiearchy until we don't find an xcodeproj
+        // Go up the hierarchy until we don't find an xcodeproj
         NSString *projectDir = dir;
         NSPredicate *xcodePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH[c] %@", @".xcodeproj"];
         do {
