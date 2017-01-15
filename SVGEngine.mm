@@ -6,9 +6,11 @@
  * file that was distributed with this source code.
  */
 
-#import "SVGEngine.h"
 #import <libxml/xmlreader.h>
 #import <vector>
+
+#import "SVGEngine.h"
+#import "SVGBezierPath.h"
 
 static void __attribute__((__overloadable__)) _xmlFreePtr(char * const *p) { xmlFree(*p); }
 #define xmlAutoFree __attribute__((__cleanup__(_xmlFreePtr)))

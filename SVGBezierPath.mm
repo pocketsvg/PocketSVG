@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 
+#import "SVGBezierPath.h"
 #import "SVGEngine.h"
 
 
