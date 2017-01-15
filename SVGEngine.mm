@@ -262,12 +262,12 @@ NSDictionary *svgParser::readAttributes()
 
         if(strcasecmp("style", attrName) == 0){
             NSMutableDictionary *style = _SVGParseStyle(@(attrValue));
-            //Don't allow overriding of display:none
-            if ([attrs[@"display"] isEqualToString:@"none"] && style[@"display"] != nil) {
+            // Don't allow overriding of display:none
+            if (style[@"display"] && [style[@"display"] caseInsensitiveCompare:@"none"] == NSOrderedSame) {
                 [style removeObjectForKey:@"display"];
             }
             [attrs addEntriesFromDictionary:style];
-        }else if(strcasecmp("transform", attrName) == 0) {
+        } else if(strcasecmp("transform", attrName) == 0) {
             // TODO: report syntax errors
             NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
             NSMutableCharacterSet *skippedChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
@@ -345,7 +345,7 @@ NSDictionary *svgParser::readAttributes()
                                                                             [attrs[@"stroke-opacity"] floatValue]);
         [attrs removeObjectForKey:@"stroke-opacity"];
     }
-    return [attrs count] > 0 ? attrs : nil;
+    return attrs.count > 0 ? attrs : nil;
 }
 
 float svgParser::readFloatAttribute(NSString * const aName)
