@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E3C1E2B91D30044BFD3 /* Circle.svg */; };
 		B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797391D6CAECB00E9FF84 /* BezierCurve.svg */; };
 		B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973A1D6CAECB00E9FF84 /* iceland.svg */; };
 		B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973B1D6CAECB00E9FF84 /* tiger.svg */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DC60E3C1E2B91D30044BFD3 /* Circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Circle.svg; sourceTree = "<group>"; };
 		B03797391D6CAECB00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
 		B037973A1D6CAECB00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
 		B037973B1D6CAECB00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 				B03797391D6CAECB00E9FF84 /* BezierCurve.svg */,
 				B037973A1D6CAECB00E9FF84 /* iceland.svg */,
 				B037973B1D6CAECB00E9FF84 /* tiger.svg */,
+				1DC60E3C1E2B91D30044BFD3 /* Circle.svg */,
 			);
 			name = "Sample SVG Files";
 			path = "../Sample SVG Files";
@@ -142,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */,
 				B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */,
 				B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */,
 				B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */,
