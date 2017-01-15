@@ -44,6 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*!
+ *  @discussion Clears contents and renders a new SVG given the filename in the main bundle.
+ *
+ *  @param svgName The filename of an SVG in the main bundle.
+ *
+ */
+@property(nonatomic, copy) IBInspectable NSString *svgName;
+
+/*!
  *  @discussion Clears contents and renders a new SVG given its complete XML representation.
  *
  *  @param svgSource The entire string of the XML document representing the SVG.

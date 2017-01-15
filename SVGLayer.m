@@ -60,8 +60,8 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     return self;
 }
 
-- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths {
-
+- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths
+{
     [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [_shapeLayers removeAllObjects];
     _untouchedPaths = [NSMutableArray new];
