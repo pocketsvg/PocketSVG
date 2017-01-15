@@ -1,6 +1,6 @@
 # PocketSVG
 
-[![Build Status](https://travis-ci.org/arielelkin/PocketSVG.svg?branch=master)](https://travis-ci.org/arielelkin/PocketSVG)
+[![Build Status](https://travis-ci.org/pocketsvg/PocketSVG.svg?branch=master)](https://travis-ci.org/pocketsvg/PocketSVG)
 
 A simple toolkit for displaying and manipulating SVGs on iOS and macOS. 
 
