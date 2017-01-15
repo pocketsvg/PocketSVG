@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/arielelkin/PocketSVG.git", :tag => s.version }
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
-  s.library   = 'xml2'
+  s.library   = 'xml2', 'stdc++'
   s.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
   s.source_files = 'PocketSVG.{h,mm}', 'SVGBezierPath.{h,mm}', 'SVGEngine.{h,mm}', 'SVGImageView.{h,m}', 'SVGLayer.{h,m}', 'SVGPortability.h' 
  s.ios.source_files = 'SVGImageView_iOS.h'
