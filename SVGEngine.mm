@@ -492,7 +492,7 @@ CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
             case 'T': case 't':
                 appendShorthandQuadraticCurve();
                 break;
-            case 'a': case 'A':
+            case 'A': case 'a':
                 NSLog(@"*** Error: Elliptical arcs not supported"); // TODO
                 break;
             case 'Z': case 'z':
