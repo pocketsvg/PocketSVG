@@ -15,7 +15,7 @@
 static void __attribute__((__overloadable__)) _xmlFreePtr(char * const *p) { xmlFree(*p); }
 #define xmlAutoFree __attribute__((__cleanup__(_xmlFreePtr)))
 
-NSString * const kValidSVGCommands = @"CcMmLlHhVvZzqQaAsS";
+NSString * const kValidSVGCommands = @"CcMmLlHhVvZzQqTtAaSs";
 
 struct svgParser {
     svgParser(NSString *);
@@ -54,8 +54,10 @@ protected:
 
     void appendMoveTo();
     void appendLineTo();
-    void appendCurve();
-    void appendShorthandCurve();
+    void appendCubicCurve();
+    void appendShorthandCubicCurve();
+    void appendQuadraticCurve();
+    void appendShorthandQuadraticCurve();
 };
 
 struct hexTriplet {
@@ -479,10 +481,16 @@ CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
                 appendLineTo();
                 break;
             case 'C': case 'c':
-                appendCurve();
+                appendCubicCurve();
                 break;
             case 'S': case 's':
-                appendShorthandCurve();
+                appendShorthandCubicCurve();
+                break;
+            case 'Q': case 'q':
+                appendQuadraticCurve();
+                break;
+            case 'T': case 't':
+                appendShorthandQuadraticCurve();
                 break;
             case 'a': case 'A':
                 NSLog(@"*** Error: Elliptical arcs not supported"); // TODO
@@ -559,7 +567,8 @@ void pathDefinitionParser::appendLineTo()
     }
 }
 
-void pathDefinitionParser::appendCurve()
+
+void pathDefinitionParser::appendCubicCurve()
 {
     if(_operands.size()%6 != 0) {
         NSLog(@"*** Error: Invalid number of parameters for C command");
@@ -581,7 +590,7 @@ void pathDefinitionParser::appendCurve()
     }
 }
 
-void pathDefinitionParser::appendShorthandCurve()
+void pathDefinitionParser::appendShorthandCubicCurve()
 {
     if(_operands.size()%4 != 0) {
         NSLog(@"*** Error: Invalid number of parameters for S command");
@@ -604,6 +613,50 @@ void pathDefinitionParser::appendShorthandCurve()
         _lastControlPoint = CGPointMake(x2, y2);
     }
 }
+
+
+void pathDefinitionParser::appendQuadraticCurve()
+{
+    if(_operands.size()%4 != 0) {
+        NSLog(@"*** Error: Invalid number of parameters for Q command");
+        return;
+    }
+    
+    // (x1, y1, x, y)
+    for(NSUInteger i = 0; i < _operands.size(); i += 4) {
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat const x1 = _operands[i+0] + (_cmd == 'q' ? currentPoint.x : 0);
+        CGFloat const y1 = _operands[i+1] + (_cmd == 'q' ? currentPoint.y : 0);
+        CGFloat const x  = _operands[i+2] + (_cmd == 'q' ? currentPoint.x : 0);
+        CGFloat const y  = _operands[i+3] + (_cmd == 'q' ? currentPoint.y : 0);
+        
+        CGPathAddQuadCurveToPoint(_path, NULL, x1, y1, x, y);
+        _lastControlPoint = CGPointMake(x1, y1);
+    }
+}
+
+void pathDefinitionParser::appendShorthandQuadraticCurve()
+{
+    if(_operands.size()%2 != 0) {
+        NSLog(@"*** Error: Invalid number of parameters for T command");
+        return;
+    }
+    if(_lastCmd != 'Q' && _lastCmd != 'q' && _lastCmd != 'T' && _lastCmd != 't')
+        _lastControlPoint = CGPathGetCurrentPoint(_path);
+    
+    // (x, y)
+    for(NSUInteger i = 0; i < _operands.size(); i += 2) {
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        CGFloat const x1 = currentPoint.x + (currentPoint.x - _lastControlPoint.x);
+        CGFloat const y1 = currentPoint.y + (currentPoint.y - _lastControlPoint.y);
+        CGFloat const x  = _operands[i+0] + (_cmd == 't' ? currentPoint.x : 0);
+        CGFloat const y  = _operands[i+1] + (_cmd == 't' ? currentPoint.y : 0);
+
+        CGPathAddQuadCurveToPoint(_path, NULL, x1, y1, x, y);
+        _lastControlPoint = CGPointMake(x1, y1);
+    }
+}
+
 
 hexTriplet::hexTriplet(NSString *str)
 {
