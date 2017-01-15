@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E3C1E2B91D30044BFD3 /* Circle.svg */; };
+		1DC60E481E2BA1170044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */; };
 		B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797391D6CAECB00E9FF84 /* BezierCurve.svg */; };
 		B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973A1D6CAECB00E9FF84 /* iceland.svg */; };
 		B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973B1D6CAECB00E9FF84 /* tiger.svg */; };
@@ -15,11 +16,11 @@
 		B09D909C1D6C5E2E00360396 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D909B1D6C5E2E00360396 /* ViewController.swift */; };
 		B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A01D6C5E2E00360396 /* Assets.xcassets */; };
 		B09D90A41D6C5E2E00360396 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A21D6C5E2E00360396 /* LaunchScreen.storyboard */; };
-		B09D90BE1D6C608800360396 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09D90BD1D6C608800360396 /* PocketSVG.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1DC60E3C1E2B91D30044BFD3 /* Circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Circle.svg; sourceTree = "<group>"; };
+		1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
 		B03797391D6CAECB00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
 		B037973A1D6CAECB00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
 		B037973B1D6CAECB00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
@@ -29,7 +30,6 @@
 		B09D90A01D6C5E2E00360396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B09D90A31D6C5E2E00360396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B09D90A51D6C5E2E00360396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B09D90BD1D6C608800360396 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,13 +37,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09D90BE1D6C608800360396 /* PocketSVG.framework in Frameworks */,
+				1DC60E481E2BA1170044BFD3 /* PocketSVG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DC60E461E2BA1170044BFD3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B03797381D6CAECB00E9FF84 /* Sample SVG Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -60,9 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				B09D90981D6C5E2E00360396 /* Demo-iOS */,
-				B09D90BD1D6C608800360396 /* PocketSVG.framework */,
 				B03797381D6CAECB00E9FF84 /* Sample SVG Files */,
 				B09D90971D6C5E2E00360396 /* Products */,
+				1DC60E461E2BA1170044BFD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
