@@ -26,9 +26,9 @@
 }
 #endif
 
-+ (NSCache<NSString*, NSArray<SVGBezierPath*>*> *)_svg_pathCache
++ (NSCache<NSURL*, NSArray<SVGBezierPath*>*> *)_svg_pathCache
 {
-    static NSCache<NSString*, NSArray<SVGBezierPath*>*> *pathCache;
+    static NSCache<NSURL*, NSArray<SVGBezierPath*>*> *pathCache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         pathCache = [NSCache new];
@@ -42,12 +42,17 @@
 
 + (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL
 {
-    return [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
-                                                         usedEncoding:NULL
-                                                                error:NULL]];
+    NSArray<SVGBezierPath*> *paths = [self.class._svg_pathCache objectForKey:aURL];
+    if (!paths) {
+        paths =  [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
+                                                               usedEncoding:NULL
+                                                                      error:NULL]];
+        if (paths) {
+            [self.class._svg_pathCache setObject:paths forKey:aURL];
+        }
+    }
+    return [[NSArray alloc] initWithArray:paths copyItems:YES];
 }
-
-
 
 + (NSArray *)pathsFromSVGString:(NSString * const)svgString
 {
