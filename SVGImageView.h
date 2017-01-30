@@ -57,7 +57,7 @@ IB_DESIGNABLE
  *  @param svgSource The entire string of the XML document representing the SVG.
  *
  */
-@property(nonatomic, copy) NSString *svgSource;
+- (void)setSvgSource:(NSString *)svgSource;
 
 
 /*!

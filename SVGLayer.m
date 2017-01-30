@@ -93,28 +93,23 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 
 - (void)setSvgSource:(NSString * const)aSVG
 {
-    [self willChangeValueForKey:@"svgSource"];
 #ifdef DEBUG
     if(_fileWatcher)
         dispatch_source_cancel(_fileWatcher), _fileWatcher = NULL;
 #endif
 
-    _svgSource = aSVG;
-    if([aSVG length] == 0)
-        return;
-    
-    [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:_svgSource]];
-
-    [self didChangeValueForKey:@"svgSource"];
+    if (aSVG.length > 0) {
+        [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:aSVG]];
+    }
 }
 
-- (void)setSvgURL:(NSURL *)svgURL {
+- (void)setSvgURL:(NSURL *)svgURL
+{
+    [self willChangeValueForKey:@"svgURL"];
 
-    [self willChangeValueForKey:@"svgSource"];
+    [self _cr_setPaths:[SVGBezierPath pathsFromSVGAtURL:svgURL]];
 
-    self.svgSource = [NSString stringWithContentsOfURL:svgURL encoding:NSUTF8StringEncoding error:nil];
-
-    [self didChangeValueForKey:@"svgSource"];
+    [self didChangeValueForKey:@"svgURL"];
 }
 
 - (void)setSvgName:(NSString *)svgName {
@@ -149,16 +144,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     }
 #endif
     
-    [self willChangeValueForKey:@"svgSource"];
-    self.svgSource = [NSString stringWithContentsOfFile:path
-                                       usedEncoding:NULL
-                                              error:nil];
-
-
-    [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:self.svgSource]];
-
-    [self didChangeValueForKey:@"svgSource"];
-
+    if (path) {
+        self.svgURL = [NSURL fileURLWithPath:path];
+    }
+    
 #ifdef DEBUG
     int const fdes = open([path fileSystemRepresentation], O_RDONLY);
     _fileWatcher = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fdes,

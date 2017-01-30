@@ -85,8 +85,7 @@
 - (NSString *)svgName { return _svgLayer.svgName; }
 - (void)setSvgName:(NSString * const)aFileName { _svgLayer.svgName = aFileName; }
 
-- (NSString *)svgSource                     { return _svgLayer.svgSource; }
-- (void)setSvgSource:(NSString * const)aSVG { _svgLayer.svgSource = aSVG; }
+- (void)setSvgSource:(NSString * const)aSVG { [_svgLayer setSvgSource:aSVG]; }
 
 - (NSURL *)svgURL                 { return _svgLayer.svgURL; }
 - (void)setSvgURL:(NSURL *)svgURL { _svgLayer.svgURL = svgURL; }
