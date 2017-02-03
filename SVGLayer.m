@@ -195,7 +195,14 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 {
     CGRect bounds = CGRectZero;
     for(SVGBezierPath *path in _untouchedPaths) {
-        bounds = CGRectUnion(bounds, path.bounds);
+        CGRect pathBounds = path.bounds;
+        CGFloat lineWidth = [path.svgAttributes[@"stroke-width"] floatValue];
+        if (_scaleLineWidth && lineWidth > 1.0) {
+            CGPathRef pathRef = CGPathCreateCopyByStrokingPath(path.CGPath, NULL, lineWidth, path.lineCapStyle, path.lineJoinStyle, path.miterLimit);
+            pathBounds = CGPathGetPathBoundingBox(pathRef);
+            CGPathRelease(pathRef);
+        }
+        bounds = CGRectUnion(bounds, pathBounds);
     }
     return bounds.size;
 }
