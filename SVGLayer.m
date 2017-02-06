@@ -148,7 +148,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
         self.svgURL = [NSURL fileURLWithPath:path];
     }
     
-#ifdef DEBUG
+#if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
     int const fdes = open([path fileSystemRepresentation], O_RDONLY);
     _fileWatcher = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fdes,
                                           DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE,
