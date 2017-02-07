@@ -116,8 +116,8 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 
 #if !TARGET_INTERFACE_BUILDER
     NSBundle * const bundle = [NSBundle mainBundle];
-    NSString * const path = [bundle pathForResource:svgName ofType:@"svg"];
-    NSParameterAssert(!svgName || path);
+    NSURL * const url = [bundle URLForResource:svgName withExtension:@"svg"];
+    NSParameterAssert(!svgName || url);
 #else
     NSString *path = nil;
     NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
@@ -142,11 +142,10 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             break;
         }
     }
+    NSURL *url = path ? [NSURL fileUrlWithPath:path] : nil;
 #endif
     
-    if (path) {
-        self.svgURL = [NSURL fileURLWithPath:path];
-    }
+    self.svgURL = url;
     
 #if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
     int const fdes = open([path fileSystemRepresentation], O_RDONLY);
