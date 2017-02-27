@@ -1,19 +1,20 @@
 # PocketSVG
 
-[![Build Status](https://travis-ci.org/pocketsvg/PocketSVG.svg?branch=master)](https://travis-ci.org/pocketsvg/PocketSVG)
+[![CocoaPods](https://img.shields.io/cocoapods/p/PocketSVG.svg?maxAge=3601)](#) [![Build Status](https://travis-ci.org/pocketsvg/PocketSVG.svg?branch=master)](https://travis-ci.org/pocketsvg/PocketSVG) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Code Coverage](https://img.shields.io/cocoapods/metrics/doc-percent/PocketSVG.svg)](http://cocoadocs.org/docsets/PocketSVG)
 
-A simple toolkit for displaying and manipulating SVGs on iOS and macOS in a performant manner. 
 
-The goal of this project is not to be a fully compliant SVG parser/renderer. But rather to use SVG as a format for serializing CG/UIPaths, meaning it only supports SVG features that can be represented by CG/UIPaths. 
+A simple toolkit for displaying and manipulating SVGs on iOS and macOS in a performant manner.
 
-Thoroughly documented. 
+The goal of this project is not to be a fully compliant SVG parser/renderer. But rather to use SVG as a format for serializing CG/UIPaths, meaning it only supports SVG features that can be represented by CG/UIPaths.
+
+Thoroughly documented.
 
 ## Features
 
 * Render SVG files via SVGImageView/Layer
 * Display all kinds of SVGs shapes and paths.
 * Fully working iOS and macOS demos.
-* Straightforward API for typical SVG rendering (`SVGLayer` and `SVGImageView`) 
+* Straightforward API for typical SVG rendering (`SVGLayer` and `SVGImageView`)
 * Supports more fine-grained SVG manipulation (`SVGBezierPath` and `SVGEngine`)
 
 
@@ -21,7 +22,7 @@ Thoroughly documented.
 
 ### Cocoapods
 
-Add `pod PocketSVG` to your Podfile. 
+Add `pod PocketSVG` to your Podfile.
 
 ### Manual
 
@@ -45,7 +46,7 @@ for(SVGBezierPath *path in [SVGBezierPath pathsFromSVGNamed:@"myImage"]) {
     // Create a layer for each path
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = path.CGPath;
-    
+
     // Set its display properties
     layer.lineWidth   = 4;
     layer.strokeColor = [path.svgAttributes[@"stroke"] ?: [UIColor blackColor] CGColor];
@@ -75,4 +76,4 @@ Please use the [issue tracker](https://github.com/arielelkin/pocketsvg/issues) t
 
 ### Developing
 
-PRs are welcome. 
+PRs are welcome.
