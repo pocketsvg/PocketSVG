@@ -24,6 +24,15 @@ Thoroughly documented.
 
 Add `pod PocketSVG` to your Podfile.
 
+### Carthage
+
+Add this to your Cartfile:
+```
+github "pocketsvg/PocketSVG"
+```
+
+Then run `carthage update`.
+
 ### Manual
 
 Drag and drop `PocketSVG.xcodeproj` into your Xcode project. In your project settings, add PocketSVG.framework in **Link Binary With Libraries**.
