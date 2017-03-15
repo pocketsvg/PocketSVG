@@ -142,7 +142,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
             break;
         }
     }
-    NSURL *url = path ? [NSURL fileUrlWithPath:path] : nil;
+    NSURL *url = path ? [NSURL fileURLWithPath:path] : nil;
 #endif
     
     self.svgURL = url;
