@@ -23,29 +23,38 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
 }
 
-
-- (instancetype)initWithSVGSource:(NSString *)svgSource {
-
-    if (self = [self init]) {
-        [self commonInit];
-        self.svgSource = svgSource;
-    }
-    return self;
-}
-
-- (instancetype)initWithContentsOfURL:(NSURL *)url {
-
-    NSString *svgSource = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-
-    return [self initWithSVGSource:svgSource];
-}
-
-- (void)commonInit {
+- (void)commonInit
+{
     _shapeLayers = [NSMutableArray new];
 #if TARGET_OS_IPHONE
     self.shouldRasterize = YES;
     self.rasterizationScale = [[UIScreen mainScreen] scale];
 #endif
+}
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithSVGSource:(NSString *)svgSource
+{
+
+    if (self = [self init]) {
+        self.svgSource = svgSource;
+    }
+    return self;
+}
+
+- (instancetype)initWithContentsOfURL:(NSURL *)url
+{
+
+    NSString *svgSource = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+
+    return [self initWithSVGSource:svgSource];
 }
 
 - (instancetype)initWithCoder:(NSCoder * const)aDecoder
