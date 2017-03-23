@@ -26,7 +26,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 
 - (instancetype)initWithSVGSource:(NSString *)svgSource {
 
-    if (self = [super init]) {
+    if (self = [self init]) {
         [self commonInit];
         self.svgSource = svgSource;
     }
@@ -46,10 +46,6 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
     self.shouldRasterize = YES;
     self.rasterizationScale = [[UIScreen mainScreen] scale];
 #endif
-}
-
-- (instancetype)init {
-    return [self initWithSVGSource:(_Nonnull id)nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder * const)aDecoder
