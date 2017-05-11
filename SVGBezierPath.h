@@ -10,6 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SVGBezierPath;
+
+FOUNDATION_EXTERN CGRect SVGAdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
+FOUNDATION_EXTERN CGRect SVGBoundingRectForPaths(NSArray<SVGBezierPath*> *paths);
+FOUNDATION_EXTERN void SVGDrawPaths(NSArray<SVGBezierPath*> *paths, CGContextRef ctx, CGRect rect,
+                                    __nullable CGColorRef defaultFillColor,
+                                    __nullable CGColorRef defaultStrokeColor);
+
 /// A NSBezierPath or UIBezierPath subclass that represents an SVG path
 /// and its SVG attributes
 @interface SVGBezierPath : PSVGBezierPath

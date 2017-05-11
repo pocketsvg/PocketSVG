@@ -12,8 +12,6 @@
 #import "SVGBezierPath.h"
 #import "SVGEngine.h"
 
-CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGravity);
-
 @implementation SVGLayer {
     NSMutableArray<SVGBezierPath*> *_untouchedPaths;
     NSMutableArray *_shapeLayers;
@@ -198,11 +196,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 
 - (CGSize)preferredFrameSize
 {
-    CGRect bounds = CGRectZero;
-    for(SVGBezierPath *path in _untouchedPaths) {
-        bounds = CGRectUnion(bounds, path.bounds);
-    }
-    return bounds.size;
+    return SVGBoundingRectForPaths(_untouchedPaths).size;
 }
 
 - (void)layoutSublayers
@@ -215,7 +209,7 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 #endif
 
     CGSize const size  = [self preferredFrameSize];
-    CGRect const frame = _AdjustCGRectForContentsGravity(self.bounds, size, self.contentsGravity);
+    CGRect const frame = SVGAdjustCGRectForContentsGravity(self.bounds, size, self.contentsGravity);
 
     CGAffineTransform const scale = CGAffineTransformMakeScale(frame.size.width  / size.width,
                                                                frame.size.height / size.height);
@@ -256,73 +250,3 @@ CGRect _AdjustCGRectForContentsGravity(CGRect aRect, CGSize aSize, NSString *aGr
 }
 
 @end
-
-CGRect _AdjustCGRectForContentsGravity(CGRect const aRect, CGSize const aSize, NSString const *aGravity)
-{
-    if(aSize.width != aRect.size.width || aSize.height != aRect.size.height) {
-        if([aGravity isEqualToString:kCAGravityLeft])
-            return (CGRect) { aRect.origin.x,
-                              aRect.origin.y + floor(aRect.size.height/2 - aSize.height/2),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityRight])
-            return (CGRect) { aRect.origin.x + (aRect.size.width - aSize.width),
-                              aRect.origin.y + floor(aRect.size.height/2 - aSize.height/2),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityTop])
-            return (CGRect) { aRect.origin.x + floor(aRect.size.width/2 - aSize.width/2),
-                              aRect.origin.y,
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityBottom])
-            return (CGRect) { aRect.origin.x + floor(aRect.size.width/2 - aSize.width/2),
-                              aRect.origin.y + floor(aRect.size.height - aSize.height),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityCenter])
-            return (CGRect) { aRect.origin.x + round(aRect.size.width/2 - aSize.width/2),
-                              aRect.origin.y + round(aRect.size.height/2 - aSize.height/2),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityBottomLeft])
-            return (CGRect) { aRect.origin.x,
-                              aRect.origin.y + floor(aRect.size.height - aSize.height),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityBottomRight])
-            return (CGRect) { aRect.origin.x + (aRect.size.width - aSize.width),
-                              aRect.origin.y + (aRect.size.height - aSize.height),
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityTopLeft])
-            return (CGRect) { aRect.origin.x,
-                              aRect.origin.y,
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityTopRight])
-            return (CGRect) { aRect.origin.x + (aRect.size.width - aSize.width),
-                              aRect.origin.y,
-                              aSize.width, aSize.height };
-        else if([aGravity isEqualToString:kCAGravityResizeAspectFill]) {
-            CGSize        size      = aSize;
-            CGFloat const sizeRatio = size.width / size.height;
-            CGFloat const rectRatio = aRect.size.width / aRect.size.height;
-            if(sizeRatio > rectRatio) {
-                size.width = floorf(sizeRatio * aRect.size.height);
-                size.height = aRect.size.height;
-            } else {
-                size.height = floorf(aRect.size.width / sizeRatio);
-                size.width = aRect.size.width;
-            }
-            return (CGRect) { aRect.origin.x + floorf(aRect.size.width/2 - size.width/2),
-                              aRect.origin.y + floorf(aRect.size.height/2 - size.height/2),
-                              size.width, size.height };
-        } else if([aGravity isEqualToString:kCAGravityResizeAspect]) {
-            CGSize size = aSize;
-            if((size.height/size.width) < (aRect.size.height/aRect.size.width)) {
-                size.height = floorf((size.height/size.width) * aRect.size.width);
-                size.width  = aRect.size.width;
-            } else {
-                size.width = floorf((size.width/size.height) * aRect.size.height);
-                size.height = aRect.size.height;
-            }
-            return (CGRect) { aRect.origin.x + floorf(aRect.size.width/2 - size.width/2),
-                              aRect.origin.y + floorf(aRect.size.height/2 - size.height/2),
-                              size.width, size.height };
-        }
-    }
-    return aRect;
-}
