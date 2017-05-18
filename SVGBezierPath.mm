@@ -206,7 +206,6 @@ extern "C" void SVGDrawPaths(NSArray<SVGBezierPath*> * const paths,
                                                                rect.size.height / bounds.size.height);
 
     CGContextSaveGState(ctx);
-    CGContextConcatCTM(ctx, scale);
     CGContextTranslateCTM(ctx, rect.origin.x, rect.origin.y);
     for (SVGBezierPath *path in paths) {
         CGContextSaveGState(ctx);
