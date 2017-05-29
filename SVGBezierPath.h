@@ -17,6 +17,10 @@ FOUNDATION_EXTERN CGRect SVGBoundingRectForPaths(NSArray<SVGBezierPath*> *paths)
 FOUNDATION_EXTERN void SVGDrawPaths(NSArray<SVGBezierPath*> *paths, CGContextRef ctx, CGRect rect,
                                     __nullable CGColorRef defaultFillColor,
                                     __nullable CGColorRef defaultStrokeColor);
+FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const paths,
+                                             CGContextRef const ctx,
+                                             CGRect rect,
+                                             void (^drawingBlock)(SVGBezierPath *path));
 
 /// A NSBezierPath or UIBezierPath subclass that represents an SVG path
 /// and its SVG attributes
@@ -67,3 +71,4 @@ FOUNDATION_EXTERN void SVGDrawPaths(NSArray<SVGBezierPath*> *paths, CGContextRef
 #endif
 @end
 NS_ASSUME_NONNULL_END
+

@@ -199,34 +199,67 @@ extern "C" CGRect SVGBoundingRectForPaths(NSArray<SVGBezierPath*> * const paths)
 }
 
 extern "C" void SVGDrawPaths(NSArray<SVGBezierPath*> * const paths,
-                             CGContextRef const ctx, CGRect const rect,
+                             CGContextRef const ctx,
+                             CGRect const rect,
                              CGColorRef const defaultFillColor,
                              CGColorRef const defaultStrokeColor)
 {
+    SVGDrawPathsWithBlock(paths, ctx, rect, ^(SVGBezierPath *path) {
+        CGContextAddPath(ctx, path.CGPath);
+        
+        CGColorRef fillColor = (__bridge CGColorRef)path.svgAttributes[@"fill"]
+                            ?: defaultFillColor;
+        if (fillColor && CGColorGetAlpha(fillColor) > 0) {
+            CGContextSetFillColorWithColor(ctx, fillColor);
+            CGContextFillPath(ctx);
+        }
+        CGColorRef strokeColor = (__bridge CGColorRef)path.svgAttributes[@"strokeColor"]
+                              ?: defaultStrokeColor;
+        if (strokeColor && CGColorGetAlpha(strokeColor) > 0) {
+            CGContextSetStrokeColorWithColor(ctx, strokeColor);
+            CGContextStrokePath(ctx);
+        }
+    });
+}
+extern "C" void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const paths,
+                                      CGContextRef const ctx,
+                                      CGRect rect,
+                                      void (^drawingBlock)(SVGBezierPath *path))
+{
+    if (!drawingBlock) {
+        return;
+    }
+    
     CGRect const bounds  = SVGBoundingRectForPaths(paths);
+    if (CGRectIsNull(rect)) {
+        rect = bounds;
+    }
     
     CGAffineTransform const scale = CGAffineTransformMakeScale(rect.size.width  / bounds.size.width,
                                                                rect.size.height / bounds.size.height);
 
     CGContextSaveGState(ctx);
     CGContextTranslateCTM(ctx, rect.origin.x, rect.origin.y);
+#if TARGET_OS_IPHONE
+    UIGraphicsPushContext(ctx);
+#else
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithCGContext:ctx flipped:NO]];
+#endif
     for (SVGBezierPath *path in paths) {
         CGContextSaveGState(ctx);
             CGAffineTransform const pathTransform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(-path.bounds.origin.x,
                                                                                                              -path.bounds.origin.y),
                                                                             scale);
             CGContextConcatCTM(ctx, pathTransform);
-            CGContextAddPath(ctx, path.CGPath);
-            
-            CGContextSetFillColorWithColor(ctx, (__bridge CGColorRef)path.svgAttributes[@"fill"]
-                                           ?: defaultFillColor);
-            CGContextFillPath(ctx);
-            
-            CGContextSetStrokeColorWithColor(ctx, (__bridge CGColorRef)path.svgAttributes[@"strokeColor"]
-                                             ?: defaultStrokeColor);
-            CGContextStrokePath(ctx);
+            drawingBlock(path);
         CGContextRestoreGState(ctx);
     }
+#if TARGET_OS_IPHONE
+    UIGraphicsPopContext();
+#else
+    [NSGraphicsContext restoreGraphicsState];
+#endif
     CGContextRestoreGState(ctx);
 }
 
@@ -307,3 +340,4 @@ extern "C" CGRect SVGAdjustCGRectForContentsGravity(CGRect const aRect, CGSize c
     }
     return aRect;
 }
+
