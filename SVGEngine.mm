@@ -169,29 +169,18 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readPathTag()
 CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
 {
     NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "rect") == 0,
-              @"Not on a <polygon>");
+              @"Not on a <rect>");
 
     CGRect const rect = {
         readFloatAttribute(@"x"),     readFloatAttribute(@"y"),
         readFloatAttribute(@"width"), readFloatAttribute(@"height")
     };
-    NSString * const pathDefinition = [NSString stringWithFormat:
-                                       @"M%@,%@"
-                                       @"H%@V%@"
-                                       @"H%@V%@Z",
-                                       _SVGFormatNumber(@(CGRectGetMinX(rect))),
-                                       _SVGFormatNumber(@(CGRectGetMinY(rect))),
-                                       _SVGFormatNumber(@(CGRectGetMaxX(rect))),
-                                       _SVGFormatNumber(@(CGRectGetMaxY(rect))),
-                                       _SVGFormatNumber(@(CGRectGetMinX(rect))),
-                                       _SVGFormatNumber(@(CGRectGetMinY(rect)))];
+    float rx = readFloatAttribute(@"rx");
+    float ry = readFloatAttribute(@"ry");
 
-    CGPathRef const path = pathDefinitionParser(pathDefinition).parse();
-    if(!path) {
-        NSLog(@"*** Error: Invalid path attribute");
-        return NULL;
-    } else
-        return path;
+    CGMutablePathRef rectPath = CGPathCreateMutable();
+    CGPathAddRoundedRect(rectPath, NULL, rect, rx, ry);
+    return rectPath;
 }
 
 CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
