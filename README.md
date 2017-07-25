@@ -43,8 +43,8 @@ Drag and drop `PocketSVG.xcodeproj` into your Xcode project. In your project set
 Render an SVG file using SVGImageView:
 
 ```swift
-let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
-let svgImageView = SVGImageView(contentsOfURL: url)
+let url = Bundle.main.url(forResource: "svg_file_name", withExtension: "svg")!
+let svgImageView = SVGImageView.init(contentsOf: url)
 view.addSubview(svgImageView)
 ```
 
