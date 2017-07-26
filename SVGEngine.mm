@@ -30,6 +30,7 @@ protected:
     void popGroup();
 
     CF_RETURNS_RETAINED CGPathRef readPathTag();
+    CF_RETURNS_RETAINED CGPathRef readPolylineTag();
     CF_RETURNS_RETAINED CGPathRef readPolygonTag();
     CF_RETURNS_RETAINED CGPathRef readRectTag();
     CF_RETURNS_RETAINED CGPathRef readCircleTag();
@@ -38,12 +39,15 @@ protected:
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
     NSString *readStringAttribute(NSString *aName);
+    
+private:
+    CF_RETURNS_RETAINED CGMutablePathRef _readPolylineTag();
 };
 
 struct pathDefinitionParser {
 public:
     pathDefinitionParser(NSString *);
-    CF_RETURNS_RETAINED CGPathRef parse();
+    CF_RETURNS_RETAINED CGMutablePathRef parse();
 
 protected:
     NSString *_definition;
@@ -106,6 +110,8 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
         CGPathRef path = NULL;
         if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
             path = readPathTag();
+        else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polyline") == 0)
+            path = readPolylineTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polygon") == 0)
             path = readPolygonTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0)
@@ -194,33 +200,44 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
         return path;
 }
 
-CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
+// Reads <polyline> without validating tag, used for <polygon> also
+CF_RETURNS_RETAINED CGMutablePathRef svgParser::_readPolylineTag()
 {
-    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polygon") == 0,
-              @"Not on a <polygon>");
+    xmlAutoFree char * const pointsDef = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
+    NSScanner *scanner = pointsDef ? [NSScanner scannerWithString:@(pointsDef)] : nil;
+    scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@", "];
     
-    xmlAutoFree char * const pointsDef  = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)"points");
-    NSCharacterSet   * const separators = [NSCharacterSet characterSetWithCharactersInString:@", "];
-    NSMutableArray   * const items      = [[@(pointsDef) componentsSeparatedByCharactersInSet:separators] mutableCopy];
-    
-    if([items count] < 2) {
-        NSLog(@"*** Error: Too few points in <polygon>");
+    double x, y;
+    if(![scanner scanDouble:&x] || ![scanner scanDouble:&y]) {
+        NSLog(@"*** Error: Too few points in <poly*>");
         return NULL;
     }
     
-    NSString * const x = items[0],
-             * const y = items[1];
-    [items removeObjectsInRange:(NSRange) { 0, 2 }];
-    
-    NSString * const pathAttributes = [NSString stringWithFormat:@"M%@,%@L%@Z",
-                                                                 x, y, [items componentsJoinedByString:@" "]];
+    NSString * const pathDef = [NSString stringWithFormat:@"M%f,%fL%@",
+                                x, y, [scanner.string substringFromIndex:scanner.scanLocation]];
 
-    CGPathRef const path = pathDefinitionParser(pathAttributes).parse();
+    CGMutablePathRef const path = pathDefinitionParser(pathDef).parse();
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
         return NULL;
     } else
         return path;
+}
+CF_RETURNS_RETAINED CGPathRef svgParser::readPolylineTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polyline") == 0,
+              @"Not on a <polyline>");
+    return _readPolylineTag();
+}
+
+CF_RETURNS_RETAINED CGPathRef svgParser::readPolygonTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "polygon") == 0,
+              @"Not on a <polygon>");
+    
+    CGMutablePathRef path = _readPolylineTag();
+    CGPathCloseSubpath(path);
+    return path;
 }
 
 CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
@@ -272,7 +289,7 @@ NSDictionary *svgParser::readAttributes()
         } else if(strcasecmp("transform", attrName) == 0) {
             // TODO: report syntax errors
             NSScanner * const scanner = [NSScanner scannerWithString:@(attrValue)];
-            NSMutableCharacterSet *skippedChars = [[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy];
+            NSMutableCharacterSet *skippedChars = [NSCharacterSet.whitespaceAndNewlineCharacterSet mutableCopy];
             [skippedChars addCharactersInString:@"(),"];
             scanner.charactersToBeSkipped = skippedChars;
 
@@ -434,10 +451,10 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const at
 
 pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
-    _definition = [aDefinition stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    _definition = [aDefinition stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 }
 
-CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
+CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
 {
 #ifdef SVG_PATH_SERIALIZER_DEBUG
     NSLog(@"d=%@", attr);
@@ -451,7 +468,7 @@ CF_RETURNS_RETAINED CGPathRef pathDefinitionParser::parse()
     dispatch_once(&onceToken, ^{
         commands   = [NSCharacterSet characterSetWithCharactersInString:kValidSVGCommands];
         separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
-        [(NSMutableCharacterSet *)separators formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        [(NSMutableCharacterSet *)separators formUnionWithCharacterSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
     });
     scanner.charactersToBeSkipped = separators;
 
@@ -707,7 +724,7 @@ NSString *hexTriplet::string()
 static NSMutableDictionary *_SVGParseStyle(NSString * const body)
 {
     NSScanner * const scanner = [NSScanner scannerWithString:body];
-    NSMutableCharacterSet * const separators = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    NSMutableCharacterSet * const separators = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet;
     [separators addCharactersInString:@":;"];
     scanner.charactersToBeSkipped = separators;
 
@@ -794,3 +811,4 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 #endif
 }
 @end
+

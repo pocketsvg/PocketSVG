@@ -205,19 +205,17 @@ extern "C" void SVGDrawPaths(NSArray<SVGBezierPath*> * const paths,
                              CGColorRef const defaultStrokeColor)
 {
     SVGDrawPathsWithBlock(paths, ctx, rect, ^(SVGBezierPath *path) {
-        CGContextAddPath(ctx, path.CGPath);
-        
         CGColorRef fillColor = (__bridge CGColorRef)path.svgAttributes[@"fill"]
                             ?: defaultFillColor;
         if (fillColor && CGColorGetAlpha(fillColor) > 0) {
-            CGContextSetFillColorWithColor(ctx, fillColor);
-            CGContextFillPath(ctx);
+            [[PSVGColor colorWithCGColor:fillColor] setFill];
+            [path fill];
         }
-        CGColorRef strokeColor = (__bridge CGColorRef)path.svgAttributes[@"strokeColor"]
+        CGColorRef strokeColor = (__bridge CGColorRef)path.svgAttributes[@"stroke"]
                               ?: defaultStrokeColor;
         if (strokeColor && CGColorGetAlpha(strokeColor) > 0) {
-            CGContextSetStrokeColorWithColor(ctx, strokeColor);
-            CGContextStrokePath(ctx);
+            [[PSVGColor colorWithCGColor:strokeColor] setStroke];
+            [path stroke];
         }
     });
 }
@@ -340,4 +338,3 @@ extern "C" CGRect SVGAdjustCGRectForContentsGravity(CGRect const aRect, CGSize c
     }
     return aRect;
 }
-
