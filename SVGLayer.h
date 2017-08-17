@@ -10,16 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SVGBezierPath;
+
 /// A CALayer subclass that renders an SVG file.
 @interface SVGLayer : CALayer
-
-/*!
- *  @discussion Initialises a layer that renders the provided SVG data.
- *
- *  @param svgSource The entire string of the XML document representing the SVG.
- */
-- (instancetype)initWithSVGSource:(NSString *)svgSource;
-
 
 /*!
  *  @discussion Initialises a layer that renders the SVG file at the URL.
@@ -28,32 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithContentsOfURL:(NSURL *)url;
 
-
 /*!
- *  @discussion Clears contents and renders a new SVG given the XML string of the SVG.
+ *  @discussion The SVG paths the layer should draw.
  *
- *  @param svgSource The XML string of an SVG.
+ *  @param paths the paths to draw
  */
-- (void)setSvgSource:(NSString *)svgSource;
-
-
-/*!
- *  @discussion Clears contents and renders a new SVG given the file name of the SVG.
- *              When build in Debug mode, the layer will automatically update if the
- *              file changes.
- *
- *  @param svgName The name of the SVG file (without the .svg suffix).
- */
-@property (nonatomic, copy) NSString *svgName;
-
-
-/*!
- *  @discussion Renders a new SVG given the URL of an SVG file.
- *
- *  @param svgURL The XML string of an SVG.
- */
-@property (nonatomic, copy) NSURL *svgURL;
-
+@property (nonatomic, copy) NSArray<SVGBezierPath*> *paths;
 
 /*!
  *  @discussion Solidly fills the shape formed by the SVG path with the given color.

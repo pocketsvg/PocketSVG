@@ -15,10 +15,6 @@
 @implementation SVGLayer {
     NSMutableArray<SVGBezierPath*> *_untouchedPaths;
     NSMutableArray *_shapeLayers;
-
-#ifdef DEBUG
-    dispatch_source_t _fileWatcher;
-#endif
 }
 
 - (void)commonInit
@@ -38,21 +34,12 @@
     return self;
 }
 
-- (instancetype)initWithSVGSource:(NSString *)svgSource
-{
-
-    if (self = [self init]) {
-        self.svgSource = svgSource;
-    }
-    return self;
-}
-
 - (instancetype)initWithContentsOfURL:(NSURL *)url
 {
-
-    NSString *svgSource = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-
-    return [self initWithSVGSource:svgSource];
+    if ((self = [self init])) {
+        [self setPaths:[SVGBezierPath pathsFromSVGAtURL:url]];
+    }
+    return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder * const)aDecoder
@@ -63,8 +50,10 @@
     return self;
 }
 
-- (void)_cr_setPaths:(NSArray<SVGBezierPath*> *)paths
+- (void)setPaths:(NSArray<SVGBezierPath*> *)paths
 {
+    [self willChangeValueForKey:@"paths"];
+    _paths = paths;
     [_shapeLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [_shapeLayers removeAllObjects];
     _untouchedPaths = [NSMutableArray new];
@@ -92,94 +81,7 @@
     }
     [self setNeedsLayout];
     [CATransaction commit];
-}
-
-- (void)setSvgSource:(NSString * const)aSVG
-{
-#ifdef DEBUG
-    if(_fileWatcher)
-        dispatch_source_cancel(_fileWatcher), _fileWatcher = NULL;
-#endif
-
-    if (aSVG.length > 0) {
-        [self _cr_setPaths:[SVGBezierPath pathsFromSVGString:aSVG]];
-    }
-}
-
-- (void)setSvgURL:(NSURL *)svgURL
-{
-    [self willChangeValueForKey:@"svgURL"];
-
-    [self _cr_setPaths:[SVGBezierPath pathsFromSVGAtURL:svgURL]];
-
-    [self didChangeValueForKey:@"svgURL"];
-}
-
-- (void)setSvgName:(NSString *)svgName {
-
-#if !TARGET_INTERFACE_BUILDER
-    NSBundle * const bundle = [NSBundle mainBundle];
-    NSURL * const url = [bundle URLForResource:svgName withExtension:@"svg"];
-    NSParameterAssert(!svgName || url);
-#else
-    NSString *path = nil;
-    NSPredicate * const pred = [NSPredicate predicateWithFormat:@"lastPathComponent LIKE[c] %@",
-                                [svgName stringByAppendingPathExtension:@"svg"]];
-    NSString * const sourceDirs = [[NSProcessInfo processInfo] environment][@"IB_PROJECT_SOURCE_DIRECTORIES"];
-    for(__strong NSString *dir in [sourceDirs componentsSeparatedByString:@":"]) {
-        // Go up the hierarchy until we don't find an xcodeproj
-        NSString *projectDir = dir;
-        NSPredicate *xcodePredicate = [NSPredicate predicateWithFormat:@"self ENDSWITH[c] %@", @".xcodeproj"];
-        do {
-            NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dir error:NULL];
-            if([[contents filteredArrayUsingPredicate:xcodePredicate] count] > 0) {
-                projectDir = dir;
-            }
-            NSLog(@"%@", dir);
-        } while(![(dir = dir.stringByDeletingLastPathComponent) isEqual:@"/"]);
-
-        NSArray * const results = [[[NSFileManager defaultManager] subpathsAtPath:projectDir]
-                                   filteredArrayUsingPredicate:pred];
-        if([results count] > 0) {
-            path = [projectDir stringByAppendingPathComponent:results[0]];
-            break;
-        }
-    }
-    NSURL *url = path ? [NSURL fileURLWithPath:path] : nil;
-#endif
-    
-    self.svgURL = url;
-    
-#if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
-    int const fdes = open([url fileSystemRepresentation], O_RDONLY);
-    _fileWatcher = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fdes,
-                                          DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE,
-                                          dispatch_get_main_queue());
-    dispatch_source_set_event_handler(_fileWatcher, ^{
-        unsigned long const l = dispatch_source_get_data(_fileWatcher);
-        if(l & DISPATCH_VNODE_DELETE || l & DISPATCH_VNODE_WRITE) {
-            NSLog(@"Reloading %@", svgName);
-            dispatch_source_cancel(_fileWatcher);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                           dispatch_get_main_queue(), ^{
-                [SVGBezierPath resetCache];
-                _svgName = svgName;
-            });
-        }
-    });
-    dispatch_source_set_cancel_handler(_fileWatcher, ^{
-        close(fdes);
-    });
-    dispatch_resume(_fileWatcher);
-#endif
-}
-
-- (void)dealloc
-{
-#ifdef DEBUG
-    if(_fileWatcher)
-        dispatch_source_cancel(_fileWatcher);
-#endif
+    [self didChangeValueForKey:@"paths"];
 }
 
 - (void)setFillColor:(CGColorRef)aColor

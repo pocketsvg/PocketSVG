@@ -11,25 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SVGBezierPath;
+
 /// A view that renders an SVG file.
 IB_DESIGNABLE
 @interface SVGImageView : PSVGView
-
-
-/*!
- *  @discussion Initialises a view that renders the provided SVG data.
- *
- *  @param svgSource The entire string of the XML document representing the SVG.
- *
- *  @code let url = NSBundle.mainBundle().URLForResource("svg_file_name", withExtension: "svg")!
- let svgSource = try! NSString(contentsOfURL: url, encoding: NSUTF8StringEncoding) as String
-
- let layer = SVGLayer(SVGSource: svgSource)
- // set the layer's frame and add it as a sublayer to display it.
- *
- */
-- (instancetype)initWithSVGSource:(NSString *)svgSource;
-
 
 /*!
  *  @discussion Initialises a view that renders the provided SVG.
@@ -42,32 +28,12 @@ IB_DESIGNABLE
  */
 - (instancetype)initWithContentsOfURL:(NSURL *)url;
 
-
 /*!
- *  @discussion Clears contents and renders a new SVG given the filename in the main bundle.
+ *  @discussion The SVG paths the view should draw.
  *
- *  @param svgName The filename of an SVG in the main bundle.
- *
+ *  @param paths the paths to draw
  */
-@property(nonatomic, copy) IBInspectable NSString *svgName;
-
-/*!
- *  @discussion Clears contents and renders a new SVG given its complete XML representation.
- *
- *  @param svgSource The entire string of the XML document representing the SVG.
- *
- */
-- (void)setSvgSource:(NSString *)svgSource;
-
-
-/*!
- *  @discussion Clears contents and renders a new SVG given the URL of the SVG.
- *
- *  @param svgURL The XML string of an SVG.
- *
- */
-@property (nonatomic, copy) NSURL *svgURL;
-
+@property (nonatomic, copy) NSArray<SVGBezierPath*> *paths;
 
 /*!
  *  @discussion Solidly fills the shape formed by the SVG path with the given color.

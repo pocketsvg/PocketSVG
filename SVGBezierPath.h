@@ -57,6 +57,13 @@ FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const pat
  */
 + (NSArray *)pathsFromSVGString:(NSString *)svgString;
 
+/*!
+ *  Returns a new path with the values of `attributes` added to `svgAttributes`
+ *
+ *  @param attributes A dictionary of SVG attributes to set.
+ *
+ */
+- (SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes;
 
 #if !TARGET_OS_IPHONE
 @property(nonatomic, readonly) CGPathRef CGPath;

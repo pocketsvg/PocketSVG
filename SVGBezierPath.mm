@@ -85,6 +85,24 @@
     return copy;
 }
 
+- (SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes
+{
+    NSParameterAssert(attributes);
+    
+    SVGBezierPath *path = [self copy];
+    if (path) {
+        if (path->_svgAttributes.count > 0) {
+            path->_svgAttributes = [path->_svgAttributes mutableCopy];
+            if (attributes) {
+                [(NSMutableDictionary *)path->_svgAttributes setValuesForKeysWithDictionary:attributes];
+            }
+        } else {
+            path->_svgAttributes = [attributes copy];
+        }
+    }
+    return path;
+}
+
 #if TARGET_OS_IPHONE
 + (instancetype)bezierPathWithCGPath:(CGPathRef)cgPath
 {
