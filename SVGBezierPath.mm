@@ -251,11 +251,9 @@ extern "C" void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const paths,
         rect = bounds;
     }
     
-    CGAffineTransform const scale = CGAffineTransformMakeScale(rect.size.width  / bounds.size.width,
-                                                               rect.size.height / bounds.size.height);
-
     CGContextSaveGState(ctx);
     CGContextTranslateCTM(ctx, rect.origin.x, rect.origin.y);
+    CGContextScaleCTM(ctx, rect.size.width  / bounds.size.width, rect.size.height / bounds.size.height);
 #if TARGET_OS_IPHONE
     UIGraphicsPushContext(ctx);
 #else
@@ -264,10 +262,6 @@ extern "C" void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const paths,
 #endif
     for (SVGBezierPath *path in paths) {
         CGContextSaveGState(ctx);
-            CGAffineTransform const pathTransform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(-path.bounds.origin.x,
-                                                                                                             -path.bounds.origin.y),
-                                                                            scale);
-            CGContextConcatCTM(ctx, pathTransform);
             drawingBlock(path);
         CGContextRestoreGState(ctx);
     }
@@ -356,3 +350,4 @@ extern "C" CGRect SVGAdjustCGRectForContentsGravity(CGRect const aRect, CGSize c
     }
     return aRect;
 }
+
