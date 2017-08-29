@@ -781,6 +781,11 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 @implementation SVGMutableAttributeSet
 - (void)setAttributes:(NSDictionary<NSString*,id> *)attributes forPath:(CGPathRef)path
 {
+    
+    if (!_attributes) {
+        _attributes = [[NSMapTable alloc] init];
+    }
+    
     [_attributes setObject:attributes forKey:(__bridge id)path];
 }
 @end
