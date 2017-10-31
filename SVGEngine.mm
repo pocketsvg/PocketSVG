@@ -511,7 +511,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
                 appendShorthandQuadraticCurve();
                 break;
             case 'A': case 'a':
-                appendArc()
+                appendArc();
                 break;
             case 'Z': case 'z':
                 CGPathCloseSubpath(_path);
