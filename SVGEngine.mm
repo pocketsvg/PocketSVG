@@ -722,7 +722,7 @@ void pathDefinitionParser::appendArc()
     double const largeArcFlag = _operands[3];
     double const sweepFlag = _operands[4];
     double const cx = _operands[5] + (_cmd == 'a' ? currentPoint.x : 0);
-    double const cy = _operands[6] + (_cmd == 'a' ? currentPoint.x : 0);
+    double const cy = _operands[6] + (_cmd == 'a' ? currentPoint.y : 0);
 
     const double TAU = M_PI * 2.0;
 
