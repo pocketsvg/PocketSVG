@@ -74,7 +74,7 @@
 {
     SVGMutableAttributeSet *attributes = [SVGMutableAttributeSet new];
     [attributes setAttributes:self.svgAttributes forPath:self.CGPath];
-    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], [attributes copy]);
+    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], attributes);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone
