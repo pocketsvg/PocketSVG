@@ -72,8 +72,11 @@
 
 - (NSString *)SVGRepresentation
 {
-    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], nil);
+    SVGMutableAttributeSet *attributes = [SVGMutableAttributeSet new];
+    [attributes setAttributes:self.svgAttributes forPath:self.CGPath];
+    return SVGStringFromCGPaths(@[(__bridge id)self.CGPath], attributes);
 }
+
 - (instancetype)copyWithZone:(NSZone *)zone
 {
     SVGBezierPath * const copy = [super copyWithZone:zone];
