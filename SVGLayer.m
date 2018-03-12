@@ -50,6 +50,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    CGColorRelease(_fillColor);
+    CGColorRelease(_strokeColor);
+}
+
 - (void)setPaths:(NSArray<SVGBezierPath*> *)paths
 {
     [self willChangeValueForKey:@"paths"];
@@ -86,13 +92,19 @@
 
 - (void)setFillColor:(CGColorRef)aColor
 {
+    CGColorRetain(aColor);
+    CGColorRelease(_fillColor);
     _fillColor = aColor;
+
     [_shapeLayers setValue:(__bridge id)_fillColor forKey:@"fillColor"];
 }
 
 - (void)setStrokeColor:(CGColorRef)aColor
 {
+    CGColorRetain(aColor);
+    CGColorRelease(_strokeColor);
     _strokeColor = aColor;
+
     [_shapeLayers setValue:(__bridge id)_strokeColor forKey:@"strokeColor"];
 }
 
