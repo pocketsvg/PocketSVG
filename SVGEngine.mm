@@ -105,12 +105,21 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
                                               valueOptions:NSMapTableStrongMemory];
     NSMutableArray * const paths = [NSMutableArray new];
 
+    NSUInteger depthWithinUnknownElement = 0;
+
     while(xmlTextReaderRead(_xmlReader) == 1) {
         int const type = xmlTextReaderNodeType(_xmlReader);
         const char * const tag = (char *)xmlTextReaderConstName(_xmlReader);
         
         CGPathRef path = NULL;
-        if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
+        if(depthWithinUnknownElement > 0) {
+            if(type == XML_READER_TYPE_ELEMENT && !xmlTextReaderIsEmptyElement(_xmlReader))
+                ++depthWithinUnknownElement;
+            else if(type == XML_READER_TYPE_END_ELEMENT)
+                --depthWithinUnknownElement;
+        } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "svg") == 0) {
+            // recognize the root svg element but we don't need to do anything with it
+        } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
             path = readPathTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polyline") == 0)
             path = readPolylineTag();
@@ -127,7 +136,8 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
                 pushGroup(readAttributes());
             else if(type == XML_READER_TYPE_END_ELEMENT)
                 popGroup();
-        }
+        } else if(type == XML_READER_TYPE_ELEMENT && !xmlTextReaderIsEmptyElement(_xmlReader))
+            ++depthWithinUnknownElement;
         if(path) {
             [paths addObject:CFBridgingRelease(path)];
             
