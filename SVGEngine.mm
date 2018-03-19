@@ -332,7 +332,7 @@ NSDictionary *svgParser::readAttributes()
                 else if([transformCmd isEqualToString:@"skewY"])
                     additionalTransform.b = tanf(transformOperands[0] * M_PI / 180.0);
 
-                transform = CGAffineTransformConcat(transform, additionalTransform);
+                transform = CGAffineTransformConcat(additionalTransform, transform);
             }
             if(attrs[@"transform"] || !CGAffineTransformEqualToTransform(transform, CGAffineTransformIdentity))
                 attrs[@"transform"] = [NSValue svg_valueWithCGAffineTransform:transform];
