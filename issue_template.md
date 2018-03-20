@@ -4,7 +4,7 @@
   1.
   1.
 
-Please include all relevant code, including the `PocketSVG` methods you're using.
+Please include all relevant **code**, including **all** `PocketSVG` method calls made.
 
 ### Has my issue been reported? 
 
