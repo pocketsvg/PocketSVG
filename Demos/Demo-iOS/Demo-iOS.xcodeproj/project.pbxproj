@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07AA8AA01F0476B800DDA64A /* Rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 07AA8A9F1F0476B800DDA64A /* Rectangle.svg */; };
 		1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E3C1E2B91D30044BFD3 /* Circle.svg */; };
 		1DC60E481E2BA1170044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */; };
 		1DC60E4B1E2BA48F0044BFD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E491E2BA48F0044BFD3 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07AA8A9F1F0476B800DDA64A /* Rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rectangle.svg; sourceTree = "<group>"; };
 		1DC60E3C1E2B91D30044BFD3 /* Circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Circle.svg; sourceTree = "<group>"; };
 		1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
 		1DC60E4A1E2BA48F0044BFD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				B03797391D6CAECB00E9FF84 /* BezierCurve.svg */,
 				B037973A1D6CAECB00E9FF84 /* iceland.svg */,
 				B037973B1D6CAECB00E9FF84 /* tiger.svg */,
+				07AA8A9F1F0476B800DDA64A /* Rectangle.svg */,
 				1DC60E3C1E2B91D30044BFD3 /* Circle.svg */,
 			);
 			name = "Sample SVG Files";
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07AA8AA01F0476B800DDA64A /* Rectangle.svg in Resources */,
 				1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */,
 				B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */,
 				B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */,
