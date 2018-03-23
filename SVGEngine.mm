@@ -38,6 +38,7 @@ protected:
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
+    bool hasAttribute(NSString * const aName);
     NSString *readStringAttribute(NSString *aName);
     
 private:
@@ -182,9 +183,17 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
         readFloatAttribute(@"x"),     readFloatAttribute(@"y"),
         readFloatAttribute(@"width"), readFloatAttribute(@"height")
     };
+
     float rx = readFloatAttribute(@"rx");
     float ry = readFloatAttribute(@"ry");
-
+    
+    if (!hasAttribute(@"rx")) {
+        rx = ry;
+    }
+    if (!hasAttribute(@"ry")) {
+        ry = rx;
+    }
+    
     CGMutablePathRef rectPath = CGPathCreateMutable();
     CGPathAddRoundedRect(rectPath, NULL, rect, rx, ry);
     return rectPath;
@@ -250,8 +259,17 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
     CGPoint const center = {
         readFloatAttribute(@"cx"), readFloatAttribute(@"cy")
     };
+    
     float rx = readFloatAttribute(@"rx");
     float ry = readFloatAttribute(@"ry");
+    
+    if (!hasAttribute(@"rx")) {
+        rx = ry;
+    }
+    if (!hasAttribute(@"ry")) {
+        ry = rx;
+    }
+
     CGMutablePathRef ellipse = CGPathCreateMutable();
     CGPathAddEllipseInRect(ellipse, NULL, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
     return ellipse;
@@ -361,6 +379,12 @@ float svgParser::readFloatAttribute(NSString * const aName)
 {
     xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)[aName UTF8String]);
     return value ? strtof(value, NULL) : 0.0;
+}
+
+bool svgParser::hasAttribute(NSString * const aName)
+{
+    xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)[aName UTF8String]);
+    return value != NULL;
 }
 
 NSString *svgParser::readStringAttribute(NSString * const aName)
