@@ -195,7 +195,7 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
     }
     
     CGMutablePathRef rectPath = CGPathCreateMutable();
-    CGPathAddRoundedRect(rectPath, NULL, rect, rx, ry);
+    CGPathAddRoundedRect(rectPath, NULL, rect, MIN(rx, rect.size.width/2), MIN(ry, rect.size.height/2));
     return rectPath;
 }
 
