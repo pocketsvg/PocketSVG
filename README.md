@@ -34,7 +34,7 @@ Then run `pod install`
 
 Add this to your Cartfile:
 ```
-github "pocketsvg/PocketSVG"
+github "pocketsvg/PocketSVG" ~> 2.0
 ```
 
 Then run `carthage update`
