@@ -821,6 +821,18 @@ void pathDefinitionParser::appendArc()
 
 hexTriplet::hexTriplet(NSString *str)
 {
+    static NSDictionary *colorMap = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSURL *url = [[NSBundle bundleForClass:[SVGAttributeSet class]] URLForResource:@"Colors" withExtension:@"plist"];
+        colorMap = [NSDictionary dictionaryWithContentsOfURL:url];
+    });
+    
+    NSString *mapped = colorMap[[str lowercaseString]];
+    if (mapped) {
+        str = mapped;
+    }
+    
     NSCParameterAssert([str hasPrefix:@"#"]);
     NSCParameterAssert([str length] == 4 || [str length] == 7);
     if([str length] == 4) {

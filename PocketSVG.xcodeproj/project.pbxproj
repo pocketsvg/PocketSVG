@@ -11,6 +11,7 @@
 		1DC5ADD41CC9B17A008FDA98 /* SVGBezierPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DC5ADD51CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */; };
 		1DC5ADD61CC9B17A008FDA98 /* SVGBezierPath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */; };
+		5B82CAB22069545500D142FB /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B82CAB12069545400D142FB /* Colors.plist */; };
 		B0EEE2191D6C680400BCAF68 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = B0EEE2181D6C680400BCAF68 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0EEE23A1D6CA89A00BCAF68 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = B0EEE2181D6C680400BCAF68 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		1DC5ADD11CC9B17A008FDA98 /* SVGBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGBezierPath.h; sourceTree = "<group>"; };
 		1DC5ADD21CC9B17A008FDA98 /* SVGBezierPath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SVGBezierPath.mm; sourceTree = "<group>"; };
+		5B82CAB12069545400D142FB /* Colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Colors.plist; path = ../Colors.plist; sourceTree = "<group>"; };
 		B0EEE2181D6C680400BCAF68 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = "<group>"; };
 		B0EEE21B1D6C6A4300BCAF68 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C79800BB1A21CB5300380860 /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +101,7 @@
 		C79800BE1A21CB5300380860 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5B82CAB12069545400D142FB /* Colors.plist */,
 				C798011B1A21CEC200380860 /* libxml2.dylib */,
 				C79800E51A21CBB900380860 /* libxml2.dylib */,
 				C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */,
@@ -216,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B82CAB22069545500D142FB /* Colors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B82CAB32069545500D142FB /* Colors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
