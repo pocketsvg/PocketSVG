@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
+- Deal with optional transformation arguments. Scott Talbot [#122](https://github.com/pocketsvg/PocketSVG/pull/122)
 
 ## [2.4.0]
 ### New Features

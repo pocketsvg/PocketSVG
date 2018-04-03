@@ -331,11 +331,19 @@ NSDictionary *svgParser::readAttributes()
                                                                     -sinf(radians), cosf(radians),
                                                                     0, 0);
                     }
-                } else if([transformCmd isEqualToString:@"translate"])
-                    additionalTransform = CGAffineTransformMakeTranslation(transformOperands[0], transformOperands[1]);
-                else if([transformCmd isEqualToString:@"scale"])
-                    additionalTransform = CGAffineTransformMakeScale(transformOperands[0], transformOperands[1]);
-                else if([transformCmd isEqualToString:@"skewX"])
+                } else if([transformCmd isEqualToString:@"translate"]) {
+                    float tx = transformOperands[0];
+                    float ty = 0;
+                    if (transformOperands.size() > 1)
+                        ty = transformOperands[1];
+                    additionalTransform = CGAffineTransformMakeTranslation(tx, ty);
+                } else if([transformCmd isEqualToString:@"scale"]) {
+                    float sx = transformOperands[0];
+                    float sy = sx;
+                    if (transformOperands.size() > 1)
+                        sy = transformOperands[1];
+                    additionalTransform = CGAffineTransformMakeScale(sx, sy);
+                } else if([transformCmd isEqualToString:@"skewX"])
                     additionalTransform.c = tanf(transformOperands[0] * M_PI / 180.0);
                 else if([transformCmd isEqualToString:@"skewY"])
                     additionalTransform.b = tanf(transformOperands[0] * M_PI / 180.0);
