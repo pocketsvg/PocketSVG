@@ -7,31 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07AA8AA01F0476B800DDA64A /* Rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 07AA8A9F1F0476B800DDA64A /* Rectangle.svg */; };
-		1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E3C1E2B91D30044BFD3 /* Circle.svg */; };
 		1DC60E481E2BA1170044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */; };
-		1DC60E4B1E2BA48F0044BFD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E491E2BA48F0044BFD3 /* Main.storyboard */; };
 		1DC60E4E1E2BAA200044BFD3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */; };
-		B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797391D6CAECB00E9FF84 /* BezierCurve.svg */; };
-		B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973A1D6CAECB00E9FF84 /* iceland.svg */; };
-		B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B037973B1D6CAECB00E9FF84 /* tiger.svg */; };
-		B09D909A1D6C5E2E00360396 /* IosDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D90991D6C5E2E00360396 /* IosDemo.swift */; };
+		B09D909A1D6C5E2E00360396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D90991D6C5E2E00360396 /* AppDelegate.swift */; };
 		B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A01D6C5E2E00360396 /* Assets.xcassets */; };
+		B0B592052074F7B80009ECA2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B592042074F7B80009ECA2 /* MainViewController.swift */; };
+		B0B592072074F9240009ECA2 /* SimpleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B592062074F9240009ECA2 /* SimpleDetailViewController.swift */; };
+		B0B59212207508E30009ECA2 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B5920D207508E30009ECA2 /* circle.svg */; };
+		B0B59213207508E30009ECA2 /* curve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B5920E207508E30009ECA2 /* curve.svg */; };
+		B0B59214207508E30009ECA2 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B5920F207508E30009ECA2 /* iceland.svg */; };
+		B0B59215207508E30009ECA2 /* rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B59210207508E30009ECA2 /* rectangle.svg */; };
+		B0B59216207508E30009ECA2 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B59211207508E30009ECA2 /* tiger.svg */; };
+		B0B5921820750C370009ECA2 /* RectangleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B5921720750C370009ECA2 /* RectangleViewController.swift */; };
+		B0B59221207514970009ECA2 /* IcelandicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B59220207514970009ECA2 /* IcelandicViewController.swift */; };
+		B0B5922320751E760009ECA2 /* GrayscaleTigerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B5922220751E760009ECA2 /* GrayscaleTigerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07AA8A9F1F0476B800DDA64A /* Rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Rectangle.svg; sourceTree = "<group>"; };
-		1DC60E3C1E2B91D30044BFD3 /* Circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Circle.svg; sourceTree = "<group>"; };
 		1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
-		1DC60E4A1E2BA48F0044BFD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DC60E4D1E2BAA200044BFD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
-		B03797391D6CAECB00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
-		B037973A1D6CAECB00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
-		B037973B1D6CAECB00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 		B09D90961D6C5E2E00360396 /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B09D90991D6C5E2E00360396 /* IosDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosDemo.swift; sourceTree = "<group>"; };
+		B09D90991D6C5E2E00360396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09D90A01D6C5E2E00360396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B09D90A51D6C5E2E00360396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B592042074F7B80009ECA2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B0B592062074F9240009ECA2 /* SimpleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDetailViewController.swift; sourceTree = "<group>"; };
+		B0B5920D207508E30009ECA2 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
+		B0B5920E207508E30009ECA2 /* curve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = curve.svg; sourceTree = "<group>"; };
+		B0B5920F207508E30009ECA2 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
+		B0B59210207508E30009ECA2 /* rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rectangle.svg; sourceTree = "<group>"; };
+		B0B59211207508E30009ECA2 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
+		B0B5921720750C370009ECA2 /* RectangleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangleViewController.swift; path = "Demo-iOS/RectangleViewController.swift"; sourceTree = SOURCE_ROOT; };
+		B0B59220207514970009ECA2 /* IcelandicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IcelandicViewController.swift; sourceTree = "<group>"; };
+		B0B5922220751E760009ECA2 /* GrayscaleTigerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayscaleTigerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,24 +62,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B03797381D6CAECB00E9FF84 /* Sample SVG Files */ = {
-			isa = PBXGroup;
-			children = (
-				B03797391D6CAECB00E9FF84 /* BezierCurve.svg */,
-				B037973A1D6CAECB00E9FF84 /* iceland.svg */,
-				B037973B1D6CAECB00E9FF84 /* tiger.svg */,
-				07AA8A9F1F0476B800DDA64A /* Rectangle.svg */,
-				1DC60E3C1E2B91D30044BFD3 /* Circle.svg */,
-			);
-			name = "Sample SVG Files";
-			path = "../Sample SVG Files";
-			sourceTree = "<group>";
-		};
 		B09D908D1D6C5E2E00360396 = {
 			isa = PBXGroup;
 			children = (
+				B0B5920C207508E30009ECA2 /* Sample SVG Files */,
 				B09D90981D6C5E2E00360396 /* Demo-iOS */,
-				B03797381D6CAECB00E9FF84 /* Sample SVG Files */,
 				B09D90971D6C5E2E00360396 /* Products */,
 				1DC60E461E2BA1170044BFD3 /* Frameworks */,
 			);
@@ -88,13 +83,46 @@
 		B09D90981D6C5E2E00360396 /* Demo-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				B09D90991D6C5E2E00360396 /* IosDemo.swift */,
-				1DC60E491E2BA48F0044BFD3 /* Main.storyboard */,
+				B09D90991D6C5E2E00360396 /* AppDelegate.swift */,
+				B0B592042074F7B80009ECA2 /* MainViewController.swift */,
+				B0B592062074F9240009ECA2 /* SimpleDetailViewController.swift */,
+				B0B5921720750C370009ECA2 /* RectangleViewController.swift */,
+				B0B59220207514970009ECA2 /* IcelandicViewController.swift */,
+				B0B5922220751E760009ECA2 /* GrayscaleTigerViewController.swift */,
 				1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */,
 				B09D90A01D6C5E2E00360396 /* Assets.xcassets */,
 				B09D90A51D6C5E2E00360396 /* Info.plist */,
 			);
 			path = "Demo-iOS";
+			sourceTree = "<group>";
+		};
+		B0B5920C207508E30009ECA2 /* Sample SVG Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0B5921920750C690009ECA2 /* simple */,
+				B0B5921A20750C700009ECA2 /* complex */,
+			);
+			name = "Sample SVG Files";
+			path = "../Sample SVG Files";
+			sourceTree = "<group>";
+		};
+		B0B5921920750C690009ECA2 /* simple */ = {
+			isa = PBXGroup;
+			children = (
+				B0B5920D207508E30009ECA2 /* circle.svg */,
+				B0B5920E207508E30009ECA2 /* curve.svg */,
+				B0B5920F207508E30009ECA2 /* iceland.svg */,
+				B0B59211207508E30009ECA2 /* tiger.svg */,
+			);
+			path = simple;
+			sourceTree = "<group>";
+		};
+		B0B5921A20750C700009ECA2 /* complex */ = {
+			isa = PBXGroup;
+			children = (
+				B0B59210207508E30009ECA2 /* rectangle.svg */,
+			);
+			path = complex;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,12 +152,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = PocketSVG;
 				TargetAttributes = {
 					B09D90951D6C5E2E00360396 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
@@ -156,14 +184,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07AA8AA01F0476B800DDA64A /* Rectangle.svg in Resources */,
-				1DC60E3D1E2B91D30044BFD3 /* Circle.svg in Resources */,
-				B037973C1D6CAECB00E9FF84 /* BezierCurve.svg in Resources */,
-				B037973D1D6CAECB00E9FF84 /* iceland.svg in Resources */,
-				B037973E1D6CAECB00E9FF84 /* tiger.svg in Resources */,
-				1DC60E4B1E2BA48F0044BFD3 /* Main.storyboard in Resources */,
+				B0B59215207508E30009ECA2 /* rectangle.svg in Resources */,
+				B0B59214207508E30009ECA2 /* iceland.svg in Resources */,
+				B0B59216207508E30009ECA2 /* tiger.svg in Resources */,
+				B0B59213207508E30009ECA2 /* curve.svg in Resources */,
 				B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */,
 				1DC60E4E1E2BAA200044BFD3 /* Launch Screen.storyboard in Resources */,
+				B0B59212207508E30009ECA2 /* circle.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,21 +201,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09D909A1D6C5E2E00360396 /* IosDemo.swift in Sources */,
+				B0B5921820750C370009ECA2 /* RectangleViewController.swift in Sources */,
+				B0B592072074F9240009ECA2 /* SimpleDetailViewController.swift in Sources */,
+				B0B59221207514970009ECA2 /* IcelandicViewController.swift in Sources */,
+				B0B5922320751E760009ECA2 /* GrayscaleTigerViewController.swift in Sources */,
+				B0B592052074F7B80009ECA2 /* MainViewController.swift in Sources */,
+				B09D909A1D6C5E2E00360396 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1DC60E491E2BA48F0044BFD3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1DC60E4A1E2BA48F0044BFD3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -209,14 +233,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -257,14 +287,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -298,7 +334,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -310,7 +347,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

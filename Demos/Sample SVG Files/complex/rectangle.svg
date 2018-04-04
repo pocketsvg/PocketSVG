@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg width="500px" height="500px" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <g id="Page-1" stroke="#fff000" stroke-width="2px" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-    <rect x="10" y="10" width="100px" height="100px" rx="10px" ry="10px"></rect>
+    <rect x="0" y="0" width="100px" height="100px" rx="10px" ry="10px"></rect>
     </g>
 </svg>

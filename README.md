@@ -11,11 +11,11 @@ Thoroughly documented.
 
 ## Features
 
-* Render SVG files via SVGImageView/Layer
-* Display all kinds of SVGs shapes and paths.
+* Support for SVG elements: `path`, `polyline`, `polygon`, `rect`, `circle`, `ellipse`
+* Support for SVG named colors.
 * Fully working iOS and macOS demos.
-* Straightforward API for typical SVG rendering (`SVGLayer` and `SVGImageView`)
-* Supports more fine-grained SVG manipulation (`SVGBezierPath` and `SVGEngine`)
+* Straightforward API for typical SVG rendering as a `UIImageView`/`NSImageView` or `CALayer` subclass.
+* Access every shape within your SVG as a `CGPath` for more fine-grained manipulation.
 
 
 ## Installation
@@ -46,42 +46,51 @@ Drag and drop `PocketSVG.xcodeproj` into your Xcode project. In your project set
 
 ## Usage
 
-Render an SVG file using SVGImageView:
+Render an SVG file using `SVGImageView`:
 
 ```swift
-let url = Bundle.main.url(forResource: "svg_file_name", withExtension: "svg")!
+let url = Bundle.main.url(forResource: "tiger", withExtension: "svg")!
 let svgImageView = SVGImageView.init(contentsOf: url)
+svgImageView.frame = view.bounds
+svgImageView.contentMode = .scaleAspectFit
 view.addSubview(svgImageView)
 ```
 
+**Output**
+![image](https://user-images.githubusercontent.com/1756909/38315263-6664fe64-3828-11e8-8d49-1e0c52f3d4e2.png)
+
+
 Manually render each path of an SVG file into using CAShapeLayers:
 
-```objective-c
-for(SVGBezierPath *path in [SVGBezierPath pathsFromSVGNamed:@"myImage"]) {
-    // Create a layer for each path
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.path = path.CGPath;
+```swift
+view.backgroundColor = .white
 
-    // Set its display properties
-    layer.lineWidth   = 4;
-    layer.strokeColor = [path.svgAttributes[@"stroke"] ?: [UIColor blackColor] CGColor];
-    layer.fillColor   = [path.svgAttributes[@"fill"] ?: [UIColor redColor] CGColor];
-
-    // Add it to the layer hierarchy
-    [self.view.layer addSublayer:layer];
+let svgURL = Bundle.main.url(forResource: "tiger", withExtension: "svg")!
+let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
+let tigerLayer = CALayer()
+for (index, path) in paths.enumerated() {
+    let shapeLayer = CAShapeLayer()
+    shapeLayer.path = path.cgPath
+    if index%2 == 0 {
+        shapeLayer.fillColor = UIColor.black.cgColor
+    }
+    else if index%3 == 0 {
+        shapeLayer.fillColor = UIColor.darkGray.cgColor
+    }
+    else {
+        shapeLayer.fillColor = UIColor.gray.cgColor
+    }
+    tigerLayer.addSublayer(shapeLayer)
 }
+
+var transform = CATransform3DMakeScale(0.4, 0.4, 1.0)
+transform = CATransform3DTranslate(transform, 200, 400, 0)
+tigerLayer.transform = transform
+view.layer.addSublayer(tigerLayer)
 ```
 
-## Screenshots
-
-### iOS
-
-![iOS Screenshot](http://i.imgur.com/tD3oc04.png)
-
-### macOS
-
-![macOS Screenshot](http://i.imgur.com/7tY8Suw.png)
-
+**Output**
+![image](https://user-images.githubusercontent.com/1756909/38315982-f3f7017c-3829-11e8-9c7f-420eb15e727e.png)
 
 ## Contributing
 
