@@ -131,7 +131,7 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             path = readCircleTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "ellipse") == 0)
             path = readEllipseTag();
-        else if(strcasecmp(tag, "g") == 0) {
+        else if(strcasecmp(tag, "g") == 0 || strcasecmp(tag, "a") == 0) {
             if(type == XML_READER_TYPE_ELEMENT)
                 pushGroup(readAttributes());
             else if(type == XML_READER_TYPE_END_ELEMENT)
