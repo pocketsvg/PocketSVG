@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1DC60E451E2BA10D0044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */; };
-		B03797431D6CAEDD00E9FF84 /* BezierCurve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797401D6CAEDD00E9FF84 /* BezierCurve.svg */; };
-		B03797441D6CAEDD00E9FF84 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797411D6CAEDD00E9FF84 /* iceland.svg */; };
-		B03797451D6CAEDD00E9FF84 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B03797421D6CAEDD00E9FF84 /* tiger.svg */; };
+		B07359B4207565BF00D88B19 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359AF207565BF00D88B19 /* circle.svg */; };
+		B07359B5207565BF00D88B19 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B0207565BF00D88B19 /* tiger.svg */; };
+		B07359B6207565BF00D88B19 /* rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B1207565BF00D88B19 /* rectangle.svg */; };
+		B07359B7207565BF00D88B19 /* iceland.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B2207565BF00D88B19 /* iceland.svg */; };
+		B07359B8207565BF00D88B19 /* curve.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B3207565BF00D88B19 /* curve.svg */; };
 		B0EEE22A1D6CA72100BCAF68 /* MacDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EEE2291D6CA72100BCAF68 /* MacDemo.swift */; };
 		B0EEE22E1D6CA72100BCAF68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */; };
 		B0EEE2311D6CA72100BCAF68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0EEE22F1D6CA72100BCAF68 /* Main.storyboard */; };
@@ -18,9 +20,11 @@
 
 /* Begin PBXFileReference section */
 		1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/Demos-fpvqarxjpwngakagvcwozxoheexz/Build/Products/Debug/PocketSVG.framework"; sourceTree = "<group>"; };
-		B03797401D6CAEDD00E9FF84 /* BezierCurve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BezierCurve.svg; sourceTree = "<group>"; };
-		B03797411D6CAEDD00E9FF84 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
-		B03797421D6CAEDD00E9FF84 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
+		B07359AF207565BF00D88B19 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
+		B07359B0207565BF00D88B19 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
+		B07359B1207565BF00D88B19 /* rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rectangle.svg; sourceTree = "<group>"; };
+		B07359B2207565BF00D88B19 /* iceland.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iceland.svg; sourceTree = "<group>"; };
+		B07359B3207565BF00D88B19 /* curve.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = curve.svg; sourceTree = "<group>"; };
 		B0EEE2261D6CA72100BCAF68 /* Demo-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EEE2291D6CA72100BCAF68 /* MacDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacDemo.swift; sourceTree = "<group>"; };
 		B0EEE22D1D6CA72100BCAF68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,9 +55,11 @@
 		B037973F1D6CAEDC00E9FF84 /* Sample SVG Files */ = {
 			isa = PBXGroup;
 			children = (
-				B03797401D6CAEDD00E9FF84 /* BezierCurve.svg */,
-				B03797411D6CAEDD00E9FF84 /* iceland.svg */,
-				B03797421D6CAEDD00E9FF84 /* tiger.svg */,
+				B07359AF207565BF00D88B19 /* circle.svg */,
+				B07359B3207565BF00D88B19 /* curve.svg */,
+				B07359B2207565BF00D88B19 /* iceland.svg */,
+				B07359B0207565BF00D88B19 /* tiger.svg */,
+				B07359B1207565BF00D88B19 /* rectangle.svg */,
 			);
 			name = "Sample SVG Files";
 			path = "../Sample SVG Files";
@@ -147,11 +153,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B03797431D6CAEDD00E9FF84 /* BezierCurve.svg in Resources */,
-				B03797441D6CAEDD00E9FF84 /* iceland.svg in Resources */,
-				B03797451D6CAEDD00E9FF84 /* tiger.svg in Resources */,
+				B07359B6207565BF00D88B19 /* rectangle.svg in Resources */,
+				B07359B8207565BF00D88B19 /* curve.svg in Resources */,
+				B07359B7207565BF00D88B19 /* iceland.svg in Resources */,
 				B0EEE22E1D6CA72100BCAF68 /* Assets.xcassets in Resources */,
 				B0EEE2311D6CA72100BCAF68 /* Main.storyboard in Resources */,
+				B07359B5207565BF00D88B19 /* tiger.svg in Resources */,
+				B07359B4207565BF00D88B19 /* circle.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

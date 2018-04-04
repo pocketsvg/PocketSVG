@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. Items under
 ### New Features
 ### Fixes
 ### Internal Changes
+- Add unit tests. Ariel Elkin.
 
 ## [2.4.0]
 ### New Features
