@@ -119,7 +119,7 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.4.0...HEAD
 [2.4.0]: https://github.com/pocketsvg/PocketSVG/compare/2.3.1...2.4.0
 [2.3.1]: https://github.com/pocketsvg/PocketSVG/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/pocketsvg/PocketSVG/compare/2.2.1...2.3.0
