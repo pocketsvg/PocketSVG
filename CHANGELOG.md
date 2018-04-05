@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
+- Handle attributes on `<a>` elements and ignore unknown elements. Scott Talbot [#121](https://github.com/pocketsvg/PocketSVG/pull/121)
 
 ## [2.4.0]
 ### New Features
