@@ -71,11 +71,26 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(bezierPath.svgRepresentation, representation)
     }
 
+    func testSVGAttributesAreCorrectlySetWhenInitingWithAttributes() {
+        let attributes: [String: Any] = [
+            "stroke": "black",
+            "stroke-width": "2",
+            "fill": "transparent"
+        ]
+
+        let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
+
+        XCTAssert(bezierPath.svgAttributes["stroke"] as! String == "black")
+        XCTAssert(bezierPath.svgAttributes["stroke-width"] as! String == "2")
+        XCTAssert(bezierPath.svgAttributes["fill"] as! String == "transparent")
+    }
+
     func testSVGRepresentationWithRectangle() {
         let testBundle = Bundle(for: type(of: self))
         let svgURL = testBundle.url(forResource: "test_rectangle", withExtension: "svg")!
 
         let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
+        XCTAssert(paths.count == 1)
         let rectanglePath = paths[0]
 
         let representation = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100\" height=\"100\">\n  <path stroke=\"#fff000\" id=\"Page-1\" stroke-width=\"2px\" x=\"0\" sketch:type=\"MSPage\" rx=\"10px\" y=\"0\" fill-rule=\"evenodd\" width=\"100px\" fill=\"#ffffff\" fill-opacity=\"0\" ry=\"10px\" height=\"100px\" d=\"M100,50L100,90C100,95.523,95.523,100,90,100L10,100C4.477,100,0,95.523,0,90L0,10C0,4.477,4.477,-0,10,0L90,0C95.523,0,100,4.477,100,10Z\"/>\n\n</svg>\n"
