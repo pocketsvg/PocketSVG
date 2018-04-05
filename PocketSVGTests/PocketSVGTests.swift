@@ -12,6 +12,11 @@ import PocketSVG
 
 class PocketSVGTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = false
+    }
+
     func testSVGAttributesFromRectangle() {
         let testBundle = Bundle(for: type(of: self))
         let svgURL = testBundle.url(forResource: "test_rectangle", withExtension: "svg")!
