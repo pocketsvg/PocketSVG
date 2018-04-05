@@ -102,5 +102,81 @@ class PocketSVGTests: XCTestCase {
 
         XCTAssertEqual(rectanglePath.svgRepresentation, representation)
     }
-    
+
+    func testTransformTranslate() {
+        let svgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(10 5)">
+                    <rect x="20" y="20" width="60" height="60"/>
+                </g>
+            </svg>
+            """
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        guard let path = paths.first else {
+            return
+        }
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 5))
+    }
+
+    func testTransformTranslateOptionalParameters() {
+        let svgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(10)">
+                    <rect x="20" y="20" width="60" height="60"/>
+                </g>
+            </svg>
+            """
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        guard let path = paths.first else {
+            return
+        }
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 0))
+    }
+
+    func testTransformScale() {
+        let svgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <g transform="scale(2 2)">
+                    <rect x="20" y="20" width="30" height="30"/>
+                </g>
+            </svg>
+            """
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        guard let path = paths.first else {
+            return
+        }
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
+    }
+
+    func testTransformScaleOptionalParameters() {
+        let svgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <g transform="scale(2)">
+                    <rect x="20" y="20" width="60" height="60"/>
+                </g>
+            </svg>
+            """
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        guard let path = paths.first else {
+            return
+        }
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
+    }
+
 }
