@@ -107,4 +107,29 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(path.bounds, CGRect(x: 20, y: 20, width: 60, height: 60))
     }
 
+    func testRespectsAttributesOnAElement() {
+        let svgString = """
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+                <a transform="translate(5 10)">
+                    <rect x="15" y="10" width="60" height="60"/>
+                </a>
+            </svg>
+            """
+
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        guard let path = paths.first else {
+            return
+        }
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).cgAffineTransformValue
+        let pathBounds = path.bounds
+        let translatedPathBounds = pathBounds.applying(pathTransform)
+
+        XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 5, y: 10))
+        XCTAssertEqual(pathBounds, CGRect(x: 15, y: 10, width: 60, height: 60))
+        XCTAssertEqual(translatedPathBounds, CGRect(x: 20, y: 20, width: 60, height: 60))
+    }
+
 }
