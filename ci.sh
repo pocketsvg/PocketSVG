@@ -1,11 +1,24 @@
-## this script builds the iOS and macOS frameworks and demos, and
-## runs the tests on iOS. It is called from Travis CI (via .travis.yml)
-## and placed in a separate file for better readability.
+## This file is part of the PocketSVG package.
+# Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+## This script builds the iOS and macOS frameworks and demos, and
+# runs the tests on iOS. Our CI system requires that this script
+# run successfully. It is called via .travis.yml and you can see
+# the results over at https://travis-ci.org/pocketsvg/PocketSVG
+#
+# You can run this script locally before pushing your changes to
+# check the build and tests run as they should.
+
+# print every command:
+set -x
+# stop execution if an error occurs:
+set -eo pipefail
 
 IPHONE6SIM="platform=iOS Simulator,name=iPhone 6,OS=11.2"
 
 ## build iOS framework:
-set -o pipefail && \
 xcodebuild \
   -project PocketSVG.xcodeproj \
   -scheme "PocketSVG (iOS)" \
@@ -13,7 +26,6 @@ xcodebuild \
   clean build | xcpretty
 
 ## build macOS framework:
-set -o pipefail && \
 xcodebuild \
   -project PocketSVG.xcodeproj \
   -scheme "PocketSVG (Mac)" \
@@ -21,7 +33,6 @@ xcodebuild \
   clean build | xcpretty
 
 ## build iOS demo:
-set -o pipefail && \
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
   -destination "$IPHONE6SIM" \
@@ -29,7 +40,6 @@ xcodebuild \
   clean build | xcpretty
 
 ## build macOS demo:
-set -o pipefail && \
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
   -destination "arch=x86_64" \
@@ -37,7 +47,6 @@ xcodebuild \
   clean build | xcpretty
 
 ## run tests:
-set -o pipefail && \
 xcodebuild \
   -project PocketSVG.xcodeproj \
   -scheme PocketSVGTests \
