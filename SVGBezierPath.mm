@@ -54,11 +54,11 @@
     return [[NSArray alloc] initWithArray:paths copyItems:YES];
 }
 
-+ (NSArray *)pathsFromSVGString:(NSString * const)svgString
++ (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString * const)svgString
 {
     SVGAttributeSet *cgAttrs;
-    NSArray        * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs);
-    NSMutableArray * const paths    = [NSMutableArray arrayWithCapacity:pathRefs.count];
+    NSArray * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs);
+    NSMutableArray<SVGBezierPath*> * const paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
         SVGBezierPath * const uiPath = [self bezierPathWithCGPath:(__bridge CGPathRef)pathRef];
         uiPath->_svgAttributes = [cgAttrs attributesForPath:(__bridge CGPathRef)pathRef] ?: @{};
