@@ -833,17 +833,24 @@ hexTriplet::hexTriplet(NSString *str)
         str = mapped;
     }
     
-    NSCParameterAssert([str hasPrefix:@"#"]);
-    NSCParameterAssert([str length] == 4 || [str length] == 7);
-    if([str length] == 4) {
-        str = [str mutableCopy];
-        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 3, 1 }]
-                                                      atIndex:3];
-        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 2, 1 }]
-                                                      atIndex:2];
-        [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 1, 1 }]
-                                                      atIndex:1];
-    }
+    if ([str hasPrefix:@"rgb("]) {
+		NSCParameterAssert([str hasSuffix:@")"]);
+		NSArray<NSString*>* parts = [[str substringWithRange:(NSRange) { 4, str.length-5 }] componentsSeparatedByString:@","];
+		NSCParameterAssert([parts count] == 3);
+		str = [NSString stringWithFormat:@"#%02x%02x%02x", parts[0].integerValue, parts[1].integerValue, parts[2].integerValue];
+	} else {
+		NSCParameterAssert([str hasPrefix:@"#"]);
+		NSCParameterAssert([str length] == 4 || [str length] == 7);
+		if([str length] == 4) {
+			str = [str mutableCopy];
+			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 3, 1 }]
+										 atIndex:3];
+			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 2, 1 }]
+										 atIndex:2];
+			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 1, 1 }]
+										 atIndex:1];
+		}
+	}
     _data = (uint32_t)strtol([str cStringUsingEncoding:NSASCIIStringEncoding]+1, NULL, 16);
 }
 
