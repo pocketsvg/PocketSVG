@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. Items under
 
 ### New Features
 ### Fixes
+- Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
 
