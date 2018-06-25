@@ -313,11 +313,11 @@ NSDictionary *svgParser::readAttributes()
                     transformOperands.push_back(operand));
 
                 CGAffineTransform additionalTransform = CGAffineTransformIdentity;
-                if([transformCmd isEqualToString:@"matrix"])
+                if([transformCmd isEqualToString:@"matrix"] && transformOperands.size() >= 6) {
                     additionalTransform = CGAffineTransformMake(transformOperands[0], transformOperands[1],
                                                                 transformOperands[2], transformOperands[3],
                                                                 transformOperands[4], transformOperands[5]);
-                else if([transformCmd isEqualToString:@"rotate"]) {
+                } else if([transformCmd isEqualToString:@"rotate"] && transformOperands.size() >= 1) {
                     float const radians = transformOperands[0] * M_PI / 180.0;
                     if (transformOperands.size() == 3) {
                         float const x = transformOperands[1];
@@ -331,14 +331,23 @@ NSDictionary *svgParser::readAttributes()
                                                                     -sinf(radians), cosf(radians),
                                                                     0, 0);
                     }
-                } else if([transformCmd isEqualToString:@"translate"])
-                    additionalTransform = CGAffineTransformMakeTranslation(transformOperands[0], transformOperands[1]);
-                else if([transformCmd isEqualToString:@"scale"])
-                    additionalTransform = CGAffineTransformMakeScale(transformOperands[0], transformOperands[1]);
-                else if([transformCmd isEqualToString:@"skewX"])
+                } else if([transformCmd isEqualToString:@"translate"] && transformOperands.size() >= 1) {
+                    float tx = transformOperands[0];
+                    float ty = 0;
+                    if (transformOperands.size() >= 2)
+                        ty = transformOperands[1];
+                    additionalTransform = CGAffineTransformMakeTranslation(tx, ty);
+                } else if([transformCmd isEqualToString:@"scale"] && transformOperands.size() >= 1) {
+                    float sx = transformOperands[0];
+                    float sy = sx;
+                    if (transformOperands.size() >= 2)
+                        sy = transformOperands[1];
+                    additionalTransform = CGAffineTransformMakeScale(sx, sy);
+                } else if([transformCmd isEqualToString:@"skewX"] && transformOperands.size() >= 1) {
                     additionalTransform.c = tanf(transformOperands[0] * M_PI / 180.0);
-                else if([transformCmd isEqualToString:@"skewY"])
+                } else if([transformCmd isEqualToString:@"skewY"] && transformOperands.size() >= 1) {
                     additionalTransform.b = tanf(transformOperands[0] * M_PI / 180.0);
+                }
 
                 transform = CGAffineTransformConcat(additionalTransform, transform);
             }
