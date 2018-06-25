@@ -103,6 +103,50 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(rectanglePath.svgRepresentation, representation)
     }
 
+    func testIgnoresMaskElement() {
+        let svgString = """
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+                <g>
+                    <mask>
+                        <g>
+                            <rect width="100" height="100" style="fill: #FFFFFF" />
+                        </g>
+                    </mask>
+                    <rect x="20" y="20" width="60" height="60" style="fill: #FF0000"/>
+                </g>
+            </svg>
+            """
+
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+        let path = paths.first
+
+        XCTAssertEqual(path!.bounds, CGRect(x: 20, y: 20, width: 60, height: 60))
+    }
+
+    func testRespectsAttributesOnAElement() {
+        let svgString = """
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+                <a transform="translate(5 10)">
+                    <rect x="15" y="10" width="60" height="60"/>
+                </a>
+            </svg>
+            """
+
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+        let path = paths.first!
+
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).cgAffineTransformValue
+        let pathBounds = path.bounds
+        let translatedPathBounds = pathBounds.applying(pathTransform)
+
+        XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 5, y: 10))
+        XCTAssertEqual(pathBounds, CGRect(x: 15, y: 10, width: 60, height: 60))
+        XCTAssertEqual(translatedPathBounds, CGRect(x: 20, y: 20, width: 60, height: 60))
+    }
+
+
     func testTransformTranslate() {
         let svgString = """
             <svg xmlns="http://www.w3.org/2000/svg">
@@ -113,10 +157,7 @@ class PocketSVGTests: XCTestCase {
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
-
-        guard let path = paths.first else {
-            return
-        }
+        let path = paths.first!
 
         let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
         XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 5))
@@ -132,10 +173,7 @@ class PocketSVGTests: XCTestCase {
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
-
-        guard let path = paths.first else {
-            return
-        }
+        let path = paths.first!
 
         let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
         XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 0))
@@ -151,10 +189,7 @@ class PocketSVGTests: XCTestCase {
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
-
-        guard let path = paths.first else {
-            return
-        }
+        let path = paths.first!
 
         let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
         XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
@@ -170,10 +205,7 @@ class PocketSVGTests: XCTestCase {
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
-
-        guard let path = paths.first else {
-            return
-        }
+        let path = paths.first!
 
         let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
         XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))

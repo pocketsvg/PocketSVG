@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. Items under
 - Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
-- Deal with optional transformation arguments. Scott Talbot [#122](https://github.com/pocketsvg/PocketSVG/pull/122)
+- Handle attributes on `<a>` elements and ignore unknown elements. Scott Talbot [#121](https://github.com/pocketsvg/PocketSVG/pull/121)
 
 ## [2.4.0]
 ### New Features
