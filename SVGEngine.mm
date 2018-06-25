@@ -846,7 +846,7 @@ hexTriplet::hexTriplet(NSString *str)
 		NSCParameterAssert([str hasSuffix:@")"]);
 		NSArray<NSString*>* parts = [[str substringWithRange:(NSRange) { 4, str.length-5 }] componentsSeparatedByString:@","];
 		NSCParameterAssert([parts count] == 3);
-		str = [NSString stringWithFormat:@"#%02x%02x%02x", parts[0].integerValue, parts[1].integerValue, parts[2].integerValue];
+		str = [NSString stringWithFormat:@"#%02x%02x%02x", (unsigned int)parts[0].integerValue, (unsigned int)parts[1].integerValue, (unsigned int)parts[2].integerValue];
 	} else {
 		NSCParameterAssert([str hasPrefix:@"#"]);
 		NSCParameterAssert([str length] == 4 || [str length] == 7);
