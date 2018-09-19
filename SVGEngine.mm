@@ -493,8 +493,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
-    CGPathMoveToPoint(_path, NULL, 0, 0);
-
+	
     NSScanner * const scanner = [NSScanner scannerWithString:_definition];
     static NSCharacterSet *separators, *commands;
     static dispatch_once_t onceToken;
