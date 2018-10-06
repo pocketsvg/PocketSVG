@@ -493,7 +493,17 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
+
+    // Workaround for iOS 12 bug
+    // See https://github.com/pocketsvg/PocketSVG/issues/128
+#if TARGET_OS_IPHONE
+    BOOL isRunningiOS12OrAbove = ([[[UIDevice currentDevice] systemVersion] compare:@"12" options:NSNumericSearch] != NSOrderedAscending);
+    if (!isRunningiOS12OrAbove) {
+        CGPathMoveToPoint(_path, NULL, 0, 0);
+    }
+#else
     CGPathMoveToPoint(_path, NULL, 0, 0);
+#endif
 
     NSScanner * const scanner = [NSScanner scannerWithString:_definition];
     static NSCharacterSet *separators, *commands;
