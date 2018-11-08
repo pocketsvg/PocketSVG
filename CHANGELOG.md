@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. Items under
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
 - Handle attributes on `<a>` elements and ignore unknown elements. Scott Talbot [#121](https://github.com/pocketsvg/PocketSVG/pull/121)
-- Demo-iOS Embeded Complex Iceland view in a Zoomable Scrollview in order to show benefits of vector graphics. Kwab Fordjour [#137](https://github.com/pocketsvg/PocketSVG/pull/137)
+- Demo project: show Icelandic SVG in scrollview. Kwab Fordjour [#137](https://github.com/pocketsvg/PocketSVG/pull/137)
 
 ## [2.4.0]
 ### New Features
