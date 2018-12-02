@@ -6,7 +6,6 @@ All notable changes to this project will be documented in this file. Items under
 ### New Features
 ### Fixes
 - Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa
-- Insert moveto origin commands only if necessary to fix iOS 12 path generation regression. [Noah Gilmore](https://github.com/noahsark769)  [#128](https://github.com/pocketsvg/PocketSVG/pull/128)
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
 - Handle attributes on `<a>` elements and ignore unknown elements. Scott Talbot [#121](https://github.com/pocketsvg/PocketSVG/pull/121)

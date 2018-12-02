@@ -51,7 +51,7 @@ class PocketSVGTests: XCTestCase {
         firstPath.addCurve(to: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint1: CGPoint(x: -123.85000306367874, y: 86.141003662720323), controlPoint2: CGPoint(x: -140.30000352859497, y: 38.066001892089844))
         firstPath.addCurve(to: CGPoint(x: -122.30000352859497, y: 84.285003662109375), controlPoint1: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint2: CGPoint(x: -143.05000162124634, y: 32.956001758575439))
         firstPath.close()
-        XCTAssertEqual(firstPath.cgPath, paths[0].cgPath)
+        XCTAssert(firstPath.cgPath == paths[0].cgPath)
 
 
         let hundredthPath = UIBezierPath()
@@ -209,22 +209,6 @@ class PocketSVGTests: XCTestCase {
 
         let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
         XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
-    }
-
-    /**
-     * Test that path bounding boxes are correct to prevent issues like
-     * https://github.com/pocketsvg/PocketSVG/issues/128
-     */
-    func testBoundingBox() {
-        let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 256 l0 -235 235 0 235 0 0 235 0 235 -235 0 -235 0 0 -235z" />
-            </svg>
-            """
-        let paths = SVGBezierPath.paths(fromSVGString: svgString)
-        XCTAssertEqual(paths.count, 1)
-        let path = paths.first!
-        XCTAssertEqual(path.cgPath.boundingBox, CGRect(x: 21, y: 21, width: 470, height: 470))
     }
 
 }

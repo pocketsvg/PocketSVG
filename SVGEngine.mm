@@ -57,7 +57,6 @@ protected:
     unichar _cmd, _lastCmd;
     std::vector<float> _operands;
 
-    void appendMoveToOriginIfNeeded();
     void appendMoveTo();
     void appendLineTo();
     void appendCubicCurve();
@@ -65,7 +64,6 @@ protected:
     void appendQuadraticCurve();
     void appendShorthandQuadraticCurve();
     void appendArc();
-    void closeSubpath();
 };
 
 struct hexTriplet {
@@ -495,6 +493,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
+    CGPathMoveToPoint(_path, NULL, 0, 0);
 
     NSScanner * const scanner = [NSScanner scannerWithString:_definition];
     static NSCharacterSet *separators, *commands;
@@ -547,7 +546,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
                 appendArc();
                 break;
             case 'Z': case 'z':
-                closeSubpath();
+                CGPathCloseSubpath(_path);
                 break;
             default:
                 NSLog(@"*** Error: Cannot process command : '%c'", _cmd);
@@ -559,13 +558,6 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
               (int)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
 
     return _path;
-}
-
-void pathDefinitionParser::appendMoveToOriginIfNeeded()
-{
-    if (CGPathIsEmpty(_path)) {
-        CGPathMoveToPoint(_path, NULL, 0, 0);
-    }
 }
 
 void pathDefinitionParser::appendMoveTo()
@@ -589,7 +581,6 @@ void pathDefinitionParser::appendMoveTo()
 
 void pathDefinitionParser::appendLineTo()
 {
-    appendMoveToOriginIfNeeded();
     for(NSUInteger i = 0; i < _operands.size(); ++i) {
         CGFloat x = 0;
         CGFloat y = 0;
@@ -633,8 +624,6 @@ void pathDefinitionParser::appendCubicCurve()
         NSLog(@"*** Error: Invalid number of parameters for C command");
         return;
     }
-
-    appendMoveToOriginIfNeeded();
     
     // (x1, y1, x2, y2, x, y)
     for(NSUInteger i = 0; i < _operands.size(); i += 6) {
@@ -657,7 +646,6 @@ void pathDefinitionParser::appendShorthandCubicCurve()
         NSLog(@"*** Error: Invalid number of parameters for S command");
         return;
     }
-    appendMoveToOriginIfNeeded();
     if(_lastCmd != 'C' && _lastCmd != 'c' && _lastCmd != 'S' && _lastCmd != 's')
         _lastControlPoint = CGPathGetCurrentPoint(_path);
     
@@ -683,8 +671,6 @@ void pathDefinitionParser::appendQuadraticCurve()
         NSLog(@"*** Error: Invalid number of parameters for Q command");
         return;
     }
-
-    appendMoveToOriginIfNeeded();
     
     // (x1, y1, x, y)
     for(NSUInteger i = 0; i < _operands.size(); i += 4) {
@@ -705,7 +691,6 @@ void pathDefinitionParser::appendShorthandQuadraticCurve()
         NSLog(@"*** Error: Invalid number of parameters for T command");
         return;
     }
-    appendMoveToOriginIfNeeded();
     if(_lastCmd != 'Q' && _lastCmd != 'q' && _lastCmd != 'T' && _lastCmd != 't')
         _lastControlPoint = CGPathGetCurrentPoint(_path);
     
@@ -759,7 +744,6 @@ void pathDefinitionParser::appendArc()
         NSLog(@"*** Error: Invalid number of parameters for A command");
         return;
     }
-    appendMoveToOriginIfNeeded();
     CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
 
     double const px = currentPoint.x;
@@ -852,12 +836,6 @@ void pathDefinitionParser::appendArc()
 
         ang1 += ang2;
     }
-}
-
-void pathDefinitionParser::closeSubpath()
-{
-    appendMoveToOriginIfNeeded();
-    CGPathCloseSubpath(_path);
 }
 
 hexTriplet::hexTriplet(NSString *str)
