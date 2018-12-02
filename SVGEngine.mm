@@ -493,7 +493,6 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
     NSLog(@"d=%@", attr);
 #endif
     _path = CGPathCreateMutable();
-    CGPathMoveToPoint(_path, NULL, 0, 0);
 
     NSScanner * const scanner = [NSScanner scannerWithString:_definition];
     static NSCharacterSet *separators, *commands;
@@ -521,6 +520,12 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
 #endif
         _lastCmd = _cmd;
         _cmd = [cmdBuf characterAtIndex:0];
+
+        if (![[cmdBuf substringToIndex:1].uppercaseString isEqualToString:@"M"] && CGPathIsEmpty(_path)) {
+            // Workaround for https://github.com/pocketsvg/PocketSVG/issues/128
+            CGPathMoveToPoint(_path, NULL, 0, 0);
+        }
+
         switch(_cmd) {
             case 'M': case 'm':
                 appendMoveTo();
