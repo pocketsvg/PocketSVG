@@ -521,7 +521,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
         _lastCmd = _cmd;
         _cmd = [cmdBuf characterAtIndex:0];
 
-        if (![[cmdBuf substringToIndex:1].uppercaseString isEqualToString:@"M"] && CGPathIsEmpty(_path)) {
+        if (![cmdBuf.uppercaseString hasPrefix:@"M"] && CGPathIsEmpty(_path)) {
             // Workaround for https://github.com/pocketsvg/PocketSVG/issues/128
             CGPathMoveToPoint(_path, NULL, 0, 0);
         }
