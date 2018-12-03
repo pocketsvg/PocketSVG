@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 - Fix iOS12 regression on pathsFromSVGString. Noah Gilmore. [#128](https://github.com/pocketsvg/PocketSVG/issues/128) via [#133](https://github.com/pocketsvg/PocketSVG/pull/133).
 
+### Internal Changes
+- Embed Iceland SVG example in a zoomable scroll view. kwabford. [#137](https://github.com/pocketsvg/PocketSVG/pull/137)
+
 ## [2.4.1]
 ### Fixes
 - Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa [#124](https://github.com/pocketsvg/PocketSVG/pull/124)
