@@ -2,10 +2,18 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
-
 ### New Features
 ### Fixes
-- Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa
+### Internal Changes
+
+## [2.4.2]
+### Fixes
+- Fix iOS12 regression on pathsFromSVGString. Noah Gilmore. [#128](https://github.com/pocketsvg/PocketSVG/issues/128) via [#133](https://github.com/pocketsvg/PocketSVG/pull/133).
+
+## [2.4.1]
+### Fixes
+- Add support for integer function SVG colors: rgb(int, int, int). Clément Beffa [#124](https://github.com/pocketsvg/PocketSVG/pull/124)
+
 ### Internal Changes
 - Add unit tests. Ariel Elkin.
 - Handle attributes on `<a>` elements and ignore unknown elements. Scott Talbot [#121](https://github.com/pocketsvg/PocketSVG/pull/121)
@@ -123,7 +131,9 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.4.0...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.4.2...HEAD
+[2.4.2]: https://github.com/pocketsvg/PocketSVG/compare/2.4.1...2.4.2
+[2.4.1]: https://github.com/pocketsvg/PocketSVG/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/pocketsvg/PocketSVG/compare/2.3.1...2.4.0
 [2.3.1]: https://github.com/pocketsvg/PocketSVG/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/pocketsvg/PocketSVG/compare/2.2.1...2.3.0
