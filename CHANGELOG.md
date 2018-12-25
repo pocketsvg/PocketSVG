@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. Items under
 ## [Unreleased]
 ### New Features
 ### Fixes
-- Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#142](https://github.com/pocketsvg/PocketSVG/pull/142)
+- Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#143](https://github.com/pocketsvg/PocketSVG/pull/143)
 
 ### Internal Changes
 
