@@ -745,101 +745,104 @@ static CGPoint mapToEllipse(double x, double y, double rx, double ry, double cos
 
 void pathDefinitionParser::appendArc()
 {
-    if (_operands.size() != 7) {
+    if (_operands.size()%7 != 0) {
         NSLog(@"*** Error: Invalid number of parameters for A command");
         return;
     }
-    CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
-
-    double const px = currentPoint.x;
-    double const py = currentPoint.y;
-    double rx = _operands[0];
-    double ry = _operands[1];
-    double const xAxisRotation = _operands[2];
-    double const largeArcFlag = _operands[3];
-    double const sweepFlag = _operands[4];
-    double const cx = _operands[5] + (_cmd == 'a' ? currentPoint.x : 0);
-    double const cy = _operands[6] + (_cmd == 'a' ? currentPoint.y : 0);
-
-    const double TAU = M_PI * 2.0;
-
-    const double sinphi = sin(xAxisRotation * TAU / 360);
-    const double cosphi = cos(xAxisRotation * TAU / 360);
-
-    const double pxp = cosphi * (px - cx) / 2 + sinphi * (py - cy) / 2;
-    const double pyp = -sinphi * (px - cx) / 2 + cosphi * (py - cy) / 2;
-
-    if (pxp == 0 && pyp == 0) {
-        return;
-    }
-
-    rx = abs(rx);
-    ry = abs(ry);
-
-    const double lambda = (CGFloat) (pow(pxp, 2) / pow(rx, 2) + pow(pyp, 2) / pow(ry, 2));
-
-    if (lambda > 1) {
-        rx *= sqrt(lambda);
-        ry *= sqrt(lambda);
-    }
-
-    const double rxsq =  pow(rx, 2);
-    const double rysq =  pow(ry, 2);
-    const double pxpsq =  pow(pxp, 2);
-    const double pypsq =  pow(pyp, 2);
-
-    double radicant = (rxsq * rysq) - (rxsq * pypsq) - (rysq * pxpsq);
-
-    if (radicant < 0) {
-        radicant = 0;
-    }
-
-    radicant /= (rxsq * pypsq) + (rysq * pxpsq);
-    radicant = sqrt(radicant) * (largeArcFlag == sweepFlag ? -1 : 1);
-
-    const double centerxp = radicant * rx / ry * pyp;
-    const double centeryp = radicant * -ry / rx * pxp;
-
-    const double centerx = cosphi * centerxp - sinphi * centeryp + (px + cx) / 2;
-    const double centery = sinphi * centerxp + cosphi * centeryp + (py + cy) / 2;
-
-    const double vx1 = (pxp - centerxp) / rx;
-    const double vy1 = (pyp - centeryp) / ry;
-    const double vx2 = (-pxp - centerxp) / rx;
-    const double vy2 = (-pyp - centeryp) / ry;
-
-    double ang1 = vectorAngle(1, 0, vx1, vy1);
-    double ang2 = vectorAngle(vx1, vy1, vx2, vy2);
-
-    if (sweepFlag == 0 && ang2 > 0) {
-        ang2 -= TAU;
-    }
-
-    if (sweepFlag == 1 && ang2 < 0) {
-        ang2 += TAU;
-    }
-
-    const int segments = (int) MAX(ceil(abs(ang2) / (TAU / 4.0)), 1.0);
-
-    ang2 /= segments;
-
-    for (int i = 0; i < segments; i++) {
-
-        const double a = 4.0 / 3.0 * tan(ang2 / 4.0);
-
-        const double x1 = cos(ang1);
-        const double y1 = sin(ang1);
-        const double x2 = cos(ang1 + ang2);
-        const double y2 = sin(ang1 + ang2);
-
-        CGPoint p1 = mapToEllipse(x1 - y1 * a, y1 + x1 * a, rx, ry, cosphi, sinphi, centerx, centery);
-        CGPoint p2 = mapToEllipse(x2 + y2 * a, y2 - x2 * a, rx, ry, cosphi, sinphi, centerx, centery);
-        CGPoint p = mapToEllipse(x2, y2, rx, ry, cosphi, sinphi, centerx, centery);
-
-        CGPathAddCurveToPoint(_path, NULL, p1.x, p1.y, p2.x, p2.y, p.x, p.y);
-        _lastControlPoint = p2;
-
-        ang1 += ang2;
+    
+    for(NSUInteger offset = 0; offset < _operands.size(); offset += 7) {
+        CGPoint const currentPoint = CGPathGetCurrentPoint(_path);
+        
+        double const px = currentPoint.x;
+        double const py = currentPoint.y;
+        double rx = _operands[offset];
+        double ry = _operands[offset+1];
+        double const xAxisRotation = _operands[offset+2];
+        double const largeArcFlag = _operands[offset+3];
+        double const sweepFlag = _operands[offset+4];
+        double const cx = _operands[offset+5] + (_cmd == 'a' ? currentPoint.x : 0);
+        double const cy = _operands[offset+6] + (_cmd == 'a' ? currentPoint.y : 0);
+        
+        const double TAU = M_PI * 2.0;
+        
+        const double sinphi = sin(xAxisRotation * TAU / 360);
+        const double cosphi = cos(xAxisRotation * TAU / 360);
+        
+        const double pxp = cosphi * (px - cx) / 2 + sinphi * (py - cy) / 2;
+        const double pyp = -sinphi * (px - cx) / 2 + cosphi * (py - cy) / 2;
+        
+        if (pxp == 0 && pyp == 0) {
+            return;
+        }
+        
+        rx = abs(rx);
+        ry = abs(ry);
+        
+        const double lambda = (CGFloat) (pow(pxp, 2) / pow(rx, 2) + pow(pyp, 2) / pow(ry, 2));
+        
+        if (lambda > 1) {
+            rx *= sqrt(lambda);
+            ry *= sqrt(lambda);
+        }
+        
+        const double rxsq =  pow(rx, 2);
+        const double rysq =  pow(ry, 2);
+        const double pxpsq =  pow(pxp, 2);
+        const double pypsq =  pow(pyp, 2);
+        
+        double radicant = (rxsq * rysq) - (rxsq * pypsq) - (rysq * pxpsq);
+        
+        if (radicant < 0) {
+            radicant = 0;
+        }
+        
+        radicant /= (rxsq * pypsq) + (rysq * pxpsq);
+        radicant = sqrt(radicant) * (largeArcFlag == sweepFlag ? -1 : 1);
+        
+        const double centerxp = radicant * rx / ry * pyp;
+        const double centeryp = radicant * -ry / rx * pxp;
+        
+        const double centerx = cosphi * centerxp - sinphi * centeryp + (px + cx) / 2;
+        const double centery = sinphi * centerxp + cosphi * centeryp + (py + cy) / 2;
+        
+        const double vx1 = (pxp - centerxp) / rx;
+        const double vy1 = (pyp - centeryp) / ry;
+        const double vx2 = (-pxp - centerxp) / rx;
+        const double vy2 = (-pyp - centeryp) / ry;
+        
+        double ang1 = vectorAngle(1, 0, vx1, vy1);
+        double ang2 = vectorAngle(vx1, vy1, vx2, vy2);
+        
+        if (sweepFlag == 0 && ang2 > 0) {
+            ang2 -= TAU;
+        }
+        
+        if (sweepFlag == 1 && ang2 < 0) {
+            ang2 += TAU;
+        }
+        
+        const int segments = (int) MAX(ceil(abs(ang2) / (TAU / 4.0)), 1.0);
+        
+        ang2 /= segments;
+        
+        for (int i = 0; i < segments; i++) {
+            
+            const double a = 4.0 / 3.0 * tan(ang2 / 4.0);
+            
+            const double x1 = cos(ang1);
+            const double y1 = sin(ang1);
+            const double x2 = cos(ang1 + ang2);
+            const double y2 = sin(ang1 + ang2);
+            
+            CGPoint p1 = mapToEllipse(x1 - y1 * a, y1 + x1 * a, rx, ry, cosphi, sinphi, centerx, centery);
+            CGPoint p2 = mapToEllipse(x2 + y2 * a, y2 - x2 * a, rx, ry, cosphi, sinphi, centerx, centery);
+            CGPoint p = mapToEllipse(x2, y2, rx, ry, cosphi, sinphi, centerx, centery);
+            
+            CGPathAddCurveToPoint(_path, NULL, p1.x, p1.y, p2.x, p2.y, p.x, p.y);
+            _lastControlPoint = p2;
+            
+            ang1 += ang2;
+        }
     }
 }
 
