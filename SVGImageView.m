@@ -51,8 +51,8 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder])) {
-        self.wantsLayer = YES;
         _svgLayer = [SVGLayer new];
+        self.wantsLayer = YES;
     }
     return self;
 }
@@ -92,7 +92,7 @@
 {
 #if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
     if(_fileWatcher)
-        (void)(dispatch_source_cancel(_fileWatcher)), _fileWatcher = NULL;
+    (void)((dispatch_source_cancel(_fileWatcher))), _fileWatcher = NULL;
 #endif
     _svgLayer.paths = paths;
 }
