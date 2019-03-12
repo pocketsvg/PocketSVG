@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file. Items under
 ### New Features
 ### Fixes
 - Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#143](https://github.com/pocketsvg/PocketSVG/pull/143)
+- Migrate Demo projects to Xcode 10
+- Fix for OS X Crash (https://github.com/pocketsvg/PocketSVG/issues/136) via [Gabor Nemeth](https://github.com/gabor-nemeth)
 
 ### Internal Changes
 

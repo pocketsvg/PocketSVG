@@ -43,16 +43,16 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
-        self.wantsLayer = YES;
         _svgLayer = [SVGLayer new];
+        self.wantsLayer = YES;
     }
     return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder])) {
-        self.wantsLayer = YES;
         _svgLayer = [SVGLayer new];
+        self.wantsLayer = YES;
     }
     return self;
 }
@@ -92,7 +92,7 @@
 {
 #if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
     if(_fileWatcher)
-        dispatch_source_cancel(_fileWatcher), _fileWatcher = NULL;
+    (void)((dispatch_source_cancel(_fileWatcher))), _fileWatcher = NULL;
 #endif
     _svgLayer.paths = paths;
 }
@@ -143,10 +143,10 @@
                                           DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE,
                                           dispatch_get_main_queue());
     dispatch_source_set_event_handler(_fileWatcher, ^{
-        unsigned long const l = dispatch_source_get_data(_fileWatcher);
+        unsigned long const l = dispatch_source_get_data(self->_fileWatcher);
         if(l & DISPATCH_VNODE_DELETE || l & DISPATCH_VNODE_WRITE) {
             NSLog(@"Reloading %@", url.lastPathComponent);
-            dispatch_source_cancel(_fileWatcher);
+            dispatch_source_cancel(self->_fileWatcher);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
                 [SVGBezierPath resetCache];
