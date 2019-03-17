@@ -147,9 +147,15 @@
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
             layer.lineWidth = [path.svgAttributes[@"stroke-width"] floatValue] * lineScale;
         }
-        if (path.svgAttributes[@"fill-rule"]) {
-            layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
-        }
+        layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
+        NSString *lineCap = path.svgAttributes[@"stroke-linecap"];
+        layer.lineCap = [lineCap isEqualToString:@"round"] ? kCALineCapRound : ([lineCap isEqualToString:@"square"] ? kCALineCapSquare : kCALineCapButt);
+        NSString *lineJoin = path.svgAttributes[@"stroke-linejoin"];
+        layer.lineJoin = [lineJoin isEqualToString:@"round"] ? kCALineJoinRound : ([lineJoin isEqualToString:@"bevel"] ? kCALineJoinBevel : kCALineJoinMiter);
+        NSString *miterLimit = path.svgAttributes[@"stroke-miterlimit"];
+        layer.miterLimit = miterLimit ? [miterLimit doubleValue] : layer.miterLimit;
+        NSString *dasharray = path.svgAttributes[@"stroke-dasharray"];
+        layer.lineDashPattern = dasharray ? [[dasharray componentsSeparatedByString:@","] valueForKey:@"floatValue"] : nil;
         
         CGRect const pathBounds = path.bounds;
         layer.frame = CGRectApplyAffineTransform(pathBounds, layerTransform);

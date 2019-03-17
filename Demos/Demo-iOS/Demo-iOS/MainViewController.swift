@@ -42,6 +42,7 @@ enum Section: Int {
 enum SimpleRow: Int {
     case circle
     case curve
+    case lines
     case iceland
     case tiger
 
@@ -55,6 +56,8 @@ enum SimpleRow: Int {
             return Bundle.main.url(forResource: "circle", withExtension: "svg")!
         case .curve:
             return Bundle.main.url(forResource: "curve", withExtension: "svg")!
+        case .lines:
+            return Bundle.main.url(forResource: "lines", withExtension: "svg")!
         case .iceland:
             return Bundle.main.url(forResource: "iceland", withExtension: "svg")!
         case .tiger:
@@ -68,6 +71,8 @@ enum SimpleRow: Int {
             return "Circle"
         case .curve:
             return "Curve"
+        case .lines:
+            return "Lines"
         case .iceland:
             return "Iceland"
         case .tiger:

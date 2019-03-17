@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DC60E4E1E2BAA200044BFD3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */; };
+		9E49FC67223E7A7800686CCD /* lines.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9E49FC66223E7A7800686CCD /* lines.svg */; };
 		B055CD0321690985003C698F /* PocketSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B055CD0121690985003C698F /* PocketSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B055CD05216909D9003C698F /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */; };
 		B09D909A1D6C5E2E00360396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D90991D6C5E2E00360396 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
 		1DC60E4D1E2BAA200044BFD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9E49FC66223E7A7800686CCD /* lines.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lines.svg; sourceTree = "<group>"; };
 		B055CD0121690985003C698F /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D90961D6C5E2E00360396 /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D90991D6C5E2E00360396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,8 +121,9 @@
 				B0B5920D207508E30009ECA2 /* circle.svg */,
 				B0B5920E207508E30009ECA2 /* curve.svg */,
 				B0B5920F207508E30009ECA2 /* iceland.svg */,
-				B0B59242207532C60009ECA2 /* tiger.svg */,
+				9E49FC66223E7A7800686CCD /* lines.svg */,
 				B0B59244207532CC0009ECA2 /* rectangle.svg */,
+				B0B59242207532C60009ECA2 /* tiger.svg */,
 			);
 			name = "Sample SVG Files";
 			path = "../Sample SVG Files";
@@ -188,6 +191,7 @@
 			files = (
 				B0B59245207532CC0009ECA2 /* rectangle.svg in Resources */,
 				B0B59214207508E30009ECA2 /* iceland.svg in Resources */,
+				9E49FC67223E7A7800686CCD /* lines.svg in Resources */,
 				B0B59213207508E30009ECA2 /* curve.svg in Resources */,
 				B0B59243207532C60009ECA2 /* tiger.svg in Resources */,
 				B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */,
