@@ -11,7 +11,7 @@ Thoroughly documented.
 
 ## Features
 
-* Support for SVG elements: `path`, `polyline`, `polygon`, `rect`, `circle`, `ellipse`
+* Support for SVG elements: `path`, `line`, `polyline`, `polygon`, `rect`, `circle`, `ellipse`
 * Support for SVG named colors.
 * Fully working iOS and macOS demos.
 * Straightforward API for typical SVG rendering as a `UIImageView`/`NSImageView` or `CALayer` subclass.
