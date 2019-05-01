@@ -1,0 +1,9 @@
+<svg id="Attribute_Inheritance" data-name="Attribute Inheritance" xmlns="http://www.w3.org/2000/svg" width="178.23" height="177.67" viewBox="0 0 178.23 177.67">
+  <title>attribute_inheritance</title>
+  <polygon id="Non-Zero" points="69 69 0.5 69 0.5 0.5 69 0.5 22 57 22 11.77 69 69" style="fill: #36a0e8;stroke: #1a3a96;stroke-miterlimit: 10;stroke-width: 3px"/>
+  <polygon id="Even-Odd" points="177.17 69 108.67 69 108.67 0.5 177.17 0.5 130.17 57 130.17 11.77 177.17 69" style="fill: #36a0e8;stroke: #1a3a96;stroke-miterlimit: 10;fill-rule: evenodd;stroke-width: 3px"/>
+  <g id="Even-Odd-Group" style="fill: #36a0e8;stroke: #1a3a96;stroke-miterlimit: 10;fill-rule: evenodd;stroke-linejoin: round;stroke-width: 3px">
+    <polygon points="69 177.17 0.5 177.17 0.5 108.67 69 108.67 22 165.17 22 119.94 69 177.17"/>
+    <polygon points="177.17 177.17 108.67 177.17 108.67 108.67 177.17 108.67 130.17 165.17 130.17 119.94 177.17 177.17"/>
+  </g>
+</svg>

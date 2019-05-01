@@ -43,6 +43,7 @@ enum SimpleRow: Int {
     case circle
     case curve
     case lines
+    case attribute_inheritance
     case iceland
     case tiger
 
@@ -58,6 +59,8 @@ enum SimpleRow: Int {
             return Bundle.main.url(forResource: "curve", withExtension: "svg")!
         case .lines:
             return Bundle.main.url(forResource: "lines", withExtension: "svg")!
+        case .attribute_inheritance:
+            return Bundle.main.url(forResource: "attribute_inheritance", withExtension: "svg")!
         case .iceland:
             return Bundle.main.url(forResource: "iceland", withExtension: "svg")!
         case .tiger:
@@ -73,6 +76,8 @@ enum SimpleRow: Int {
             return "Curve"
         case .lines:
             return "Lines"
+        case .attribute_inheritance:
+            return "Attribute Inheritance"
         case .iceland:
             return "Iceland"
         case .tiger:
