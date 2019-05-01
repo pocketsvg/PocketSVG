@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### New Features
+- Support <line> tags. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
+- Support stroke attributes `stroke-linecap`, `stroke-linejoin`, `stroke-miterlimit` and `stroke-dasharray`. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
 ### Fixes
 - Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#143](https://github.com/pocketsvg/PocketSVG/pull/143)
 - Migrate Demo projects to Xcode 10

@@ -35,6 +35,7 @@ protected:
     CF_RETURNS_RETAINED CGPathRef readRectTag();
     CF_RETURNS_RETAINED CGPathRef readCircleTag();
     CF_RETURNS_RETAINED CGPathRef readEllipseTag();
+    CF_RETURNS_RETAINED CGPathRef readLineTag();
 
     NSDictionary *readAttributes();
     float readFloatAttribute(NSString *aName);
@@ -123,6 +124,8 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             path = readPathTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polyline") == 0)
             path = readPolylineTag();
+        else if (type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "line") == 0)
+            path = readLineTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polygon") == 0)
             path = readPolygonTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "rect") == 0)
@@ -283,6 +286,22 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
     CGMutablePathRef ellipse = CGPathCreateMutable();
     CGPathAddEllipseInRect(ellipse, NULL, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
     return ellipse;
+}
+
+CF_RETURNS_RETAINED CGPathRef svgParser::readLineTag()
+{
+    NSCAssert(strcasecmp((char*)xmlTextReaderConstName(_xmlReader), "line") == 0,
+              @"Not on a <line>");
+    
+    float x1 = readFloatAttribute(@"x1");
+    float y1 = readFloatAttribute(@"y1");
+    float x2 = readFloatAttribute(@"x2");
+    float y2 = readFloatAttribute(@"y2");
+    
+    CGMutablePathRef line = CGPathCreateMutable();
+    CGPathMoveToPoint(line, NULL, x1, y1);
+    CGPathAddLineToPoint(line, NULL, x2, y2);
+    return line;
 }
 
 NSDictionary *svgParser::readAttributes()

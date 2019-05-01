@@ -17,12 +17,16 @@ class SimpleDetailViewController: UIViewController {
         view.backgroundColor = .white
 
         let svgImageView = SVGImageView.init(contentsOf: svgURL)
-
-        svgImageView.frame = view.bounds
         svgImageView.contentMode = .scaleAspectFit
-        svgImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         view.addSubview(svgImageView)
+        svgImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            svgImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
+            svgImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
+            svgImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 12),
+            svgImageView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -12),
+            ])
     }
 
     required init?(coder aDecoder: NSCoder) {

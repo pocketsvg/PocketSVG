@@ -1,0 +1,21 @@
+<svg id="Lines" xmlns="http://www.w3.org/2000/svg" width="222.22" height="382.27" viewBox="0 0 222.22 382.27">
+  <title>lines</title>
+  <g id="Dashed">
+    <line x1="33.21" y1="377.27" x2="188.74" y2="377.27" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 10px;stroke-dasharray: 20,45"/>
+    <line x1="33.21" y1="349.87" x2="188.74" y2="349.87" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 10px;stroke-dasharray: 10,5,20,10"/>
+  </g>
+  <g id="Miterlimit">
+    <polyline points="84.46 299.06 113.63 239.85 158.25 263.27" style="fill: none;stroke: #000;stroke-linecap: square;stroke-miterlimit: 2;stroke-width: 10px"/>
+    <polyline points="6.7 299.06 35.86 239.85 60.16 299.06" style="fill: none;stroke: #000;stroke-linecap: square;stroke-miterlimit: 1;stroke-width: 10px"/>
+  </g>
+  <g id="Corners">
+    <polyline points="162.23 189.03 191.39 129.83 215.69 189.03" style="fill: none;stroke: #000;stroke-linecap: square;stroke-linejoin: bevel;stroke-width: 10px"/>
+    <polyline points="84.46 189.03 113.63 129.83 137.93 189.03" style="fill: none;stroke: #000;stroke-linecap: square;stroke-linejoin: round;stroke-width: 10px"/>
+    <polyline points="7.14 189.03 36.3 129.83 60.6 189.03" style="fill: none;stroke: #000;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 10px"/>
+  </g>
+  <g id="Caps">
+    <line x1="33.65" y1="67.52" x2="189.18" y2="67.52" style="fill: none;stroke: #000;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 10px"/>
+    <line x1="33.65" y1="36.15" x2="189.18" y2="36.15" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 10px"/>
+    <line x1="33.43" y1="5" x2="188.96" y2="5" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 10px"/>
+  </g>
+</svg>
