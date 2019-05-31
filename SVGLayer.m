@@ -71,6 +71,7 @@
             continue;
         }        
         CAShapeLayer * const layer = [CAShapeLayer new];
+        layer.contentsScale = [UIScreen mainScreen].scale;
 
         if(path.svgAttributes[@"transform"]) {
             SVGBezierPath * const newPath = [path copy];
