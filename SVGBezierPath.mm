@@ -62,9 +62,7 @@
     for(id pathRef in pathRefs) {
         SVGBezierPath * const uiPath = [self bezierPathWithCGPath:(__bridge CGPathRef)pathRef];
         uiPath->_svgAttributes = [cgAttrs attributesForPath:(__bridge CGPathRef)pathRef] ?: @{};
-        if (uiPath->_svgAttributes[@"stroke-width"]) {
-            uiPath.lineWidth = [uiPath->_svgAttributes[@"stroke-width"] doubleValue];
-        }
+        uiPath.lineWidth = uiPath->_svgAttributes[@"stroke-width"] ? [uiPath->_svgAttributes[@"stroke-width"] doubleValue] : 1.0;
         [paths addObject:uiPath];
     }
     return paths;

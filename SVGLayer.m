@@ -22,7 +22,7 @@
     _shapeLayers = [NSMutableArray new];
 #if TARGET_OS_IPHONE
     self.shouldRasterize = YES;
-    self.rasterizationScale = [[UIScreen mainScreen] scale];
+    self.rasterizationScale = UIScreen.mainScreen.scale;
 #endif
 }
 
@@ -71,6 +71,9 @@
             continue;
         }        
         CAShapeLayer * const layer = [CAShapeLayer new];
+        #if TARGET_OS_IPHONE
+            layer.contentsScale = UIScreen.mainScreen.scale;
+        #endif
 
         if(path.svgAttributes[@"transform"]) {
             SVGBezierPath * const newPath = [path copy];
@@ -79,7 +82,7 @@
         }
 
         layer.path = path.CGPath;
-        layer.lineWidth = path.svgAttributes[@"stroke-width"] ? [path.svgAttributes[@"stroke-width"] floatValue] : 1.0;
+        layer.lineWidth = path.lineWidth;
         layer.opacity   = path.svgAttributes[@"opacity"] ? [path.svgAttributes[@"opacity"] floatValue] : 1;
         [self insertSublayer:layer atIndex:(unsigned int)[_shapeLayers count]];
         [_shapeLayers addObject:layer];
@@ -143,9 +146,9 @@
                          ?: [[PSVGColor blackColor] CGColor];
         layer.strokeColor = _strokeColor
                          ?: (__bridge CGColorRef)path.svgAttributes[@"stroke"];
-        if (_scaleLineWidth && path.svgAttributes[@"stroke-width"]) {
+        if (_scaleLineWidth) {
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
-            layer.lineWidth = [path.svgAttributes[@"stroke-width"] floatValue] * lineScale;
+            layer.lineWidth = path.lineWidth * lineScale;
         }
         layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
         NSString *lineCap = path.svgAttributes[@"stroke-linecap"];
