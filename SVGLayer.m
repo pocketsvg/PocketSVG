@@ -22,7 +22,7 @@
     _shapeLayers = [NSMutableArray new];
 #if TARGET_OS_IPHONE
     self.shouldRasterize = YES;
-    self.rasterizationScale = [UIScreen mainScreen].scale;
+    self.rasterizationScale = UIScreen.mainScreen.scale;
 #endif
 }
 
@@ -72,7 +72,7 @@
         }        
         CAShapeLayer * const layer = [CAShapeLayer new];
         #if TARGET_OS_IPHONE
-            layer.contentsScale = [UIScreen mainScreen].scale;
+            layer.contentsScale = UIScreen.mainScreen.scale;
         #endif
 
         if(path.svgAttributes[@"transform"]) {
