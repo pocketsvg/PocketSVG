@@ -46,7 +46,7 @@ Drag and drop `PocketSVG.xcodeproj` into your Xcode project. In your project set
 
 ## Usage
 
-Render an SVG file using `SVGImageView`:
+### Render an SVG file using `SVGImageView`
 
 ```swift
 let url = Bundle.main.url(forResource: "tiger", withExtension: "svg")!
@@ -59,8 +59,10 @@ view.addSubview(svgImageView)
 **Output**
 ![image](https://user-images.githubusercontent.com/1756909/38315263-6664fe64-3828-11e8-8d49-1e0c52f3d4e2.png)
 
+Note: By default, SVGLayer has `shouldRasterize` set to `YES` when running on iOS. If you need to animate changes to the layer's transform you might want to reset that to `NO`.
 
-Manually render each path of an SVG file into using CAShapeLayers:
+
+### Manually render each path of an SVG file using `CAShapeLayer`
 
 ```swift
 view.backgroundColor = .white
