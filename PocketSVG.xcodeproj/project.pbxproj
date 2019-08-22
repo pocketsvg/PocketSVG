@@ -21,6 +21,9 @@
 		B0B59249207532D40009ECA2 /* test_tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B59247207532D40009ECA2 /* test_tiger.svg */; };
 		B0EEE2191D6C680400BCAF68 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = B0EEE2181D6C680400BCAF68 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0EEE23A1D6CA89A00BCAF68 /* PocketSVG.h in Headers */ = {isa = PBXBuildFile; fileRef = B0EEE2181D6C680400BCAF68 /* PocketSVG.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C097D9F5230E8E180016F573 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C097D9F4230E8E180016F573 /* QuartzCore.framework */; };
+		C097D9F7230E8E1F0016F573 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C097D9F6230E8E1F0016F573 /* CoreGraphics.framework */; };
+		C097D9F9230E8E260016F573 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C097D9F8230E8E260016F573 /* UIKit.framework */; };
 		C79800E01A21CB9A00380860 /* SVGLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C79800D91A21CB9A00380860 /* SVGLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C79800E11A21CB9A00380860 /* SVGLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C79800DA1A21CB9A00380860 /* SVGLayer.m */; };
 		C79800E31A21CB9A00380860 /* SVGEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = C79800DC1A21CB9A00380860 /* SVGEngine.mm */; };
@@ -59,6 +62,9 @@
 		B0B59247207532D40009ECA2 /* test_tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_tiger.svg; sourceTree = "<group>"; };
 		B0EEE2181D6C680400BCAF68 /* PocketSVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketSVG.h; sourceTree = "<group>"; };
 		B0EEE21B1D6C6A4300BCAF68 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C097D9F4230E8E180016F573 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C097D9F6230E8E1F0016F573 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C097D9F8230E8E260016F573 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C79800BB1A21CB5300380860 /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79800BF1A21CB5300380860 /* Framework-Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Framework-Info-iOS.plist"; sourceTree = "<group>"; };
 		C79800D91A21CB9A00380860 /* SVGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGLayer.h; sourceTree = SOURCE_ROOT; };
@@ -86,6 +92,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C097D9F9230E8E260016F573 /* UIKit.framework in Frameworks */,
+				C097D9F7230E8E1F0016F573 /* CoreGraphics.framework in Frameworks */,
+				C097D9F5230E8E180016F573 /* QuartzCore.framework in Frameworks */,
 				C79800E61A21CBB900380860 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +121,16 @@
 			path = PocketSVGTests;
 			sourceTree = "<group>";
 		};
+		C097D9F3230E8E180016F573 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C097D9F8230E8E260016F573 /* UIKit.framework */,
+				C097D9F6230E8E1F0016F573 /* CoreGraphics.framework */,
+				C097D9F4230E8E180016F573 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C79800B11A21CB5300380860 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +149,7 @@
 				C79800BC1A21CB5300380860 /* Products */,
 				B0EEE21B1D6C6A4300BCAF68 /* README.md */,
 				B07359AE20755E0900D88B19 /* CHANGELOG.md */,
+				C097D9F3230E8E180016F573 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,6 +291,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C79800B11A21CB5300380860;
