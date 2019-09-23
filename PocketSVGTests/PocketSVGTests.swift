@@ -71,8 +71,9 @@ class PocketSVGTests: XCTestCase {
         ]
         let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
 
-        let representation = "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"0\" height=\"0\">\n  <path stroke=\"black\" fill=\"transparent\" stroke-width=\"2\" d=\"\"/>\n\n</svg>\n"
-
+        let representation = """
+<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"0\" height=\"0\">\n  <path stroke-width=\"2\" stroke=\"black\" fill=\"transparent\" d=\"\"/>\n\n</svg>\n
+"""
         XCTAssertEqual(bezierPath.svgRepresentation, representation)
     }
 
