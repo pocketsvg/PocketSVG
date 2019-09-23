@@ -9,7 +9,6 @@ All notable changes to this project will be documented in this file. Items under
 ### New Features
 - Support <line> tags. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
 - Support stroke attributes `stroke-linecap`, `stroke-linejoin`, `stroke-miterlimit` and `stroke-dasharray`. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
-### Fixes
 - Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#143](https://github.com/pocketsvg/PocketSVG/pull/143)
 - Xcode 11 support
 
@@ -17,7 +16,7 @@ All notable changes to this project will be documented in this file. Items under
 - Fix for OS X Crash (https://github.com/pocketsvg/PocketSVG/issues/136) via [Gabor Nemeth](https://github.com/gabor-nemeth)
 - Fix 1pt line scaling. Sebastian Ludwig [#159](https://github.com/pocketsvg/PocketSVG/pull/159)
 - Fix named SVG Colors. After code refactor made on commit feafc5f SVGColors plist file was renamed but this were not reflected on plist loading code. [Daniel Coello](https://github.com/danicoello)
-- Fixed Xcode 11 build by treating SVGColors.plist as a resource instead of a source file. (https://github.com/pocketsvg/PocketSVG/issues/163). Chris Vasselli [#168](https://github.com/pocketsvg/PocketSVG/pull/168)
+- Fixed Xcode 11 build (https://github.com/pocketsvg/PocketSVG/issues/163) by treating SVGColors.plist as a resource instead of a source file. Chris Vasselli [#168](https://github.com/pocketsvg/PocketSVG/pull/168)
 
 ## [2.4.2]
 ### Fixes
