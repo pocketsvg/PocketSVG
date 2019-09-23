@@ -16,13 +16,13 @@ set -x
 # stop execution if an error occurs:
 set -eo pipefail
 
-IPHONE6SIM="platform=iOS Simulator,name=iPhone 6,OS=11.2"
+DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=13.0"
 
 ## build iOS framework:
 xcodebuild \
   -project PocketSVG.xcodeproj \
   -scheme "PocketSVG (iOS)" \
-  -destination "$IPHONE6SIM" \
+  -destination "$DESTINATION" \
   clean build | xcpretty
 
 ## build macOS framework:
@@ -35,7 +35,7 @@ xcodebuild \
 ## build iOS demo:
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
-  -destination "$IPHONE6SIM" \
+  -destination "$DESTINATION" \
   -scheme Demo-iOS \
   clean build | xcpretty
 
@@ -50,5 +50,5 @@ xcodebuild \
 xcodebuild \
   -project PocketSVG.xcodeproj \
   -scheme PocketSVGTests \
-  -destination "$IPHONE6SIM" \
+  -destination "$DESTINATION" \
   test | xcpretty
