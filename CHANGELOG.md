@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file. Items under
 - Fix for OS X Crash (https://github.com/pocketsvg/PocketSVG/issues/136) via [Gabor Nemeth](https://github.com/gabor-nemeth)
 - Fix 1pt line scaling. Sebastian Ludwig [#159](https://github.com/pocketsvg/PocketSVG/pull/159)
 - Fix named SVG Colors. After code refactor made on commit feafc5f SVGColors plist file was renamed but this were not reflected on plist loading code. [Daniel Coello](https://github.com/danicoello)
+- Fixed Xcode 11 build by treating SVGColors.plist as a resource instead of a source file. (https://github.com/pocketsvg/PocketSVG/issues/163). Chris Vasselli [#168] (https://github.com/pocketsvg/PocketSVG/pull/168)
 
 ### Internal Changes
 
