@@ -33,10 +33,10 @@ class IcelandicViewController: UIViewController {
             let animation = CABasicAnimation(keyPath: "lineWidth")
             animation.toValue = 4
             animation.duration = 1
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
             animation.repeatCount = 5
             animation.autoreverses = true
-            animation.fillMode = kCAFillModeBoth
+            animation.fillMode = CAMediaTimingFillMode.both
             animation.isRemovedOnCompletion = false
             shapeLayer.add(animation, forKey: animation.keyPath)
         }
