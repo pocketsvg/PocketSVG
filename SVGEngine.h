@@ -27,6 +27,15 @@ extern "C" {
  */
 NSArray *CGPathsFromSVGString(NSString *svgString, SVGAttributeSet **attributes);
 
+/*!
+ * @brief Returns a single CGPathRef parsed from the contents of a single string formatted like the d attribute inside a path element
+ *
+ * @param svgString The string containing the SVG formatted path, this is just the path string from the d attribute and no xml
+ *
+ * @return A single CGPathRef object
+ *
+ */
+CGPathRef CGPathFromSVGPathString(NSString *svgString);
 
 /*!
  * @brief Returns SVG representing `paths`
