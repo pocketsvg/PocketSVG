@@ -592,9 +592,11 @@ void pathDefinitionParser::appendMoveTo()
     }
 
     for(NSUInteger i = 0; i < _operands.size(); i += 2) {
-        CGPoint currentPoint = CGPathGetCurrentPoint(_path);
-        CGFloat x = _operands[i+0] + (_cmd == 'm' ? currentPoint.x : 0);
-        CGFloat y = _operands[i+1] + (_cmd == 'm' ? currentPoint.y : 0);
+        CGPoint currentPoint = (_cmd == 'm' && !CGPathIsEmpty(_path))
+            ? CGPathGetCurrentPoint(_path)
+            : CGPointZero;
+        CGFloat x = _operands[i+0] + currentPoint.x;
+        CGFloat y = _operands[i+1] + currentPoint.y;
 
         if(i == 0)
             CGPathMoveToPoint(_path, NULL, x, y);
