@@ -41,6 +41,7 @@ protected:
     float readFloatAttribute(NSString *aName);
     bool hasAttribute(NSString * const aName);
     NSString *readStringAttribute(NSString *aName);
+    CGAffineTransform readTransformAttribute(NSString *aName);
     
 private:
     CF_RETURNS_RETAINED CGMutablePathRef _readPolylineTag();
@@ -206,9 +207,11 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readRectTag()
     if (!hasAttribute(@"ry")) {
         ry = rx;
     }
-    
+
+    CGAffineTransform transform = readTransformAttribute(@"transform");
+
     CGMutablePathRef rectPath = CGPathCreateMutable();
-    CGPathAddRoundedRect(rectPath, NULL, rect, MIN(rx, rect.size.width/2), MIN(ry, rect.size.height/2));
+    CGPathAddRoundedRect(rectPath, &transform, rect, MIN(rx, rect.size.width/2), MIN(ry, rect.size.height/2));
     return rectPath;
 }
 
@@ -260,8 +263,11 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readCircleTag()
         readFloatAttribute(@"cx"), readFloatAttribute(@"cy")
     };
     float r = readFloatAttribute(@"r");
+    
+    CGAffineTransform transform = readTransformAttribute(@"transform");
+    
     CGMutablePathRef circle = CGPathCreateMutable();
-    CGPathAddEllipseInRect(circle, NULL, CGRectMake(center.x - r, center.y - r, r * 2.0, r * 2.0));
+    CGPathAddEllipseInRect(circle, &transform, CGRectMake(center.x - r, center.y - r, r * 2.0, r * 2.0));
     return circle;
 }
 
@@ -282,9 +288,11 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readEllipseTag()
     if (!hasAttribute(@"ry")) {
         ry = rx;
     }
+    
+    CGAffineTransform transform = readTransformAttribute(@"transform");
 
     CGMutablePathRef ellipse = CGPathCreateMutable();
-    CGPathAddEllipseInRect(ellipse, NULL, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
+    CGPathAddEllipseInRect(ellipse, &transform, CGRectMake(center.x - rx, center.y - ry, rx * 2.0, ry * 2.0));
     return ellipse;
 }
 
@@ -298,9 +306,11 @@ CF_RETURNS_RETAINED CGPathRef svgParser::readLineTag()
     float x2 = readFloatAttribute(@"x2");
     float y2 = readFloatAttribute(@"y2");
     
+    CGAffineTransform transform = readTransformAttribute(@"transform");
+    
     CGMutablePathRef line = CGPathCreateMutable();
-    CGPathMoveToPoint(line, NULL, x1, y1);
-    CGPathAddLineToPoint(line, NULL, x2, y2);
+    CGPathMoveToPoint(line, &transform, x1, y1);
+    CGPathAddLineToPoint(line, &transform, x2, y2);
     return line;
 }
 
@@ -417,6 +427,69 @@ float svgParser::readFloatAttribute(NSString * const aName)
 {
     xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)[aName UTF8String]);
     return value ? strtof(value, NULL) : 0.0;
+}
+
+CGAffineTransform svgParser::readTransformAttribute(NSString *aName)
+{
+    xmlAutoFree char *value = (char *)xmlTextReaderGetAttribute(_xmlReader, (xmlChar*)aName.UTF8String);
+    if (!value) {
+        return CGAffineTransformIdentity;
+    }
+
+    NSScanner * const scanner = [NSScanner scannerWithString:@(value)];
+    NSMutableCharacterSet *skippedChars = [NSCharacterSet.whitespaceAndNewlineCharacterSet mutableCopy];
+    [skippedChars addCharactersInString:@"(),"];
+    scanner.charactersToBeSkipped = skippedChars;
+
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    NSString *transformCmd;
+    std::vector<float> transformOperands;
+    while([scanner scanUpToString:@"(" intoString:&transformCmd]) {
+        transformOperands.clear();
+        for(float operand;
+            [scanner scanFloat:&operand];
+            transformOperands.push_back(operand));
+
+        CGAffineTransform additionalTransform = CGAffineTransformIdentity;
+        if([transformCmd isEqualToString:@"matrix"] && transformOperands.size() >= 6) {
+            additionalTransform = CGAffineTransformMake(transformOperands[0], transformOperands[1],
+                                                        transformOperands[2], transformOperands[3],
+                                                        transformOperands[4], transformOperands[5]);
+        } else if([transformCmd isEqualToString:@"rotate"] && transformOperands.size() >= 1) {
+            float const radians = transformOperands[0] * M_PI / 180.0;
+            if (transformOperands.size() == 3) {
+                float const x = transformOperands[1];
+                float const y = transformOperands[2];
+                additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
+                                                            -sinf(radians), cosf(radians),
+                                                            x-x*cosf(radians)+y*sinf(radians), y-x*sinf(radians)-y*cosf(radians));
+            }
+            else {
+                additionalTransform = CGAffineTransformMake(cosf(radians), sinf(radians),
+                                                            -sinf(radians), cosf(radians),
+                                                            0, 0);
+            }
+        } else if([transformCmd isEqualToString:@"translate"] && transformOperands.size() >= 1) {
+            float tx = transformOperands[0];
+            float ty = 0;
+            if (transformOperands.size() >= 2)
+                ty = transformOperands[1];
+            additionalTransform = CGAffineTransformMakeTranslation(tx, ty);
+        } else if([transformCmd isEqualToString:@"scale"] && transformOperands.size() >= 1) {
+            float sx = transformOperands[0];
+            float sy = sx;
+            if (transformOperands.size() >= 2)
+                sy = transformOperands[1];
+            additionalTransform = CGAffineTransformMakeScale(sx, sy);
+        } else if([transformCmd isEqualToString:@"skewX"] && transformOperands.size() >= 1) {
+            additionalTransform.c = tanf(transformOperands[0] * M_PI / 180.0);
+        } else if([transformCmd isEqualToString:@"skewY"] && transformOperands.size() >= 1) {
+            additionalTransform.b = tanf(transformOperands[0] * M_PI / 180.0);
+        }
+
+        transform = CGAffineTransformConcat(additionalTransform, transform);
+    }
+    return transform;
 }
 
 bool svgParser::hasAttribute(NSString * const aName)
