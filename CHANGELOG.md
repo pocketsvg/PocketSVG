@@ -3,12 +3,15 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### New Features
-- Adds new api method for clients to convert single path string into cgpath.
-### Internal Changes
+- New API method for clients to convert single path string into CGPath. [Scott Sykora
+](https://github.com/scottsykora), [#172](https://github.com/pocketsvg/PocketSVG/pull/172) 
+
+### Fixes
+- Removed redundant "CGPathGetCurrentPoint: no current point" log statements. [Yoni Levy](https://github.com/yonilevy), [#173](https://github.com/pocketsvg/PocketSVG/pull/173)
 
 ## [2.5.0]
 ### New Features
-- Support <line> tags. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
+- Support <line> tags. Sebastian Ludwig, [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
 - Support stroke attributes `stroke-linecap`, `stroke-linejoin`, `stroke-miterlimit` and `stroke-dasharray`. Sebastian Ludwig [#154](https://github.com/pocketsvg/PocketSVG/pull/154)
 - Added support for elliptical arc commands sequence of after a single "a". Vladimir Roganov [#143](https://github.com/pocketsvg/PocketSVG/pull/143)
 - Xcode 11 support
