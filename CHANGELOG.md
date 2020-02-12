@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### New Features
+- Adds new api method for clients to convert single path string into cgpath.
 ### Internal Changes
 
 ## [2.5.0]
