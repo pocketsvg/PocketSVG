@@ -6,7 +6,6 @@
  * file that was distributed with this source code.
  */
 
-#import <libxml/xmlreader.h>
 #import <vector>
 
 #import "SVGEngine.h"
