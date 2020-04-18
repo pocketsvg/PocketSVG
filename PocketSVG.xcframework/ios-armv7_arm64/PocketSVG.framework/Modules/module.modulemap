@@ -1,0 +1,6 @@
+framework module PocketSVG {
+  umbrella header "PocketSVG.h"
+
+  export *
+  module * { export * }
+}

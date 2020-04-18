@@ -1,4 +1,5 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.1
+
 import PackageDescription
 
 let package = Package(
@@ -20,12 +21,14 @@ let package = Package(
         .target(
             name: "PocketSVG",
             dependencies: [],
-            path: "Sources"
+            path: "Sources",
+            exclude: ["Demos", "ci.sh", "PocketSVG.podspec"]
         ),
         .testTarget(
             name: "PocketSVGTests",
             dependencies: ["PocketSVG"],
-            path: "Tests"
+            path: "Tests",
+            exclude: ["Demos", "ci.sh", "PocketSVG.podspec"]
         )
     ],
     cxxLanguageStandard: .cxx14
