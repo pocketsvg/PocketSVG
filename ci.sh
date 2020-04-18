@@ -18,7 +18,7 @@ set -eo pipefail
 rm -rf .build/
 rm -rf derived_data/
 
-IOS_DESTINATION="platform=iOS Simulator,name=iPhone 11,OS=13.4"
+IOS_DESTINATION="platform=iOS Simulator,name=iPhone 11"
 
 echo "Build iOS demo"
 xcodebuild \
