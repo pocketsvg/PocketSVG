@@ -20,11 +20,18 @@ Thoroughly documented.
 
 ## Installation
 
+### Swift Package Manage
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/pocketsvg/PocketSVG.git", .upToNextMajor(from: "2.6.0"))
+]
+```
+
 ### Cocoapods
 
 Add this to your Podfile:
-
-```
+```ruby
 pod 'PocketSVG', '~> 2.0'
 ```
 

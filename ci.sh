@@ -26,6 +26,7 @@ xcodebuild \
   -destination "$IOS_DESTINATION" \
   -scheme Demo-iOS \
   -derivedDataPath derived_data \
+  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
   clean build | xcpretty
 
 echo "Build macOS demo"
@@ -34,6 +35,7 @@ xcodebuild \
   -destination "arch=x86_64" \
   -derivedDataPath derived_data \
   -scheme Demo-macOS \
+  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
   clean build | xcpretty
 
 echo "Run unit tests"
@@ -41,6 +43,7 @@ xcodebuild \
   -workspace Demos/Demos.xcworkspace \
   -destination "$IOS_DESTINATION" \
   -scheme Demo-iOS \
+  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
   clean test | xcpretty
 
 PROJECT_PATH="derived_data/PocketSVG.xcodeproj"
