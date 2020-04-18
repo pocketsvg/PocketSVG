@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "PocketSVG"
-  s.version      = "2.5.0"
+  s.version      = "2.6.0"
   s.summary      = "Easily convert your SVG files into CGPaths, CAShapeLayers, and UIBezierPaths"
   s.homepage     = "https://github.com/pocketsvg/PocketSVG"
   s.authors      = { "Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors" => "https://github.com/pocketsvg/PocketSVG" }
