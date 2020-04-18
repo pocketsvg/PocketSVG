@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
     :file => 'LICENSE'
   }
 
-  s.source       = { :git => "https://github.com/pocketsvg/PocketSVG.git", :tag => s.version }
+  s.source = { :git => "https://github.com/pocketsvg/PocketSVG.git", :tag => s.version }
 
   s.requires_arc = true
   s.frameworks  = 'QuartzCore'
