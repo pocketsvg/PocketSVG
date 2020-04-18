@@ -21,4 +21,4 @@ DerivedData
 derived_data
 .swiftpm
 .*.sw[nop]
-
+.xcframework
