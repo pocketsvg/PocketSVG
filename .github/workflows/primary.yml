@@ -10,8 +10,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - '*'
+    branches: [ $default-branch ]
   pull_request:
     branches:
       - '*'
