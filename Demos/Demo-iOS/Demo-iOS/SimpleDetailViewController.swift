@@ -24,9 +24,10 @@ class SimpleDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             svgImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12),
             svgImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12),
-            svgImageView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 12),
-            svgImageView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -12),
-            ])
+            svgImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            svgImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            ]
+        )
     }
 
     required init?(coder aDecoder: NSCoder) {
