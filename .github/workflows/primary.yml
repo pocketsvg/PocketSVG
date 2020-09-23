@@ -22,6 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Package and demos build
-        run: ci.sh
+        run: sh ci.sh
       - name: Pod Lib Lint
         run: pod lib lint
