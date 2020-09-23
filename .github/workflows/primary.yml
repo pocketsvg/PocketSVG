@@ -1,0 +1,28 @@
+#
+# This file is part of the PocketSVG package.
+#
+# Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  primary:
+    name: primary
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Package and demos build
+        run: ci.sh
+      - name: Pod Lib Lint
+        run: pod lib lint
