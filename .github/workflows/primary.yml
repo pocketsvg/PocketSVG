@@ -19,6 +19,8 @@ jobs:
   primary:
     name: primary
     runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
     steps:
       - uses: actions/checkout@v2
       - name: Package and demos build
