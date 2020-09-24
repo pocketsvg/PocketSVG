@@ -22,18 +22,18 @@ let package = Package(
             name: "PocketSVG",
             dependencies: [],
             path: "Sources",
-            exclude: ["Demos", "ci.sh", "PocketSVG.podspec"],
+            exclude: ["Demos", "ci", "PocketSVG.podspec"],
             resources: [
-                .process("SVGColors.plist")
+                .process("PocketSVG/Resources"),
             ]
         ),
         .testTarget(
             name: "PocketSVGTests",
             dependencies: ["PocketSVG"],
             path: "Tests",
-            exclude: ["Demos", "ci.sh", "PocketSVG.podspec"],
+            exclude: ["Demos", "ci", "PocketSVG.podspec"],
             resources: [
-                .process("SVGColors.plist")
+                .process("PocketSVGTests/Resources")
             ]
         )
     ],
