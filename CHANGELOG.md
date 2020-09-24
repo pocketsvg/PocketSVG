@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
+
+## [2.6.0]
 ### New Features
+- Xcode 12 and SPM Support. [Ariel Elkin](https://github.com/arielelkin), [#178](https://github.com/pocketsvg/PocketSVG/pull/178/)
 - New API method for clients to convert single path string into CGPath. [Scott Sykora
 ](https://github.com/scottsykora), [#172](https://github.com/pocketsvg/PocketSVG/pull/172) 
 
@@ -150,7 +153,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.5.0...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.6.0...HEAD
+[2.6.0]: https://github.com/pocketsvg/PocketSVG/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/pocketsvg/PocketSVG/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/pocketsvg/PocketSVG/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/pocketsvg/PocketSVG/compare/2.4.0...2.4.1
