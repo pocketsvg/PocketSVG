@@ -8,16 +8,14 @@
 #!/usr/bin/env bash
 set -xe
 
-xcodebuild -list
-
 xcodebuild \
-    -scheme PocketSVGTests \
+    -scheme PocketSVG \
     -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
     test \
     | xcpretty
 
 xcodebuild \
-    -scheme PocketSVGTests \
-    -destination 'platform=macOS,arch=x86_64' \
+    -scheme PocketSVG \
+    -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
     test \
     | xcpretty
