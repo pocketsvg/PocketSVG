@@ -26,7 +26,7 @@ jobs:
       - name: Build package
         run: swift build
       - name: Run unit tests
-        run: swift test
+        run: sh test.sh
       - name: Build Demos
         run: sh ci/build_demos.sh
       - name: Build xcframework
