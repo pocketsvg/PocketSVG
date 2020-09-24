@@ -23,7 +23,7 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
     steps:
       - uses: actions/checkout@v2
-      - name: Package and demos build
+      - name: Build Package and Demos
         run: sh ci.sh
       - name: Pod Lib Lint
         run: pod lib lint

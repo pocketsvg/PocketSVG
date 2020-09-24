@@ -1,50 +1,12 @@
-## This file is part of the PocketSVG package.
+#
+# This file is part of the PocketSVG package.
+#
 # Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-## This script builds the Swift Package, the iOS and macOS demos,
-# and runs the tests on iOS. Our CI system requires that this script
-# run successfully. It is called via .travis.yml and you can see
-# the results over at https://travis-ci.org/pocketsvg/PocketSVG
-#
-# You can run this script locally before pushing your changes to
-# check the build and tests run as they should.
-
-# stop execution if an error occurs:
-set -eo pipefail
-
-# useful for development:
-rm -rf .build/
-rm -rf derived_data/
-
-IOS_DESTINATION="platform=iOS Simulator,name=iPhone 11"
-
-echo "Build iOS demo"
-xcodebuild \
-  -workspace Demos/Demos.xcworkspace \
-  -destination "$IOS_DESTINATION" \
-  -scheme Demo-iOS \
-  -derivedDataPath derived_data \
-  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
-  clean build | xcpretty
-
-echo "Build macOS demo"
-xcodebuild \
-  -workspace Demos/Demos.xcworkspace \
-  -destination "arch=x86_64" \
-  -derivedDataPath derived_data \
-  -scheme Demo-macOS \
-  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
-  clean build | xcpretty
-
-echo "Run unit tests"
-xcodebuild \
-  -workspace Demos/Demos.xcworkspace \
-  -destination "$IOS_DESTINATION" \
-  -scheme Demo-iOS \
-  'OTHER_LDFLAGS=$(inherited) -Liphoneos -lxml2' \
-  clean test | xcpretty
+#!/usr/bin/env bash
+set -e
 
 PROJECT_PATH="derived_data/PocketSVG.xcodeproj"
 MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"
@@ -52,10 +14,6 @@ IOS_SIMULATOR_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Simulator.xcar
 IOS_DEVICE_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Device.xcarchive"
 XCFRAMEWORK_PATH="derived_data/xcframework/PocketSVG.xcframework"
 
-echo "Build Swift Package"
-swift build
-
-echo "Build .xcframework"
 swift package generate-xcodeproj --output $PROJECT_PATH
 
 xcodebuild archive \
