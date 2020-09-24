@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 #
 #!/usr/bin/env bash
-set -e
+set -xe
 
 xcodebuild \
     -scheme PocketSVGTests \

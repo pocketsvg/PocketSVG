@@ -35,13 +35,3 @@ xcodebuild \
   clean \
   build \
   | xcpretty
-
-echo "Run unit tests"
-xcodebuild \
-  -workspace Demos/Demos.xcworkspace \
-  -destination "$IOS_DESTINATION" \
-  -scheme Demo-iOS \
-  'OTHER_LDFLAGS=$(inherited) -lxml2' \
-  clean \
-  test \
-  | xcpretty
