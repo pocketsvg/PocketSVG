@@ -8,6 +8,8 @@
 #!/usr/bin/env bash
 set -xe
 
+xcodebuild -list
+
 xcodebuild \
     -scheme PocketSVGTests \
     -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
