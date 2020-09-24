@@ -26,10 +26,10 @@ jobs:
       - name: Build package
         run: swift build
       - name: Run unit tests
-        run: sh test.sh
-      - name: Build Demos
+        run: sh ci/test.sh
+      - name: Build demos
         run: sh ci/build_demos.sh
       - name: Build xcframework
         run: sh ci/xcframework.sh
-      - name: Pod Lib Lint
+      - name: Lint Podspec
         run: pod lib lint
