@@ -1,0 +1,35 @@
+#
+# This file is part of the PocketSVG package.
+#
+# Copyright (c) Ponderwell, Ariel Elkin, Fjölnir Ásgeirsson, and Contributors
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+
+name: CI
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  primary:
+    name: primary
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build package
+        run: swift build
+      - name: Run unit tests
+        run: sh ci/test.sh
+      - name: Build demos
+        run: sh ci/build_demos.sh
+      - name: Build xcframework
+        run: sh ci/build_xcframework.sh
+      - name: Lint Podspec
+        run: pod lib lint

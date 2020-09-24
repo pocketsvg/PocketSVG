@@ -3,15 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1DC60E4E1E2BAA200044BFD3 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */; };
+		831FCA202449CAA60075CF58 /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 831FCA1F2449CAA60075CF58 /* PocketSVG */; };
+		83DFDE032449D0B30050D6FC /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 83DFDE022449D0B30050D6FC /* PocketSVG */; };
+		83FB6585251C9F3700B92968 /* PocketSVGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FB6584251C9F3700B92968 /* PocketSVGTests.swift */; };
+		83FB658A251CA54100B92968 /* test_rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 83FB6588251CA54100B92968 /* test_rectangle.svg */; };
+		83FB658B251CA54100B92968 /* test_tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = 83FB6589251CA54100B92968 /* test_tiger.svg */; };
 		9E150AAB227A27B600B79D9C /* attribute_inheritance.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9E150AAA227A27B600B79D9C /* attribute_inheritance.svg */; };
 		9E49FC67223E7A7800686CCD /* lines.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9E49FC66223E7A7800686CCD /* lines.svg */; };
-		B055CD0321690985003C698F /* PocketSVG.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B055CD0121690985003C698F /* PocketSVG.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B055CD05216909D9003C698F /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */; };
 		B09D909A1D6C5E2E00360396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D90991D6C5E2E00360396 /* AppDelegate.swift */; };
 		B09D90A11D6C5E2E00360396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09D90A01D6C5E2E00360396 /* Assets.xcassets */; };
 		B0B592052074F7B80009ECA2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B592042074F7B80009ECA2 /* MainViewController.swift */; };
@@ -33,7 +36,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B055CD0321690985003C698F /* PocketSVG.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,9 +45,14 @@
 /* Begin PBXFileReference section */
 		1DC60E471E2BA1170044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../build/Debug-iphoneos/PocketSVG.framework"; sourceTree = "<group>"; };
 		1DC60E4D1E2BAA200044BFD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		831FCA1B2449CA240075CF58 /* PocketSVG */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PocketSVG; path = ../..; sourceTree = "<group>"; };
+		83DFDDF72449D0730050D6FC /* PocketSVGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketSVGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83DFDE0C2449D0F20050D6FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FB6584251C9F3700B92968 /* PocketSVGTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PocketSVGTests.swift; path = ../../../Tests/PocketSVGTests.swift; sourceTree = "<group>"; };
+		83FB6588251CA54100B92968 /* test_rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = test_rectangle.svg; path = ../../../Tests/Resources/test_rectangle.svg; sourceTree = "<group>"; };
+		83FB6589251CA54100B92968 /* test_tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = test_tiger.svg; path = ../../../Tests/Resources/test_tiger.svg; sourceTree = "<group>"; };
 		9E150AAA227A27B600B79D9C /* attribute_inheritance.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = attribute_inheritance.svg; sourceTree = "<group>"; };
 		9E49FC66223E7A7800686CCD /* lines.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lines.svg; sourceTree = "<group>"; };
-		B055CD0121690985003C698F /* PocketSVG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PocketSVG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D90961D6C5E2E00360396 /* Demo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D90991D6C5E2E00360396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09D90A01D6C5E2E00360396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,11 +70,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		83DFDDF42449D0730050D6FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83DFDE032449D0B30050D6FC /* PocketSVG in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B09D90931D6C5E2E00360396 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B055CD05216909D9003C698F /* PocketSVG.framework in Frameworks */,
+				831FCA202449CAA60075CF58 /* PocketSVG in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,13 +97,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		83DFDDF82449D0730050D6FC /* PocketSVGTests */ = {
+			isa = PBXGroup;
+			children = (
+				83FB6584251C9F3700B92968 /* PocketSVGTests.swift */,
+				83DFDE0C2449D0F20050D6FC /* Info.plist */,
+				83FB6588251CA54100B92968 /* test_rectangle.svg */,
+				83FB6589251CA54100B92968 /* test_tiger.svg */,
+			);
+			path = PocketSVGTests;
+			sourceTree = "<group>";
+		};
 		B09D908D1D6C5E2E00360396 = {
 			isa = PBXGroup;
 			children = (
+				831FCA1B2449CA240075CF58 /* PocketSVG */,
 				B0B5920C207508E30009ECA2 /* Sample SVG Files */,
 				B09D90981D6C5E2E00360396 /* Demo-iOS */,
+				83DFDDF82449D0730050D6FC /* PocketSVGTests */,
 				B09D90971D6C5E2E00360396 /* Products */,
-				B055CD0121690985003C698F /* PocketSVG.framework */,
 				1DC60E461E2BA1170044BFD3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -97,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				B09D90961D6C5E2E00360396 /* Demo-iOS.app */,
+				83DFDDF72449D0730050D6FC /* PocketSVGTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +163,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		83DFDDF62449D0730050D6FC /* PocketSVGTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83DFDDFC2449D0730050D6FC /* Build configuration list for PBXNativeTarget "PocketSVGTests" */;
+			buildPhases = (
+				83DFDDF32449D0730050D6FC /* Sources */,
+				83DFDDF42449D0730050D6FC /* Frameworks */,
+				83DFDDF52449D0730050D6FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PocketSVGTests;
+			packageProductDependencies = (
+				83DFDE022449D0B30050D6FC /* PocketSVG */,
+			);
+			productName = PocketSVGTests;
+			productReference = 83DFDDF72449D0730050D6FC /* PocketSVGTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B09D90951D6C5E2E00360396 /* Demo-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B09D90A81D6C5E2E00360396 /* Build configuration list for PBXNativeTarget "Demo-iOS" */;
@@ -149,6 +197,9 @@
 			dependencies = (
 			);
 			name = "Demo-iOS";
+			packageProductDependencies = (
+				831FCA1F2449CAA60075CF58 /* PocketSVG */,
+			);
 			productName = "Demo-iOS";
 			productReference = B09D90961D6C5E2E00360396 /* Demo-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -159,10 +210,14 @@
 		B09D908E1D6C5E2E00360396 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1100;
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = PocketSVG;
 				TargetAttributes = {
+					83DFDDF62449D0730050D6FC = {
+						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1200;
+					};
 					B09D90951D6C5E2E00360396 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
@@ -170,7 +225,7 @@
 				};
 			};
 			buildConfigurationList = B09D90911D6C5E2E00360396 /* Build configuration list for PBXProject "Demo-iOS" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -183,11 +238,21 @@
 			projectRoot = "";
 			targets = (
 				B09D90951D6C5E2E00360396 /* Demo-iOS */,
+				83DFDDF62449D0730050D6FC /* PocketSVGTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		83DFDDF52449D0730050D6FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB658B251CA54100B92968 /* test_tiger.svg in Resources */,
+				83FB658A251CA54100B92968 /* test_rectangle.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B09D90941D6C5E2E00360396 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,6 +272,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83DFDDF32449D0730050D6FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FB6585251C9F3700B92968 /* PocketSVGTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B09D90921D6C5E2E00360396 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,10 +307,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		83DFDDFD2449D0730050D6FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PocketSVGTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pocketsvg.PocketSVGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		83DFDDFE2449D0730050D6FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PocketSVGTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pocketsvg.PocketSVGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B09D90A61D6C5E2E00360396 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -258,6 +385,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -282,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -294,7 +422,6 @@
 		B09D90A71D6C5E2E00360396 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -315,6 +442,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -333,10 +461,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -348,7 +477,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Demo-iOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -362,7 +494,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Demo-iOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -373,6 +508,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		83DFDDFC2449D0730050D6FC /* Build configuration list for PBXNativeTarget "PocketSVGTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83DFDDFD2449D0730050D6FC /* Debug */,
+				83DFDDFE2449D0730050D6FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B09D90911D6C5E2E00360396 /* Build configuration list for PBXProject "Demo-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -392,6 +536,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		831FCA1F2449CAA60075CF58 /* PocketSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PocketSVG;
+		};
+		83DFDE022449D0B30050D6FC /* PocketSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PocketSVG;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B09D908E1D6C5E2E00360396 /* Project object */;
 }

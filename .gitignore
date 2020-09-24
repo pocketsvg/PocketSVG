@@ -1,6 +1,7 @@
 # Xcode
 #
 build/
+.build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -17,3 +18,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 .DS_Store
+derived_data
+.swiftpm
+.*.sw[nop]
+.xcframework

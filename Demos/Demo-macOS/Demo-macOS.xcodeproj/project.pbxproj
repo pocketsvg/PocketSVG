@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DC60E451E2BA10D0044BFD3 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */; };
+		831FCA1E2449CA7C0075CF58 /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 831FCA1D2449CA7C0075CF58 /* PocketSVG */; };
 		B07359B4207565BF00D88B19 /* circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359AF207565BF00D88B19 /* circle.svg */; };
 		B07359B5207565BF00D88B19 /* tiger.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B0207565BF00D88B19 /* tiger.svg */; };
 		B07359B6207565BF00D88B19 /* rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B07359B1207565BF00D88B19 /* rectangle.svg */; };
@@ -20,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		1DC60E431E2BA1010044BFD3 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/Demos-fpvqarxjpwngakagvcwozxoheexz/Build/Products/Debug/PocketSVG.framework"; sourceTree = "<group>"; };
+		831FCA1C2449CA2B0075CF58 /* PocketSVG */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PocketSVG; path = ../..; sourceTree = "<group>"; };
 		B07359AF207565BF00D88B19 /* circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = circle.svg; sourceTree = "<group>"; };
 		B07359B0207565BF00D88B19 /* tiger.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tiger.svg; sourceTree = "<group>"; };
 		B07359B1207565BF00D88B19 /* rectangle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rectangle.svg; sourceTree = "<group>"; };
@@ -37,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DC60E451E2BA10D0044BFD3 /* PocketSVG.framework in Frameworks */,
+				831FCA1E2449CA7C0075CF58 /* PocketSVG in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +69,7 @@
 		B0EEE21D1D6CA72100BCAF68 = {
 			isa = PBXGroup;
 			children = (
+				831FCA1C2449CA2B0075CF58 /* PocketSVG */,
 				B0EEE2281D6CA72100BCAF68 /* Demo-macOS */,
 				B037973F1D6CAEDC00E9FF84 /* Sample SVG Files */,
 				B0EEE2271D6CA72100BCAF68 /* Products */,
@@ -110,6 +112,9 @@
 			dependencies = (
 			);
 			name = "Demo-macOS";
+			packageProductDependencies = (
+				831FCA1D2449CA7C0075CF58 /* PocketSVG */,
+			);
 			productName = "Demo-macOS";
 			productReference = B0EEE2261D6CA72100BCAF68 /* Demo-macOS.app */;
 			productType = "com.apple.product-type.application";
@@ -121,7 +126,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = PocketSVG;
 				TargetAttributes = {
 					B0EEE2251D6CA72100BCAF68 = {
@@ -212,6 +217,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -268,6 +274,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -289,7 +296,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -300,7 +308,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Demo-macOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -315,7 +326,10 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Demo-macOS/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "PocketSVG.Demo-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -345,6 +359,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		831FCA1D2449CA7C0075CF58 /* PocketSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PocketSVG;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B0EEE21E1D6CA72100BCAF68 /* Project object */;
 }

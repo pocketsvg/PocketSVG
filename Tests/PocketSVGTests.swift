@@ -8,6 +8,7 @@
 
 
 import XCTest
+import Foundation
 import PocketSVG
 
 class PocketSVGTests: XCTestCase {
@@ -18,8 +19,7 @@ class PocketSVGTests: XCTestCase {
     }
 
     func testSVGAttributesFromRectangle() {
-        let testBundle = Bundle(for: type(of: self))
-        let svgURL = testBundle.url(forResource: "test_rectangle", withExtension: "svg")!
+        let svgURL = Bundle.module.url(forResource: "test_rectangle", withExtension: "svg")!
 
         let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
 
@@ -37,10 +37,9 @@ class PocketSVGTests: XCTestCase {
         XCTAssert(rectanglePath.svgAttributes["width"] as! String == "100px")
         XCTAssert(rectanglePath.svgAttributes["height"] as! String == "100px")
     }
-
+    #if os(iOS)
     func testPathsFromTiger() {
-        let testBundle = Bundle(for: type(of: self))
-        let svgURL = testBundle.url(forResource: "test_tiger", withExtension: "svg")!
+        let svgURL = Bundle.module.url(forResource: "test_tiger", withExtension: "svg")!
         let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
 
         XCTAssert(paths.count == 240)
@@ -62,6 +61,7 @@ class PocketSVGTests: XCTestCase {
         hundredthPath.close()
         XCTAssertEqual(hundredthPath.cgPath, paths[100].cgPath)
     }
+    #endif
 
     func testSVGRepresentationWhenUsingSettingSVGAttributes() {
         let attributes: [String: Any] = [
@@ -92,8 +92,7 @@ class PocketSVGTests: XCTestCase {
     }
 
     func testSVGRepresentationWithRectangle() {
-        let testBundle = Bundle(for: type(of: self))
-        let svgURL = testBundle.url(forResource: "test_rectangle", withExtension: "svg")!
+        let svgURL = Bundle.module.url(forResource: "test_rectangle", withExtension: "svg")!
 
         let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
         XCTAssert(paths.count == 1)
@@ -125,6 +124,7 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(path!.bounds, CGRect(x: 20, y: 20, width: 60, height: 60))
     }
 
+    #if os(iOS)
     func testRespectsAttributesOnAElement() {
         let svgString = """
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
@@ -146,7 +146,7 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(pathBounds, CGRect(x: 15, y: 10, width: 60, height: 60))
         XCTAssertEqual(translatedPathBounds, CGRect(x: 20, y: 20, width: 60, height: 60))
     }
-
+    #endif
 
     func testTransformTranslate() {
         let svgString = """
@@ -227,5 +227,4 @@ class PocketSVGTests: XCTestCase {
         let path = paths.first!
         XCTAssertEqual(path.cgPath.boundingBox, CGRect(x: 21, y: 21, width: 470, height: 470))
     }
-
 }

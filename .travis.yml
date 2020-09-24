@@ -1,5 +1,0 @@
-language: objective-c
-osx_image: xcode11
-script:
-  - sh ci.sh
-  - pod lib lint

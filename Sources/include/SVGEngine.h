@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <libxml/xmlreader.h>
 
 #ifdef __cplusplus
 extern "C" {
