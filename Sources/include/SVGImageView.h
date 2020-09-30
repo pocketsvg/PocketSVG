@@ -31,6 +31,13 @@ IB_DESIGNABLE
 
 
 /*!
+* @brief retrieve the viewBox size saved inside the original SVG file.
+*
+*/
+- (CGRect)getViewBox;
+
+
+/*!
  * @discussion The SVG paths the view should draw.
  *
  */
@@ -51,6 +58,13 @@ IB_DESIGNABLE
  *
  */
 @property(nonatomic, copy) IBInspectable PSVGColor *strokeColor;
+
+
+/*!
+ * @brief Specifies the line thickness of every paths.
+ *
+ */
+@property(nonatomic) IBInspectable CGFloat strokeWidth;
 
 
 /*!

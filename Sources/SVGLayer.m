@@ -37,7 +37,8 @@
 - (instancetype)initWithContentsOfURL:(NSURL *)url
 {
     if ((self = [self init])) {
-        [self setPaths:[SVGBezierPath pathsFromSVGAtURL:url]];
+        CGRect viewBox = CGRectMake(0, 0, 0, 0);
+        [self setPaths:[SVGBezierPath pathsFromSVGAtURL:url viewBox:&viewBox]];
     }
     return self;
 }
@@ -111,6 +112,14 @@
     [_shapeLayers setValue:(__bridge id)_strokeColor forKey:@"strokeColor"];
 }
 
+- (void)setStrokeWidth:(CGFloat)aSize
+{
+    _strokeWidth = aSize;
+    
+    //[_shapeLayers setValue:(__bridge id)_strokeWidth forKey:@"strokeWidth"];
+}
+
+
 - (CGSize)preferredFrameSize
 {
     return SVGBoundingRectForPaths(_untouchedPaths).size;
@@ -149,6 +158,9 @@
         if (_scaleLineWidth) {
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
             layer.lineWidth = path.lineWidth * lineScale;
+        }
+        else {
+            layer.lineWidth = _strokeWidth;
         }
         layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
         NSString *lineCap = path.svgAttributes[@"stroke-linecap"];

@@ -18,6 +18,7 @@
 
 @implementation SVGImageView {
     SVGLayer *_svgLayer;
+    CGRect _viewBox;
     
 #ifdef DEBUG
     dispatch_source_t _fileWatcher;
@@ -30,6 +31,7 @@
     if ((self = [super initWithFrame:frame])) {
         _svgLayer = (SVGLayer *)self.layer;
     }
+    _viewBox = CGRectZero;
     return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -37,6 +39,7 @@
     if ((self = [super initWithCoder:aDecoder])) {
         _svgLayer = (SVGLayer *)self.layer;
     }
+    _viewBox = CGRectZero;
     return self;
 }
 #else
@@ -46,6 +49,7 @@
         _svgLayer = [SVGLayer new];
         self.wantsLayer = YES;
     }
+    _viewBox = CGRectZero;
     return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -54,17 +58,23 @@
         _svgLayer = [SVGLayer new];
         self.wantsLayer = YES;
     }
+    _viewBox = CGRectZero;
     return self;
 }
 #endif
 
 - (instancetype)initWithContentsOfURL:(NSURL *)url {
+    _viewBox = CGRectZero;
     if (self = [self init]) {
         [self _cr_loadSVGFromURL:url];
     }
     return self;
 }
 
+
+- (CGRect)getViewBox {
+    return _viewBox;
+}
 
 #if TARGET_OS_IPHONE
 + (Class)layerClass
@@ -160,7 +170,7 @@
     dispatch_resume(_fileWatcher);
 #endif
     
-    _svgLayer.paths = [SVGBezierPath pathsFromSVGAtURL:url];
+    _svgLayer.paths = [SVGBezierPath pathsFromSVGAtURL:url viewBox:&_viewBox];
 }
 
 - (void)dealloc
@@ -181,6 +191,16 @@
                                     ? [PSVGColor colorWithCGColor:_svgLayer.strokeColor]
                                     : nil; }
 - (void)setStrokeColor:(PSVGColor * const)aColor { _svgLayer.strokeColor = aColor.CGColor; }
+
+
+- (CGFloat)strokeWidth
+{
+    return _svgLayer.strokeWidth;
+}
+- (void)setStrokeWidth:(CGFloat const)aSize
+{
+    _svgLayer.strokeWidth = aSize;
+}
 
 - (CGSize)sizeThatFits:(CGSize)aSize
 {

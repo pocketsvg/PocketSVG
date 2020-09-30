@@ -35,29 +35,50 @@
     });
     return pathCache;
 }
+
++ (NSCache<NSURL*, NSString*> *)_svg_viewBoxCache
+{
+    static NSCache<NSURL*, NSString*> *viewBoxCache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        viewBoxCache = [NSCache new];
+    });
+    return viewBoxCache;
+}
+
 + (void)resetCache
 {
     [self._svg_pathCache removeAllObjects];
+    [self._svg_viewBoxCache removeAllObjects];
 }
 
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL
++ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL viewBox:(CGRect *)viewBox
 {
     NSArray<SVGBezierPath*> *paths = [self.class._svg_pathCache objectForKey:aURL];
+    NSString *strViewBox = [self.class._svg_viewBoxCache objectForKey:aURL];
     if (!paths) {
         paths =  [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
                                                                usedEncoding:NULL
-                                                                      error:NULL]];
+                                                                      error:NULL] viewBox:viewBox];
         if (paths) {
             [self.class._svg_pathCache setObject:paths forKey:aURL];
+            [self.class._svg_viewBoxCache setObject:[NSString stringWithFormat:@"%f %f %f %f", viewBox->origin.x, viewBox->origin.y, viewBox->size.width, viewBox->size.height] forKey:aURL];
         }
+    }
+    
+    if (strViewBox) {
+       NSArray *stringArray = [strViewBox componentsSeparatedByString:@" "];
+       if (stringArray && stringArray.count == 4) {
+           *viewBox = CGRectMake(CGFloat([stringArray[0] doubleValue]), CGFloat([stringArray[1] doubleValue]), CGFloat([stringArray[2] doubleValue]), CGFloat([stringArray[3] doubleValue]));
+       }
     }
     return [[NSArray alloc] initWithArray:paths copyItems:YES];
 }
 
-+ (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString * const)svgString
++ (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString * const)svgString viewBox:(CGRect *)viewBox
 {
     SVGAttributeSet *cgAttrs;
-    NSArray * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs);
+    NSArray * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs, viewBox);
     NSMutableArray<SVGBezierPath*> * const paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
     for(id pathRef in pathRefs) {
         SVGBezierPath * const uiPath = [self bezierPathWithCGPath:(__bridge CGPathRef)pathRef];

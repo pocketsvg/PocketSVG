@@ -55,6 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*!
+* @brief Specifies the line thickness for every paths.
+*
+*/
+@property(nonatomic) CGFloat strokeWidth;
+
+
+/*!
  * @brief Specifies whether line thickness should be scaled when scaling paths.
  *
  */

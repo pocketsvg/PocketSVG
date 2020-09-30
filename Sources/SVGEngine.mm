@@ -18,7 +18,7 @@ NSString * const kValidSVGCommands = @"CcMmLlHhVvZzQqTtAaSs";
 
 struct svgParser {
     svgParser(NSString *);
-    NSArray *parse(NSMapTable **aoAttributes);
+    NSArray *parse(NSMapTable **aoAttributes, CGRect *viewBox);
 
 protected:
     NSString *_source;
@@ -95,7 +95,7 @@ svgParser::svgParser(NSString *aSource)
     _source = aSource;
 }
 
-NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
+NSArray *svgParser::parse(NSMapTable ** const aoAttributes, CGRect *viewBox)
 {
     _xmlReader = xmlReaderForDoc((xmlChar *)[_source UTF8String], NULL, NULL, 0);
     NSCAssert(_xmlReader, @"Failed to create XML parser");
@@ -118,7 +118,20 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             else if(type == XML_READER_TYPE_END_ELEMENT)
                 --depthWithinUnknownElement;
         } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "svg") == 0) {
-            // recognize the root svg element but we don't need to do anything with it
+            // recognize the root svg element: we get the viewBox information
+            NSDictionary * const attrs = readAttributes();
+            if (attrs) {
+                NSString *strViewBox = attrs[@"viewBox"];
+                if (strViewBox) {
+                    NSError *error = nil;
+                    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}" options:NSRegularExpressionCaseInsensitive error:&error];
+                    NSString *modifiedString = [regex stringByReplacingMatchesInString:strViewBox options:0 range:NSMakeRange(0, [strViewBox length]) withTemplate:@" "];
+                    NSArray *stringArray = [modifiedString componentsSeparatedByString:@" "];
+                    if (stringArray && stringArray.count == 4) {
+                        *viewBox = CGRectMake(CGFloat([stringArray[0] doubleValue]), CGFloat([stringArray[1] doubleValue]), CGFloat([stringArray[2] doubleValue]), CGFloat([stringArray[3] doubleValue]));
+                    }
+                }
+            }
         } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
             path = readPathTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polyline") == 0)
@@ -430,10 +443,10 @@ NSString *svgParser::readStringAttribute(NSString * const aName)
     return value ? @(value) : nil;
 }
 
-NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outAttributes)
+NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outAttributes, CGRect *viewBox)
 {
     NSMapTable *attributes;
-    NSArray *paths = svgParser(svgString).parse(outAttributes ? &attributes : NULL);
+    NSArray *paths = svgParser(svgString).parse(outAttributes ? &attributes : NULL, viewBox);
     if (outAttributes && (*outAttributes = [SVGAttributeSet new])) {
         (*outAttributes)->_attributes = attributes;
     }
