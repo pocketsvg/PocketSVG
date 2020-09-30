@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @brief The SVG paths the layer should draw.
  *
  */
-@property (nonatomic, copy) NSArray<SVGBezierPath*> *paths;
+@property (nonatomic, copy) NSArray<SVGBezierPath*> *path;
 
 
 /*!
