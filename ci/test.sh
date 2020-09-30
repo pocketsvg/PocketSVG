@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 #
 #!/usr/bin/env bash
-set -xe
+set -xeo pipefail
 
 xcodebuild \
     -scheme PocketSVG \
