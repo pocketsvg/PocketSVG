@@ -41,6 +41,14 @@ FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const pat
 @property(nonatomic, readonly) NSString *SVGRepresentation;
 
 
+/*!
+ * @brief Returns an array of SVGBezierPaths given an SVG's URL.
+ *
+ * @param aURL The URL from which to load an SVG.
+ *
+ */
++ (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL;
+
 
 /*!
  * @brief Returns an array of SVGBezierPaths given an SVG's URL.
@@ -56,6 +64,7 @@ FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const pat
  * @brief Returns an array of paths given the XML string of an SVG.
  *
  */
++ (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString *)svgString;
 + (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString *)svgString viewBox:(CGRect *)viewBox;
 
 /*!

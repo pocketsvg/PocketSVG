@@ -71,6 +71,14 @@
     return self;
 }
 
+- (instancetype)initWithContentsOfURL:(NSURL *)url readViewBox:(bool)readViewBox {
+    _viewBox = CGRectZero;
+    if (self = [self init]) {
+        [self _cr_loadSVGFromURL:url readViewBox:readViewBox];
+    }
+    return self;
+}
+
 
 - (CGRect)getViewBox {
     return _viewBox;
@@ -161,6 +169,40 @@
                            dispatch_get_main_queue(), ^{
                 [SVGBezierPath resetCache];
                 [self _cr_loadSVGFromURL:url];
+            });
+        }
+    });
+    dispatch_source_set_cancel_handler(_fileWatcher, ^{
+        close(fdes);
+    });
+    dispatch_resume(_fileWatcher);
+#endif
+    
+    _svgLayer.paths = [SVGBezierPath pathsFromSVGAtURL:url];
+}
+
+- (void)_cr_loadSVGFromURL:(NSURL *)url readViewBox:(bool)readViewBox {
+    if(!readViewBox) {
+        [self _cr_loadSVGFromURL:url];
+        return;
+    }
+#if defined(DEBUG) && !defined(POCKETSVG_DISABLE_FILEWATCH)
+    if(_fileWatcher)
+        dispatch_source_cancel(_fileWatcher);
+    
+    int const fdes = open([url fileSystemRepresentation], O_RDONLY);
+    _fileWatcher = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fdes,
+                                          DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE,
+                                          dispatch_get_main_queue());
+    dispatch_source_set_event_handler(_fileWatcher, ^{
+        unsigned long const l = dispatch_source_get_data(self->_fileWatcher);
+        if(l & DISPATCH_VNODE_DELETE || l & DISPATCH_VNODE_WRITE) {
+            NSLog(@"Reloading %@", url.lastPathComponent);
+            dispatch_source_cancel(self->_fileWatcher);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
+                           dispatch_get_main_queue(), ^{
+                [SVGBezierPath resetCache];
+                [self _cr_loadSVGFromURL:url readViewBox:readViewBox];
             });
         }
     });

@@ -443,7 +443,18 @@ NSString *svgParser::readStringAttribute(NSString * const aName)
     return value ? @(value) : nil;
 }
 
-NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outAttributes, CGRect *viewBox)
+NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outAttributes)
+{
+    NSMapTable *attributes;
+    CGRect viewBox = CGRectZero;
+    NSArray *paths = svgParser(svgString).parse(outAttributes ? &attributes : NULL, &viewBox);
+    if (outAttributes && (*outAttributes = [SVGAttributeSet new])) {
+        (*outAttributes)->_attributes = attributes;
+    }
+    return paths;
+}
+
+NSArray *CGPathsFromSVGStringViewBox(NSString * const svgString, SVGAttributeSet **outAttributes, CGRect *viewBox)
 {
     NSMapTable *attributes;
     NSArray *paths = svgParser(svgString).parse(outAttributes ? &attributes : NULL, viewBox);

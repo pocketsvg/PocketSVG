@@ -28,6 +28,7 @@ IB_DESIGNABLE
  *
  */
 - (instancetype)initWithContentsOfURL:(NSURL *)url;
+- (instancetype)initWithContentsOfURL:(NSURL *)url readViewBox:(bool)readViewBox;
 
 
 /*!
