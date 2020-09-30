@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 #
 #!/usr/bin/env bash
-set -xe
+set -xeo pipefail
 
 PROJECT_PATH="derived_data/PocketSVG.xcodeproj"
 MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"

@@ -6,7 +6,7 @@
 # file that was distributed with this source code.
 #
 #!/usr/bin/env bash
-set -e
+set -xeo pipefail
 
 # useful for development:
 rm -rf .build/
