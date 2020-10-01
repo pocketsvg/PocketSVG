@@ -55,7 +55,6 @@
 + (NSArray<SVGBezierPath*> *)pathsFromSVGAtURL:(NSURL *)aURL
 {
     NSArray<SVGBezierPath*> *paths = [self.class._svg_pathCache objectForKey:aURL];
-    NSString *strViewBox = [self.class._svg_viewBoxCache objectForKey:aURL];
     if (!paths) {
         paths =  [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
                                                                usedEncoding:NULL
