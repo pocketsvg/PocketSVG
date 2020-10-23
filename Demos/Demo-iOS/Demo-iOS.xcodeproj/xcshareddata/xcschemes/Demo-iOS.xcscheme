@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83DFDDF62449D0730050D6FC"
-               BuildableName = "PocketSVGTests.xctest"
-               BlueprintName = "PocketSVGTests"
-               ReferencedContainer = "container:Demo-iOS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83DFDE072449D0F20050D6FC"
-               BuildableName = "basdfasdfasdfasdf.xctest"
-               BlueprintName = "basdfasdfasdfasdf"
-               ReferencedContainer = "container:Demo-iOS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
