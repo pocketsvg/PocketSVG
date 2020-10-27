@@ -118,7 +118,7 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             else if(type == XML_READER_TYPE_END_ELEMENT)
                 --depthWithinUnknownElement;
         } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "svg") == 0) {
-            // recognize the root svg element but we don't need to do anything with it
+            pushGroup(readAttributes());
         } else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "path") == 0)
             path = readPathTag();
         else if(type == XML_READER_TYPE_ELEMENT && strcasecmp(tag, "polyline") == 0)

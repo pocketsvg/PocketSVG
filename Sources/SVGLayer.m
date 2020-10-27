@@ -56,6 +56,11 @@
     CGColorRelease(_strokeColor);
 }
 
+- (CGRect) viewBox {
+    
+    return CGRectMake(0, 0, 0, 0);
+}
+
 - (void)setPaths:(NSArray<SVGBezierPath*> *)paths
 {
     [self willChangeValueForKey:@"paths"];
