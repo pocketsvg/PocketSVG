@@ -59,5 +59,11 @@ IB_DESIGNABLE
  */
 @property(nonatomic) IBInspectable BOOL scaleLineWidth;
 
+/*!
+ * @brief The value of the SVG's viewBox attribute, expressed in a CGRect.
+ *
+ */
+@property(nonatomic, readonly) CGRect viewBox;
+
 @end
 NS_ASSUME_NONNULL_END

@@ -57,8 +57,7 @@
 }
 
 - (CGRect) viewBox {
-    
-    return CGRectMake(0, 0, 0, 0);
+    return [[_paths firstObject] viewBox];
 }
 
 - (void)setPaths:(NSArray<SVGBezierPath*> *)paths

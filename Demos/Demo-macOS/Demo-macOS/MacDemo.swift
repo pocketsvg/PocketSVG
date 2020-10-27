@@ -14,10 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {}
 
 class DemoController: NSViewController {
     override func loadView() {
-        let url = Bundle.main.url(forResource: "rectangle", withExtension: "svg")!
-        let paths = SVGLayer(contentsOf: url).viewBox
-        view = SVGImageView(contentsOf: url)
+        let url = Bundle.main.url(forResource: "iceland", withExtension: "svg")!
+        view = SVGImageView.init(contentsOf: url)
         view.frame = NSRect(x: 0, y: 0, width: 300, height: 200)
-
     }
 }

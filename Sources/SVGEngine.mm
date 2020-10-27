@@ -81,6 +81,7 @@ protected:
 @interface SVGAttributeSet () {
 @public
     NSMapTable *_attributes;
+    CGRect _viewBox;
 }
 @end
 
@@ -995,6 +996,9 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
         copy->_attributes = [_attributes copy];
     }
     return copy;
+}
+- (CGRect) viewBox {
+    return _viewBox;
 }
 @end
 
