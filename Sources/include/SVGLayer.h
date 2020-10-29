@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*!
- * @brief The value of the SVG's viewBox attribute, expressed in a CGRect.
+ * @brief The value of the SVG's viewBox attribute, expressed in a CGRect. Nonexistent if equal to CGRect.null.
  *
  */
 @property(nonatomic, readonly) CGRect viewBox;
