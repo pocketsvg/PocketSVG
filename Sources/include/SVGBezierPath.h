@@ -66,7 +66,8 @@ FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const pat
 - (SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes;
 
 /*!
- * @brief The value of the SVG's viewBox attribute, expressed in a CGRect. Nonexistent if equal to CGRect.null.
+ * @brief The value of the SVG's viewBox attribute, expressed as a CGRect. If there is
+ * no viewBox attribute, this property will be CGRect.null
  *
  */
 @property(nonatomic, readonly) CGRect viewBox;
