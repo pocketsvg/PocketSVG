@@ -205,6 +205,16 @@
     [self transformUsingAffineTransform:transform];
 }
 #endif
+
+- (CGRect) viewBox {
+    NSString *viewBoxString = _svgAttributes[@"viewBox"];
+    NSArray *stringArray = [viewBoxString componentsSeparatedByString:@" "];
+    if (stringArray && stringArray.count == 4) {
+        return CGRectMake(CGFloat([stringArray[0] doubleValue]), CGFloat([stringArray[1] doubleValue]), CGFloat([stringArray[2] doubleValue]), CGFloat([stringArray[3] doubleValue]));
+    } else {
+        return CGRectNull;
+    }
+}
 @end
 
 

@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 
+## [2.7.0]
+### New Features
+- Support for `viewBox` tag. [Alessio Prosperi](https://github.com/NeedNap)
+ and [Ariel Elkin](https://github.com/arielelkin) [#181](https://github.com/pocketsvg/PocketSVG/pull/181) and [#185](https://github.com/pocketsvg/PocketSVG/pull/185).
+
 ## [2.6.0]
 ### New Features
 - Xcode 12 and SPM Support. [Ariel Elkin](https://github.com/arielelkin), [#178](https://github.com/pocketsvg/PocketSVG/pull/178/)

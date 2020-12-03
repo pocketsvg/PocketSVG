@@ -51,6 +51,7 @@ NSString *SVGStringFromCGPaths(NSArray *paths, SVGAttributeSet *attributes);
 
 @interface SVGAttributeSet : NSObject <NSCopying, NSMutableCopying>
 - (NSDictionary<NSString*,id> *)attributesForPath:(CGPathRef)path;
+@property(nonatomic, readonly) CGRect viewBox;
 @end
 @interface SVGMutableAttributeSet : SVGAttributeSet
 - (void)setAttributes:(NSDictionary<NSString*,id> *)attributes forPath:(CGPathRef)path;

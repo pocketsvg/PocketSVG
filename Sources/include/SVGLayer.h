@@ -60,5 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property(nonatomic) BOOL scaleLineWidth;
 
+
+/*!
+ * @brief The value of the SVG's viewBox attribute, expressed as a CGRect. If there is
+ * no viewBox attribute, this property will be CGRect.null
+ *
+ */
+@property(nonatomic, readonly) CGRect viewBox;
+
 @end
 NS_ASSUME_NONNULL_END

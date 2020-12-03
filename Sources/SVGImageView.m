@@ -190,4 +190,8 @@
 {
     return [self sizeThatFits:CGSizeZero];
 }
+
+- (CGRect) viewBox {
+    return _svgLayer.viewBox;
+}
 @end
