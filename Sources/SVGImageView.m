@@ -194,4 +194,15 @@
 - (CGRect) viewBox {
     return _svgLayer.viewBox;
 }
+
+
+- (CGFloat)strokeWidth
+{
+    return _svgLayer.strokeWidth;
+}
+- (void)setStrokeWidth:(CGFloat const)aSize
+{
+    _svgLayer.strokeWidth = aSize;
+}
+
 @end

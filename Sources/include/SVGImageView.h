@@ -52,6 +52,12 @@ IB_DESIGNABLE
  */
 @property(nonatomic, copy) IBInspectable PSVGColor *strokeColor;
 
+/*!
+ * @brief Specifies the line thickness of every paths.
+ *
+ */
+@property(nonatomic) IBInspectable CGFloat strokeWidth;
+
 
 /*!
  * @brief Specifies whether line thickness should be scaled when scaling paths.

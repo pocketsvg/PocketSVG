@@ -115,6 +115,14 @@
     [_shapeLayers setValue:(__bridge id)_strokeColor forKey:@"strokeColor"];
 }
 
+- (void)setStrokeWidth:(CGFloat)aSize
+{
+    _strokeWidth = aSize;
+    
+    //[_shapeLayers setValue:(__bridge id)_strokeWidth forKey:@"strokeWidth"];
+}
+
+
 - (CGSize)preferredFrameSize
 {
     return SVGBoundingRectForPaths(_untouchedPaths).size;
@@ -128,6 +136,9 @@
     self.sublayerTransform = CATransform3DTranslate(CATransform3DMakeScale(1, -1, 1),
                                                     0, -self.bounds.size.height, 0);
 #endif
+
+    [CATransaction begin];
+    [CATransaction setDisableActions: YES];
 
     CGSize const size  = [self preferredFrameSize];
     CGRect const frame = SVGAdjustCGRectForContentsGravity(self.bounds, size, self.contentsGravity);
@@ -154,6 +165,10 @@
             CGFloat lineScale = (frame.size.width/size.width + frame.size.height/size.height) / 2.0;
             layer.lineWidth = path.lineWidth * lineScale;
         }
+        else {
+            layer.lineWidth = _strokeWidth;
+        }
+
         layer.fillRule = [path.svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"] ? kCAFillRuleEvenOdd : kCAFillRuleNonZero;
         NSString *lineCap = path.svgAttributes[@"stroke-linecap"];
         layer.lineCap = [lineCap isEqualToString:@"round"] ? kCALineCapRound : ([lineCap isEqualToString:@"square"] ? kCALineCapSquare : kCALineCapButt);
@@ -174,6 +189,8 @@
         layer.path = transformedPath;
         CGPathRelease(transformedPath);
     }
+    
+    [CATransaction commit];
 }
 
 @end
