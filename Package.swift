@@ -22,7 +22,6 @@ let package = Package(
             name: "PocketSVG",
             dependencies: [],
             path: "Sources",
-            exclude: ["Demos", "ci", "derived_data", "PocketSVG.podspec"],
             resources: [
                 .process("Resources"),
             ]
@@ -31,7 +30,6 @@ let package = Package(
             name: "PocketSVGTests",
             dependencies: ["PocketSVG"],
             path: "Tests",
-            exclude: ["Demos", "ci", "derived_data", "PocketSVG.podspec"],
             resources: [
                 .process("Resources")
             ]
