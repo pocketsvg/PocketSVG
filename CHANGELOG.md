@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 
+## [2.7.2]
+### Fixes
+- Find named colour tags plist when using SPM.
+
+## [2.7.1]
+### Fixes
+- Address Xode 13 related warnings. [Sergio Baró](https://www.github.com/sergiobaro) [#195](https://github.com/pocketsvg/PocketSVG/pull/195)
+
 ## [2.7.0]
 ### New Features
 - Support for `viewBox` tag. [Alessio Prosperi](https://github.com/NeedNap)
@@ -158,7 +166,10 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.6.0...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...HEAD
+[2.7.2]: https://github.com/pocketsvg/PocketSVG/compare/2.7.1...2.7.2
+[2.7.1]: https://github.com/pocketsvg/PocketSVG/compare/2.7.0...2.7.1
+[2.7.0]: https://github.com/pocketsvg/PocketSVG/compare/2.6.0...2.7.0
 [2.6.0]: https://github.com/pocketsvg/PocketSVG/compare/2.5.0...2.6.0
 [2.5.0]: https://github.com/pocketsvg/PocketSVG/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/pocketsvg/PocketSVG/compare/2.4.1...2.4.2
