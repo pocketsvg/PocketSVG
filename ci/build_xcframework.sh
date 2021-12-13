@@ -14,6 +14,8 @@ IOS_SIMULATOR_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Simulator.xcar
 IOS_DEVICE_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Device.xcarchive"
 XCFRAMEWORK_PATH="derived_data/xcframework/PocketSVG.xcframework"
 
+swift package generate-xcodeproj --output $PROJECT_PATH
+
 xcodebuild archive \
   -project $PROJECT_PATH \
   -scheme PocketSVG-Package \
