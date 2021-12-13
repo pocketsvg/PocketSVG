@@ -16,9 +16,7 @@ on:
 jobs:
   primary:
     name: primary
-    runs-on: macOS-latest
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
+    runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
       - name: Build package
