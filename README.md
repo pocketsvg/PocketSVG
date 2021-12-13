@@ -1,6 +1,14 @@
 # PocketSVG
 
-[![CocoaPods](https://img.shields.io/cocoapods/p/PocketSVG.svg?maxAge=3601)](https://cocoapods.org/pods/PocketSVG) [![Build Status](https://github.com/pocketsvg/pocketsvg/workflows/CI/badge.svg)](https://github.com/pocketsvg/PocketSVG/actions) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/PocketSVG.svg)](https://cocoapods.org/pods/PocketSVG) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Code Coverage](https://img.shields.io/cocoapods/metrics/doc-percent/PocketSVG.svg)](http://cocoadocs.org/docsets/PocketSVG) [![code size](https://img.shields.io/github/languages/code-size/pocketsvg/pocketsvg.svg)](#) [![license](https://img.shields.io/github/license/pocketsvg/pocketsvg.svg)](https://github.com/pocketsvg/PocketSVG/blob/master/LICENSE)
+[![Platforms](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS-green?style=flat-square)](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS-green?style=flat-square)
+[![Build Status](https://github.com/pocketsvg/pocketsvg/workflows/CI/badge.svg)](https://github.com/pocketsvg/PocketSVG/actions) 
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/PocketSVG.svg)](https://cocoapods.org/pods/PocketSVG) 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) 
+[![Code Coverage](https://img.shields.io/cocoapods/metrics/doc-percent/PocketSVG.svg)](http://cocoadocs.org/docsets/PocketSVG) 
+[![code size](https://img.shields.io/github/languages/code-size/pocketsvg/pocketsvg.svg)](#) 
+[![license](https://img.shields.io/github/license/pocketsvg/pocketsvg.svg)](https://github.com/pocketsvg/PocketSVG/blob/master/LICENSE)
+[![Swift Forums](https://img.shields.io/badge/Swift_Forums-PocketSVG-orange?style=flat-square)](https://youtu.be/iik25wqIuFo)
 
 
 A simple toolkit for displaying and manipulating SVGs on iOS and macOS in a performant manner.
