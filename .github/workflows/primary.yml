@@ -32,8 +32,5 @@ jobs:
       - name: Build demos
         run: sh ci/build_demos.sh
 
-      - name: Build xcframework
-        run: sh ci/build_xcframework.sh
-
       - name: Lint Podspec
         run: pod lib lint
