@@ -67,12 +67,11 @@ jobs:
     # if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
     needs: [primary, cocoapods, spm, xcframework]
     steps:
+      - name: Create release
       - uses: actions/download-artifact@v2
         with:
           name: PocketSVG.xcframework
           path: PocketSVG.xcframework
-
-      - name: Create release
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
