@@ -17,7 +17,7 @@ on:
 
 jobs:
   primary:
-    name: primary
+    name: Primary
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +48,7 @@ jobs:
         run: swift build
 
   xcframework:
+    name: XCFramework
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
