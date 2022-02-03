@@ -82,7 +82,7 @@ jobs:
         # TAG_NAME=${GITHUB_REF#refs/*/}
         TAG_NAME=6.6.6
 
-        ls
+        zip PocketSVG.xcframework.zip PocketSVG.xcframework
 
         gh release create $TAG_NAME --notes ""
 
