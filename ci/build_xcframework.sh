@@ -21,16 +21,6 @@ swift package generate-xcodeproj --output $PROJECT_PATH
 xcodebuild archive \
   -project $PROJECT_PATH \
   -scheme PocketSVG-Package \
-  -destination 'generic/platform=macOS' \
-  -derivedDataPath derived_data \
-  -archivePath $MACOS_XCARCHIVE_PATH \
-  SKIP_INSTALL=NO \
-  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
-
-xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
   -destination 'generic/platform=iOS' \
   -derivedDataPath derived_data \
   -archivePath $IOS_DEVICE_XCARCHIVE_PATH \
@@ -44,6 +34,16 @@ xcodebuild archive \
   -destination 'generic/platform=iOS Simulator' \
   -derivedDataPath derived_data \
   -archivePath $IOS_SIMULATOR_XCARCHIVE_PATH \
+  SKIP_INSTALL=NO \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  | xcpretty
+
+xcodebuild archive \
+  -project $PROJECT_PATH \
+  -scheme PocketSVG-Package \
+  -destination 'generic/platform=macOS' \
+  -derivedDataPath derived_data \
+  -archivePath $MACOS_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
   | xcpretty
