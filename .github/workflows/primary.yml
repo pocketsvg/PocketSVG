@@ -67,7 +67,6 @@ jobs:
     # if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
     needs: [primary, cocoapods, spm, xcframework]
     steps:
-      - name: Download previously built XCframework
       - uses: actions/download-artifact@v2
         with:
           name: PocketSVG.xcframework
