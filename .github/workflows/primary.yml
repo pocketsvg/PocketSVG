@@ -83,12 +83,7 @@ jobs:
         TAG_NAME=6.6.6
 
         pwd
-        ls
-        ls PocketSVG || true
-        ls PocketSVG/PocketSVG || true
-        ls PocketSVG/PocketSVG/PocketSVG || true
-
-        mv "PocketSVG/PocketSVG/PocketSVG.xcframework" "./PocketSVG.xcframework"
+        ls PocketSVG.xcframework || true
 
         zip -r9 "PocketSVG.xcframework.zip" "PocketSVG.xcframework"
 
