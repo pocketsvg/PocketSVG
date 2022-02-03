@@ -55,15 +55,28 @@ jobs:
       - name: Build XCFramework
         run: ci/build_xcframework.sh
 
-      - name: Create release
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+    - uses: actions/upload-artifact@v2
+      with:
+      name: PocketSVG.xcframework
+      path: derived_data/xcframework/PocketSVG.xcframework
+      retention-days: 5
 
-          TAG_NAME=${GITHUB_REF#refs/*/}
+  create-release:
+    name: Create release
+    # if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
+    needs: [primary, cocoapods, spm, xcframework]
+    steps:
+      - uses: actions/download-artifact@v2
+      with:
+      name: PocketSVG.xcframework
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-          gh release create $TAG_NAME --notes ""
+        # TAG_NAME=${GITHUB_REF#refs/*/}
+        TAG_NAME=6.6.6
 
-          zip -r9 PocketSVG.xcframework.zip derived_data/xcframework/PocketSVG.xcframework
+        ls
 
-          gh release upload $TAG_NAME PocketSVG.xcframework.zip   
+        gh release create $TAG_NAME --notes ""
+
+        gh release upload $TAG_NAME PocketSVG.xcframework.zip
