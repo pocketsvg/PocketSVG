@@ -11,6 +11,8 @@ name: CI
 on:
   push:
     branches: [master]
+    tags:
+      - '*' # run on every tag
   pull_request:
 
 jobs:
@@ -30,7 +32,7 @@ jobs:
         run: sh ci/test.sh
 
   cocoapods:
-    name: cocoapods
+    name: Cocoapods
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
@@ -45,9 +47,22 @@ jobs:
       - name: Swift Build
         run: swift build
 
-  xcframeworks:
+  xcframework:
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
       - name: Build XCFrameworks
         run: ci/build_xcframework.sh
+
+      - name: Create release
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+          TAG_NAME=${GITHUB_REF#refs/*/}
+
+          gh release create $TAG_NAME --notes ""
+
+          zip -r9 PocketSVG.xcframework.zip derived_data/xcframework/PocketSVG.xcframework
+
+          gh release upload $TAG_NAME PocketSVG.xcframework.zip   
