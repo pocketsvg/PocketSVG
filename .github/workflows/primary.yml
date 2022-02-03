@@ -52,7 +52,7 @@ jobs:
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
-      - name: Build XCFrameworks
+      - name: Build XCFramework
         run: ci/build_xcframework.sh
 
       - name: Create release
