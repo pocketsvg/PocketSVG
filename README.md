@@ -49,10 +49,10 @@ Then run `pod install`
 
 Add this to your Cartfile:
 ```
-github "pocketsvg/PocketSVG" ~> 2.6
+github "pocketsvg/PocketSVG" >= 2.7.2
 ```
 
-Then run `carthage update`
+Then run `carthage update --use-xcframeworks`
 
 ## Usage
 
