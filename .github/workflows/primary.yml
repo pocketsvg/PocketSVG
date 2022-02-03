@@ -82,9 +82,15 @@ jobs:
         # TAG_NAME=${GITHUB_REF#refs/*/}
         TAG_NAME=6.6.6
 
-        mv PocketSVG/PocketSVG/PocketSVG.xcframework PocketSVG.xcframework
+        pwd
+        ls
+        ls PocketSVG || true
+        ls PocketSVG/PocketSVG || true
+        ls PocketSVG/PocketSVG/PocketSVG || true
 
-        zip -r9 PocketSVG.xcframework.zip PocketSVG.xcframework
+        mv "PocketSVG/PocketSVG/PocketSVG.xcframework" "./PocketSVG.xcframework"
+
+        zip -r9 "PocketSVG.xcframework.zip" "PocketSVG.xcframework"
 
         gh release create $TAG_NAME --notes ""
 
