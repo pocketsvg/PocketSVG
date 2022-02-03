@@ -73,7 +73,6 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: PocketSVG.xcframework
-        path: PocketSVG.xcframework
 
     - name: Create release
       run: |
@@ -82,7 +81,9 @@ jobs:
         # TAG_NAME=${GITHUB_REF#refs/*/}
         TAG_NAME=6.6.6
 
-        zip PocketSVG.xcframework.zip PocketSVG.xcframework
+        mv PocketSVG/PocketSVG/PocketSVG.xcframework PocketSVG.xcframework
+
+        zip -r9 PocketSVG.xcframework.zip PocketSVG.xcframework
 
         gh release create $TAG_NAME --notes ""
 
