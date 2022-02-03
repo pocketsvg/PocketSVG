@@ -9,9 +9,11 @@
 set -xeo pipefail
 
 PROJECT_PATH="derived_data/PocketSVG.xcodeproj"
-MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"
 IOS_SIMULATOR_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Simulator.xcarchive"
 IOS_DEVICE_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Device.xcarchive"
+MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"
+TVOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-tvOS.xcarchive"
+CATALYST_XCARCHIVE_PATH="derived_data/archives/PocketSVG-Catalyst.xcarchive"
 XCFRAMEWORK_PATH="derived_data/xcframework/PocketSVG.xcframework"
 
 swift package generate-xcodeproj --output $PROJECT_PATH
@@ -19,7 +21,7 @@ swift package generate-xcodeproj --output $PROJECT_PATH
 xcodebuild archive \
   -project $PROJECT_PATH \
   -scheme PocketSVG-Package \
-  -destination 'platform=OS X,arch=x86_64' \
+  -destination 'generic/platform=macOS' \
   -derivedDataPath derived_data \
   -archivePath $MACOS_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
@@ -46,12 +48,36 @@ xcodebuild archive \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
   | xcpretty
 
+xcodebuild archive \
+  -project $PROJECT_PATH \
+  -scheme PocketSVG-Package \
+  -destination 'generic/platform=tvos' \
+  -derivedDataPath derived_data \
+  -archivePath $TVOS_XCARCHIVE_PATH \
+  SKIP_INSTALL=NO \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  | xcpretty
+
+xcodebuild archive \
+  -project $PROJECT_PATH \
+  -scheme PocketSVG-Package \
+  -destination 'generic/platform=macOS,variant=Mac Catalyst' \
+  -derivedDataPath derived_data \
+  -archivePath $CATALYST_XCARCHIVE_PATH \
+  SKIP_INSTALL=NO \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  | xcpretty
+
 IOS_SIMULATOR_FRAMEWORK_PATH=$(find $IOS_SIMULATOR_XCARCHIVE_PATH -name "*.framework")
 IOS_DEVICE_FRAMEWORK_PATH=$(find $IOS_DEVICE_XCARCHIVE_PATH -name "*.framework")
 MACOS_FRAMEWORK_PATH=$(find $MACOS_XCARCHIVE_PATH -name "*.framework")
+TVOS_FRAMEWORK_PATH=$(find $TVOS_XCARCHIVE_PATH -name "*.framework")
+CATALYST_FRAMEWORK_PATH=$(find $CATALYST_XCARCHIVE_PATH -name "*.framework")
 
 xcodebuild -create-xcframework \
   -framework $IOS_SIMULATOR_FRAMEWORK_PATH \
   -framework $IOS_DEVICE_FRAMEWORK_PATH \
   -framework $MACOS_FRAMEWORK_PATH \
+  -framework $TVOS_FRAMEWORK_PATH \
+  -framework $CATALYST_FRAMEWORK_PATH \
   -output $XCFRAMEWORK_PATH

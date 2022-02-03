@@ -23,14 +23,31 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_13.2.app
 
-      - name: Build package
-        run: swift build
+      - name: Build demos
+        run: sh ci/build_demos.sh
 
       - name: Run unit tests
         run: sh ci/test.sh
 
-      - name: Build demos
-        run: sh ci/build_demos.sh
-
+  cocoapods:
+    name: cocoapods
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
       - name: Lint Podspec
         run: pod lib lint
+
+  spm:
+    name: Swift Package Manager
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build package
+        run: swift build
+
+  xcframeworks:
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build package
+        run: ci/build_xcframework.sh
