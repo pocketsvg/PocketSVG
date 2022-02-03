@@ -882,7 +882,7 @@ hexTriplet::hexTriplet(NSString *str)
     static NSDictionary *colorMap = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#if SWIFT_PACKAGE
+#ifdef SWIFTPM_MODULE_BUNDLE    
         NSURL *url = [SWIFTPM_MODULE_BUNDLE URLForResource:@"SVGColors" withExtension:@"plist"];
 #else
         NSURL *url = [[NSBundle bundleForClass:[SVGAttributeSet class]] URLForResource:@"SVGColors" withExtension:@"plist"];

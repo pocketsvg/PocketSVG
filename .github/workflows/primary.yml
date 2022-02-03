@@ -11,11 +11,13 @@ name: CI
 on:
   push:
     branches: [master]
+    tags:
+      - '*' # run on every tag
   pull_request:
 
 jobs:
   primary:
-    name: primary
+    name: Primary
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
@@ -23,14 +25,60 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_13.2.app
 
-      - name: Build package
-        run: swift build
+      - name: Build demos
+        run: sh ci/build_demos.sh
 
       - name: Run unit tests
         run: sh ci/test.sh
 
-      - name: Build demos
-        run: sh ci/build_demos.sh
+  spm:
+    name: Swift Package Manager
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+      - name: Swift Build
+        run: swift build
 
+  cocoapods:
+    name: Cocoapods
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
       - name: Lint Podspec
         run: pod lib lint
+
+  xcframework:
+    name: XCFramework
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build XCFramework
+        run: ci/build_xcframework.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: PocketSVG.xcframework
+          path: derived_data/xcframework/PocketSVG.xcframework
+          retention-days: 5
+
+  create-release:
+    name: Make release
+    runs-on: macOS-11
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
+    needs: [primary, cocoapods, spm, xcframework]
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: PocketSVG.xcframework
+        path: PocketSVG.xcframework
+
+    - name: Make release
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        TAG_NAME=${GITHUB_REF#refs/*/}
+        zip -r9 "PocketSVG.xcframework.zip" "PocketSVG.xcframework"
+        gh release create $TAG_NAME --notes ""
+        gh release upload $TAG_NAME PocketSVG.xcframework.zip
