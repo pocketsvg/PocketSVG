@@ -26,18 +26,10 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_13.2.app
 
       - name: Build demos
-        run: sh ci/build_demos.sh
+        # run: sh ci/build_demos.sh
 
       - name: Run unit tests
-        run: sh ci/test.sh
-
-  cocoapods:
-    name: Cocoapods
-    runs-on: macOS-11
-    steps:
-      - uses: actions/checkout@v2
-      - name: Lint Podspec
-        run: pod lib lint
+        # run: sh ci/test.sh
 
   spm:
     name: Swift Package Manager
@@ -46,6 +38,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Swift Build
         run: swift build
+
+  cocoapods:
+    name: Cocoapods
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Podspec
+        # run: pod lib lint
 
   xcframework:
     name: XCFramework
@@ -70,6 +70,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: PocketSVG.xcframework
+          path: PocketSVG.xcframework
+
+      -name: Create release
           run: |
             echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
