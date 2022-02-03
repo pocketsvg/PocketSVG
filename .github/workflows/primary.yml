@@ -42,12 +42,12 @@ jobs:
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
-      - name: Build package
+      - name: Swift Build
         run: swift build
 
   xcframeworks:
     runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
-      - name: Build package
+      - name: Build XCFrameworks
         run: ci/build_xcframework.sh
