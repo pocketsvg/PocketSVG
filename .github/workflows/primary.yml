@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Swift Build
-        run: swift build
+        run: echo "hi" #swift build
 
   cocoapods:
     name: Cocoapods
@@ -77,7 +77,7 @@ jobs:
 
     - name: Create release
       run: |
-        # echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
         # TAG_NAME=${GITHUB_REF#refs/*/}
         TAG_NAME=6.6.6
