@@ -71,7 +71,6 @@ jobs:
         with:
           name: PocketSVG.xcframework
           path: PocketSVG.xcframework
-
       - name: Create release
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
