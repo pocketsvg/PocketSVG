@@ -227,4 +227,28 @@ class PocketSVGTests: XCTestCase {
         let path = paths.first!
         XCTAssertEqual(path.cgPath.boundingBox, CGRect(x: 21, y: 21, width: 470, height: 470))
     }
+
+    /**
+     * Test that leading zeros shortcuts are not ignored and properly parsed
+     * https://github.com/pocketsvg/PocketSVG/issues/204
+     */
+    func testPathValuesWithLeadingZeros() throws {
+        let svgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0 0 a 2 1 0 0 0 6 0" />
+            </svg>
+            """
+        let shortcutSvgString = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0 0 a 2 1 0 006 0" />
+            </svg>
+            """
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        let elementCount = try XCTUnwrap(paths.first?.elementCount)
+        XCTAssertEqual(elementCount, 3, "Elements count in reference path should be equal to 3")
+
+        let shortcutPaths = SVGBezierPath.paths(fromSVGString: shortcutSvgString)
+        let shortcutElementCount = try XCTUnwrap(shortcutPaths.first?.elementCount)
+        XCTAssertEqual(elementCount, shortcutElementCount, "Elements count of shortcut path should be equal to reference path elements count")
+    }
 }
