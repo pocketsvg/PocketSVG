@@ -244,11 +244,9 @@ class PocketSVGTests: XCTestCase {
             </svg>
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
-        let elementCount = try XCTUnwrap(paths.first?.elementCount)
-        XCTAssertEqual(elementCount, 3, "Elements count in reference path should be equal to 3")
-
+        let cgPath = try XCTUnwrap(paths.first?.cgPath)
         let shortcutPaths = SVGBezierPath.paths(fromSVGString: shortcutSvgString)
-        let shortcutElementCount = try XCTUnwrap(shortcutPaths.first?.elementCount)
-        XCTAssertEqual(elementCount, shortcutElementCount, "Elements count of shortcut path should be equal to reference path elements count")
+        let shortcutCgPath = try XCTUnwrap(shortcutPaths.first?.cgPath)
+        XCTAssertEqual(cgPath, shortcutCgPath, "Reference and shortcut paths should be equal")
     }
 }
