@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### Fixes
-- Support for shortcuts with leading zeros as described in issue (https://github.com/pocketsvg/PocketSVG/issues/204) [Vladimir Roganov](https://github.com/elisar4) [#203](https://github.com/pocketsvg/PocketSVG/pull/203)
+- Support for shortcuts with leading zeros as described in issue (https://github.com/pocketsvg/PocketSVG/issues/204) [Vladimir Roganov](https://github.com/elisar4) [#205](https://github.com/pocketsvg/PocketSVG/pull/205)
 
 ## [2.7.2]
 ### Fixes
