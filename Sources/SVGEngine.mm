@@ -514,6 +514,15 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const at
 pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
     _definition = [aDefinition stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    NSRegularExpression * const leadingZerosRegex = [NSRegularExpression regularExpressionWithPattern:@"(?<=[ ,])0\\d"
+                                                                                              options:0
+                                                                                                error:nil];
+    while (NSTextCheckingResult *match = [leadingZerosRegex firstMatchInString:_definition
+                                                                       options:0
+                                                                         range:NSMakeRange(0, _definition.length)]) {
+        _definition = [_definition stringByReplacingCharactersInRange:NSMakeRange(match.range.location, 1)
+                                                           withString:@"0 "];
+    }
 }
 
 CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
