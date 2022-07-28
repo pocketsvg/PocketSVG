@@ -514,15 +514,6 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const at
 pathDefinitionParser::pathDefinitionParser(NSString *aDefinition)
 {
     _definition = [aDefinition stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    NSRegularExpression * const leadingZerosRegex = [NSRegularExpression regularExpressionWithPattern:@"(?<=[ ,])0\\d"
-                                                                                              options:0
-                                                                                                error:nil];
-    while (NSTextCheckingResult *match = [leadingZerosRegex firstMatchInString:_definition
-                                                                       options:0
-                                                                         range:NSMakeRange(0, _definition.length)]) {
-        _definition = [_definition stringByReplacingCharactersInRange:NSMakeRange(match.range.location, 1)
-                                                           withString:@"0 "];
-    }
 }
 
 CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
@@ -548,9 +539,22 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
         if([cmdBuf length] > 1) {
             scanner.scanLocation -= [cmdBuf length]-1;
         } else {
-            for(float operand;
-                [scanner scanFloat:&operand];
-                _operands.push_back(operand));
+            while (!scanner.isAtEnd) {
+                NSUInteger zeros = 0;
+                while ([scanner scanString:@"0" intoString:NULL]) { ++zeros; }
+                // Start of a 0.x ?
+                if (zeros > 0 && [scanner scanString:@"." intoString:NULL]) {
+                    --zeros;
+                    scanner.scanLocation -= 2;
+                }
+                for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
+
+                float operand;
+                if (![scanner scanFloat:&operand]) {
+                    break;
+                }
+                _operands.push_back(operand);
+            }
         }
 
 #ifdef SVG_PATH_SERIALIZER_DEBUG
