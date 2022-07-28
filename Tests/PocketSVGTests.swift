@@ -235,12 +235,12 @@ class PocketSVGTests: XCTestCase {
     func testPathValuesWithLeadingZeros() throws {
         let svgString = """
             <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0 0 a 2 1 0 0 0 6 0" />
+                <path d="M 0 0.01 a 2 1 0 0 0 6 0 a 0.24 0.52 0 0 0 0 1001" />
             </svg>
             """
         let shortcutSvgString = """
             <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0 0 a 2 1 0 006 0" />
+                <path d="M 00.01 a 2 1 0 006 0 a 0.24.52 000 01001" />
             </svg>
             """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
