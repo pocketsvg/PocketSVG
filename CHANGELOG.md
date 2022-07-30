@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
+### Fixes
+- Support for shortcuts with leading zeros as described in issue (https://github.com/pocketsvg/PocketSVG/issues/204) [Vladimir Roganov](https://github.com/elisar4) [#205](https://github.com/pocketsvg/PocketSVG/pull/205)
 
 ## [2.7.2]
 ### Fixes
