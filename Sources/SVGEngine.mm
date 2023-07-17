@@ -463,10 +463,11 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const at
         for(NSString *key in pathAttrs) {
             if(![pathAttrs[key] isKindOfClass:[NSString class]]) { // Color
                 [svg appendFormat:@" %@=\"%@\"", key, hexTriplet((__bridge CGColorRef)pathAttrs[key]).string()];
-                
-                float const alpha = CGColorGetAlpha((__bridge CGColorRef)pathAttrs[key]);
-                if(alpha < 1.0)
-                    [svg appendFormat:@" %@-opacity=\"%.2g\"", key, alpha];
+                if (CFGetTypeID((__bridge CFTypeRef)(pathAttrs[key])) == CGColorGetTypeID()) {
+                    float const alpha = CGColorGetAlpha((__bridge CGColorRef)pathAttrs[key]);
+                    if(alpha < 1.0)
+                        [svg appendFormat:@" %@-opacity=\"%.2g\"", key, alpha];
+                }
             } else
                 [svg appendFormat:@" %@=\"%@\"", key, pathAttrs[key]];
         }
