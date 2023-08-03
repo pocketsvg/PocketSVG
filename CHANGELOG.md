@@ -3,8 +3,14 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### Fixes
-- Support for shortcuts with leading zeros as described in issue (https://github.com/pocketsvg/PocketSVG/issues/212) [Chris Vasselli](https://github.com/chrisvasselli)
-- Fix build on visionOS (https://github.com/pocketsvg/PocketSVG/issues/204) [Vladimir Roganov](https://github.com/elisar4) [#205](https://github.com/pocketsvg/PocketSVG/pull/205)
+- Support for visionOS (https://github.com/pocketsvg/PocketSVG/issues/212 and https://github.com/pocketsvg/PocketSVG/issues/204) [Chris Vasselli](https://github.com/chrisvasselli)
+
+## [2.7.3]
+### Fixes
+- Support for shortcuts with leading zeros as described in issue (https://github.com/pocketsvg/PocketSVG/issues/204) [Vladimir Roganov](https://github.com/elisar4) [#205](https://github.com/pocketsvg/PocketSVG/pull/205)
+
+
+- Prevents the program from crashing when the color passed in is not of the correct type [CodeForRabbit](https://github.com/CodeForRabbit) [#214](https://github.com/pocketsvg/PocketSVG/pull/214)
 
 ## [2.7.2]
 ### Fixes
@@ -169,7 +175,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...HEAD
+[2.7.3]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...2.7.3
 [2.7.2]: https://github.com/pocketsvg/PocketSVG/compare/2.7.1...2.7.2
 [2.7.1]: https://github.com/pocketsvg/PocketSVG/compare/2.7.0...2.7.1
 [2.7.0]: https://github.com/pocketsvg/PocketSVG/compare/2.6.0...2.7.0
