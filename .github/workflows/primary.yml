@@ -18,7 +18,7 @@ on:
 jobs:
   primary:
     name: Primary
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
       - uses: actions/checkout@v2
 
@@ -33,7 +33,7 @@ jobs:
 
   spm:
     name: Swift Package Manager
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
       - uses: actions/checkout@v2
       - name: Swift Build
@@ -41,7 +41,7 @@ jobs:
 
   cocoapods:
     name: Cocoapods
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
       - uses: actions/checkout@v2
       - name: Lint Podspec
@@ -49,7 +49,7 @@ jobs:
 
   xcframework:
     name: XCFramework
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
       - uses: actions/checkout@v2
 
@@ -64,7 +64,7 @@ jobs:
 
   create-release:
     name: Make release
-    runs-on: macOS-11
+    runs-on: macOS-13
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
     needs: [primary, cocoapods, spm, xcframework]
     steps:
