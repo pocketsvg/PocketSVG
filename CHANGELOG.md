@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [2.7.1]
 ### Fixes
-- Address Xode 13 related warnings. [Sergio Baró](https://www.github.com/sergiobaro) [#195](https://github.com/pocketsvg/PocketSVG/pull/195)
+- Address Xcode 13 related warnings. [Sergio Baró](https://www.github.com/sergiobaro) [#195](https://github.com/pocketsvg/PocketSVG/pull/195)
 
 ## [2.7.0]
 ### New Features
