@@ -8,12 +8,13 @@ let package = Package(
         .macOS(.v10_10),
         .iOS(.v9),
         .tvOS(.v10),
-        .watchOS(.v3)
+        .watchOS(.v3),
     ],
     products: [
         .library(
             name: "PocketSVG",
-            targets: ["PocketSVG"])
+            targets: ["PocketSVG"]
+        ),
     ],
     dependencies: [
     ],
@@ -31,9 +32,9 @@ let package = Package(
             dependencies: ["PocketSVG"],
             path: "Tests",
             resources: [
-                .process("Resources")
+                .process("Resources"),
             ]
-        )
+        ),
     ],
     cxxLanguageStandard: .cxx14
 )

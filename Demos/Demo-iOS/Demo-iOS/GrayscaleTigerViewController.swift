@@ -6,11 +6,10 @@
  * file that was distributed with this source code.
  */
 
-import UIKit
 import PocketSVG
+import UIKit
 
 class GrayscaleTigerViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,17 +21,14 @@ class GrayscaleTigerViewController: UIViewController {
         let tigerLayer = CALayer()
 
         for (index, path) in paths.enumerated() {
-
             let shapeLayer = CAShapeLayer()
             shapeLayer.path = path.cgPath
 
-            if index%2 == 0 {
+            if index % 2 == 0 {
                 shapeLayer.fillColor = UIColor.black.cgColor
-            }
-            else if index%3 == 0 {
+            } else if index % 3 == 0 {
                 shapeLayer.fillColor = UIColor.darkGray.cgColor
-            }
-            else {
+            } else {
                 shapeLayer.fillColor = UIColor.gray.cgColor
             }
 
@@ -46,4 +42,3 @@ class GrayscaleTigerViewController: UIViewController {
         view.layer.addSublayer(tigerLayer)
     }
 }
-

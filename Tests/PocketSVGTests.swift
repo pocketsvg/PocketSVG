@@ -6,13 +6,11 @@
  * file that was distributed with this source code.
  */
 
-
-import XCTest
 import Foundation
 import PocketSVG
+import XCTest
 
 class PocketSVGTests: XCTestCase {
-
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
@@ -23,7 +21,7 @@ class PocketSVGTests: XCTestCase {
 
         let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
 
-        //this is just a rectangle shape, so we should have just one path:
+        // this is just a rectangle shape, so we should have just one path:
         XCTAssert(paths.count == 1)
 
         let rectanglePath = paths[0]
@@ -37,37 +35,37 @@ class PocketSVGTests: XCTestCase {
         XCTAssert(rectanglePath.svgAttributes["width"] as! String == "100px")
         XCTAssert(rectanglePath.svgAttributes["height"] as! String == "100px")
     }
+
     #if os(iOS)
-    func testPathsFromTiger() {
-        let svgURL = Bundle.module.url(forResource: "test_tiger", withExtension: "svg")!
-        let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
+        func testPathsFromTiger() {
+            let svgURL = Bundle.module.url(forResource: "test_tiger", withExtension: "svg")!
+            let paths = SVGBezierPath.pathsFromSVG(at: svgURL)
 
-        XCTAssert(paths.count == 240)
+            XCTAssert(paths.count == 240)
 
-        let firstPath = UIBezierPath()
-        firstPath.move(to: CGPoint(x: -122.30000305175781, y: 84.285003662109375))
-        firstPath.addCurve(to: CGPoint(x: -123.0300030708313, y: 86.160003662109375), controlPoint1: CGPoint(x: -122.30000305175781, y: 84.285003662109375), controlPoint2: CGPoint(x: -122.2000030502677, y: 86.179003715515137))
-        firstPath.addCurve(to: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint1: CGPoint(x: -123.85000306367874, y: 86.141003662720323), controlPoint2: CGPoint(x: -140.30000352859497, y: 38.066001892089844))
-        firstPath.addCurve(to: CGPoint(x: -122.30000352859497, y: 84.285003662109375), controlPoint1: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint2: CGPoint(x: -143.05000162124634, y: 32.956001758575439))
-        firstPath.close()
-        XCTAssertEqual(firstPath.cgPath, paths[0].cgPath)
+            let firstPath = UIBezierPath()
+            firstPath.move(to: CGPoint(x: -122.30000305175781, y: 84.285003662109375))
+            firstPath.addCurve(to: CGPoint(x: -123.0300030708313, y: 86.160003662109375), controlPoint1: CGPoint(x: -122.30000305175781, y: 84.285003662109375), controlPoint2: CGPoint(x: -122.2000030502677, y: 86.179003715515137))
+            firstPath.addCurve(to: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint1: CGPoint(x: -123.85000306367874, y: 86.141003662720323), controlPoint2: CGPoint(x: -140.30000352859497, y: 38.066001892089844))
+            firstPath.addCurve(to: CGPoint(x: -122.30000352859497, y: 84.285003662109375), controlPoint1: CGPoint(x: -160.83000230789185, y: 40.309001922607422), controlPoint2: CGPoint(x: -143.05000162124634, y: 32.956001758575439))
+            firstPath.close()
+            XCTAssertEqual(firstPath.cgPath, paths[0].cgPath)
 
-
-        let hundredthPath = UIBezierPath()
-        hundredthPath.move(to: CGPoint(x: 294.5, y: 153))
-        hundredthPath.addCurve(to: CGPoint(x: 242, y: 123), controlPoint1: CGPoint(x: 294.5, y: 153), controlPoint2: CGPoint(x: 249.5, y: 124.5))
-        hundredthPath.addCurve(to: CGPoint(x: 296.5, y: 162.5), controlPoint1: CGPoint(x: 230.1899995803833, y: 120.64000010490417), controlPoint2: CGPoint(x: 291.5, y: 152))
-        hundredthPath.addCurve(to: CGPoint(x: 294.5, y: 153), controlPoint1: CGPoint(x: 296.5, y: 162.5), controlPoint2: CGPoint(x: 298.5, y: 160))
-        hundredthPath.close()
-        XCTAssertEqual(hundredthPath.cgPath, paths[100].cgPath)
-    }
+            let hundredthPath = UIBezierPath()
+            hundredthPath.move(to: CGPoint(x: 294.5, y: 153))
+            hundredthPath.addCurve(to: CGPoint(x: 242, y: 123), controlPoint1: CGPoint(x: 294.5, y: 153), controlPoint2: CGPoint(x: 249.5, y: 124.5))
+            hundredthPath.addCurve(to: CGPoint(x: 296.5, y: 162.5), controlPoint1: CGPoint(x: 230.1899995803833, y: 120.64000010490417), controlPoint2: CGPoint(x: 291.5, y: 152))
+            hundredthPath.addCurve(to: CGPoint(x: 294.5, y: 153), controlPoint1: CGPoint(x: 296.5, y: 162.5), controlPoint2: CGPoint(x: 298.5, y: 160))
+            hundredthPath.close()
+            XCTAssertEqual(hundredthPath.cgPath, paths[100].cgPath)
+        }
     #endif
 
     func testSVGRepresentationWhenUsingSettingSVGAttributes() {
         let attributes: [String: Any] = [
             "stroke": "black",
             "stroke-width": "2",
-            "fill": "transparent"
+            "fill": "transparent",
         ]
         let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
 
@@ -81,7 +79,7 @@ class PocketSVGTests: XCTestCase {
         let attributes: [String: Any] = [
             "stroke": "black",
             "stroke-width": "2",
-            "fill": "transparent"
+            "fill": "transparent",
         ]
 
         let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
@@ -105,17 +103,17 @@ class PocketSVGTests: XCTestCase {
 
     func testIgnoresMaskElement() {
         let svgString = """
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
-                <g>
-                    <mask>
-                        <g>
-                            <rect width="100" height="100" style="fill: #FFFFFF" />
-                        </g>
-                    </mask>
-                    <rect x="20" y="20" width="60" height="60" style="fill: #FF0000"/>
-                </g>
-            </svg>
-            """
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+            <g>
+                <mask>
+                    <g>
+                        <rect width="100" height="100" style="fill: #FFFFFF" />
+                    </g>
+                </mask>
+                <rect x="20" y="20" width="60" height="60" style="fill: #FF0000"/>
+            </g>
+        </svg>
+        """
 
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
@@ -125,8 +123,8 @@ class PocketSVGTests: XCTestCase {
     }
 
     #if os(iOS)
-    func testRespectsAttributesOnAElement() {
-        let svgString = """
+        func testRespectsAttributesOnAElement() {
+            let svgString = """
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
                 <a transform="translate(5 10)">
                     <rect x="15" y="10" width="60" height="60"/>
@@ -134,81 +132,81 @@ class PocketSVGTests: XCTestCase {
             </svg>
             """
 
-        let paths = SVGBezierPath.paths(fromSVGString: svgString)
-        XCTAssertEqual(paths.count, 1)
-        let path = paths.first!
+            let paths = SVGBezierPath.paths(fromSVGString: svgString)
+            XCTAssertEqual(paths.count, 1)
+            let path = paths.first!
 
-        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).cgAffineTransformValue
-        let pathBounds = path.bounds
-        let translatedPathBounds = pathBounds.applying(pathTransform)
+            let pathTransform = (path.svgAttributes["transform"]! as! NSValue).cgAffineTransformValue
+            let pathBounds = path.bounds
+            let translatedPathBounds = pathBounds.applying(pathTransform)
 
-        XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 5, y: 10))
-        XCTAssertEqual(pathBounds, CGRect(x: 15, y: 10, width: 60, height: 60))
-        XCTAssertEqual(translatedPathBounds, CGRect(x: 20, y: 20, width: 60, height: 60))
-    }
+            XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 5, y: 10))
+            XCTAssertEqual(pathBounds, CGRect(x: 15, y: 10, width: 60, height: 60))
+            XCTAssertEqual(translatedPathBounds, CGRect(x: 20, y: 20, width: 60, height: 60))
+        }
     #endif
 
     func testTransformTranslate() {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(10 5)">
-                    <rect x="20" y="20" width="60" height="60"/>
-                </g>
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(10 5)">
+                <rect x="20" y="20" width="60" height="60"/>
+            </g>
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
 
-        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform()
         XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 5))
     }
 
     func testTransformTranslateOptionalParameters() {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <g transform="translate(10)">
-                    <rect x="20" y="20" width="60" height="60"/>
-                </g>
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(10)">
+                <rect x="20" y="20" width="60" height="60"/>
+            </g>
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
 
-        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform()
         XCTAssertEqual(pathTransform, CGAffineTransform(translationX: 10, y: 0))
     }
 
     func testTransformScale() {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <g transform="scale(2 2)">
-                    <rect x="20" y="20" width="30" height="30"/>
-                </g>
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g transform="scale(2 2)">
+                <rect x="20" y="20" width="30" height="30"/>
+            </g>
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
 
-        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform()
         XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
     }
 
     func testTransformScaleOptionalParameters() {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <g transform="scale(2)">
-                    <rect x="20" y="20" width="60" height="60"/>
-                </g>
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g transform="scale(2)">
+                <rect x="20" y="20" width="60" height="60"/>
+            </g>
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
 
-        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform();
+        let pathTransform = (path.svgAttributes["transform"]! as! NSValue).svg_CGAffineTransform()
         XCTAssertEqual(pathTransform, CGAffineTransform(scaleX: 2, y: 2))
     }
 
@@ -218,10 +216,10 @@ class PocketSVGTests: XCTestCase {
      */
     func testBoundingBox() {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 256 l0 -235 235 0 235 0 0 235 0 235 -235 0 -235 0 0 -235z" />
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 256 l0 -235 235 0 235 0 0 235 0 235 -235 0 -235 0 0 -235z" />
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
@@ -234,15 +232,15 @@ class PocketSVGTests: XCTestCase {
      */
     func testPathValuesWithLeadingZeros() throws {
         let svgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0 0.01 a 2 1 0 0 0 6 0 a 0.24 0.52 0 0 0 0 1001" />
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0.01 a 2 1 0 0 0 6 0 a 0.24 0.52 0 0 0 0 1001" />
+        </svg>
+        """
         let shortcutSvgString = """
-            <svg xmlns="http://www.w3.org/2000/svg">
-                <path d="M 00.01 a 2 1 0 006 0 a 0.24.52 000 01001" />
-            </svg>
-            """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M 00.01 a 2 1 0 006 0 a 0.24.52 000 01001" />
+        </svg>
+        """
         let paths = SVGBezierPath.paths(fromSVGString: svgString)
         let cgPath = try XCTUnwrap(paths.first?.cgPath)
         let shortcutPaths = SVGBezierPath.paths(fromSVGString: shortcutSvgString)
