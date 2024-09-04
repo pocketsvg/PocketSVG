@@ -8,7 +8,6 @@
 #!/usr/bin/env bash
 set -xeo pipefail
 
-PROJECT_PATH="derived_data/PocketSVG.xcodeproj"
 IOS_SIMULATOR_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Simulator.xcarchive"
 IOS_DEVICE_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Device.xcarchive"
 MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"
@@ -16,57 +15,50 @@ TVOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-tvOS.xcarchive"
 CATALYST_XCARCHIVE_PATH="derived_data/archives/PocketSVG-Catalyst.xcarchive"
 XCFRAMEWORK_PATH="derived_data/xcframework/PocketSVG.xcframework"
 
-swift package generate-xcodeproj --output $PROJECT_PATH
-
 xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
+  -scheme PocketSVG \
   -destination 'generic/platform=iOS' \
   -derivedDataPath derived_data \
   -archivePath $IOS_DEVICE_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
+  | xcbeautify
 
 xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
+  -scheme PocketSVG \
   -destination 'generic/platform=iOS Simulator' \
   -derivedDataPath derived_data \
   -archivePath $IOS_SIMULATOR_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
+  | xcbeautify
 
 xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
+  -scheme PocketSVG \
   -destination 'generic/platform=macOS' \
   -derivedDataPath derived_data \
   -archivePath $MACOS_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
+  | xcbeautify
 
 xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
-  -destination 'generic/platform=tvos' \
+  -scheme PocketSVG \
+  -destination 'generic/platform=appletvos' \
   -derivedDataPath derived_data \
   -archivePath $TVOS_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
+  | xcbeautify
 
 xcodebuild archive \
-  -project $PROJECT_PATH \
-  -scheme PocketSVG-Package \
+  -scheme PocketSVG \
   -destination 'generic/platform=macOS,variant=Mac Catalyst' \
   -derivedDataPath derived_data \
   -archivePath $CATALYST_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
-  | xcpretty
+  | xcbeautify
 
 IOS_SIMULATOR_FRAMEWORK_PATH=$(find $IOS_SIMULATOR_XCARCHIVE_PATH -name "*.framework")
 IOS_DEVICE_FRAMEWORK_PATH=$(find $IOS_DEVICE_XCARCHIVE_PATH -name "*.framework")

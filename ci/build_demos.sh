@@ -23,7 +23,7 @@ xcodebuild \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
   clean \
   build \
-  | xcpretty
+  | xcbeautify
 
 echo "Build macOS demo"
 xcodebuild \
@@ -34,4 +34,4 @@ xcodebuild \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
   clean \
   build \
-  | xcpretty
+  | xcbeautify
