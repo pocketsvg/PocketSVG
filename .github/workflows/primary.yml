@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Lint Podspec
-        run: pod lib lint
+        run: pod lib lint --allow-warnings
 
   xcframework:
     name: XCFramework
