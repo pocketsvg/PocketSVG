@@ -9,7 +9,6 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PocketSVG Demo"
@@ -22,6 +21,7 @@ class MainViewController: UIViewController {
         view.addSubview(tableView)
     }
 }
+
 enum Section: Int {
     case simple
     case complex
@@ -29,13 +29,14 @@ enum Section: Int {
     var title: String {
         switch self {
         case .simple:
-            return "Simple"
+            "Simple"
         case .complex:
-            return "Complex"
+            "Complex"
         }
     }
+
     static var count: Int {
-        return 2
+        2
     }
 }
 
@@ -48,40 +49,40 @@ enum SimpleRow: Int {
     case tiger
 
     static var count: Int {
-        return 4
+        4
     }
 
     var svgURL: URL {
         switch self {
         case .circle:
-            return Bundle.main.url(forResource: "circle", withExtension: "svg")!
+            Bundle.main.url(forResource: "circle", withExtension: "svg")!
         case .curve:
-            return Bundle.main.url(forResource: "curve", withExtension: "svg")!
+            Bundle.main.url(forResource: "curve", withExtension: "svg")!
         case .lines:
-            return Bundle.main.url(forResource: "lines", withExtension: "svg")!
+            Bundle.main.url(forResource: "lines", withExtension: "svg")!
         case .attribute_inheritance:
-            return Bundle.main.url(forResource: "attribute_inheritance", withExtension: "svg")!
+            Bundle.main.url(forResource: "attribute_inheritance", withExtension: "svg")!
         case .iceland:
-            return Bundle.main.url(forResource: "iceland", withExtension: "svg")!
+            Bundle.main.url(forResource: "iceland", withExtension: "svg")!
         case .tiger:
-            return Bundle.main.url(forResource: "tiger", withExtension: "svg")!
+            Bundle.main.url(forResource: "tiger", withExtension: "svg")!
         }
     }
 
     var title: String {
         switch self {
         case .circle:
-            return "Circle"
+            "Circle"
         case .curve:
-            return "Curve"
+            "Curve"
         case .lines:
-            return "Lines"
+            "Lines"
         case .attribute_inheritance:
-            return "Attribute Inheritance"
+            "Attribute Inheritance"
         case .iceland:
-            return "Iceland"
+            "Iceland"
         case .tiger:
-            return "Tiger"
+            "Tiger"
         }
     }
 }
@@ -92,23 +93,22 @@ enum ComplexRow: Int {
     case grayscaleTiger
 
     static var count: Int {
-        return 3
+        3
     }
 
     var title: String {
         switch self {
         case .rectangle:
-            return "Rectangle"
+            "Rectangle"
         case .icelandic:
-            return "Icelandic"
+            "Icelandic"
         case .grayscaleTiger:
-            return "Grayscale Tiger"
+            "Grayscale Tiger"
         }
     }
 }
 
 extension MainViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "identifier", for: indexPath)
 
@@ -125,11 +125,11 @@ extension MainViewController: UITableViewDataSource {
         return cell
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.count
+    func numberOfSections(in _: UITableView) -> Int {
+        Section.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionEnum = Section(rawValue: section)!
         switch sectionEnum {
         case .simple:
@@ -139,20 +139,17 @@ extension MainViewController: UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionEnum = Section(rawValue: section)!
         return sectionEnum.title
     }
 }
 
 extension MainViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         let section = Section(rawValue: indexPath.section)!
 
         switch section {
-
         case .simple:
             let row = SimpleRow(rawValue: indexPath.row)!
             let svgURL = row.svgURL
@@ -161,14 +158,13 @@ extension MainViewController: UITableViewDelegate {
 
         case .complex:
             let row = ComplexRow(rawValue: indexPath.row)!
-            let vc: UIViewController
-            switch row {
+            let vc: UIViewController = switch row {
             case .rectangle:
-                vc = RectangleViewController()
+                RectangleViewController()
             case .icelandic:
-                vc = IcelandicViewController()
+                IcelandicViewController()
             case .grayscaleTiger:
-                vc = GrayscaleTigerViewController()
+                GrayscaleTigerViewController()
             }
             navigationController?.pushViewController(vc, animated: true)
         }

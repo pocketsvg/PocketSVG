@@ -6,11 +6,10 @@
  * file that was distributed with this source code.
  */
 
-import UIKit
 import PocketSVG
+import UIKit
 
 class RectangleViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,12 +17,12 @@ class RectangleViewController: UIViewController {
 
         let svgURL = Bundle.main.url(forResource: "rectangle", withExtension: "svg")!
 
-        let svgImageView = SVGImageView.init(contentsOf: svgURL)
+        let svgImageView = SVGImageView(contentsOf: svgURL)
 
         // The original SVG's stroke color is yellow, but we'll make it red:
         svgImageView.strokeColor = .red
 
-        //The original SVG's fill is transparent but we'll make it blue:
+        // The original SVG's fill is transparent but we'll make it blue:
         svgImageView.fillColor = .blue
 
         svgImageView.frame = view.bounds
