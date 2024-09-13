@@ -12,7 +12,7 @@ set -xeo pipefail
 rm -rf .build/
 rm -rf derived_data/
 
-IOS_DESTINATION="platform=iOS Simulator,name=iPhone 11 Pro"
+IOS_DESTINATION="platform=iOS Simulator,name=iPhone 15"
 
 echo "Build iOS demo"
 xcodebuild \
@@ -23,7 +23,7 @@ xcodebuild \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
   clean \
   build \
-  | xcpretty
+  | xcbeautify
 
 echo "Build macOS demo"
 xcodebuild \
@@ -34,4 +34,4 @@ xcodebuild \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
   clean \
   build \
-  | xcpretty
+  | xcbeautify

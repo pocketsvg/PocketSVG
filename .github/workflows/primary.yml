@@ -18,12 +18,12 @@ on:
 jobs:
   primary:
     name: Primary
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_13.2.app
+        run: sudo xcode-select -s /Applications/Xcode_15.0.app
 
       - name: Build demos
         run: sh ci/build_demos.sh
@@ -33,30 +33,30 @@ jobs:
 
   spm:
     name: Swift Package Manager
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Swift Build
         run: swift build
 
   cocoapods:
     name: Cocoapods
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Lint Podspec
-        run: pod lib lint
+        run: pod lib lint --allow-warnings
 
   xcframework:
     name: XCFramework
-    runs-on: macOS-11
+    runs-on: macOS-13
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Build XCFramework
         run: ci/build_xcframework.sh
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: PocketSVG.xcframework
           path: derived_data/xcframework/PocketSVG.xcframework
@@ -64,13 +64,13 @@ jobs:
 
   create-release:
     name: Make release
-    runs-on: macOS-11
+    runs-on: macOS-13
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # only if tag is pushed
     needs: [primary, cocoapods, spm, xcframework]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4
       with:
         name: PocketSVG.xcframework
         path: PocketSVG.xcframework

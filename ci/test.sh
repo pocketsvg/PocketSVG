@@ -10,12 +10,12 @@ set -xeo pipefail
 
 xcodebuild \
     -scheme PocketSVG \
-    -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
+    -destination "platform=iOS Simulator,name=iPhone 15" \
     test \
-    | xcpretty
+    | xcbeautify
 
 xcodebuild \
     -scheme PocketSVG \
-    -destination "platform=iOS Simulator,name=iPhone 11 Pro" \
+    -destination "platform=iOS Simulator,name=iPhone 15" \
     test \
-    | xcpretty
+    | xcbeautify
