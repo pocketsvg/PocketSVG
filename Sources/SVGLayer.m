@@ -22,7 +22,11 @@
     _shapeLayers = [NSMutableArray new];
 #if TARGET_OS_IPHONE
     self.shouldRasterize = YES;
+    #if TARGET_OS_VISION
+    self.rasterizationScale = UITraitCollection.currentTraitCollection.displayScale;
+    #else
     self.rasterizationScale = UIScreen.mainScreen.scale;
+    #endif
 #endif
 }
 
@@ -75,7 +79,9 @@
             continue;
         }        
         CAShapeLayer * const layer = [CAShapeLayer new];
-        #if TARGET_OS_IPHONE
+        #if TARGET_OS_VISION
+            layer.contentsScale = UITraitCollection.currentTraitCollection.displayScale;
+        #elif TARGET_OS_IPHONE
             layer.contentsScale = UIScreen.mainScreen.scale;
         #endif
 

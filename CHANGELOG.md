@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### Fixes
+- Support for building with the visionOS SDK. [Harlan Haskins](https://www.github.com/harlanhaskins) [#223](https://github.com/pocketsvg/PocketSVG/pull/223)
 
 ## [2.7.3]
 ### Fixes
