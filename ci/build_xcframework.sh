@@ -13,6 +13,7 @@ IOS_DEVICE_XCARCHIVE_PATH="derived_data/archives/PocketSVG-iOS-Device.xcarchive"
 MACOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-macOS.xcarchive"
 TVOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-tvOS.xcarchive"
 CATALYST_XCARCHIVE_PATH="derived_data/archives/PocketSVG-Catalyst.xcarchive"
+VISIONOS_XCARCHIVE_PATH="derived_data/archives/PocketSVG-visionOS.xcarchive"
 XCFRAMEWORK_PATH="derived_data/xcframework/PocketSVG.xcframework"
 
 xcodebuild archive \
@@ -60,11 +61,21 @@ xcodebuild archive \
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
   | xcbeautify
 
+xcodebuild archive \
+  -scheme PocketSVG \
+  -destination 'generic/platform=visionOS' \
+  -derivedDataPath derived_data \
+  -archivePath $VISIONOS_XCARCHIVE_PATH \
+  SKIP_INSTALL=NO \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+  | xcbeautify
+
 IOS_SIMULATOR_FRAMEWORK_PATH=$(find $IOS_SIMULATOR_XCARCHIVE_PATH -name "*.framework")
 IOS_DEVICE_FRAMEWORK_PATH=$(find $IOS_DEVICE_XCARCHIVE_PATH -name "*.framework")
 MACOS_FRAMEWORK_PATH=$(find $MACOS_XCARCHIVE_PATH -name "*.framework")
 TVOS_FRAMEWORK_PATH=$(find $TVOS_XCARCHIVE_PATH -name "*.framework")
 CATALYST_FRAMEWORK_PATH=$(find $CATALYST_XCARCHIVE_PATH -name "*.framework")
+VISIONOS_FRAMEWORK_PATH=$(find $VISIONOS_XCARCHIVE_PATH -name "*.framework")
 
 xcodebuild -create-xcframework \
   -framework $IOS_SIMULATOR_FRAMEWORK_PATH \
@@ -72,4 +83,5 @@ xcodebuild -create-xcframework \
   -framework $MACOS_FRAMEWORK_PATH \
   -framework $TVOS_FRAMEWORK_PATH \
   -framework $CATALYST_FRAMEWORK_PATH \
+  -framework $VISIONOS_FRAMEWORK_PATH \
   -output $XCFRAMEWORK_PATH
