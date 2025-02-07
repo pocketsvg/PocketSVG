@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 ### Fixes
+- Add your contribution here.
+
+## [2.8.0]
+### New features
 - Support for building with the visionOS SDK. [Harlan Haskins](https://www.github.com/harlanhaskins) [#223](https://github.com/pocketsvg/PocketSVG/pull/223)
 
 ## [2.7.3]
@@ -28,7 +32,7 @@ All notable changes to this project will be documented in this file. Items under
 ### New Features
 - Xcode 12 and SPM Support. [Ariel Elkin](https://github.com/arielelkin), [#178](https://github.com/pocketsvg/PocketSVG/pull/178/)
 - New API method for clients to convert single path string into CGPath. [Scott Sykora
-](https://github.com/scottsykora), [#172](https://github.com/pocketsvg/PocketSVG/pull/172) 
+](https://github.com/scottsykora), [#172](https://github.com/pocketsvg/PocketSVG/pull/172)
 
 ### Fixes
 - Removed redundant "CGPathGetCurrentPoint: no current point" log statements. [Yoni Levy](https://github.com/yonilevy), [#173](https://github.com/pocketsvg/PocketSVG/pull/173)
@@ -174,7 +178,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.8.0...HEAD
+[2.8.0]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...2.8.0
 [2.7.3]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...2.7.3
 [2.7.2]: https://github.com/pocketsvg/PocketSVG/compare/2.7.1...2.7.2
 [2.7.1]: https://github.com/pocketsvg/PocketSVG/compare/2.7.0...2.7.1
