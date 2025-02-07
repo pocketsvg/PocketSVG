@@ -25,6 +25,9 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
+      - name: list devices
+        run: xcrun simctl list devices
+
       - name: Build demos
         run: sh ci/build_demos.sh
 
