@@ -60,7 +60,7 @@ jobs:
         run: xcodebuild -showsdks
 
       - name: List available destinations
-        run: xcodebuild -showdestinations
+        run: xcodebuild -scheme PocketSVG -showdestinations
 
       - name: Build XCFramework
         run: ci/build_xcframework.sh
