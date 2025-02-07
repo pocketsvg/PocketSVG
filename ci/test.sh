@@ -16,6 +16,6 @@ xcodebuild \
 
 xcodebuild \
     -scheme PocketSVG \
-    -destination "platform=iOS Simulator,name=iPhone 15" \
+    -destination "arch=x86_64" \
     test \
     | xcbeautify
