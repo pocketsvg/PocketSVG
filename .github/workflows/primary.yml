@@ -18,12 +18,12 @@ on:
 jobs:
   primary:
     name: Primary
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.0.app
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
       - name: Build demos
         run: sh ci/build_demos.sh
@@ -33,7 +33,7 @@ jobs:
 
   spm:
     name: Swift Package Manager
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
       - name: Swift Build
@@ -41,7 +41,7 @@ jobs:
 
   cocoapods:
     name: Cocoapods
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
       - name: Lint Podspec
@@ -52,6 +52,9 @@ jobs:
     runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
       - name: Build XCFramework
         run: ci/build_xcframework.sh
