@@ -64,6 +64,7 @@ xcodebuild archive \
 xcodebuild archive \
   -scheme PocketSVG \
   -destination 'generic/platform=visionOS' \
+  -sdk xros1.0 \
   -derivedDataPath derived_data \
   -archivePath $VISIONOS_XCARCHIVE_PATH \
   SKIP_INSTALL=NO \
