@@ -11,8 +11,13 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        #if os(visionOS)
+        let windowScene = application.connectedScenes.first { $0 is UIWindowScene } as! UIWindowScene
+        window = UIWindow(windowScene: windowScene)
+        #else
         window = UIWindow(frame: UIScreen.main.bounds)
+        #endif
         let rootViewController = UINavigationController(rootViewController: MainViewController())
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
