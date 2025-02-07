@@ -13,9 +13,3 @@ xcodebuild \
     -destination "platform=iOS Simulator,name=iPhone 15" \
     test \
     | xcbeautify
-
-xcodebuild \
-    -scheme PocketSVG \
-    -destination "platform=iOS Simulator,name=iPhone 15" \
-    test \
-    | xcbeautify

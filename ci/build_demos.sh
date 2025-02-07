@@ -12,12 +12,10 @@ set -xeo pipefail
 rm -rf .build/
 rm -rf derived_data/
 
-IOS_DESTINATION="platform=iOS Simulator,name=iPhone 15"
-
 echo "Build iOS demo"
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
-  -destination "$IOS_DESTINATION" \
+  -destination "platform=iOS Simulator,name=iPhone 15" \
   -scheme Demo-iOS \
   -derivedDataPath derived_data \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \

@@ -33,7 +33,7 @@ jobs:
 
   spm:
     name: Swift Package Manager
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
       - name: Swift Build
@@ -41,7 +41,7 @@ jobs:
 
   cocoapods:
     name: Cocoapods
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
       - name: Lint Podspec
