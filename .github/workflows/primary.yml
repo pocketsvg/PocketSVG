@@ -49,7 +49,7 @@ jobs:
 
   xcframework:
     name: XCFramework
-    runs-on: macOS-13
+    runs-on: macOS-14
     steps:
       - uses: actions/checkout@v4
 
