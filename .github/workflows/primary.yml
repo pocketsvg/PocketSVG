@@ -57,7 +57,7 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_15.2.app
 
       - name: List available destinations
-        run: xcodebuild -scheme PocketSVG -showdestinations
+        run: xcodebuild -showdestinations
 
       - name: Build XCFramework
         run: ci/build_xcframework.sh
