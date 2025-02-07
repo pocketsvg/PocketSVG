@@ -18,15 +18,12 @@ on:
 jobs:
   primary:
     name: Primary
-    runs-on: macOS-14
+    runs-on: macOS-13
     steps:
       - uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_16.2.app
-
-      - name: list devices
-        run: xcrun simctl list devices
+        run: sudo xcode-select -s /Applications/Xcode_15.0.app
 
       - name: Build demos
         run: sh ci/build_demos.sh
