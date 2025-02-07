@@ -12,6 +12,8 @@ set -xeo pipefail
 rm -rf .build/
 rm -rf derived_data/
 
+xcrun simctl list devices available
+
 echo "Build iOS demo"
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
