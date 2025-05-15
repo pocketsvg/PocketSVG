@@ -530,7 +530,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
     dispatch_once(&onceToken, ^{
         commands   = [NSCharacterSet characterSetWithCharactersInString:kValidSVGCommands];
         separators = [NSMutableCharacterSet characterSetWithCharactersInString:@","];
-        [(NSMutableCharacterSet *)separators formUnionWithCharacterSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        [(NSMutableCharacterSet *)separators formUnionWithCharacterSet:NSCharacterSet.newlineCharacterSet];
     });
     scanner.charactersToBeSkipped = separators;
 
@@ -549,7 +549,7 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
                     scanner.scanLocation -= 2;
                 }
                 for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
-
+                while ([scanner scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:NULL]) { }
                 float operand;
                 if (![scanner scanFloat:&operand]) {
                     break;
