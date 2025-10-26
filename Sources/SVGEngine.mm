@@ -442,7 +442,7 @@ NSArray *CGPathsFromSVGString(NSString * const svgString, SVGAttributeSet **outA
 }
 
 /// This parses a single isolated path. creating a cgpath from just a string formatted like the d element in a path
-CGPathRef CGPathFromSVGPathString(NSString *svgString) {
+CGPathRef CGPathCreateFromSVGPathString(NSString *svgString) {
     CGPathRef const path = pathDefinitionParser(svgString).parse();
     if(!path) {
         NSLog(@"*** Error: Invalid path attribute");
