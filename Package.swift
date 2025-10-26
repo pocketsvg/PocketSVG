@@ -3,17 +3,17 @@
 import PackageDescription
 
 let supportedPlatforms: [SupportedPlatform] = [
-    .macOS(.v10_10),
-    .iOS(.v9),
-    .tvOS(.v10),
-    .watchOS(.v3),
+    .macOS(.v10_13),
+    .iOS(.v12),
+    .tvOS(.v12),
+    .watchOS(.v4),
     .visionOS(.v1),
 ]
 
 let packageProducts: [Product] = [
     .library(
         name: "PocketSVG",
-        type: .dynamic,
+        type: .static,
         targets: ["PocketSVG"]
     ),
 ]
