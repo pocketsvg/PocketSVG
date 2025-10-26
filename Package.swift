@@ -5,17 +5,17 @@ import PackageDescription
 let package = Package(
     name: "PocketSVG",
     platforms: [
-        .macOS(.v10_10),
-        .iOS(.v9),
-        .tvOS(.v10),
-        .watchOS(.v3),
-        .visionOS(.v1)
+        .macOS(.v10_13),
+        .iOS(.v12),
+        .tvOS(.v12),
+        .watchOS(.v4),
+        .visionOS(.v1),
     ],
     products: [
         .library(
             name: "PocketSVG",
-            type: .dynamic,
-            targets: ["PocketSVG"])
+            targets: ["PocketSVG"]
+        ),
     ],
     targets: [
         .target(
@@ -35,5 +35,6 @@ let package = Package(
             ]
         ),
     ],
+    swiftLanguageVersions: [.v5],
     cxxLanguageStandard: .cxx14
 )
