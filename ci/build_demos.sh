@@ -26,10 +26,10 @@ xcodebuild \
 echo "Build macOS demo"
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
-  -destination "arch=x86_64" \
-  -derivedDataPath derived_data \
   -scheme Demo-macOS \
+  -derivedDataPath derived_data \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
   clean \
   build \
   | xcbeautify
+
