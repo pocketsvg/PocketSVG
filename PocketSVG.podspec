@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/pocketsvg/PocketSVG"
   s.authors      = { "Ponderwell, Fjölnir Ásgeirsson, Ariel Elkin, and Contributors" => "https://github.com/pocketsvg/PocketSVG" }
   s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.13'
+  s.osx.deployment_target = '14.0'
   s.license = {
     :type => 'MIT',
     :file => 'LICENSE'

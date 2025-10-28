@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "PocketSVG",
     platforms: [
-        .macOS(.v10_13),
+        .macOS(.v14),
         .iOS(.v12),
         .tvOS(.v12),
         .watchOS(.v4),

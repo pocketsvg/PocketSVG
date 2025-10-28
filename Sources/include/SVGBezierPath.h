@@ -72,17 +72,12 @@ FOUNDATION_EXTERN void SVGDrawPathsWithBlock(NSArray<SVGBezierPath*> * const pat
  */
 @property(nonatomic, readonly) CGRect viewBox;
 
-#if !TARGET_OS_IPHONE
-@property(nonatomic, readonly) CGPathRef CGPath;
-#endif
-
-
 + (void)resetCache;
 
++ (instancetype)bezierPathWithCGPath:(CGPathRef)cgPath;
 
 #if !TARGET_OS_IPHONE
 - (void)applyTransform:(CGAffineTransform)transform;
 #endif
 @end
 NS_ASSUME_NONNULL_END
-
