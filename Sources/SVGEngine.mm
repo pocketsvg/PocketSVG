@@ -471,35 +471,52 @@ NSString *SVGStringFromCGPaths(NSArray * const paths, SVGAttributeSet * const at
             } else
                 [svg appendFormat:@" %@=\"%@\"", key, pathAttrs[key]];
         }
-        [svg appendString:@" d=\""];
-        CGPathApply((__bridge CGPathRef)path, (__bridge void *)svg,
+        NSMutableArray<NSString *> * const pathCommands = [NSMutableArray array];
+        CGPathApply((__bridge CGPathRef)path, (__bridge void *)pathCommands,
                     [](void * const info, const CGPathElement * const el)
         {
-            NSMutableString * const svg_ = (__bridge id)info;
+            NSMutableArray<NSString *> * const commands = (__bridge NSMutableArray<NSString *> *)info;
             
+            NSString *command = nil;
             #define FMT(n) _SVGFormatNumber(@(n))
             switch(el->type) {
                 case kCGPathElementMoveToPoint:
-                    [svg_ appendFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
+                    command = [NSString stringWithFormat:@"M%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
                     break;
                 case kCGPathElementAddLineToPoint:
-                    [svg_ appendFormat:@"L%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
+                    command = [NSString stringWithFormat:@"L%@,%@", FMT(el->points[0].x), FMT(el->points[0].y)];
                     break;
                 case kCGPathElementAddQuadCurveToPoint:
-                    [svg_ appendFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                                        FMT(el->points[1].x), FMT(el->points[1].y)];
+                    command = [NSString stringWithFormat:@"Q%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                                                                        FMT(el->points[1].x), FMT(el->points[1].y)];
                     break;
                 case kCGPathElementAddCurveToPoint:
-                    [svg_ appendFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
-                                                              FMT(el->points[1].x), FMT(el->points[1].y),
-                                                              FMT(el->points[2].x), FMT(el->points[2].y)];
+                    command = [NSString stringWithFormat:@"C%@,%@,%@,%@,%@,%@", FMT(el->points[0].x), FMT(el->points[0].y),
+                                                                              FMT(el->points[1].x), FMT(el->points[1].y),
+                                                                              FMT(el->points[2].x), FMT(el->points[2].y)];
                     break;
                 case kCGPathElementCloseSubpath:
-                    [svg_ appendFormat:@"Z"];
+                    command = @"Z";
                     break;
             }
             #undef FMT
+            if (command) {
+                [commands addObject:command];
+            }
         });
+        
+        NSString * const lastCommand = pathCommands.lastObject;
+        if (lastCommand && [lastCommand hasPrefix:@"M"]) {
+            NSString * const previousCommand = pathCommands.count > 1 ? pathCommands[pathCommands.count - 2] : nil;
+            if ([previousCommand isEqualToString:@"Z"]) {
+                [pathCommands removeLastObject];
+            }
+        }
+
+        [svg appendString:@" d=\""];
+        for (NSString * const command in pathCommands) {
+            [svg appendString:command];
+        }
         [svg appendString:@"\"/>\n"];
     }
     
@@ -1058,4 +1075,3 @@ static NSString *_SVGFormatNumber(NSNumber * const aNumber)
 #endif
 }
 @end
-
