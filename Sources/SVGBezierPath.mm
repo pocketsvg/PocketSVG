@@ -72,6 +72,10 @@
     NSParameterAssert(attributes);
     
     SVGBezierPath *path = [self copy];
+    if (path == nil) {
+        // Fallback if copy returns nil, ensure non-null return.
+        path = self;
+    }
     if (path) {
         if (path->_svgAttributes.count > 0) {
             path->_svgAttributes = [path->_svgAttributes mutableCopy];
