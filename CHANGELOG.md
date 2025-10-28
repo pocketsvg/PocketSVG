@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 - Add your contribution here.
 
+## [3.0.0]
+- Drop support for macOS 10.13.
+- Fix Swift 6 manifest warnings.
+- No more "New Features" and "Fixes" sections in changelog.md
+
 ## [2.8.0]
 ### New features
 - Support for building with the visionOS SDK. [Harlan Haskins](https://www.github.com/harlanhaskins) [#223](https://github.com/pocketsvg/PocketSVG/pull/223)
@@ -178,7 +183,9 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/2.8.0...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.0.0...HEAD
+[3.0.0]: https://github.com/pocketsvg/PocketSVG/compare/2.8.0...3.0.0
+[2.8.0]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...2.8.0
 [2.8.0]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...2.8.0
 [2.7.3]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...2.7.3
 [2.7.2]: https://github.com/pocketsvg/PocketSVG/compare/2.7.1...2.7.2
