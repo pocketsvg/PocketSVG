@@ -172,14 +172,24 @@
 }
 
 
-- (PSVGColor *)fillColor { return _svgLayer.fillColor
-                                  ? [PSVGColor colorWithCGColor:_svgLayer.fillColor]
-                                  : nil; }
+- (PSVGColor *)fillColor { 
+    if (_svgLayer.fillColor) {
+        return [PSVGColor colorWithCGColor:_svgLayer.fillColor];
+    } else {
+        // Return a default color (clear) instead of nil to satisfy nonnull contract
+        return [PSVGColor clearColor];
+    }
+}
 - (void)setFillColor:(PSVGColor * const)aColor { _svgLayer.fillColor = aColor.CGColor; }
 
-- (PSVGColor *)strokeColor { return _svgLayer.strokeColor
-                                    ? [PSVGColor colorWithCGColor:_svgLayer.strokeColor]
-                                    : nil; }
+- (PSVGColor *)strokeColor {
+    if (_svgLayer.strokeColor) {
+        return [PSVGColor colorWithCGColor:_svgLayer.strokeColor];
+    } else {
+        // Return a default color (clear) instead of nil to satisfy nonnull contract
+        return [PSVGColor clearColor];
+    }
+}
 - (void)setStrokeColor:(PSVGColor * const)aColor { _svgLayer.strokeColor = aColor.CGColor; }
 
 - (CGSize)sizeThatFits:(CGSize)aSize
