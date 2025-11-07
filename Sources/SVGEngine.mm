@@ -619,8 +619,8 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
         }
     }
     if(scanner.scanLocation < [_definition length])
-        NSLog(@"*** SVG parse error at index: %d: '%c'",
-              (int)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
+        NSLog(@"*** SVG parse error at index: %lu: '%c'",
+              (unsigned long)scanner.scanLocation, [_definition characterAtIndex:scanner.scanLocation]);
 
     return _path;
 }
@@ -930,7 +930,7 @@ hexTriplet::hexTriplet(NSString *str)
 		NSCParameterAssert([str hasSuffix:@")"]);
 		NSArray<NSString*>* parts = [[str substringWithRange:(NSRange) { 4, str.length-5 }] componentsSeparatedByString:@","];
 		NSCParameterAssert([parts count] == 3);
-		str = [NSString stringWithFormat:@"#%02x%02x%02x", (unsigned int)parts[0].integerValue, (unsigned int)parts[1].integerValue, (unsigned int)parts[2].integerValue];
+		str = [NSString stringWithFormat:@"#%02lx%02lx%02lx", (long)parts[0].integerValue, (long)parts[1].integerValue, (long)parts[2].integerValue];
 	} else {
 		NSCParameterAssert([str hasPrefix:@"#"]);
 		NSCParameterAssert([str length] == 4 || [str length] == 7);
