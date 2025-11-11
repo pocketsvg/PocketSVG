@@ -36,7 +36,7 @@ NSArray *CGPathsFromSVGString(NSString *svgString, SVGAttributeSet **attributes)
  * @return A single CGPathRef object
  *
  */
-CGPathRef CGPathFromSVGPathString(NSString *svgString);
+CGPathRef CGPathFromSVGPathString(NSString *svgString) CF_RETURNS_RETAINED;
 
 /*!
  * @brief Returns SVG representing `paths`

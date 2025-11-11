@@ -29,18 +29,24 @@
 {
     NSArray<SVGBezierPath*> *paths = [self.class._svg_pathCache objectForKey:aURL];
     if (!paths) {
-        paths =  [self pathsFromSVGString:[NSString stringWithContentsOfURL:aURL
-                                                               usedEncoding:NULL
-                                                                      error:NULL]];
-        if (paths) {
-            [self.class._svg_pathCache setObject:paths forKey:aURL];
+        NSString * const svgString = [NSString stringWithContentsOfURL:aURL
+                                                           usedEncoding:NULL
+                                                                  error:NULL];
+        paths =  [self pathsFromSVGString:svgString];
+        if (!paths) {
+            paths = @[];
         }
+        [self.class._svg_pathCache setObject:paths forKey:aURL];
     }
-    return [[NSArray alloc] initWithArray:paths copyItems:YES];
+    NSArray<SVGBezierPath*> * const safePaths = paths ?: @[];
+    return [[NSArray alloc] initWithArray:safePaths copyItems:YES];
 }
 
 + (NSArray<SVGBezierPath*> *)pathsFromSVGString:(NSString * const)svgString
 {
+    if (svgString.length == 0) {
+        return @[];
+    }
     SVGAttributeSet *cgAttrs;
     NSArray * const pathRefs = CGPathsFromSVGString(svgString, &cgAttrs);
     NSMutableArray<SVGBezierPath*> * const paths = [NSMutableArray arrayWithCapacity:pathRefs.count];
@@ -67,7 +73,7 @@
     return copy;
 }
 
-- (SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes
+- (nullable SVGBezierPath *)pathBySettingSVGAttributes:(NSDictionary *)attributes
 {
     NSParameterAssert(attributes);
     
