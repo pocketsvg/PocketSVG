@@ -558,14 +558,35 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
             scanner.scanLocation -= [cmdBuf length]-1;
         } else {
             while (!scanner.isAtEnd) {
+                // Inspect separators manually so we can tell whether the dot is really adjacent
+                scanner.charactersToBeSkipped = nil;
+                while ([scanner scanCharactersFromSet:separators intoString:NULL]) { }
+
+                NSUInteger zeroRunStart = scanner.scanLocation;
                 NSUInteger zeros = 0;
                 while ([scanner scanString:@"0" intoString:NULL]) { ++zeros; }
-                // Start of a 0.x ?
-                if (zeros > 0 && [scanner scanString:@"." intoString:NULL]) {
-                    --zeros;
-                    scanner.scanLocation -= 2;
+                NSUInteger zeroRunEnd = scanner.scanLocation;
+
+                BOOL zeroStartsFraction = NO;
+                BOOL zeroStartsExponent = NO;
+                if (zeros > 0 && zeroRunEnd < _definition.length) {
+                    unichar nextCharacter = [_definition characterAtIndex:zeroRunEnd];
+                    zeroStartsFraction = (nextCharacter == '.');
+                    zeroStartsExponent = (nextCharacter == 'e' || nextCharacter == 'E');
                 }
-                for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
+
+                if (zeroStartsFraction) {
+                    if (zeros > 0) { --zeros; }
+                    for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
+                    scanner.scanLocation = zeroRunStart;
+                } else if (zeroStartsExponent) {
+                    scanner.scanLocation = zeroRunStart;
+                } else if (zeros > 0) {
+                    for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
+                    continue;
+                }
+
+                scanner.charactersToBeSkipped = separators;
 
                 float operand;
                 if (![scanner scanFloat:&operand]) {

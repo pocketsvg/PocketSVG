@@ -109,6 +109,35 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(rectanglePath.svgRepresentation, representation)
     }
 
+    func testZeroFollowedByWhitespaceAndFractionIsKept() {
+        let svgString = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 L0 0 0 .25"/>
+        </svg>
+        """
+
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        let boundingBox = paths[0].cgPath.boundingBoxOfPath
+        XCTAssertEqual(boundingBox.width, 0, accuracy: 1e-6)
+        XCTAssertEqual(boundingBox.height, 0.25, accuracy: 1e-6)
+    }
+
+    func testExponentNotationStartingWithZeroIsParsed() {
+        let svgString = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 L0e-5 1"/>
+        </svg>
+        """
+
+        let paths = SVGBezierPath.paths(fromSVGString: svgString)
+        XCTAssertEqual(paths.count, 1)
+
+        let boundingBox = paths[0].cgPath.boundingBoxOfPath
+        XCTAssertEqual(boundingBox.height, 1, accuracy: 1e-6)
+    }
+
     func testIgnoresMaskElement() {
         let svgString = """
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
