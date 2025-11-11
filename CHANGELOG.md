@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 - Add your contribution here.
 
+## [3.2.0]
+- Fix zero value parsing in SVG paths (#228)
+
+## [3.1.0]
+- fix nullable issues (#229 and #230)
+
 ## [3.0.0]
 - Drop support for macOS 10.13.
 - Fix Swift 6 manifest warnings.
