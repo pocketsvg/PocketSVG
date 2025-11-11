@@ -77,10 +77,10 @@ class PocketSVGTests: XCTestCase {
         ]
         let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
 
-        XCTAssert(bezierPath.svgRepresentation.contains("stroke-width=\"2\""))
-        XCTAssert(bezierPath.svgRepresentation.contains("stroke=\"black\""))
-        XCTAssert(bezierPath.svgRepresentation.contains("fill=\"transparent\""))
-        XCTAssert(bezierPath.svgRepresentation.contains("d=\"\"/>\n\n"))
+        XCTAssert(bezierPath!.svgRepresentation.contains("stroke-width=\"2\""))
+        XCTAssert(bezierPath!.svgRepresentation.contains("stroke=\"black\""))
+        XCTAssert(bezierPath!.svgRepresentation.contains("fill=\"transparent\""))
+        XCTAssert(bezierPath!.svgRepresentation.contains("d=\"\"/>\n\n"))
     }
 
     func testSVGAttributesAreCorrectlySetWhenInitingWithAttributes() {
@@ -92,9 +92,9 @@ class PocketSVGTests: XCTestCase {
 
         let bezierPath = SVGBezierPath().settingSVGAttributes(attributes)
 
-        XCTAssert(bezierPath.svgAttributes["stroke"] as! String == "black")
-        XCTAssert(bezierPath.svgAttributes["stroke-width"] as! String == "2")
-        XCTAssert(bezierPath.svgAttributes["fill"] as! String == "transparent")
+        XCTAssert(bezierPath!.svgAttributes["stroke"] as! String == "black")
+        XCTAssert(bezierPath!.svgAttributes["stroke-width"] as! String == "2")
+        XCTAssert(bezierPath!.svgAttributes["fill"] as! String == "transparent")
     }
 
     func testSVGRepresentationWithRectangle() {

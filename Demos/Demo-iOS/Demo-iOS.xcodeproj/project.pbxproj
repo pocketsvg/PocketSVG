@@ -29,6 +29,16 @@
 		B0B59245207532CC0009ECA2 /* rectangle.svg in Resources */ = {isa = PBXBuildFile; fileRef = B0B59244207532CC0009ECA2 /* rectangle.svg */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		83DC279B2EC34FEE002B67D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B09D908E1D6C5E2E00360396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B09D90951D6C5E2E00360396;
+			remoteInfo = "Demo-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		B055CD0421690985003C698F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -174,6 +184,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				83DC279C2EC34FEE002B67D3 /* PBXTargetDependency */,
 			);
 			name = PocketSVGTests;
 			packageProductDependencies = (
@@ -210,8 +221,9 @@
 		B09D908E1D6C5E2E00360396 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = PocketSVG;
 				TargetAttributes = {
 					83DFDDF62449D0730050D6FC = {
@@ -294,6 +306,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		83DC279C2EC34FEE002B67D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B09D90951D6C5E2E00360396 /* Demo-iOS */;
+			targetProxy = 83DC279B2EC34FEE002B67D3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1DC60E4C1E2BAA200044BFD3 /* Launch Screen.storyboard */ = {
@@ -396,6 +416,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -453,6 +474,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
