@@ -558,6 +558,12 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
             scanner.scanLocation -= [cmdBuf length]-1;
         } else {
             while (!scanner.isAtEnd) {
+                // Temporarily disable automatic skipping to detect zeros
+                scanner.charactersToBeSkipped = nil;
+
+                // Manually skip separators (commas and whitespace)
+                while ([scanner scanCharactersFromSet:separators intoString:NULL]) { }
+
                 NSUInteger zeros = 0;
                 while ([scanner scanString:@"0" intoString:NULL]) { ++zeros; }
                 // Start of a 0.x ?
@@ -566,6 +572,15 @@ CF_RETURNS_RETAINED CGMutablePathRef pathDefinitionParser::parse()
                     scanner.scanLocation -= 2;
                 }
                 for (NSUInteger i = 0; i < zeros; ++i) { _operands.push_back(0.0); }
+
+                // If we added zeros, don't try scanFloat as the next token might be more zeros
+                // Just loop back to check for more operands
+                if (zeros > 0) {
+                    continue;
+                }
+
+                // Re-enable automatic skipping for scanFloat
+                scanner.charactersToBeSkipped = separators;
 
                 float operand;
                 if (![scanner scanFloat:&operand]) {
