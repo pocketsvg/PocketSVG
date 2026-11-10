@@ -2,13 +2,12 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
-### Internal Changes
-- Add independent geometry regression tests for both arrow paths in [#219](https://github.com/pocketsvg/PocketSVG/issues/219), verifying the zero/fraction operand fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)).
 
 ### Fixes
-- Apply inherited and overridden `fill-rule` values to Bezier paths as well as layers, preserving even-odd holes in direct drawing and copied/cached paths. [#217](https://github.com/pocketsvg/PocketSVG/issues/217).
+- Apply inherited and overridden `fill-rule` values to Bezier paths as well as layers, preserving even-odd holes in direct drawing and copied/cached paths. [Ariel Elkin](https://github.com/arielelkin), [#217](https://github.com/pocketsvg/PocketSVG/issues/217).
 
 ### Internal Changes
+- Add independent geometry regression tests for both arrow paths in [#219](https://github.com/pocketsvg/PocketSVG/issues/219), verifying the zero/fraction operand fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)).
 - Add geometry coverage for the SVG attached to [#217](https://github.com/pocketsvg/PocketSVG/issues/217) and document unsupported stylesheet/definition references. The later butterfly source was not uploaded, so its reported visual regression cannot be reproduced from the issue.
 
 ## [3.2.2] - 2026-11-10
