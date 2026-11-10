@@ -98,7 +98,8 @@
         } else {
             path->_svgAttributes = [attributes copy];
         }
-        [path _svg_updateFillRule];
+        if (attributes[@"fill-rule"])
+            [path _svg_updateFillRule];
     }
     return path;
 }

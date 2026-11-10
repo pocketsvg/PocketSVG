@@ -72,6 +72,29 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(original.svgAttributes["fill-rule"] as? String, "evenodd")
     }
 
+    func testUnrelatedSVGAttributesPreserveManuallyConfiguredFillRule() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z"/>
+        </svg>
+        """
+        let original = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+        XCTAssertNil(original.svgAttributes["fill-rule"])
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+            original.usesEvenOddFillRule = true
+        #else
+            original.windingRule = .evenOdd
+        #endif
+        let unrelated = try XCTUnwrap(original.settingSVGAttributes(["stroke-width": "2"]))
+        let explicit = try XCTUnwrap(original.settingSVGAttributes(["fill-rule": "nonzero"]))
+        let center = CGPoint(x: 10, y: 10)
+        XCTAssertFalse(original.contains(center))
+        XCTAssertFalse(unrelated.contains(center))
+        XCTAssertTrue(explicit.contains(center))
+        XCTAssertNil(unrelated.svgAttributes["fill-rule"])
+        XCTAssertEqual(unrelated.svgAttributes["stroke-width"] as? String, "2")
+    }
+
     func testFillRuleIsPreservedAcrossCachedLoads() throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".svg")
         defer {
