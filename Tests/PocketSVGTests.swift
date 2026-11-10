@@ -442,7 +442,8 @@ class PocketSVGTests: XCTestCase {
         )
         let compactPaths = SVGBezierPath.paths(fromSVGString: svg)
         let explicitPaths = SVGBezierPath.paths(fromSVGString: explicitFractions)
-        XCTAssertEqual(compactPaths.count, 242)
+        // The attachment contains 242 paths and two polygons.
+        XCTAssertEqual(compactPaths.count, 244)
         XCTAssertEqual(explicitPaths.count, compactPaths.count)
         for (compact, explicit) in zip(compactPaths, explicitPaths) {
             XCTAssertEqual(compact.cgPath, explicit.cgPath)
