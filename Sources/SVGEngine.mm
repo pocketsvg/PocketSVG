@@ -75,7 +75,8 @@ struct hexTriplet {
     NSString *string();
 
 protected:
-    uint32_t _data;
+    uint32_t _data = 0;
+    bool _valid = false;
 };
 
 @interface SVGAttributeSet () {
@@ -402,12 +403,12 @@ NSDictionary *svgParser::readAttributes()
 
     if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0) {
         attrs[@"fill"] = (__bridge_transfer id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
-                                                                          [attrs[@"fill-opacity"] floatValue]);
+                                                                          CGColorGetAlpha((__bridge CGColorRef)attrs[@"fill"]) * [attrs[@"fill-opacity"] floatValue]);
         [attrs removeObjectForKey:@"fill-opacity"];
     }
     if(attrs[@"stroke"] && attrs[@"stroke-opacity"] && [attrs[@"stroke-opacity"] floatValue] < 1.0) {
         attrs[@"stroke"] = (__bridge_transfer id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"stroke"],
-                                                                            [attrs[@"stroke-opacity"] floatValue]);
+                                                                            CGColorGetAlpha((__bridge CGColorRef)attrs[@"stroke"]) * [attrs[@"stroke-opacity"] floatValue]);
         [attrs removeObjectForKey:@"stroke-opacity"];
     }
     return attrs.count > 0 ? attrs : nil;
@@ -942,33 +943,52 @@ hexTriplet::hexTriplet(NSString *str)
         colorMap = [NSDictionary dictionaryWithContentsOfURL:url];
     });
     
-    NSString *mapped = colorMap[[str lowercaseString]];
-    if (mapped) {
+    str = [[str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] lowercaseString];
+    NSString *mapped = colorMap[str];
+    if (mapped)
         str = mapped;
-    }
-    
+
+    // Paint servers (url(...)) and malformed colours are external input, not
+    // programmer errors. Leave them invalid so CGColor() returns transparent.
     if ([str hasPrefix:@"rgb("]) {
-		NSCParameterAssert([str hasSuffix:@")"]);
-		NSArray<NSString*>* parts = [[str substringWithRange:(NSRange) { 4, str.length-5 }] componentsSeparatedByString:@","];
-		NSCParameterAssert([parts count] == 3);
-		str = [NSString stringWithFormat:@"#%02x%02x%02x", (unsigned int)parts[0].integerValue, (unsigned int)parts[1].integerValue, (unsigned int)parts[2].integerValue];
-	} else {
-		NSCParameterAssert([str hasPrefix:@"#"]);
-		NSCParameterAssert([str length] == 4 || [str length] == 7);
-		if([str length] == 4) {
-			str = [str mutableCopy];
-			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 3, 1 }]
-										 atIndex:3];
-			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 2, 1 }]
-										 atIndex:2];
-			[(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 1, 1 }]
-										 atIndex:1];
-		}
-	}
-    _data = (uint32_t)strtol([str cStringUsingEncoding:NSASCIIStringEncoding]+1, NULL, 16);
+        if (![str hasSuffix:@")"])
+            return;
+        NSArray<NSString *> *parts = [[str substringWithRange:(NSRange) { 4, str.length - 5 }] componentsSeparatedByString:@","];
+        if (parts.count != 3)
+            return;
+        uint32_t bytes = 0;
+        for (NSString *part in parts) {
+            NSScanner *scanner = [NSScanner scannerWithString:part];
+            int component;
+            if (![scanner scanInt:&component])
+                return;
+            [scanner scanCharactersFromSet:NSCharacterSet.whitespaceAndNewlineCharacterSet intoString:NULL];
+            if (!scanner.isAtEnd)
+                return;
+            bytes = (bytes << 8) | (uint32_t)MAX(0, MIN(255, component));
+        }
+        _data = bytes;
+    } else {
+        if (![str hasPrefix:@"#"] || (str.length != 4 && str.length != 7))
+            return;
+        uint32_t bytes = 0;
+        for (NSUInteger i = 1; i < str.length; ++i) {
+            unichar c = [str characterAtIndex:i];
+            unsigned int digit;
+            if (c >= '0' && c <= '9')
+                digit = c - '0';
+            else if (c >= 'a' && c <= 'f')
+                digit = c - 'a' + 10;
+            else
+                return;
+            bytes = str.length == 4 ? (bytes << 8) | (digit * 17) : (bytes << 4) | digit;
+        }
+        _data = bytes;
+    }
+    _valid = true;
 }
 
-hexTriplet::hexTriplet(CGColorRef const color)
+hexTriplet::hexTriplet(CGColorRef const color) : _valid(true)
 {
     const CGFloat * const rgba = CGColorGetComponents(color);
     _data = (((uint8_t)roundf(rgba[0] * 255) & 0xff) << 16)
@@ -984,7 +1004,7 @@ CGColorRef hexTriplet::CGColor()
                                                ((_data & 0xFF0000) >> 16) / (CGFloat)255.0,
                                                ((_data & 0x00FF00) >> 8)  / (CGFloat)255.0,
                                                ((_data & 0x0000FF))       / (CGFloat)255.0,
-                                               1
+                                               _valid ? 1.0 : 0.0
                                            });
     CFRelease(colorSpace);
     return color;
