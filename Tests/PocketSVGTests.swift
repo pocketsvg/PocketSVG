@@ -42,7 +42,7 @@ class PocketSVGTests: XCTestCase {
     func testInvalidPaintsAreTransparent() throws {
         let paints = [
             "url(#missing)", "currentColor", "unknown", "", "#", "#12", "#12345", "#gggggg",
-            "rgb(", "rgb()", "rgb(1,2)", "rgb(1,2,3,4)", "rgb(1,no,3)", "rgb(1,2,3)junk",
+            "rgb(", "rgb()", "rgb(1,2)", "rgb(1,2,3,4)", "rgb(1,no,3)", "rgb(1,2,3)junk", "rgb(1,2,3x)", "#１２３",
         ]
         for paint in paints {
             let svg = """
@@ -81,7 +81,7 @@ class PocketSVGTests: XCTestCase {
     }
 
     func testSupportedColorFormats() throws {
-        let paints = ["#f80", "#FF8800", "rgb(255, 136, 0)", " RGB(255, 136, 0) "]
+        let paints = ["#f80", "#FF8800", "rgb(255, 136, 0)", " RGB(255, 136, 0) ", "rgb(300, 136, -1)"]
         for paint in paints {
             let svg = """
             <svg xmlns="http://www.w3.org/2000/svg">
