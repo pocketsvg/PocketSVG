@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
+
+## [3.2.1] - 2026-11-10
 ### Fixes
 - Treat unsupported and malformed fill/stroke colours as transparent instead of crashing; preserve transparency when applying opacity. [Ariel Elkin](https://github.com/arielelkin), [#161](https://github.com/pocketsvg/PocketSVG/issues/161), [#238](https://github.com/pocketsvg/PocketSVG/pull/238).
 
@@ -194,9 +196,11 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...HEAD
+[3.2.1]: https://github.com/pocketsvg/PocketSVG/compare/3.2.0...3.2.1
+[3.2.0]: https://github.com/pocketsvg/PocketSVG/compare/3.1.0...3.2.0
+[3.1.0]: https://github.com/pocketsvg/PocketSVG/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/pocketsvg/PocketSVG/compare/2.8.0...3.0.0
-[2.8.0]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...2.8.0
 [2.8.0]: https://github.com/pocketsvg/PocketSVG/compare/2.7.3...2.8.0
 [2.7.3]: https://github.com/pocketsvg/PocketSVG/compare/2.7.2...2.7.3
 [2.7.2]: https://github.com/pocketsvg/PocketSVG/compare/2.7.1...2.7.2
