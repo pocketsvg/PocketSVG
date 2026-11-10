@@ -4,8 +4,6 @@ All notable changes to this project will be documented in this file. Items under
 ## [Unreleased]
 ### Internal Changes
 - Add regression coverage for the Illustrator SVG in [#227](https://github.com/pocketsvg/PocketSVG/issues/227), verifying the separated fractional-coordinate fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)) while preserving compact arc flags.
-
-### Internal Changes
 - Document and regression-test the retained return ownership of `CGPathFromSVGPathString`, including Clang static analysis and Swift interoperability. The ownership annotation reported in [#231](https://github.com/pocketsvg/PocketSVG/issues/231) was already fixed in 3.1.0.
 
 ## [3.2.1] - 2026-11-10
