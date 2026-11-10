@@ -34,7 +34,7 @@ Thoroughly documented.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/pocketsvg/PocketSVG.git", .upToNextMajor(from: "2.6.0"))
+    .package(url: "https://github.com/pocketsvg/PocketSVG.git", .upToNextMajor(from: "3.2.0"))
 ]
 ```
 
@@ -42,7 +42,7 @@ dependencies: [
 
 Add this to your Podfile:
 ```ruby
-pod 'PocketSVG', '~> 2.6'
+pod 'PocketSVG', '~> 3.2'
 ```
 
 Then run `pod install`
@@ -51,7 +51,7 @@ Then run `pod install`
 
 Add this to your Cartfile:
 ```
-github "pocketsvg/PocketSVG" >= 2.7.2
+github "pocketsvg/PocketSVG" >= 3.2.0
 ```
 
 Then run `carthage update --use-xcframeworks`
