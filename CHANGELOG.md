@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 
+## [3.2.3] - 2026-11-10
 ### Fixes
-- Apply inherited and overridden `fill-rule` values to Bezier paths as well as layers, preserving even-odd holes in direct drawing and copied/cached paths. [Ariel Elkin](https://github.com/arielelkin), [#217](https://github.com/pocketsvg/PocketSVG/issues/217).
+- Apply inherited and overridden `fill-rule` values to Bezier paths as well as layers, preserving even-odd holes in direct drawing and copied/cached paths. [Ariel Elkin](https://github.com/arielelkin), [#217](https://github.com/pocketsvg/PocketSVG/issues/217), [#240](https://github.com/pocketsvg/PocketSVG/pull/240).
 
 ### Internal Changes
 - Add independent geometry regression tests for both arrow paths in [#219](https://github.com/pocketsvg/PocketSVG/issues/219), verifying the zero/fraction operand fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)).
@@ -210,7 +211,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.2...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.3...HEAD
+[3.2.3]: https://github.com/pocketsvg/PocketSVG/compare/3.2.2...3.2.3
 [3.2.2]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/pocketsvg/PocketSVG/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/pocketsvg/PocketSVG/compare/3.1.0...3.2.0
