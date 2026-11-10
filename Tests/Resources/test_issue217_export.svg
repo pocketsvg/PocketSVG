@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.43 236.96">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000101;
+        stroke-miterlimit: 22.93;
+        stroke-width: 1.69px;
+      }
+    </style>
+  </defs>
+  <g id="_图层_2-2" data-name=" 图层 2">
+    <g>
+      <polyline class="cls-1" points="129.66 22.62 129.66 14.11 155.68 14.11 155.68 22.62 129.66 22.62"/>
+      <polyline class="cls-1" points="74.21 22.62 74.21 14.11 100.23 14.11 100.23 22.62 74.21 22.62"/>
+      <polyline class="cls-1" points="18.76 22.62 18.76 14.11 44.77 14.11 44.77 22.62 18.76 22.62"/>
+      <path class="cls-1" d="m.85.85v151.43h.4c1.15,46.49,39.2,83.84,85.97,83.84s84.82-37.34,85.97-83.84h.4V.85H.85Z"/>
+      <rect class="cls-1" x="74.07" y="86.18" width="26.02" height="8.5"/>
+      <rect class="cls-1" x="23.74" y="115.23" width="26.02" height="8.5" transform="translate(-85.1 91.57) rotate(-60)"/>
+      <rect class="cls-1" x="32.5" y="164.58" width="8.5" height="26.02" transform="translate(-83.87 42.17) rotate(-30)"/>
+      <rect class="cls-1" x="74.07" y="202.4" width="26.02" height="8.5"/>
+      <rect class="cls-1" x="124.39" y="173.34" width="26.02" height="8.5" transform="translate(-85.1 207.79) rotate(-60)"/>
+      <rect class="cls-1" x="133.15" y="106.47" width="8.5" height="26.02" transform="translate(-41.33 84.71) rotate(-30)"/>
+    </g>
+  </g>
+</svg>

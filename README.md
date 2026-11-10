@@ -17,6 +17,10 @@ The goal of this project is not to be a fully compliant SVG parser/renderer. But
 
 Unsupported or malformed `fill` and `stroke` paints (including gradient references such as `url(#gradient)`) are treated as transparent. Other supported paints and shapes are still parsed; gradient rendering is not supported.
 
+`fill-rule="evenodd"` and `fill-rule="nonzero"` apply to both the returned Bezier paths and `SVGLayer`, including inherited and inline `style` values.
+
+Elements inside `<defs>` describe reusable resources and are not drawn directly. PocketSVG skips them and does not resolve `<use>` references or CSS classes from `<style>` stylesheets. Export visible geometry with presentation attributes or inline `style` values when using these features in an SVG editor.
+
 Thoroughly documented.
 
 ## Features

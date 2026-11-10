@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 
+### Fixes
+- Apply inherited and overridden `fill-rule` values to Bezier paths as well as layers, preserving even-odd holes in direct drawing and copied/cached paths. [#217](https://github.com/pocketsvg/PocketSVG/issues/217).
+
+### Internal Changes
+- Add geometry coverage for the SVG attached to [#217](https://github.com/pocketsvg/PocketSVG/issues/217) and document unsupported stylesheet/definition references. The later butterfly source was not uploaded, so its reported visual regression cannot be reproduced from the issue.
+
 ## [3.2.2] - 2026-11-10
 ### Internal Changes
 - Upgrade GitHub Actions checkout to v6, using the Node.js 24 action runtime.

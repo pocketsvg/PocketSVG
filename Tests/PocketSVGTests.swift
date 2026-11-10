@@ -16,12 +16,99 @@ extension Bundle {
 #endif
 
 import PocketSVG
+import QuartzCore
 import XCTest
 
 class PocketSVGTests: XCTestCase {
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
+    }
+
+    func testFillRuleControlsBezierPathHoles() throws {
+        let shape = "M0 0H20V20H0Z M5 5H15V15H5Z"
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g fill-rule="evenodd">
+                <path d="\(shape)"/>
+                <path d="\(shape)" fill-rule="nonzero"/>
+                <path d="\(shape)" style="fill-rule: nonzero;"/>
+            </g>
+            <path d="\(shape)"/>
+        </svg>
+        """
+        let paths = SVGBezierPath.paths(fromSVGString: svg)
+        XCTAssertEqual(paths.count, 4)
+        guard paths.count == 4 else { return }
+        for (index, path) in paths.enumerated() {
+            // Both subpaths have the same direction. Only evenodd leaves a hole.
+            XCTAssertEqual(path.contains(CGPoint(x: 10, y: 10)), index != 0)
+            XCTAssertTrue(path.contains(CGPoint(x: 2, y: 2)))
+        }
+
+        let layer = SVGLayer()
+        layer.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+        layer.paths = paths
+        layer.layoutSublayers()
+        let shapeLayers = try XCTUnwrap(layer.sublayers as? [CAShapeLayer])
+        XCTAssertEqual(shapeLayers.map(\.fillRule), [.evenOdd, .nonZero, .nonZero, .nonZero])
+    }
+
+    func testSettingFillRuleUpdatesCopiedPathWithoutChangingOriginal() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z" fill-rule="evenodd"/>
+        </svg>
+        """
+        let original = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+        let copied = try XCTUnwrap(original.copy() as? SVGBezierPath)
+        let nonZero = try XCTUnwrap(original.settingSVGAttributes(["fill-rule": "nonzero"]))
+        let evenOdd = try XCTUnwrap(nonZero.settingSVGAttributes(["fill-rule": "evenodd"]))
+        let center = CGPoint(x: 10, y: 10)
+        XCTAssertFalse(original.contains(center))
+        XCTAssertFalse(copied.contains(center))
+        XCTAssertTrue(nonZero.contains(center))
+        XCTAssertFalse(evenOdd.contains(center))
+        XCTAssertEqual(original.svgAttributes["fill-rule"] as? String, "evenodd")
+    }
+
+    func testFillRuleIsPreservedAcrossCachedLoads() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".svg")
+        defer {
+            try? FileManager.default.removeItem(at: url)
+            SVGBezierPath.resetCache()
+        }
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z"/>
+        </svg>
+        """
+        try svg.write(to: url, atomically: true, encoding: .utf8)
+        let first = try XCTUnwrap(SVGBezierPath.pathsFromSVG(at: url).first)
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+            first.usesEvenOddFillRule = false
+        #else
+            first.windingRule = .nonZero
+        #endif
+        let cached = try XCTUnwrap(SVGBezierPath.pathsFromSVG(at: url).first)
+        XCTAssertFalse(cached.contains(CGPoint(x: 10, y: 10)))
+        XCTAssertFalse(first === cached)
+    }
+
+    // Original source from #217's issue body:
+    // https://github.com/pocketsvg/PocketSVG/assets/18410283/7dc923a1-f19c-4f54-9870-05174734030d
+    // The butterfly in the later comment was never uploaded. This fixture uses
+    // unsupported stylesheet classes, so this checks geometry, not visual parity.
+    func testIssue217ExportRetainsGeometryAfterDefinitions() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "test_issue217_export", withExtension: "svg"))
+        let paths = SVGBezierPath.pathsFromSVG(at: url)
+        XCTAssertEqual(paths.count, 10)
+        guard paths.count == 10 else { return }
+        let outline = paths[3].cgPath.boundingBoxOfPath
+        XCTAssertEqual(outline.minX, 0.85, accuracy: 1e-3)
+        XCTAssertEqual(outline.minY, 0.85, accuracy: 1e-3)
+        XCTAssertEqual(outline.maxX, 173.59, accuracy: 1e-3)
+        XCTAssertEqual(outline.maxY, 236.12, accuracy: 1e-3)
     }
 
     // A retained Core Foundation return imports directly as a managed CGPath.
