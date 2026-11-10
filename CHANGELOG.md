@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file. Items under
 ### Fixes
 - Treat unsupported and malformed fill/stroke colours as transparent instead of crashing; preserve transparency when applying opacity. [Ariel Elkin](https://github.com/arielelkin), [#161](https://github.com/pocketsvg/PocketSVG/issues/161), [#238](https://github.com/pocketsvg/PocketSVG/pull/238).
 
+- Preserve inherited fill/stroke opacity overrides and support percentage/decimal `rgb()` colours. [#238](https://github.com/pocketsvg/PocketSVG/pull/238).
+
 ### Internal Changes
 - Update CI to macOS 15 / Xcode 16.4, run macOS tests in Debug and Release, and select an installed iOS simulator automatically.
 

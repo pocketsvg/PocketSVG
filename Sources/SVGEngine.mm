@@ -7,6 +7,7 @@
  */
 
 #import <vector>
+#import <cmath>
 
 #import "SVGEngine.h"
 #import "SVGBezierPath.h"
@@ -87,6 +88,7 @@ protected:
 @end
 
 static NSMutableDictionary *_SVGParseStyle(NSString *body);
+static NSDictionary *_SVGAttributesApplyingOpacity(NSDictionary *attributes);
 static NSString *_SVGFormatNumber(NSNumber *aNumber);
 
 #pragma mark -
@@ -146,7 +148,7 @@ NSArray *svgParser::parse(NSMapTable ** const aoAttributes)
             [paths addObject:CFBridgingRelease(path)];
             
             if(aoAttributes) {
-                NSDictionary * const attributes = readAttributes();
+                NSDictionary * const attributes = _SVGAttributesApplyingOpacity(readAttributes());
                 if(attributes)
                     [*aoAttributes setObject:attributes forKey:(__bridge id)path];
             }
@@ -401,6 +403,14 @@ NSDictionary *svgParser::readAttributes()
         }
     }
 
+    return attrs.count > 0 ? attrs : nil;
+}
+
+// Keep paint and opacity separate on groups so children can override either.
+// Apply the resolved opacity only when storing a shape's final attributes.
+static NSDictionary *_SVGAttributesApplyingOpacity(NSDictionary *attributes)
+{
+    NSMutableDictionary * const attrs = [attributes mutableCopy];
     if(attrs[@"fill"] && attrs[@"fill-opacity"] && [attrs[@"fill-opacity"] floatValue] < 1.0) {
         attrs[@"fill"] = (__bridge_transfer id)CGColorCreateCopyWithAlpha((__bridge CGColorRef)attrs[@"fill"],
                                                                           CGColorGetAlpha((__bridge CGColorRef)attrs[@"fill"]) * [attrs[@"fill-opacity"] floatValue]);
@@ -957,15 +967,21 @@ hexTriplet::hexTriplet(NSString *str)
         if (parts.count != 3)
             return;
         uint32_t bytes = 0;
-        for (NSString *part in parts) {
+        bool percentageComponents = false;
+        for (NSUInteger i = 0; i < parts.count; ++i) {
+            NSString *part = [parts[i] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
             NSScanner *scanner = [NSScanner scannerWithString:part];
-            int component;
-            if (![scanner scanInt:&component])
+            scanner.charactersToBeSkipped = nil;
+            double component;
+            if (![scanner scanDouble:&component] || !std::isfinite(component))
                 return;
-            [scanner scanCharactersFromSet:NSCharacterSet.whitespaceAndNewlineCharacterSet intoString:NULL];
-            if (!scanner.isAtEnd)
+            bool percentage = [scanner scanString:@"%" intoString:NULL];
+            if (!scanner.isAtEnd || (i > 0 && percentage != percentageComponents))
                 return;
-            bytes = (bytes << 8) | (uint32_t)MAX(0, MIN(255, component));
+            percentageComponents = percentage;
+            component = percentage ? MAX(0.0, MIN(100.0, component)) * 255.0 / 100.0
+                                   : MAX(0.0, MIN(255.0, component));
+            bytes = (bytes << 8) | (uint32_t)std::round(component);
         }
         _data = bytes;
     } else {
