@@ -16,12 +16,122 @@ extension Bundle {
 #endif
 
 import PocketSVG
+import QuartzCore
 import XCTest
 
 class PocketSVGTests: XCTestCase {
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
+    }
+
+    func testFillRuleControlsBezierPathHoles() throws {
+        let shape = "M0 0H20V20H0Z M5 5H15V15H5Z"
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <g fill-rule="evenodd">
+                <path d="\(shape)"/>
+                <path d="\(shape)" fill-rule="nonzero"/>
+                <path d="\(shape)" style="fill-rule: nonzero;"/>
+            </g>
+            <path d="\(shape)"/>
+        </svg>
+        """
+        let paths = SVGBezierPath.paths(fromSVGString: svg)
+        XCTAssertEqual(paths.count, 4)
+        guard paths.count == 4 else { return }
+        for (index, path) in paths.enumerated() {
+            // Both subpaths have the same direction. Only evenodd leaves a hole.
+            XCTAssertEqual(path.contains(CGPoint(x: 10, y: 10)), index != 0)
+            XCTAssertTrue(path.contains(CGPoint(x: 2, y: 2)))
+        }
+
+        let layer = SVGLayer()
+        layer.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+        layer.paths = paths
+        layer.layoutSublayers()
+        let shapeLayers = try XCTUnwrap(layer.sublayers as? [CAShapeLayer])
+        XCTAssertEqual(shapeLayers.map(\.fillRule), [.evenOdd, .nonZero, .nonZero, .nonZero])
+    }
+
+    func testSettingFillRuleUpdatesCopiedPathWithoutChangingOriginal() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z" fill-rule="evenodd"/>
+        </svg>
+        """
+        let original = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+        let copied = try XCTUnwrap(original.copy() as? SVGBezierPath)
+        let nonZero = try XCTUnwrap(original.settingSVGAttributes(["fill-rule": "nonzero"]))
+        let evenOdd = try XCTUnwrap(nonZero.settingSVGAttributes(["fill-rule": "evenodd"]))
+        let center = CGPoint(x: 10, y: 10)
+        XCTAssertFalse(original.contains(center))
+        XCTAssertFalse(copied.contains(center))
+        XCTAssertTrue(nonZero.contains(center))
+        XCTAssertFalse(evenOdd.contains(center))
+        XCTAssertEqual(original.svgAttributes["fill-rule"] as? String, "evenodd")
+    }
+
+    func testUnrelatedSVGAttributesPreserveManuallyConfiguredFillRule() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z"/>
+        </svg>
+        """
+        let original = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+        XCTAssertNil(original.svgAttributes["fill-rule"])
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+            original.usesEvenOddFillRule = true
+        #else
+            original.windingRule = .evenOdd
+        #endif
+        let unrelated = try XCTUnwrap(original.settingSVGAttributes(["stroke-width": "2"]))
+        let explicit = try XCTUnwrap(original.settingSVGAttributes(["fill-rule": "nonzero"]))
+        let center = CGPoint(x: 10, y: 10)
+        XCTAssertFalse(original.contains(center))
+        XCTAssertFalse(unrelated.contains(center))
+        XCTAssertTrue(explicit.contains(center))
+        XCTAssertNil(unrelated.svgAttributes["fill-rule"])
+        XCTAssertEqual(unrelated.svgAttributes["stroke-width"] as? String, "2")
+    }
+
+    func testFillRuleIsPreservedAcrossCachedLoads() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".svg")
+        defer {
+            try? FileManager.default.removeItem(at: url)
+            SVGBezierPath.resetCache()
+        }
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd">
+            <path d="M0 0H20V20H0Z M5 5H15V15H5Z"/>
+        </svg>
+        """
+        try svg.write(to: url, atomically: true, encoding: .utf8)
+        let first = try XCTUnwrap(SVGBezierPath.pathsFromSVG(at: url).first)
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+            first.usesEvenOddFillRule = false
+        #else
+            first.windingRule = .nonZero
+        #endif
+        let cached = try XCTUnwrap(SVGBezierPath.pathsFromSVG(at: url).first)
+        XCTAssertFalse(cached.contains(CGPoint(x: 10, y: 10)))
+        XCTAssertFalse(first === cached)
+    }
+
+    // Original source from #217's issue body:
+    // https://github.com/pocketsvg/PocketSVG/assets/18410283/7dc923a1-f19c-4f54-9870-05174734030d
+    // The butterfly in the later comment was never uploaded. This fixture uses
+    // unsupported stylesheet classes, so this checks geometry, not visual parity.
+    func testIssue217ExportRetainsGeometryAfterDefinitions() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "test_issue217_export", withExtension: "svg"))
+        let paths = SVGBezierPath.pathsFromSVG(at: url)
+        XCTAssertEqual(paths.count, 10)
+        guard paths.count == 10 else { return }
+        let outline = paths[3].cgPath.boundingBoxOfPath
+        XCTAssertEqual(outline.minX, 0.85, accuracy: 1e-3)
+        XCTAssertEqual(outline.minY, 0.85, accuracy: 1e-3)
+        XCTAssertEqual(outline.maxX, 173.59, accuracy: 1e-3)
+        XCTAssertEqual(outline.maxY, 236.12, accuracy: 1e-3)
     }
 
     // A retained Core Foundation return imports directly as a managed CGPath.
@@ -399,6 +509,96 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(paths.count, 1)
         let path = paths.first!
         XCTAssertEqual(path.cgPath.boundingBox, CGRect(x: 21, y: 21, width: 470, height: 470))
+    }
+
+    // Both original arrow paths from #219, checked against independent absolute
+    // geometry. The distorted arrow contains zero operands separated from .4;
+    // #205 discarded these zeros, and #228 fixed their parsing in 3.2.0.
+    func testFirstArrowFromIssue219MatchesExpectedGeometry() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path id="end-01" d="M55.7 46.5s0-.1 0 0q.3.15.3.3l-.7 3.4 1.5 3.1c.1.1.1.2-.1.4-.1.1-.2.1-.4.1-1.8-1.2-4.4-2-6.2-2.5-.1 0-.2-.1-.2-.2s0-.3.1-.3c1.6-.8 4.1-2.4 5.4-4.1q.1-.2.3-.2" fill="#bae3f9" stroke-width="0"/>
+        </svg>
+        """
+        let expected = CGMutablePath()
+        expected.move(to: CGPoint(x: 55.7, y: 46.5))
+        expected.addCurve(to: CGPoint(x: 55.7, y: 46.5), control1: CGPoint(x: 55.7, y: 46.5), control2: CGPoint(x: 55.7, y: 46.4))
+        expected.addQuadCurve(to: CGPoint(x: 56.0, y: 46.8), control: CGPoint(x: 56.0, y: 46.65))
+        expected.addLine(to: CGPoint(x: 55.3, y: 50.2))
+        expected.addLine(to: CGPoint(x: 56.8, y: 53.3))
+        expected.addCurve(to: CGPoint(x: 56.7, y: 53.7), control1: CGPoint(x: 56.9, y: 53.4), control2: CGPoint(x: 56.9, y: 53.5))
+        expected.addCurve(to: CGPoint(x: 56.3, y: 53.8), control1: CGPoint(x: 56.6, y: 53.8), control2: CGPoint(x: 56.5, y: 53.8))
+        expected.addCurve(to: CGPoint(x: 50.1, y: 51.3), control1: CGPoint(x: 54.5, y: 52.6), control2: CGPoint(x: 51.9, y: 51.8))
+        expected.addCurve(to: CGPoint(x: 49.9, y: 51.1), control1: CGPoint(x: 50.0, y: 51.3), control2: CGPoint(x: 49.9, y: 51.2))
+        expected.addCurve(to: CGPoint(x: 50.0, y: 50.8), control1: CGPoint(x: 49.9, y: 51.0), control2: CGPoint(x: 49.9, y: 50.8))
+        expected.addCurve(to: CGPoint(x: 55.4, y: 46.7), control1: CGPoint(x: 51.6, y: 50.0), control2: CGPoint(x: 54.1, y: 48.4))
+        expected.addQuadCurve(to: CGPoint(x: 55.7, y: 46.5), control: CGPoint(x: 55.5, y: 46.5))
+
+        let paths = try XCTUnwrap(CGPathsFromSVGString(svg, nil) as? [CGPath])
+        XCTAssertEqual(paths.count, 1)
+        let path = try XCTUnwrap(paths.first)
+        assertPathGeometry(path, matches: expected)
+    }
+
+    func testSecondArrowFromIssue219MatchesExpectedGeometry() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <path id="end-02" d="M29.2 79.7s0-.2 0 0c.2 0 .4 0 .4.2l1.1 3.3 2.9 1.9c.1.1.2.2 0 .4-.1.1-.2.2-.3.2-2.1-.2-4.9.4-6.6 1.1-.1 0-.2 0-.3-.1s-.1-.3 0-.3c.9-1.5 2.3-4.2 2.6-6.3 0-.3.1-.4.2-.4" fill="#bae3f9" stroke-width="0"/>
+        </svg>
+        """
+        let expected = CGMutablePath()
+        expected.move(to: CGPoint(x: 29.2, y: 79.7))
+        expected.addCurve(to: CGPoint(x: 29.2, y: 79.7), control1: CGPoint(x: 29.2, y: 79.7), control2: CGPoint(x: 29.2, y: 79.5))
+        expected.addCurve(to: CGPoint(x: 29.6, y: 79.9), control1: CGPoint(x: 29.4, y: 79.7), control2: CGPoint(x: 29.6, y: 79.7))
+        expected.addLine(to: CGPoint(x: 30.7, y: 83.2))
+        expected.addLine(to: CGPoint(x: 33.6, y: 85.1))
+        expected.addCurve(to: CGPoint(x: 33.6, y: 85.5), control1: CGPoint(x: 33.7, y: 85.2), control2: CGPoint(x: 33.8, y: 85.3))
+        expected.addCurve(to: CGPoint(x: 33.3, y: 85.7), control1: CGPoint(x: 33.5, y: 85.6), control2: CGPoint(x: 33.4, y: 85.7))
+        expected.addCurve(to: CGPoint(x: 26.7, y: 86.8), control1: CGPoint(x: 31.2, y: 85.5), control2: CGPoint(x: 28.4, y: 86.1))
+        expected.addCurve(to: CGPoint(x: 26.4, y: 86.7), control1: CGPoint(x: 26.6, y: 86.8), control2: CGPoint(x: 26.5, y: 86.8))
+        expected.addCurve(to: CGPoint(x: 26.4, y: 86.4), control1: CGPoint(x: 26.3, y: 86.6), control2: CGPoint(x: 26.3, y: 86.4))
+        expected.addCurve(to: CGPoint(x: 29.0, y: 80.1), control1: CGPoint(x: 27.3, y: 84.9), control2: CGPoint(x: 28.7, y: 82.2))
+        expected.addCurve(to: CGPoint(x: 29.2, y: 79.7), control1: CGPoint(x: 29.0, y: 79.8), control2: CGPoint(x: 29.1, y: 79.7))
+
+        let paths = try XCTUnwrap(CGPathsFromSVGString(svg, nil) as? [CGPath])
+        XCTAssertEqual(paths.count, 1)
+        let path = try XCTUnwrap(paths.first)
+        assertPathGeometry(path, matches: expected)
+    }
+
+    private func assertPathGeometry(_ actual: CGPath, matches expected: CGPath,
+                                    file: StaticString = #filePath, line: UInt = #line) {
+        func elements(of path: CGPath) -> [(CGPathElementType, [CGPoint])] {
+            var result: [(CGPathElementType, [CGPoint])] = []
+            path.applyWithBlock { pointer in
+                let element = pointer.pointee
+                let count: Int
+                switch element.type {
+                case .moveToPoint, .addLineToPoint: count = 1
+                case .addQuadCurveToPoint: count = 2
+                case .addCurveToPoint: count = 3
+                case .closeSubpath: count = 0
+                @unknown default:
+                    XCTFail("Unexpected CGPath element", file: file, line: line)
+                    return
+                }
+                result.append((element.type, Array(UnsafeBufferPointer(start: element.points, count: count))))
+            }
+            return result
+        }
+        let actualElements = elements(of: actual)
+        let expectedElements = elements(of: expected)
+        XCTAssertEqual(actualElements.count, expectedElements.count, file: file, line: line)
+        for (actualElement, expectedElement) in zip(actualElements, expectedElements) {
+            XCTAssertEqual(actualElement.0, expectedElement.0, file: file, line: line)
+            XCTAssertEqual(actualElement.1.count, expectedElement.1.count, file: file, line: line)
+            for (actualPoint, expectedPoint) in zip(actualElement.1, expectedElement.1) {
+                // Path operands are scanned as Float; compare geometry rather than
+                // requiring their rounded coordinates to equal CGFloat literals.
+                XCTAssertEqual(actualPoint.x, expectedPoint.x, accuracy: 1e-5, file: file, line: line)
+                XCTAssertEqual(actualPoint.y, expectedPoint.y, accuracy: 1e-5, file: file, line: line)
+            }
+        }
     }
 
     // Exact arc fragments from the Illustrator SVG attached to #227. In #205,

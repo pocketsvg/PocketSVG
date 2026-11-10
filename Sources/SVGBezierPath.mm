@@ -11,6 +11,16 @@
 
 
 @implementation SVGBezierPath
+- (void)_svg_updateFillRule
+{
+    BOOL const evenOdd = [_svgAttributes[@"fill-rule"] isEqualToString:@"evenodd"];
+#if TARGET_OS_IPHONE
+    self.usesEvenOddFillRule = evenOdd;
+#else
+    self.windingRule = evenOdd ? NSEvenOddWindingRule : NSNonZeroWindingRule;
+#endif
+}
+
 + (NSCache<NSURL*, NSArray<SVGBezierPath*>*> *)_svg_pathCache
 {
     static NSCache<NSURL*, NSArray<SVGBezierPath*>*> *pathCache;
@@ -53,6 +63,7 @@
     for(id pathRef in pathRefs) {
         SVGBezierPath * const uiPath = [self bezierPathWithCGPath:(__bridge CGPathRef)pathRef];
         uiPath->_svgAttributes = [cgAttrs attributesForPath:(__bridge CGPathRef)pathRef] ?: @{};
+        [uiPath _svg_updateFillRule];
         uiPath.lineWidth = uiPath->_svgAttributes[@"stroke-width"] ? [uiPath->_svgAttributes[@"stroke-width"] doubleValue] : 1.0;
         [paths addObject:uiPath];
     }
@@ -87,6 +98,8 @@
         } else {
             path->_svgAttributes = [attributes copy];
         }
+        if (attributes[@"fill-rule"])
+            [path _svg_updateFillRule];
     }
     return path;
 }
