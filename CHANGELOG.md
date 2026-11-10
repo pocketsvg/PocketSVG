@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
+
+## [3.2.2] - 2026-11-10
 ### Internal Changes
 - Upgrade GitHub Actions checkout to v6, using the Node.js 24 action runtime.
 - Update README installation examples to require PocketSVG 3.2 or later.
@@ -201,7 +203,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.2...HEAD
+[3.2.2]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/pocketsvg/PocketSVG/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/pocketsvg/PocketSVG/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/pocketsvg/PocketSVG/compare/3.0.0...3.1.0
