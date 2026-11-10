@@ -33,7 +33,9 @@ NSArray *CGPathsFromSVGString(NSString *svgString, SVGAttributeSet **attributes)
  *
  * @param svgString The string containing the SVG formatted path, this is just the path string from the d attribute and no xml
  *
- * @return A single CGPathRef object
+ * @return A retained CGPathRef object, or NULL if parsing fails. The caller owns
+ * the returned path and must call CGPathRelease or transfer ownership to ARC.
+ * Swift callers receive a managed CGPath and do not release it manually.
  *
  */
 CGPathRef CGPathFromSVGPathString(NSString *svgString) CF_RETURNS_RETAINED;

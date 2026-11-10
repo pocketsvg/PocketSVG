@@ -24,6 +24,14 @@ class PocketSVGTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    // A retained Core Foundation return imports directly as a managed CGPath.
+    // Removing CF_RETURNS_RETAINED changes this to Unmanaged<CGPath> and fails
+    // compilation, guarding the ownership contract fixed for #231 in 3.1.0.
+    func testIsolatedPathHasManagedSwiftOwnership() throws {
+        let path: CGPath = try XCTUnwrap(CGPathFromSVGPathString("M0 0L10 20"))
+        XCTAssertEqual(path.boundingBoxOfPath, CGRect(x: 0, y: 0, width: 10, height: 20))
+    }
+
     // Regression for #161: the supplied SVG contains two gradient references.
     func testUnsupportedGradientsAreTransparent() throws {
         let url = try XCTUnwrap(Bundle.module.url(forResource: "test_unsupported_gradients", withExtension: "svg"))
