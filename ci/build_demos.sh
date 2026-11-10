@@ -15,10 +15,11 @@ rm -rf derived_data/
 echo "Build iOS demo"
 xcodebuild \
   -workspace Demos/Demos.xcworkspace \
-  -destination "platform=iOS Simulator,name=iPhone 15" \
+  -destination "generic/platform=iOS Simulator" \
   -scheme Demo-iOS \
   -derivedDataPath derived_data \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
+  CODE_SIGNING_ALLOWED=NO \
   clean \
   build \
   | xcbeautify
@@ -29,6 +30,7 @@ xcodebuild \
   -scheme Demo-macOS \
   -derivedDataPath derived_data \
   'OTHER_LDFLAGS=$(inherited) -lxml2' \
+  CODE_SIGNING_ALLOWED=NO \
   clean \
   build \
   | xcbeautify

@@ -15,12 +15,14 @@ A simple toolkit for displaying and manipulating SVGs on iOS and macOS in a perf
 
 The goal of this project is not to be a fully compliant SVG parser/renderer. But rather to use SVG as a format for serializing CG/UIPaths, meaning it only supports SVG features that can be represented by CG/UIPaths.
 
+Unsupported or malformed `fill` and `stroke` paints (including gradient references such as `url(#gradient)`) are treated as transparent. Other supported paints and shapes are still parsed; gradient rendering is not supported.
+
 Thoroughly documented.
 
 ## Features
 
 * Support for SVG elements: `path`, `line`, `polyline`, `polygon`, `rect`, `circle`, `ellipse`
-* Support for SVG named colors.
+* Support for SVG named colors, hex colors, and comma-separated numeric or percentage `rgb()` colors.
 * Fully working iOS and macOS demos.
 * Straightforward API for typical SVG rendering as a `UIImageView`/`NSImageView` or `CALayer` subclass.
 * Access every shape within your SVG as a `CGPath` for more fine-grained manipulation.

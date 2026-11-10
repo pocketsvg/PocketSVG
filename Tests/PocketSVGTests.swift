@@ -24,6 +24,136 @@ class PocketSVGTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    // Regression for #161: the supplied SVG contains two gradient references.
+    func testUnsupportedGradientsAreTransparent() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "test_unsupported_gradients", withExtension: "svg"))
+        let paths = SVGBezierPath.pathsFromSVG(at: url)
+        XCTAssertEqual(paths.count, 3)
+        guard paths.count == 3 else { return }
+
+        for path in paths.prefix(2) {
+            let fill = path.svgAttributes["fill"] as! CGColor
+            XCTAssertEqual(fill.alpha, 0)
+        }
+        let whiteFill = paths[2].svgAttributes["fill"] as! CGColor
+        XCTAssertEqual(whiteFill.components!, [1, 1, 1, 1])
+    }
+
+    func testInvalidPaintsAreTransparent() throws {
+        let paints = [
+            "url(#missing)", "currentColor", "unknown", "", "#", "#12", "#12345", "#gggggg",
+            "rgb(", "rgb()", "rgb(1,2)", "rgb(1,2,3,4)", "rgb(1,no,3)", "rgb(1,2,3)junk", "rgb(1,2,3x)", "#１２３",
+            "rgb(100%, 50, 0%)", "rgb(100%, 50%, 0%junk)", "rgb(nan,0,0)", "rgb(inf,0,0)",
+        ]
+        for paint in paints {
+            let svg = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <rect width="10" height="10" fill="\(paint)" stroke="\(paint)" fill-opacity="0.5" stroke-opacity="0.5"/>
+            </svg>
+            """
+            let paths = SVGBezierPath.paths(fromSVGString: svg)
+            XCTAssertEqual(paths.count, 1, paint)
+            let path = try XCTUnwrap(paths.first)
+            for attribute in ["fill", "stroke"] {
+                let color = path.svgAttributes[attribute] as! CGColor
+                XCTAssertEqual(color.alpha, 0, "\(attribute)=\(paint)")
+            }
+        }
+    }
+
+    func testUnsupportedPaintOverridesInheritedPaintAndPreservesValidStroke() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg" fill="red">
+            <g style="fill: url(#gradient); fill-opacity: 0.5;">
+                <rect width="10" height="10" stroke="#00ff00" stroke-opacity="0.5"/>
+            </g>
+            <rect x="20" width="10" height="10"/>
+        </svg>
+        """
+        let paths = SVGBezierPath.paths(fromSVGString: svg)
+        XCTAssertEqual(paths.count, 2)
+        guard paths.count == 2 else { return }
+        let fill = paths[0].svgAttributes["fill"] as! CGColor
+        let stroke = paths[0].svgAttributes["stroke"] as! CGColor
+        let siblingFill = paths[1].svgAttributes["fill"] as! CGColor
+        XCTAssertEqual(fill.alpha, 0)
+        XCTAssertEqual(stroke.components!, [0, 1, 0, 0.5])
+        XCTAssertEqual(siblingFill.components!, [1, 0, 0, 1])
+    }
+
+    func testSupportedColorFormats() throws {
+        let paints = ["#f80", "#FF8800", "rgb(255, 136, 0)", " RGB(255, 136, 0) ", "rgb(300, 136, -1)",
+                      "rgb(255.0, 136.0, 0.0)", "rgb(100%, 53.3%, 0%)", "rgb(120%, 53.3%, -10%)"]
+        for paint in paints {
+            let svg = """
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <rect width="10" height="10" fill="\(paint)"/>
+            </svg>
+            """
+            let path = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+            let fill = path.svgAttributes["fill"] as! CGColor
+            XCTAssertEqual(fill.components!, [1, CGFloat(136) / 255, 0, 1], paint)
+        }
+    }
+
+    func testChildOpacityOverridesInheritedOpacity() throws {
+        for opacity in ["0", "0.5", "1"] {
+            let svg = """
+            <svg xmlns="http://www.w3.org/2000/svg" fill="red" stroke="blue" fill-opacity="0.5" stroke-opacity="0.5">
+                <g fill-opacity="0.8" stroke-opacity="0.8">
+                    <rect width="10" height="10" fill-opacity="\(opacity)" stroke-opacity="\(opacity)"/>
+                    <rect x="20" width="10" height="10"/>
+                    <rect x="40" width="10" height="10" fill="green" stroke="red"/>
+                </g>
+            </svg>
+            """
+            let paths = SVGBezierPath.paths(fromSVGString: svg)
+            XCTAssertEqual(paths.count, 3)
+            guard paths.count == 3 else { return }
+            for attribute in ["fill", "stroke"] {
+                let child = paths[0].svgAttributes[attribute] as! CGColor
+                let inherited = paths[1].svgAttributes[attribute] as! CGColor
+                let overriddenPaint = paths[2].svgAttributes[attribute] as! CGColor
+                XCTAssertEqual(child.alpha, CGFloat(Double(opacity)!), accuracy: 1e-6)
+                XCTAssertEqual(inherited.alpha, 0.8, accuracy: 1e-6)
+                XCTAssertEqual(overriddenPaint.alpha, 0.8, accuracy: 1e-6)
+            }
+        }
+    }
+
+    func testInheritedTransparentPaintRemainsTransparentWhenOpacityIsOverridden() throws {
+        for paint in ["none", "url(#gradient)"] {
+            let svg = """
+            <svg xmlns="http://www.w3.org/2000/svg" fill="\(paint)" stroke="\(paint)" fill-opacity="0.5" stroke-opacity="0.5">
+                <rect width="10" height="10" fill-opacity="0.8" stroke-opacity="0.8"/>
+                <rect x="20" width="10" height="10" fill="red" stroke="blue"/>
+            </svg>
+            """
+            let paths = SVGBezierPath.paths(fromSVGString: svg)
+            XCTAssertEqual(paths.count, 2)
+            guard paths.count == 2 else { return }
+            for attribute in ["fill", "stroke"] {
+                let transparent = paths[0].svgAttributes[attribute] as! CGColor
+                let overridden = paths[1].svgAttributes[attribute] as! CGColor
+                XCTAssertEqual(transparent.alpha, 0)
+                XCTAssertEqual(overridden.alpha, 0.5)
+            }
+        }
+    }
+
+    func testNoneRemainsTransparentWithOpacity() throws {
+        let svg = """
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <rect width="10" height="10" fill="none" stroke="none" fill-opacity="0.5" stroke-opacity="0.5"/>
+        </svg>
+        """
+        let path = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: svg).first)
+        for attribute in ["fill", "stroke"] {
+            let color = path.svgAttributes[attribute] as! CGColor
+            XCTAssertEqual(color.alpha, 0)
+        }
+    }
+
     func testSVGAttributesFromRectangle() {
         let svgURL = Bundle.module.url(forResource: "test_rectangle", withExtension: "svg")!
 
