@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 30
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Show Xcode version
         run: xcodebuild -version
@@ -44,7 +44,9 @@ jobs:
     timeout-minutes: 30
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+      - name: Check Core Foundation path ownership
+        run: bash ci/check_path_ownership.sh
       - name: Test (Debug)
         run: swift test
       - name: Test (Release)
@@ -55,6 +57,6 @@ jobs:
     timeout-minutes: 30
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Lint Podspec
         run: pod lib lint --allow-warnings

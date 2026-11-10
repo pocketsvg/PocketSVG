@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file. Items under
 
 ## [Unreleased]
 
+## [3.2.2] - 2026-11-10
+### Internal Changes
+- Upgrade GitHub Actions checkout to v6, using the Node.js 24 action runtime.
+- Update README installation examples to require PocketSVG 3.2 or later.
+- Add regression coverage for the Illustrator SVG in [#227](https://github.com/pocketsvg/PocketSVG/issues/227), verifying the separated fractional-coordinate fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)) while preserving compact arc flags. [#239](https://github.com/pocketsvg/PocketSVG/pull/239).
+- Document and regression-test the retained return ownership of `CGPathFromSVGPathString`, including Clang static analysis and Swift interoperability. The ownership annotation reported in [#231](https://github.com/pocketsvg/PocketSVG/issues/231) was already fixed in 3.1.0. [#239](https://github.com/pocketsvg/PocketSVG/pull/239).
+
 ## [3.2.1] - 2026-11-10
 ### Fixes
 - Treat unsupported and malformed fill/stroke colours as transparent instead of crashing; preserve transparency when applying opacity. [Ariel Elkin](https://github.com/arielelkin), [#161](https://github.com/pocketsvg/PocketSVG/issues/161), [#238](https://github.com/pocketsvg/PocketSVG/pull/238).
@@ -196,7 +203,8 @@ Changes by Ariel Elkin unless otherwise specified.
 - Substituted CC license with MIT license.
 
 
-[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...HEAD
+[Unreleased]: https://github.com/pocketsvg/PocketSVG/compare/3.2.2...HEAD
+[3.2.2]: https://github.com/pocketsvg/PocketSVG/compare/3.2.1...3.2.2
 [3.2.1]: https://github.com/pocketsvg/PocketSVG/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/pocketsvg/PocketSVG/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/pocketsvg/PocketSVG/compare/3.0.0...3.1.0
