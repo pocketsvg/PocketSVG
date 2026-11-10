@@ -393,6 +393,54 @@ class PocketSVGTests: XCTestCase {
         XCTAssertEqual(path.cgPath.boundingBox, CGRect(x: 21, y: 21, width: 470, height: 470))
     }
 
+    // Exact arc fragments from the Illustrator SVG attached to #227. In #205,
+    // scanning the dot skipped the preceding comma and discarded an arc flag.
+    func testIllustratorArcsKeepZeroFlagsBeforeSeparatedFractions() throws {
+        let cases = [
+            ("A8.77322,8.77322,0,0,0,.5801,145.57636",
+             "A 8.77322 8.77322 0 0 0 0.5801 145.57636", CGPoint(x: 0.5801, y: 145.57636)),
+            ("a88.66989,88.66989,0,0,0,.069-20.11339",
+             "a 88.66989 88.66989 0 0 0 0.069 -20.11339", CGPoint(x: 0.069, y: -20.11339)),
+        ]
+        for (compact, separated, endpoint) in cases {
+            let compactSVG = "<svg><path d=\"M0 0 \(compact)\"/></svg>"
+            let separatedSVG = "<svg><path d=\"M0 0 \(separated)\"/></svg>"
+            let compactPath = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: compactSVG).first?.cgPath)
+            let separatedPath = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: separatedSVG).first?.cgPath)
+            XCTAssertEqual(compactPath, separatedPath, compact)
+            XCTAssertEqual(compactPath.currentPoint.x, endpoint.x, accuracy: 1e-5)
+            XCTAssertEqual(compactPath.currentPoint.y, endpoint.y, accuracy: 1e-5)
+        }
+    }
+
+    func testIllustratorSignedFractionalCurveCoordinates() throws {
+        let compact = "<svg><path d=\"M0 0 c-2.82635-.641-6.70644.67519-11.55837,3.909\"/></svg>"
+        let separated = "<svg><path d=\"M0 0 c -2.82635 -0.641 -6.70644 0.67519 -11.55837 3.909\"/></svg>"
+        let compactPath = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: compact).first?.cgPath)
+        let separatedPath = try XCTUnwrap(SVGBezierPath.paths(fromSVGString: separated).first?.cgPath)
+        XCTAssertEqual(compactPath, separatedPath)
+        XCTAssertEqual(compactPath.currentPoint.x, -11.55837, accuracy: 1e-5)
+        XCTAssertEqual(compactPath.currentPoint.y, 3.909, accuracy: 1e-5)
+    }
+
+    // Original attachment: https://github.com/pocketsvg/PocketSVG/issues/227
+    func testIllustratorCactiMatchesExplicitFractionalCoordinates() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "test_illustrator_cacti", withExtension: "svg"))
+        let svg = try String(contentsOf: url, encoding: .utf8)
+        // A fraction starting after a separator or sign can spell out its leading
+        // zero without changing its value. Leave existing decimal points alone.
+        let explicitFractions = svg.replacingOccurrences(
+            of: #"(?<![0-9])\.(?=[0-9])"#, with: "0.", options: .regularExpression
+        )
+        let compactPaths = SVGBezierPath.paths(fromSVGString: svg)
+        let explicitPaths = SVGBezierPath.paths(fromSVGString: explicitFractions)
+        XCTAssertEqual(compactPaths.count, 242)
+        XCTAssertEqual(explicitPaths.count, compactPaths.count)
+        for (compact, explicit) in zip(compactPaths, explicitPaths) {
+            XCTAssertEqual(compact.cgPath, explicit.cgPath)
+        }
+    }
+
     /**
      * Test that leading zeros shortcuts are not ignored and properly parsed
      * https://github.com/pocketsvg/PocketSVG/issues/204

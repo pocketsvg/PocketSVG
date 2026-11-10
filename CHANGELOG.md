@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file. Items under **Unreleased** are currently available on **master**'s HEAD, but not yet tagged.
 
 ## [Unreleased]
+### Internal Changes
+- Add regression coverage for the Illustrator SVG in [#227](https://github.com/pocketsvg/PocketSVG/issues/227), verifying the separated fractional-coordinate fix shipped in 3.2.0 ([#228](https://github.com/pocketsvg/PocketSVG/pull/228)) while preserving compact arc flags.
 
 ## [3.2.1] - 2026-11-10
 ### Fixes
